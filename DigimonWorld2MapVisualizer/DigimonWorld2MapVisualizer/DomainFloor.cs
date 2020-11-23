@@ -29,7 +29,8 @@ namespace DigimonWorld2MapVisualizer
         private readonly string FloorName;
         private readonly string[] UnknownData;
 
-        private readonly List<DomainMapPlan> DomainMapPlans = new List<DomainMapPlan>();
+        private readonly List<DomainMapPlan> UniqueDomainMapPlans = new List<DomainMapPlan>();
+        private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
 
         public DomainFloor(string[] floorBasePointerAddress, int floorBasePointerAddressDecimal)
         {
@@ -41,28 +42,70 @@ namespace DigimonWorld2MapVisualizer
 
             PrintDomainFloorData();
             CreateMapPlansForFloor();
-           
+            AddMapLayoutOccuranceCount();
+            DrawUniqueMapLayouts();
+
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Add the amount of times a given unique map plan can occur in the domain
+        /// </summary>
+        private void AddMapLayoutOccuranceCount()
+        {
+            foreach (KeyValuePair<int, int> item in MapPlanOccuranceRates)
+            {
+                DomainMapPlan domainMapPlan = UniqueDomainMapPlans.FirstOrDefault(o => o.BaseMapPlanPointerAddressDecimal == item.Key);
+                if (domainMapPlan != null)
+                    domainMapPlan.OccuranceRate = item.Value;
+            }
+        }
+
+        /// <summary>
+        /// Print the data and draw a unique map plan 
+        /// </summary>
+        private void DrawUniqueMapLayouts()
+        {
+            foreach (DomainMapPlan item in UniqueDomainMapPlans)
+            {
+                item.PrintDomainMapPlanData();
+                item.DrawMap();
+            }
+        }
+
+        /// <summary>
+        /// Print the anme and the unkown data of this floor
+        /// </summary>
         private void PrintDomainFloorData()
         {
             Console.WriteLine(FloorName);
             Console.Write("Unknown data: ");
-            foreach (var item in UnknownData)
+            foreach (string item in UnknownData)
             {
                 Console.Write(item);
             }
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Create a <see cref="DomainMapPlan"/> for each unique map layout in the domain.
+        /// Keep track of the amount of occurances per unique domain layout
+        /// </summary>
         private void CreateMapPlansForFloor()
         {
             for (int i = 0; i < MapPlansPerFloor; i++)
             {
                 DomainDataHeaderOffset floorPointerAddressOffset = (DomainDataHeaderOffset)Enum.Parse(typeof(DomainDataHeaderOffset), $"FloorLayout{i}");
                 string[] domainMapPlanPointerAddress = GetPointer(FloorBasePointerAddressDecimal + (int)floorPointerAddressOffset, out int domainMapPlanPointerAddressDecimal);
-                DomainMapPlans.Add(new DomainMapPlan(domainMapPlanPointerAddress, domainMapPlanPointerAddressDecimal));
+                if (MapPlanOccuranceRates.ContainsKey(domainMapPlanPointerAddressDecimal))
+                {
+                    MapPlanOccuranceRates[domainMapPlanPointerAddressDecimal]++;
+                }
+                else
+                {
+                    MapPlanOccuranceRates.Add(domainMapPlanPointerAddressDecimal, 1);
+                    UniqueDomainMapPlans.Add(new DomainMapPlan(domainMapPlanPointerAddress, domainMapPlanPointerAddressDecimal));
+                }
             }
         }
 

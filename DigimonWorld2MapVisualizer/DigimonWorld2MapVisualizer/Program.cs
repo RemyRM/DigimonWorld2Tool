@@ -4,8 +4,8 @@ namespace DigimonWorld2MapVisualizer
 {
     class Program
     {
-        private static readonly string mapFileName = "DUNG7000.BIN"; // 4000 SCSI, 4900 has coloured floors, 7000 is DVD Domain which has 1 floor only
-        public static bool ShowOriginalValueInMapTile = true;
+        private static readonly string mapFileName = "DUNG4000.BIN"; // 4000 SCSI, 4900 has coloured floors, 7000 is DVD Domain which has 1 floor only
+        public static bool ShowOriginalValueInMapTile = false;
 
         static void Main(string[] args)
         {
@@ -38,6 +38,7 @@ namespace DigimonWorld2MapVisualizer
                               $"\nNature   - Dark Green" +
                               $"\nMachine  - Dark Yellow" +
                               $"\nDark     - Dark Magenta");
+            Console.WriteLine();
         }
     }
 }

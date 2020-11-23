@@ -209,6 +209,9 @@ namespace DigimonWorld2MapVisualizer
         {
             DrawLeftTile();
             DrawRightTile();
+
+            if(leftTile.position.x == 31)
+                Console.Write(Environment.NewLine);
         }
 
         private void DrawLeftTile()

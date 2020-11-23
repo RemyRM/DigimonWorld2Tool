@@ -20,14 +20,17 @@ namespace DigimonWorld2MapVisualizer
             Console.ReadLine();
         }
 
-        static void InitConsole()
+        private static void InitConsole()
         {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             Console.SetBufferSize(Console.BufferWidth, 32766);
             Console.WindowWidth = Console.LargestWindowWidth;
             Console.WindowHeight = Console.LargestWindowHeight;
         }
 
-        static void PrintIndex()
+        private static void PrintIndex()
         {
             Console.WriteLine($"Colour index: " +
                               $"\nEmpty    - Black" +

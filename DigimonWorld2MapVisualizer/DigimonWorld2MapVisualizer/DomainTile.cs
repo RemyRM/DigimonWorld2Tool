@@ -6,7 +6,7 @@ namespace DigimonWorld2MapVisualizer
 {
     class DomainTile
     {
-        public byte TileValueHex;
+        public string TileValueHex;
         public byte TileValueDec;
 
         public readonly Tile leftTile;
@@ -195,7 +195,7 @@ namespace DigimonWorld2MapVisualizer
         public DomainTile(Vector2 position, string tileValue)
         {
             this.TileValueDec = byte.Parse(tileValue, System.Globalization.NumberStyles.HexNumber);
-            this.TileValueHex = byte.Parse(tileValue);
+            this.TileValueHex = tileValue;
 
             string[] uniqueTiles = TileComboLookup[TileValueDec].ToString().Split('_');
             var leftTileType = (Tile.TileType)Enum.Parse(typeof(Tile.TileType), uniqueTiles[0]);
@@ -220,7 +220,7 @@ namespace DigimonWorld2MapVisualizer
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(TileValueHex);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
                 else
                 {
@@ -235,7 +235,7 @@ namespace DigimonWorld2MapVisualizer
 
         private void DrawRightTile()
         {
-            Console.BackgroundColor = leftTile.tileColour;
+            Console.BackgroundColor = rightTile.tileColour;
             Console.Write("  ");
         }
     }

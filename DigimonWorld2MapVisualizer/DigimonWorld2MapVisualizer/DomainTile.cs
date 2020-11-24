@@ -225,7 +225,14 @@ namespace DigimonWorld2MapVisualizer
                 if (Console.BackgroundColor == ConsoleColor.Gray || Console.BackgroundColor == ConsoleColor.White)
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write(TileValueHex);
+                    if (rightTile.FloorObject != null)
+                    {
+                        Console.Write(rightTile.FloorObjectText);
+                    }
+                    else
+                    {
+                        Console.Write(TileValueHex);
+                    }
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
                 else
@@ -245,7 +252,16 @@ namespace DigimonWorld2MapVisualizer
                 }
                 else
                 {
-                    Console.Write("  ");
+                    if (leftTile.FloorObject != null)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write(leftTile.FloorObjectText);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+                    else
+                    {
+                        Console.Write("  ");
+                    }
                 }
             }
         }
@@ -253,7 +269,17 @@ namespace DigimonWorld2MapVisualizer
         private void DrawRightTile()
         {
             Console.BackgroundColor = rightTile.TileColour;
-            Console.Write("  ");
+            if (rightTile.FloorObject != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write(rightTile.FloorObjectText);
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+            }
+            else
+            {
+                Console.Write("  ");
+            }
         }
     }
 
@@ -295,6 +321,7 @@ namespace DigimonWorld2MapVisualizer
         public readonly DomainTileType TileType;
         public ConsoleColor TileColour { get; private set; }
         public IFloorLayoutObject FloorObject { get; private set; }
+        public string FloorObjectText { get; private set; }
 
         public Tile(Vector2 position, DomainTileType tileType)
         {
@@ -305,13 +332,32 @@ namespace DigimonWorld2MapVisualizer
 
         public ConsoleColor GetConsoleBackgroundColourBasedOnTileType(DomainTileType type)
         {
-                return TileTypeColour.GetValueOrDefault(type);
+            return TileTypeColour.GetValueOrDefault(type);
         }
 
         public void AddObjectToTile(IFloorLayoutObject objectToPlace)
         {
             FloorObject = objectToPlace;
             TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
+
+            if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Warp)
+            {
+                Warp warp = (Warp)FloorObject;
+                switch (warp.Type)
+                {
+                    case Warp.WarpType.Entrance:
+                        FloorObjectText = "EE";
+                        break;
+                    case Warp.WarpType.Next:
+                        FloorObjectText = "NN";
+                        break;
+                    case Warp.WarpType.Exit:
+                        FloorObjectText = "XX";
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

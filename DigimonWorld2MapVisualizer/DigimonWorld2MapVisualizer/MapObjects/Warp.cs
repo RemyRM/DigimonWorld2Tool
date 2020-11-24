@@ -12,16 +12,16 @@ namespace DigimonWorld2MapVisualizer
             Exit = 2,
         }
 
-        public IFloorLayoutObject.MapObjectType ObjectType { get; set; }
-        public WarpType Type { get; set; }
-        public Vector2 Position { get; set; }
+        public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
+        public WarpType Type { get; private set; }
+        public Vector2 Position { get; private set; }
 
         public Warp(IFloorLayoutObject.MapObjectType objectType, string[] data)
         {
             this.ObjectType = objectType;
             Position = ReadMapObjectPosition(ref data);
             Type = GetWarpType(data[2]);
-            Console.Write($"Created: {ToString()}\n");
+            //Console.Write($"Created: {ToString()}\n");
         }
 
         private WarpType GetWarpType(string data)

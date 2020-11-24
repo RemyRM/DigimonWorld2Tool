@@ -30,6 +30,9 @@ namespace DigimonWorld2MapVisualizer
         private readonly string[] BaseMapWarpsPointerAddress;
         private readonly int BaseMapWarpsPointerAddressDecimal;
 
+        private readonly string[] BaseMapChestsPointerAddress;
+        private readonly int BaseMapChestsPointerAddressDecimal;
+
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
@@ -47,11 +50,11 @@ namespace DigimonWorld2MapVisualizer
             BaseMapWarpsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out BaseMapWarpsPointerAddressDecimal);
             CreateDomainLayoutWarps();
 
+            BaseMapChestsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests, out BaseMapChestsPointerAddressDecimal);
+            CreateDomainLayoutChests();
+
+
             AddFloorLayoutObjectsToTiles();
-
-            DrawMap();
-
-            Console.WriteLine();
         }
 
         /// <summary>
@@ -59,14 +62,13 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         public void PrintDomainMapPlanData()
         {
-            Console.Write("Domain map plan base pointer address: ");
+            Console.Write("\nDomain map plan base pointer address: ");
             foreach (var item in BaseMapPlanPointerAddress)
             {
                 Console.Write(item);
             }
             var occuranceRatePercentage = (OccuranceRate / 8d) * 100;
-            Console.WriteLine($"\nOccurance rate: {occuranceRatePercentage}%");
-            Console.WriteLine();
+            Console.Write($"\nOccurance rate: {occuranceRatePercentage}%");
         }
 
         /// <summary>
@@ -106,6 +108,19 @@ namespace DigimonWorld2MapVisualizer
             }
         }
 
+        /// <summary>
+        /// Read the list of chest data and create the warp objects
+        /// </summary>
+        private void CreateDomainLayoutChests()
+        {
+            List<string[]> chests = ReadBytesToDelimiter(BaseMapChestsPointerAddressDecimal, (int)MapObjectDataLength.Chests);
+            foreach (var item in chests)
+            {
+                IFloorLayoutObject chest = new Chest(IFloorLayoutObject.MapObjectType.Chest, item);
+                FloorLayoutObjects.Add(chest);
+            }
+        }
+
         private void AddFloorLayoutObjectsToTiles()
         {
             foreach (var item in FloorLayoutObjects)
@@ -131,11 +146,12 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         internal void DrawMap()
         {
-            Console.WriteLine("Drawing map");
+            Console.Write(Environment.NewLine);
             foreach (var item in DomainFloorTiles)
             {
                 item.Draw();
             }
+            //Console.Write(Environment.NewLine);
         }
     }
 }

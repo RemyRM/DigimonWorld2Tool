@@ -12,7 +12,7 @@ namespace DigimonWorld2MapVisualizer
             Digimon
         }
 
-        public MapObjectType ObjectType { get; set; }
-        public Vector2 Position { get; set; }
+        public MapObjectType ObjectType { get; }
+        public Vector2 Position { get; }
     }
 }

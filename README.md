@@ -3,11 +3,11 @@
 Work in progress visualizer for the map data of the game "Digimon World 2".
 
 The current visualizer only renders each possible map layout per domain in the console as coloured text or whitespace, with no object data yet being shown besides special type floor tiles.
-Currently being worked on is adding following object data:
-- Warps
-- Chests
-- Traps
+Currently being worked on is adding following object data to the map layouts:
 - Digimon
+- Switching to Winforms 
+- Adding GUI Layout for selecting maps
+- Pixel/Vector based renderer for map layouts
 
 When the proof of concept is operational in the console I will move on to porting it to WinForms to make it easier to add a GUI for better usability, as well as adding a real renderer for the map layouts to increase performance.
 

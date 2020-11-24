@@ -16,8 +16,20 @@ namespace DigimonWorld2MapVisualizer
             Digimon = 16,
         }
 
+        private enum MapObjectDataLength
+        {
+            Warps = 3,
+            Chests = 4,
+            Digimon = 4,
+            Traps = 6,
+        }
+
         private readonly string[] BaseMapPlanPointerAddress;
         public readonly int BaseMapPlanPointerAddressDecimal;
+
+        private readonly string[] BaseMapWarpsPointerAddress;
+        private readonly int BaseMapWarpsPointerAddressDecimal;
+
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
@@ -30,6 +42,10 @@ namespace DigimonWorld2MapVisualizer
 
             string[] mapLayoutData = ReadMapPlanLayoutData();
             CreateDomainFloorTiles(ref mapLayoutData);
+
+            BaseMapWarpsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out BaseMapWarpsPointerAddressDecimal);
+            List<string[]> warps = ReadBytesToDelimiter(BaseMapWarpsPointerAddressDecimal, (int)MapObjectDataLength.Warps);
+            Console.WriteLine(warps);
 
             Console.WriteLine();
         }

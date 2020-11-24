@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.MapObjects;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer
@@ -21,7 +23,7 @@ namespace DigimonWorld2MapVisualizer
             Warps = 3,
             Chests = 4,
             Digimon = 4,
-            Traps = 6,
+            Traps = 8,
         }
 
         private readonly string[] BaseMapPlanPointerAddress;
@@ -32,6 +34,9 @@ namespace DigimonWorld2MapVisualizer
 
         private readonly string[] BaseMapChestsPointerAddress;
         private readonly int BaseMapChestsPointerAddressDecimal;
+
+        private readonly string[] BaseMapTrapsPointerAddress;
+        private readonly int BaseMapTrapsPointerAddressDecimal;
 
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
@@ -53,6 +58,8 @@ namespace DigimonWorld2MapVisualizer
             BaseMapChestsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests, out BaseMapChestsPointerAddressDecimal);
             CreateDomainLayoutChests();
 
+            BaseMapTrapsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps, out BaseMapTrapsPointerAddressDecimal);
+            CreateDomainLayoutTraps();
 
             AddFloorLayoutObjectsToTiles();
         }
@@ -118,6 +125,19 @@ namespace DigimonWorld2MapVisualizer
             {
                 IFloorLayoutObject chest = new Chest(IFloorLayoutObject.MapObjectType.Chest, item);
                 FloorLayoutObjects.Add(chest);
+            }
+        }
+
+        /// <summary>
+        /// Read the list of chest data and create the warp objects
+        /// </summary>
+        private void CreateDomainLayoutTraps()
+        {
+            List<string[]> traps = ReadBytesToDelimiter(BaseMapTrapsPointerAddressDecimal, (int)MapObjectDataLength.Traps);
+            foreach (var item in traps)
+            {
+                IFloorLayoutObject trap = new Trap(IFloorLayoutObject.MapObjectType.Trap, item);
+                FloorLayoutObjects.Add(trap);
             }
         }
 

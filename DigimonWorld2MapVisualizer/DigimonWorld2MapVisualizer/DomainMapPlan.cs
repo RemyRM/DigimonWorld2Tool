@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer
 {
-    class DomainMapPlan
+    public class DomainMapPlan
     {
         private enum FloorLayoutHeaderOffset
         {
@@ -33,7 +33,8 @@ namespace DigimonWorld2MapVisualizer
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
-        private readonly List<DomainTile> domainFloorTiles = new List<DomainTile>();
+        private readonly List<DomainTile> DomainFloorTiles = new List<DomainTile>();
+        private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
 
         public DomainMapPlan(string[] baseMapPlanPointerAddress, int baseMapPlanPointerAddressDecimal)
         {
@@ -44,8 +45,11 @@ namespace DigimonWorld2MapVisualizer
             CreateDomainFloorTiles(ref mapLayoutData);
 
             BaseMapWarpsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out BaseMapWarpsPointerAddressDecimal);
-            List<string[]> warps = ReadBytesToDelimiter(BaseMapWarpsPointerAddressDecimal, (int)MapObjectDataLength.Warps);
-            Console.WriteLine(warps);
+            CreateDomainLayoutWarps();
+
+            AddFloorLayoutObjectsToTiles();
+
+            DrawMap();
 
             Console.WriteLine();
         }
@@ -56,7 +60,7 @@ namespace DigimonWorld2MapVisualizer
         public void PrintDomainMapPlanData()
         {
             Console.Write("Domain map plan base pointer address: ");
-            foreach (string item in BaseMapPlanPointerAddress)
+            foreach (var item in BaseMapPlanPointerAddress)
             {
                 Console.Write(item);
             }
@@ -82,10 +86,43 @@ namespace DigimonWorld2MapVisualizer
         /// <param name="mapLayoutData">Hex representation of this floor</param>
         private void CreateDomainFloorTiles(ref string[] mapLayoutData)
         {
-            for (int i = 0; i < MapLayoutDataLength; i++)
+            for (var i = 0; i < MapLayoutDataLength; i++)
             {
                 DomainTile tile = new DomainTile(new Vector2(i % 32, (int)Math.Floor(i / 32d)), mapLayoutData[i]);
-                domainFloorTiles.Add(tile);
+                DomainFloorTiles.Add(tile);
+            }
+        }
+
+        /// <summary>
+        /// Read the list of warp data and create the warp objects
+        /// </summary>
+        private void CreateDomainLayoutWarps()
+        {
+            List<string[]> warps = ReadBytesToDelimiter(BaseMapWarpsPointerAddressDecimal, (int)MapObjectDataLength.Warps);
+            foreach (var item in warps)
+            {
+                IFloorLayoutObject warp = new Warp(IFloorLayoutObject.MapObjectType.Warp, item);
+                FloorLayoutObjects.Add(warp);
+            }
+        }
+
+        private void AddFloorLayoutObjectsToTiles()
+        {
+            foreach (var item in FloorLayoutObjects)
+            {
+                // If the position of the object is even we can use the objects position to find the tile and place it on the left tile.
+                // However since a grid tile is 2x1 we need to subtract 1 from the object's x axis if it's an odd number, which gives us
+                // the domain tile it is on, of which we then take the righTile.
+                if (item.Position.x % 2 == 0)
+                {
+                    Tile tile = DomainFloorTiles.First(o => o.Position == item.Position).leftTile;
+                    tile.AddObjectToTile(item);
+                }
+                else
+                {
+                    Tile tile = DomainFloorTiles.First(o => o.Position == item.Position - Vector2.Right).rightTile;
+                    tile.AddObjectToTile(item);
+                }
             }
         }
 
@@ -94,7 +131,8 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         internal void DrawMap()
         {
-            foreach (DomainTile item in domainFloorTiles)
+            Console.WriteLine("Drawing map");
+            foreach (var item in DomainFloorTiles)
             {
                 item.Draw();
             }

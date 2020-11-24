@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DigimonWorld2MapVisualizer
 {
-    class TextConversion
+    public class TextConversion
     {
         private static readonly Dictionary<string, string> ConversionLookupTable = new Dictionary<string, string>()
         {

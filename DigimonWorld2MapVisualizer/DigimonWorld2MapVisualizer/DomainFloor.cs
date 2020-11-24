@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer
@@ -43,7 +42,7 @@ namespace DigimonWorld2MapVisualizer
             PrintDomainFloorData();
             CreateMapPlansForFloor();
             AddMapLayoutOccuranceCount();
-            DrawUniqueMapLayouts();
+            //DrawUniqueMapLayouts();
 
             Console.WriteLine();
         }
@@ -53,7 +52,7 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         private void AddMapLayoutOccuranceCount()
         {
-            foreach (KeyValuePair<int, int> item in MapPlanOccuranceRates)
+            foreach (var item in MapPlanOccuranceRates)
             {
                 DomainMapPlan domainMapPlan = UniqueDomainMapPlans.FirstOrDefault(o => o.BaseMapPlanPointerAddressDecimal == item.Key);
                 if (domainMapPlan != null)
@@ -66,7 +65,7 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         private void DrawUniqueMapLayouts()
         {
-            foreach (DomainMapPlan item in UniqueDomainMapPlans)
+            foreach (var item in UniqueDomainMapPlans)
             {
                 item.PrintDomainMapPlanData();
                 item.DrawMap();
@@ -80,7 +79,7 @@ namespace DigimonWorld2MapVisualizer
         {
             Console.WriteLine(FloorName);
             Console.Write("Unknown data: ");
-            foreach (string item in UnknownData)
+            foreach (var item in UnknownData)
             {
                 Console.Write(item);
             }

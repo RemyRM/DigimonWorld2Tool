@@ -321,7 +321,7 @@ namespace DigimonWorld2MapVisualizer
         public readonly DomainTileType TileType;
         public ConsoleColor TileColour { get; private set; }
         public IFloorLayoutObject FloorObject { get; private set; }
-        public string FloorObjectText { get; private set; }
+        public string FloorObjectText { get; private set; } = "  ";
 
         public Tile(Vector2 position, DomainTileType tileType)
         {
@@ -337,6 +337,8 @@ namespace DigimonWorld2MapVisualizer
 
         public void AddObjectToTile(IFloorLayoutObject objectToPlace)
         {
+            //System.Diagnostics.Debug.WriteLine($"Adding {objectToPlace}");
+
             FloorObject = objectToPlace;
             TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
 
@@ -357,6 +359,11 @@ namespace DigimonWorld2MapVisualizer
                     default:
                         break;
                 }
+            }
+
+            if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
+            {
+                FloorObjectText = "TC";
             }
         }
     }

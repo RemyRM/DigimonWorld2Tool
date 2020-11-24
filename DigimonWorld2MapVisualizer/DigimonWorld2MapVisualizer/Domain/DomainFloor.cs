@@ -42,9 +42,7 @@ namespace DigimonWorld2MapVisualizer
             PrintDomainFloorData();
             CreateMapPlansForFloor();
             AddMapLayoutOccuranceCount();
-            //DrawUniqueMapLayouts();
-
-            Console.WriteLine();
+            DrawUniqueMapLayouts();
         }
 
         /// <summary>
@@ -77,13 +75,12 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         private void PrintDomainFloorData()
         {
-            Console.WriteLine(FloorName);
-            Console.Write("Unknown data: ");
+            Console.Write($"\n{FloorName}");
+            Console.Write("\nUnknown data: ");
             foreach (var item in UnknownData)
             {
                 Console.Write(item);
             }
-            Console.WriteLine();
         }
 
         /// <summary>

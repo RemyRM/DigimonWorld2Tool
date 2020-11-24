@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Globalization;
 
 namespace DigimonWorld2MapVisualizer
 {
@@ -17,7 +17,7 @@ namespace DigimonWorld2MapVisualizer
         {
             string[] pointerBigEndian = Domain.DomainData[pointerStartIndex..(pointerStartIndex + 4)];
             string[] pointerLittleEndian = pointerBigEndian.Reverse().ToArray();
-            pointerDecimalAddress = Int32.Parse(string.Join("", pointerLittleEndian), System.Globalization.NumberStyles.HexNumber);
+            pointerDecimalAddress = Int32.Parse(string.Join("", pointerLittleEndian), NumberStyles.HexNumber);
             return pointerLittleEndian;
         }
 
@@ -33,6 +33,11 @@ namespace DigimonWorld2MapVisualizer
                 allObjectsData.Add(objectData);
             }
             return allObjectsData;
+        }
+
+        public static Vector2 ReadMapObjectPosition(ref string[] data)
+        {
+            return new Vector2(int.Parse(data[0], NumberStyles.HexNumber), int.Parse(data[1], NumberStyles.HexNumber));
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer
@@ -20,7 +18,7 @@ namespace DigimonWorld2MapVisualizer
         {
             DomainData = ReadDomainMapDataFile(domainFilename);
 
-            var searchingDomainFloors = true;
+            bool searchingDomainFloors = true;
             do
             {
                 string[] floorHeaderBasePointerAddress = GetPointer(floorsInThisDomain.Count * 4, out int floorHeaderBasePointerDecimalAddress);

@@ -20,5 +20,19 @@ namespace DigimonWorld2MapVisualizer
             pointerDecimalAddress = Int32.Parse(string.Join("", pointerLittleEndian), System.Globalization.NumberStyles.HexNumber);
             return pointerLittleEndian;
         }
+
+        public static List<string[]> ReadBytesToDelimiter(int pointerStartIndex, int dataSegmentLength, string delimiter = "FF")
+        {
+            int delimiterIndex = Array.IndexOf(Domain.DomainData, delimiter, pointerStartIndex);
+            string[] data = Domain.DomainData[pointerStartIndex..delimiterIndex];
+
+            List<string[]> allObjectsData = new List<string[]>();
+            for (int i = 0; i < data.Length / dataSegmentLength; i++)
+            {
+                string[] objectData = data[(i * dataSegmentLength)..(i * dataSegmentLength + dataSegmentLength)];
+                allObjectsData.Add(objectData);
+            }
+            return allObjectsData;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DigimonWorld2MapVisualizer
 {
-    class DomainTile
+    internal class DomainTile
     {
         public string TileValueHex;
         public byte TileValueDec;
@@ -243,7 +243,7 @@ namespace DigimonWorld2MapVisualizer
         }
     }
 
-    class Tile
+    internal class Tile
     {
         public readonly Dictionary<TileType, ConsoleColor> TileTypeColour = new Dictionary<TileType, ConsoleColor>
         {

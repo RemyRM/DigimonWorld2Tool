@@ -150,6 +150,11 @@ namespace DigimonWorld2MapVisualizer
             {"F048", "time"},
         };
 
+        /// <summary>
+        /// Convert the hex value of DW2 text to the ASCII representation using the text map found here https://docs.google.com/spreadsheets/d/1UiDU4MsSfxO1vhpK6err1KsLRZM53JUOuYqYhfEFp8o/edit#gid=1279970913
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static string DigiBytesToString(string[] input)
         {
             string converted = "";

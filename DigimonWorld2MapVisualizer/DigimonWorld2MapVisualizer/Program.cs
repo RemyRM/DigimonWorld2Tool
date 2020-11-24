@@ -44,7 +44,7 @@ namespace DigimonWorld2MapVisualizer
 
         private static void PrintIndex()
         {
-            Console.WriteLine($"Colour index: " +
+            Console.WriteLine($"Tiles colour index: " +
                               $"\nEmpty    - Black" +
                               $"\nRoom     - White" +
                               $"\nCorridor - Grey" +
@@ -53,6 +53,21 @@ namespace DigimonWorld2MapVisualizer
                               $"\nNature   - Dark Green" +
                               $"\nMachine  - Dark Yellow" +
                               $"\nDark     - Dark Magenta");
+            Console.WriteLine();
+            Console.WriteLine($"Objects colour index: " +
+                              $"\nWarp Entrance   - Cyan   + WE" +
+                              $"\nWarp Next       - Cyan   + WN" +
+                              $"\nWarp Exit       - Cyan   + WX" +
+                              $"\nTreasure Chest  - Green  + TC" +
+                              $"\nTrap Spore      - Yellow + SP" +
+                              $"\nTrap Rock       - Yellow + RO" +
+                              $"\nTrap Swamp      - Yellow + SW" +
+                              $"\nTrap Mine       - Yellow + MI" +
+                              $"\nTrap Bit Bug    - Yellow + BB" +
+                              $"\nTrap Energy Bug - Yellow + EB" +
+                              $"\nTrap Return Bug - Yellow + RB" +
+                              $"\nTrap Memory Bug - Yellow + MB");
+
             Console.WriteLine();
         }
     }

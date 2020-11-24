@@ -1,7 +1,8 @@
 ﻿using System;
+using DigimonWorld2MapVisualizer.Interfaces;
 using static DigimonWorld2MapVisualizer.BinReader;
 
-namespace DigimonWorld2MapVisualizer
+namespace DigimonWorld2MapVisualizer.MapObjects
 {
     public class Warp : IFloorLayoutObject
     {
@@ -13,7 +14,7 @@ namespace DigimonWorld2MapVisualizer
         }
 
         public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
-        public WarpType Type { get; private set; }
+        public readonly WarpType Type;
         public Vector2 Position { get; private set; }
 
         public Warp(IFloorLayoutObject.MapObjectType objectType, string[] data)

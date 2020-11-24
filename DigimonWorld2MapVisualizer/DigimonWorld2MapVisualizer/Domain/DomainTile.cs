@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.MapObjects;
 
 namespace DigimonWorld2MapVisualizer
 {
@@ -337,8 +339,6 @@ namespace DigimonWorld2MapVisualizer
 
         public void AddObjectToTile(IFloorLayoutObject objectToPlace)
         {
-            //System.Diagnostics.Debug.WriteLine($"Adding {objectToPlace}");
-
             FloorObject = objectToPlace;
             TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
 
@@ -348,22 +348,57 @@ namespace DigimonWorld2MapVisualizer
                 switch (warp.Type)
                 {
                     case Warp.WarpType.Entrance:
-                        FloorObjectText = "EE";
+                        FloorObjectText = "WE";
                         break;
                     case Warp.WarpType.Next:
-                        FloorObjectText = "NN";
+                        FloorObjectText = "WN";
                         break;
                     case Warp.WarpType.Exit:
-                        FloorObjectText = "XX";
+                        FloorObjectText = "WX";
                         break;
                     default:
                         break;
                 }
             }
-
-            if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
+            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
             {
                 FloorObjectText = "TC";
+            }
+            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
+            {
+                Trap trap = (Trap)FloorObject;
+                switch (trap.Type)
+                {
+                    case TrapSlot.TrapType.None:
+                        FloorObjectText = "EM";
+                        break;
+                    case TrapSlot.TrapType.Swamp:
+                        FloorObjectText = "SW";
+                        break;
+                    case TrapSlot.TrapType.Spore:
+                        FloorObjectText = "SP";
+                        break;
+                    case TrapSlot.TrapType.Rock:
+                        FloorObjectText = "RO";
+                        break;
+                    case TrapSlot.TrapType.Mine:
+                        FloorObjectText = "MI";
+                        break;
+                    case TrapSlot.TrapType.Bit_Bug:
+                        FloorObjectText = "BB";
+                        break;
+                    case TrapSlot.TrapType.Energy_Bug:
+                        FloorObjectText = "EB";
+                        break;
+                    case TrapSlot.TrapType.Return_Bug:
+                        FloorObjectText = "RB";
+                        break;
+                    case TrapSlot.TrapType.Memory_bug:
+                        FloorObjectText = "MB";
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

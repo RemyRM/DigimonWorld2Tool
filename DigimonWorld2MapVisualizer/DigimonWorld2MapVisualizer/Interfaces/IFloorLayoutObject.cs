@@ -1,6 +1,4 @@
-﻿using static DigimonWorld2MapVisualizer.BinReader;
-
-namespace DigimonWorld2MapVisualizer
+﻿namespace DigimonWorld2MapVisualizer.Interfaces
 {
     public interface IFloorLayoutObject
     {

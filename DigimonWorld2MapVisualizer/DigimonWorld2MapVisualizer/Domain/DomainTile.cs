@@ -400,6 +400,27 @@ namespace DigimonWorld2MapVisualizer
                         break;
                 }
             }
+            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Digimon)
+            {
+                Digimon digimon = (Digimon)FloorObject;
+                switch (digimon.Level)
+                {
+                    case Digimon.DigimonPackLevel.Rookie:
+                        FloorObjectText = "RO";
+                        break;
+                    case Digimon.DigimonPackLevel.Champion:
+                        FloorObjectText = "CH";
+                        break;
+                    case Digimon.DigimonPackLevel.Ultimate:
+                        FloorObjectText = "UL";
+                        break;
+                    case Digimon.DigimonPackLevel.Mega:
+                        FloorObjectText = "ME";
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
         public override string ToString()
         {
-            return $"Object \"{ObjectType}\" at position \"{Position}\"\n{TrapSlots[0]}\n{TrapSlots[1]}\n{TrapSlots[2]}\n{TrapSlots[3]}";
+            return $"\nObject \"{ObjectType}\" at position \"{Position}\"\n{TrapSlots[0]}\n{TrapSlots[1]}\n{TrapSlots[2]}\n{TrapSlots[3]}";
         }
     }
 

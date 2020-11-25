@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>0.0.1.0</Version>
+    <Version>0.1.0</Version>
     <Authors>Remy RM</Authors>
     <Company>Iron Clockwork</Company>
     <Product>Digimon World 2 Map Visualizer</Product>

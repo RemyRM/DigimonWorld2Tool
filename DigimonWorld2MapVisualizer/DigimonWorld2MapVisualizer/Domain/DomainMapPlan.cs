@@ -22,8 +22,8 @@ namespace DigimonWorld2MapVisualizer
         {
             Warps = 3,
             Chests = 4,
-            Digimon = 4,
             Traps = 8,
+            Digimon = 4,
         }
 
         private readonly string[] BaseMapPlanPointerAddress;
@@ -37,6 +37,9 @@ namespace DigimonWorld2MapVisualizer
 
         private readonly string[] BaseMapTrapsPointerAddress;
         private readonly int BaseMapTrapsPointerAddressDecimal;
+
+        private readonly string[] BaseMapDigimonPointerAddress;
+        private readonly int BaseMapDigimonPointerAddressDecimal;
 
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
@@ -60,6 +63,9 @@ namespace DigimonWorld2MapVisualizer
 
             BaseMapTrapsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps, out BaseMapTrapsPointerAddressDecimal);
             CreateDomainLayoutTraps();
+
+            BaseMapDigimonPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon, out BaseMapDigimonPointerAddressDecimal);
+            CreateDomainLayoutDigimons();
 
             AddFloorLayoutObjectsToTiles();
         }
@@ -138,6 +144,19 @@ namespace DigimonWorld2MapVisualizer
             {
                 IFloorLayoutObject trap = new Trap(IFloorLayoutObject.MapObjectType.Trap, item);
                 FloorLayoutObjects.Add(trap);
+            }
+        }
+
+        /// <summary>
+        /// Read the list of chest data and create the warp objects
+        /// </summary>
+        private void CreateDomainLayoutDigimons()
+        {
+            List<string[]> digimons = ReadBytesToDelimiter(BaseMapDigimonPointerAddressDecimal, (int)MapObjectDataLength.Digimon);
+            foreach (var item in digimons)
+            {
+                IFloorLayoutObject digimon = new Digimon(IFloorLayoutObject.MapObjectType.Digimon, item);
+                FloorLayoutObjects.Add(digimon);
             }
         }
 

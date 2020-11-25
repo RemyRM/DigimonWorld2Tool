@@ -32,7 +32,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
         public override string ToString()
         {
-            return $"Object \"{ObjectType}\" of type \"{Type}\" at position {Position}";
+            return $"\nObject \"{ObjectType}\" of type \"{Type}\" at position {Position}";
         }
     }
 }

@@ -17,6 +17,11 @@ namespace DigimonWorld2MapVisualizer
         public Domain(string domainFilename)
         {
             DomainData = ReadDomainMapDataFile(domainFilename);
+            if(DomainData == null)
+            {
+                Program.DungeonFileSelector();
+                return;
+            }
 
             bool searchingDomainFloors = true;
             do
@@ -31,6 +36,8 @@ namespace DigimonWorld2MapVisualizer
                 floorsInThisDomain.Add(new DomainFloor(floorHeaderBasePointerAddress, floorHeaderBasePointerDecimalAddress));
             }
             while (searchingDomainFloors);
+
+            Program.FinishUpVisualization();
         }
 
         /// <summary>
@@ -41,6 +48,8 @@ namespace DigimonWorld2MapVisualizer
         private string[] ReadDomainMapDataFile(string domainFilename)
         {
             string result;
+            if(File.Exists(FilePathToMapDirectory + domainFilename))
+            {
             using (BinaryReader reader = new BinaryReader(File.Open(FilePathToMapDirectory + domainFilename, FileMode.Open)))
             {
                 using MemoryStream memoryStream = new MemoryStream();
@@ -48,6 +57,16 @@ namespace DigimonWorld2MapVisualizer
                 result = BitConverter.ToString(memoryStream.ToArray());
             }
             return result.Split('-');
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"Error; File {domainFilename} was not found in directory:" +
+                                  $"\n{FilePathToMapDirectory}" +
+                                  $"\nPlease check if the \\Maps\\ folder exists and contains the DUNGxxxx.BIN file(s).");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                return null;
+            }
         }
     }
 }

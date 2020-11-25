@@ -45,7 +45,6 @@ namespace DigimonWorld2MapVisualizer
             new DungFile("DUNG7100", "Power Domain", 0x1F, 0xFE),
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
-            new DungFile("DUNGTEST", "Test Domain", 0x22, 0x00),
         };
 
         private static void Main(string[] args)
@@ -149,7 +148,9 @@ namespace DigimonWorld2MapVisualizer
                           $"\n  The DUNGxxxx.BIN files can be found in the \\data\\ folder at the root of the repository." +
                           $"\n- This is just a proof of concept build while i'm working on a full version, and subject to change.");
             Console.Write($"\n\nKnown bugs:" +
-                          $"\n- Changing the width of the console breaks the maps");
+                          $"\n- Changing the width of the console breaks the maps" +
+                          $"\n- The level of the digimon packs is not shown correctly" +
+                          $"\n- When a map reached the max width of 64 it bleeds colours to the side");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 

@@ -9,8 +9,6 @@ namespace DigimonWorld2MapVisualizer.MapObjects
         public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
         public readonly TrapSlot.TrapType Type;
         public readonly TrapSlot[] TrapSlots = new TrapSlot[4];
-        private IFloorLayoutObject.MapObjectType trap;
-        private string[] item;
 
         public Vector2 Position { get; private set; }
 

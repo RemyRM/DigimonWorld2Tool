@@ -214,7 +214,8 @@ namespace DigimonWorld2MapVisualizer
         {
             DrawLeftTile();
             DrawRightTile();
-
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.Black;
             if (leftTile.Position.x == 62)
                 Console.Write(Environment.NewLine);
         }

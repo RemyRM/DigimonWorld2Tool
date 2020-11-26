@@ -29,18 +29,6 @@ namespace DigimonWorld2MapVisualizer
         private readonly string[] BaseMapPlanPointerAddress;
         public readonly int BaseMapPlanPointerAddressDecimal;
 
-        private readonly string[] BaseMapWarpsPointerAddress;
-        private readonly int BaseMapWarpsPointerAddressDecimal;
-
-        private readonly string[] BaseMapChestsPointerAddress;
-        private readonly int BaseMapChestsPointerAddressDecimal;
-
-        private readonly string[] BaseMapTrapsPointerAddress;
-        private readonly int BaseMapTrapsPointerAddressDecimal;
-
-        private readonly string[] BaseMapDigimonPointerAddress;
-        private readonly int BaseMapDigimonPointerAddressDecimal;
-
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
@@ -55,17 +43,17 @@ namespace DigimonWorld2MapVisualizer
             string[] mapLayoutData = ReadMapPlanLayoutData();
             CreateDomainFloorTiles(ref mapLayoutData);
 
-            BaseMapWarpsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out BaseMapWarpsPointerAddressDecimal);
-            CreateDomainLayoutWarps();
+            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out int BaseMapWarpsPointerAddressDecimal);
+            CreateDomainLayoutObjects(BaseMapWarpsPointerAddressDecimal, MapObjectDataLength.Warps, IFloorLayoutObject.MapObjectType.Warp);
 
-            BaseMapChestsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests, out BaseMapChestsPointerAddressDecimal);
-            CreateDomainLayoutChests();
+            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests, out int BaseMapChestsPointerAddressDecimal);
+            CreateDomainLayoutObjects(BaseMapChestsPointerAddressDecimal, MapObjectDataLength.Chests, IFloorLayoutObject.MapObjectType.Chest);
 
-            BaseMapTrapsPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps, out BaseMapTrapsPointerAddressDecimal);
-            CreateDomainLayoutTraps();
+            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps, out int BaseMapTrapsPointerAddressDecimal);
+            CreateDomainLayoutObjects(BaseMapTrapsPointerAddressDecimal, MapObjectDataLength.Traps, IFloorLayoutObject.MapObjectType.Trap);
 
-            BaseMapDigimonPointerAddress = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon, out BaseMapDigimonPointerAddressDecimal);
-            CreateDomainLayoutDigimons();
+            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon, out int BaseMapDigimonPointerAddressDecimal);
+            CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLength.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
 
             AddFloorLayoutObjectsToTiles();
         }
@@ -109,54 +97,34 @@ namespace DigimonWorld2MapVisualizer
         }
 
         /// <summary>
-        /// Read the list of warp data and create the warp objects
+        /// Create a domain layout object of the given type and add it to the <see cref="FloorLayoutObjects"/>
         /// </summary>
-        private void CreateDomainLayoutWarps()
+        /// <param name="baseStartOfObjectListPointerAddressDecimal">The decimal starting value of the objects list</param>
+        /// <param name="dataLength">The length of a single object entry in bytes</param>
+        /// <param name="objectType">The type of the object we are creating</param>
+        private void CreateDomainLayoutObjects(int baseStartOfObjectListPointerAddressDecimal, MapObjectDataLength dataLength, IFloorLayoutObject.MapObjectType objectType)
         {
-            List<string[]> warps = ReadBytesToDelimiter(BaseMapWarpsPointerAddressDecimal, (int)MapObjectDataLength.Warps);
-            foreach (var item in warps)
+            List<string[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
+            foreach (var item in layoutObject)
             {
-                IFloorLayoutObject warp = new Warp(IFloorLayoutObject.MapObjectType.Warp, item);
-                FloorLayoutObjects.Add(warp);
-            }
-        }
-
-        /// <summary>
-        /// Read the list of chest data and create the warp objects
-        /// </summary>
-        private void CreateDomainLayoutChests()
-        {
-            List<string[]> chests = ReadBytesToDelimiter(BaseMapChestsPointerAddressDecimal, (int)MapObjectDataLength.Chests);
-            foreach (var item in chests)
-            {
-                IFloorLayoutObject chest = new Chest(IFloorLayoutObject.MapObjectType.Chest, item);
-                FloorLayoutObjects.Add(chest);
-            }
-        }
-
-        /// <summary>
-        /// Read the list of chest data and create the warp objects
-        /// </summary>
-        private void CreateDomainLayoutTraps()
-        {
-            List<string[]> traps = ReadBytesToDelimiter(BaseMapTrapsPointerAddressDecimal, (int)MapObjectDataLength.Traps);
-            foreach (var item in traps)
-            {
-                IFloorLayoutObject trap = new Trap(IFloorLayoutObject.MapObjectType.Trap, item);
-                FloorLayoutObjects.Add(trap);
-            }
-        }
-
-        /// <summary>
-        /// Read the list of chest data and create the warp objects
-        /// </summary>
-        private void CreateDomainLayoutDigimons()
-        {
-            List<string[]> digimons = ReadBytesToDelimiter(BaseMapDigimonPointerAddressDecimal, (int)MapObjectDataLength.Digimon);
-            foreach (var item in digimons)
-            {
-                IFloorLayoutObject digimon = new Digimon(IFloorLayoutObject.MapObjectType.Digimon, item);
-                FloorLayoutObjects.Add(digimon);
+                switch (objectType)
+                {
+                    case IFloorLayoutObject.MapObjectType.Warp:
+                        FloorLayoutObjects.Add(new Warp(IFloorLayoutObject.MapObjectType.Warp, item));
+                        break;
+                    case IFloorLayoutObject.MapObjectType.Chest:
+                        FloorLayoutObjects.Add(new Chest(IFloorLayoutObject.MapObjectType.Chest, item));
+                        break;
+                    case IFloorLayoutObject.MapObjectType.Trap:
+                        FloorLayoutObjects.Add(new Trap(IFloorLayoutObject.MapObjectType.Trap, item));
+                        break;
+                    case IFloorLayoutObject.MapObjectType.Digimon:
+                        FloorLayoutObjects.Add(new Digimon(IFloorLayoutObject.MapObjectType.Digimon, item));
+                        break;
+                    default:
+                        Console.Write($"\n Error; could not parse MapObjectType {objectType}");
+                        break;
+                }
             }
         }
 

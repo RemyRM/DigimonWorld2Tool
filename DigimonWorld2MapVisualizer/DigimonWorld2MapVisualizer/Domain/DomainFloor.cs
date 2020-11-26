@@ -19,6 +19,9 @@ namespace DigimonWorld2MapVisualizer
             FloorLayout5 = 28,
             FloorLayout6 = 32,
             FloorLayout7 = 36,
+            UnknownValue2 = 40,
+            TrapLevel = 44,
+            DigimonTable = 48
         }
 
         private const int MapPlansPerFloor = 8;

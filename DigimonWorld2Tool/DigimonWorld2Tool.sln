@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigimonWorld2Tool", "DigimonWorld2Tool\DigimonWorld2Tool.csproj", "{A7C2F57B-7744-46DE-A857-C62E76104D1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7C2F57B-7744-46DE-A857-C62E76104D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C2F57B-7744-46DE-A857-C62E76104D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C2F57B-7744-46DE-A857-C62E76104D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C2F57B-7744-46DE-A857-C62E76104D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB76C6CA-CC13-46D4-852F-95C052B5CAE2}
+	EndGlobalSection
+EndGlobal

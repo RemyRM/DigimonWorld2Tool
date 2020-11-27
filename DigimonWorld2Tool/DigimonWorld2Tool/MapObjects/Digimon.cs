@@ -1,5 +1,6 @@
 ﻿using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapVisualizer.Domains;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {
@@ -46,6 +47,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             {
                 if (data == 0)
                     return;
+
                 this.PackID = DomainFloor.CurrentDomainFloor.DigimonPacks[data.GetLeftHalfByte() - 1];
                 this.occuranceRate = data.GetRightHalfByte();
             }

@@ -7,7 +7,6 @@ namespace DigimonWorld2MapVisualizer
 {
     internal class Program
     {
-        public static bool ShowOriginalValueInMapTile = false;
         private static readonly DungFile[] DungeonFiles = new DungFile[] 
         {
             new DungFile("DUNG4000", "SCSI Domain 1", 0x00, 0x3A),
@@ -45,7 +44,10 @@ namespace DigimonWorld2MapVisualizer
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
+
+        public static bool ShowOriginalValueInMapTile = false;
         public static System.Diagnostics.Stopwatch watch;
+
         private static void Main(string[] args)
         {
             PrintInfo();

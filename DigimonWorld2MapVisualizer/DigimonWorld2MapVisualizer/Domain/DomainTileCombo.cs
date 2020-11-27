@@ -375,31 +375,31 @@ namespace DigimonWorld2MapVisualizer
                 Trap trap = (Trap)FloorObject;
                 switch (trap.Type)
                 {
-                    case TrapSlot.TrapType.None:
+                    case Trap.TrapSlot.TrapType.None:
                         FloorObjectText = "EM";
                         break;
-                    case TrapSlot.TrapType.Swamp:
+                    case Trap.TrapSlot.TrapType.Swamp:
                         FloorObjectText = "SW";
                         break;
-                    case TrapSlot.TrapType.Spore:
+                    case Trap.TrapSlot.TrapType.Spore:
                         FloorObjectText = "SP";
                         break;
-                    case TrapSlot.TrapType.Rock:
+                    case Trap.TrapSlot.TrapType.Rock:
                         FloorObjectText = "RO";
                         break;
-                    case TrapSlot.TrapType.Mine:
+                    case Trap.TrapSlot.TrapType.Mine:
                         FloorObjectText = "MI";
                         break;
-                    case TrapSlot.TrapType.Bit_Bug:
+                    case Trap.TrapSlot.TrapType.Bit_Bug:
                         FloorObjectText = "BB";
                         break;
-                    case TrapSlot.TrapType.Energy_Bug:
+                    case Trap.TrapSlot.TrapType.Energy_Bug:
                         FloorObjectText = "EB";
                         break;
-                    case TrapSlot.TrapType.Return_Bug:
+                    case Trap.TrapSlot.TrapType.Return_Bug:
                         FloorObjectText = "RB";
                         break;
-                    case TrapSlot.TrapType.Memory_bug:
+                    case Trap.TrapSlot.TrapType.Memory_bug:
                         FloorObjectText = "MB";
                         break;
                     default:

@@ -26,19 +26,29 @@ namespace DigimonWorld2MapVisualizer
 
         private const int MapPlansPerFloor = 8;
 
+        public static DomainFloor CurrentDomainFloor;
+
         private readonly int FloorBasePointerAddressDecimal;
         private readonly string FloorName;
         private readonly int UnknownDataDecimal;
+        private readonly int UnknownData2Decimal;
+        private readonly byte[] TrapLevel;
+        public readonly byte[] DigimonPacks = new byte[4];
 
         private readonly List<DomainMapPlan> UniqueDomainMapPlans = new List<DomainMapPlan>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
 
         public DomainFloor(int floorBasePointerAddressDecimal)
         {
+            CurrentDomainFloor = this;
+
             this.FloorBasePointerAddressDecimal = floorBasePointerAddressDecimal;
 
-            FloorName = ReadDomainName(FloorBasePointerAddressDecimal);
-            UnknownDataDecimal = ReadUnknownData(floorBasePointerAddressDecimal);
+            FloorName = ReadDomainName();
+            UnknownDataDecimal = ReadUnknownData();
+            UnknownData2Decimal = ReadUnknownData2();
+            TrapLevel = ReadTrapLevel();
+            DigimonPacks = ReadDigimonPacks();
 
             PrintDomainFloorData();
             CreateMapPlansForFloor();
@@ -108,9 +118,9 @@ namespace DigimonWorld2MapVisualizer
         /// Read the domain name from the domain data file
         /// </summary>
         /// <returns>The domain name and floor</returns>
-        private string ReadDomainName(int floorHeaderPointerDecimalAddress)
+        private string ReadDomainName()
         {
-            int domainNamePointerDecimalAddress = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.FileName);
+            int domainNamePointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.FileName);
             byte[] domainNameBytes = GetDomainNameBytes(domainNamePointerDecimalAddress);
             return TextConversion.DigiBytesToString(domainNameBytes);
         }
@@ -129,12 +139,52 @@ namespace DigimonWorld2MapVisualizer
 
         /// <summary>
         /// At the address headerPointer + 4 there is 4 byte of unidentified Data
+        /// We think this data refers to scripts/battle music?
         /// </summary>
         /// <returns>4 bytes Unknown data</returns>
-        private int ReadUnknownData(int floorHeaderPointerDecimalAddress)
+        private int ReadUnknownData()
         {
-            int unknownDataPointerDecimalAddress = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.UnknownValue);
+            int unknownDataPointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.UnknownValue);
             return unknownDataPointerDecimalAddress;
+        }
+
+        /// <summary>
+        /// Read in the second set of yet unknown data that consists of 4 bytes
+        /// </summary>
+        /// <returns>4 bytes of unkown data</returns>
+        private int ReadUnknownData2()
+        {
+            int unknownData2PointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.UnknownValue2);
+            return unknownData2PointerDecimalAddress;
+        }
+
+        /// <summary>
+        /// Read the current trap level for this floor. it appears that the trap level gets changed by setting each byte individually
+        /// </summary>
+        /// <returns>byte array with the trap level(s)</returns>
+        private byte[] ReadTrapLevel()
+        {
+            byte[] trapLevel = new byte[4];
+            for (int i = 0; i < trapLevel.Length; i++)
+            {
+                trapLevel[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TrapLevel + i];
+            }
+            return trapLevel;
+        }
+
+        /// <summary>
+        /// Get the possible digimon packs for this floor.
+        /// Each pack is represented by 1 byte in a 4 byte long array that correlates to an encounter ID
+        /// </summary>
+        /// <returns>4 bytes array containing an encounter each</returns>
+        private byte[] ReadDigimonPacks()
+        {
+            byte[] digimonPack = new byte[4];
+            for (int i = 0; i < digimonPack.Length; i++)
+            {
+                digimonPack[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.DigimonTable + i];
+            }
+            return digimonPack;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.Utility;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using static DigimonWorld2MapVisualizer.BinReader;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using static DigimonWorld2MapVisualizer.BinReader;
+using DigimonWorld2Tool;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
@@ -17,11 +18,6 @@ namespace DigimonWorld2MapVisualizer.Domains
         public Domain(string domainFilename)
         {
             DomainData = ReadDomainMapDataFile(domainFilename);
-            //if (DomainData == null)
-            //{
-            //    //Program.DungeonFileSelector();
-            //    return;
-            //}
 
             bool searchingDomainFloors = true;
             do
@@ -34,11 +30,12 @@ namespace DigimonWorld2MapVisualizer.Domains
                     continue;
                 }
 
-                floorsInThisDomain.Add(new DomainFloor(floorHeaderBasePointerDecimalAddress));
+                DomainFloor floor = new DomainFloor(floorHeaderBasePointerDecimalAddress);
+                floorsInThisDomain.Add(floor);
+
+                DigimonWorld2ToolForm.Main.FloorSelectorComboBox.Items.Add(floor.FloorName);
             }
             while (searchingDomainFloors);
-
-            //Program.FinishUpVisualization();
         }
 
         /// <summary>

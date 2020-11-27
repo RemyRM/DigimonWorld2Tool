@@ -1,5 +1,6 @@
 ﻿using System;
 using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.Utility;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer.MapObjects

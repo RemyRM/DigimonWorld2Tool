@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.MapObjects;
+using DigimonWorld2MapVisualizer.Utility;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
@@ -216,19 +218,19 @@ namespace DigimonWorld2MapVisualizer.Domains
             rightTile = new Tile(position + Vector2.Right, rightTileType); //We add 1 to the x position to get the true position of the right tile
         }
 
-        public void Draw()
-        {
-            DrawLeftTile();
-            DrawRightTile();
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.BackgroundColor = ConsoleColor.Black;
-            if (leftTile.Position.x == 62)
-                System.Diagnostics.Debug.Write(Environment.NewLine);
-        }
+        //public void Draw()
+        //{
+        //    DrawLeftTile();
+        //    DrawRightTile();
+        //    Console.ForegroundColor = ConsoleColor.Gray;
+        //    Console.BackgroundColor = ConsoleColor.Black;
+        //    if (leftTile.Position.x == 62)
+        //        System.Diagnostics.Debug.Write(Environment.NewLine);
+        //}
 
-        private void DrawLeftTile()
-        {
-            Console.BackgroundColor = leftTile.TileColour;
+        //private void DrawLeftTile()
+        //{
+            //Console.BackgroundColor = leftTile.TileColour;
             //if (Program.ShowOriginalValueInMapTile)
             //{
             //    if (Console.BackgroundColor == ConsoleColor.Gray || Console.BackgroundColor == ConsoleColor.White)
@@ -250,67 +252,67 @@ namespace DigimonWorld2MapVisualizer.Domains
             //    }
             //}
             //else
-            {
-                if (leftTile.Position.y == 0)
-                {
-                    System.Diagnostics.Debug.Write($"{(leftTile.Position.x):00}");
-                }
-                else if (leftTile.Position.x == 0)
-                {
-                    System.Diagnostics.Debug.Write($"{leftTile.Position.y:00}");
-                }
-                else
-                {
-                    if (leftTile.FloorObject != null)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        System.Diagnostics.Debug.Write(leftTile.FloorObjectText);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.Write("  ");
-                    }
-                }
-            }
-        }
+            //{
+            //    if (leftTile.Position.y == 0)
+            //    {
+            //        System.Diagnostics.Debug.Write($"{(leftTile.Position.x):00}");
+            //    }
+            //    else if (leftTile.Position.x == 0)
+            //    {
+            //        System.Diagnostics.Debug.Write($"{leftTile.Position.y:00}");
+            //    }
+            //    else
+            //    {
+            //        if (leftTile.FloorObject != null)
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.Black;
+            //            System.Diagnostics.Debug.Write(leftTile.FloorObjectText);
+            //            Console.ForegroundColor = ConsoleColor.Gray;
+            //        }
+            //        else
+            //        {
+            //            System.Diagnostics.Debug.Write("  ");
+            //        }
+            //    }
+            //}
+        //}
 
-        private void DrawRightTile()
-        {
-            Console.BackgroundColor = rightTile.TileColour;
-            if (rightTile.FloorObject != null)
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                System.Diagnostics.Debug.Write(rightTile.FloorObjectText);
-                Console.ForegroundColor = ConsoleColor.Gray;
+        //private void DrawRightTile()
+        //{
+            //Console.BackgroundColor = rightTile.TileColour;
+            //if (rightTile.FloorObject != null)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Black;
+            //    System.Diagnostics.Debug.Write(rightTile.FloorObjectText);
+            //    Console.ForegroundColor = ConsoleColor.Gray;
 
-            }
-            else
-            {
-                System.Diagnostics.Debug.Write("  ");
-            }
-        }
+            //}
+            //else
+            //{
+            //    System.Diagnostics.Debug.Write("  ");
+            //}
+        //}
     }
 
     public class Tile
     {
-        public readonly Dictionary<DomainTileType, ConsoleColor> TileTypeColour = new Dictionary<DomainTileType, ConsoleColor>
+        public readonly Dictionary<DomainTileType, Color> TileTypeColour = new Dictionary<DomainTileType, Color>
         {
-            {DomainTileType.Empty, ConsoleColor.Black },
-            {DomainTileType.Room, ConsoleColor.Gray },
-            {DomainTileType.Corridor, ConsoleColor.DarkGray },
-            {DomainTileType.Water, ConsoleColor.DarkBlue },
-            {DomainTileType.Fire, ConsoleColor.DarkRed },
-            {DomainTileType.Nature, ConsoleColor.DarkGreen },
-            {DomainTileType.Machine, ConsoleColor.DarkYellow },
-            {DomainTileType.Dark, ConsoleColor.DarkMagenta},
+            {DomainTileType.Empty, Color.Black },
+            {DomainTileType.Room, Color.Gray },
+            {DomainTileType.Corridor, Color.DarkGray },
+            {DomainTileType.Water, Color.DarkBlue },
+            {DomainTileType.Fire, Color.DarkRed },
+            {DomainTileType.Nature, Color.DarkGreen },
+            {DomainTileType.Machine, Color.DarkGoldenrod },
+            {DomainTileType.Dark, Color.DarkMagenta},
         };
-        public readonly Dictionary<IFloorLayoutObject.MapObjectType, ConsoleColor> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, ConsoleColor>
+        public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
         {
-            {IFloorLayoutObject.MapObjectType.Chest, ConsoleColor.Green },
-            {IFloorLayoutObject.MapObjectType.Digimon, ConsoleColor.Red},
-            {IFloorLayoutObject.MapObjectType.Warp, ConsoleColor.Cyan},
-            {IFloorLayoutObject.MapObjectType.Trap, ConsoleColor.Yellow},
+            {IFloorLayoutObject.MapObjectType.Chest, Color.Green },
+            {IFloorLayoutObject.MapObjectType.Digimon, Color.Red},
+            {IFloorLayoutObject.MapObjectType.Warp, Color.Cyan},
+            {IFloorLayoutObject.MapObjectType.Trap, Color.Yellow},
         };
 
         public enum DomainTileType : byte
@@ -327,7 +329,7 @@ namespace DigimonWorld2MapVisualizer.Domains
 
         public readonly Vector2 Position;
         public readonly DomainTileType TileType;
-        public ConsoleColor TileColour { get; private set; }
+        public Color TileColour { get; private set; }
         public IFloorLayoutObject FloorObject { get; private set; }
         public string FloorObjectText { get; private set; } = "  ";
 
@@ -338,7 +340,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             this.TileColour = GetConsoleBackgroundColourBasedOnTileType(tileType);
         }
 
-        public ConsoleColor GetConsoleBackgroundColourBasedOnTileType(DomainTileType type)
+        public Color GetConsoleBackgroundColourBasedOnTileType(DomainTileType type)
         {
             return TileTypeColour.GetValueOrDefault(type);
         }

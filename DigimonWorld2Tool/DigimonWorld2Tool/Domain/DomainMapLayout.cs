@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.MapObjects;
+using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2Tool.Rendering;
+using DigimonWorld2Tool;
 using static DigimonWorld2MapVisualizer.BinReader;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
-    public class DomainMapPlan
+    public class DomainMapLayout
     {
         private enum FloorLayoutHeaderOffset : byte
         {
@@ -33,7 +36,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         private readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
         private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
 
-        public DomainMapPlan(int baseMapPlanPointerAddressDecimal)
+        public DomainMapLayout(int baseMapPlanPointerAddressDecimal)
         {
             this.BaseMapPlanPointerAddressDecimal = baseMapPlanPointerAddressDecimal;
 
@@ -146,10 +149,11 @@ namespace DigimonWorld2MapVisualizer.Domains
         /// </summary>
         internal void DrawMap()
         {
-            System.Diagnostics.Debug.Write(Environment.NewLine);
+            //LayoutRenderer.SetRenderTarget(DigimonWorld2ToolForm.Main.PictureBox0Layout0);
             foreach (var item in FloorLayoutTiles)
             {
-                item.Draw();
+                LayoutRenderer.DrawTile(item);
+                //item.Draw();
             }
         }
     }

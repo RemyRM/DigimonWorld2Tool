@@ -29,13 +29,13 @@ namespace DigimonWorld2MapVisualizer.Domains
         public static DomainFloor CurrentDomainFloor;
 
         private readonly int FloorBasePointerAddressDecimal;
-        private readonly string FloorName;
+        public readonly string FloorName;
         private readonly int UnknownDataDecimal;
         private readonly int UnknownData2Decimal;
         private readonly byte[] TrapLevel;
         public readonly byte[] DigimonPacks = new byte[4];
 
-        private readonly List<DomainMapPlan> UniqueDomainMapPlans = new List<DomainMapPlan>();
+        public readonly List<DomainMapLayout> UniqueDomainMapLayouts = new List<DomainMapLayout>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
 
         public DomainFloor(int floorBasePointerAddressDecimal)
@@ -53,7 +53,6 @@ namespace DigimonWorld2MapVisualizer.Domains
             PrintDomainFloorData();
             CreateMapPlansForFloor();
             AddMapLayoutOccuranceCount();
-            DrawUniqueMapLayouts();
         }
 
         /// <summary>
@@ -63,21 +62,9 @@ namespace DigimonWorld2MapVisualizer.Domains
         {
             foreach (var item in MapPlanOccuranceRates)
             {
-                DomainMapPlan domainMapPlan = UniqueDomainMapPlans.FirstOrDefault(o => o.BaseMapPlanPointerAddressDecimal == item.Key);
+                DomainMapLayout domainMapPlan = UniqueDomainMapLayouts.FirstOrDefault(o => o.BaseMapPlanPointerAddressDecimal == item.Key);
                 if (domainMapPlan != null)
                     domainMapPlan.OccuranceRate = item.Value;
-            }
-        }
-
-        /// <summary>
-        /// Print the data and draw a unique map plan 
-        /// </summary>
-        private void DrawUniqueMapLayouts()
-        {
-            foreach (var item in UniqueDomainMapPlans)
-            {
-                item.PrintDomainMapPlanData();
-                //item.DrawMap();
             }
         }
 
@@ -93,7 +80,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         }
 
         /// <summary>
-        /// Create a <see cref="DomainMapPlan"/> for each unique map layout in the domain.
+        /// Create a <see cref="DomainMapLayout"/> for each unique map layout in the domain.
         /// Keep track of the amount of occurances per unique domain layout
         /// </summary>
         private void CreateMapPlansForFloor()
@@ -109,7 +96,7 @@ namespace DigimonWorld2MapVisualizer.Domains
                 else
                 {
                     MapPlanOccuranceRates.Add(domainMapPlanPointerAddressDecimal, 1);
-                    UniqueDomainMapPlans.Add(new DomainMapPlan(domainMapPlanPointerAddressDecimal));
+                    UniqueDomainMapLayouts.Add(new DomainMapLayout(domainMapPlanPointerAddressDecimal));
                 }
             }
         }

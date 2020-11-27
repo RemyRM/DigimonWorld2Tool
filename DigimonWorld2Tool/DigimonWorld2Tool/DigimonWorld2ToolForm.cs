@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DigimonWorld2MapVisualizer.Files;
 using DigimonWorld2MapVisualizer.Domains;
+using DigimonWorld2Tool.Rendering;
 
 namespace DigimonWorld2Tool
 {
     public partial class DigimonWorld2ToolForm : Form
     {
+        public static DigimonWorld2ToolForm Main;
         private static readonly DungFile[] DungeonFiles = new DungFile[]
         {
             new DungFile("DUNG4000", "SCSI Domain 1", 0x00, 0x3A),
@@ -51,20 +53,40 @@ namespace DigimonWorld2Tool
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
+        private static Domain CurrentDomain { get; set; }
+
+        public static PictureBox[] FloorLayoutRenderers { get; private set; } = new PictureBox[8];
 
         public static bool ShowOriginalValueInMapTile = false;
 
         public DigimonWorld2ToolForm()
         {
             InitializeComponent();
+            Main = this;
         }
 
         private void DigimonWorld2ToolForm_Load(object sender, EventArgs e)
         {
             AddDungeonFilesToComboBox();
+            TabControlMain.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
+
+            AddPictureBoxes();
         }
-        
+
+        #region MapVisualizer
+        private void AddPictureBoxes()
+        {
+            FloorLayoutRenderers[0] = PictureBox0Layout0;
+            FloorLayoutRenderers[1] = PictureBox0Layout1;
+            FloorLayoutRenderers[2] = PictureBox0Layout2;
+            FloorLayoutRenderers[3] = PictureBox0Layout3;
+            FloorLayoutRenderers[4] = PictureBox0Layout4;
+            FloorLayoutRenderers[5] = PictureBox0Layout5;
+            FloorLayoutRenderers[6] = PictureBox0Layout6;
+            FloorLayoutRenderers[7] = PictureBox0Layout7;
+        }
+
         private void AddDungeonFilesToComboBox()
         {
             foreach (var item in DungeonFiles)
@@ -81,10 +103,38 @@ namespace DigimonWorld2Tool
 
         private void CreateNewDomain(string filename)
         {
+            FloorSelectorComboBox.Items.Clear();
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"Loading {filename}");
 #endif
-            new Domain(filename);
+            CurrentDomain = new Domain(filename);
         }
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControlMain.SelectedIndex == 0)
+            {
+                //We should only load the visualizer when the tab is selected
+            }
+        }
+
+        private void FloorSelectorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
+            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[0].DrawMap();
+        }
+
+        private void MapLayoutsTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MapLayoutsTabControl.SelectedIndex >= CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1)
+            {
+                MapLayoutsTabControl.SelectedIndex = CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1;
+                if (LayoutRenderer.currentTargetRenderer == FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]) 
+                    return;
+            }
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
+            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].DrawMap();
+        }
+        #endregion
     }
 }

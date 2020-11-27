@@ -31,6 +31,7 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.LayoutNotAvailableLabel = new System.Windows.Forms.Label();
             this.FloorSelectorComboBox = new System.Windows.Forms.ComboBox();
             this.SelectFloorLabel = new System.Windows.Forms.Label();
             this.MapLayoutsTabControl = new System.Windows.Forms.TabControl();
@@ -108,6 +109,7 @@ namespace DigimonWorld2Tool
             // MapVisualizerTab
             // 
             this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.MapVisualizerTab.Controls.Add(this.LayoutNotAvailableLabel);
             this.MapVisualizerTab.Controls.Add(this.FloorSelectorComboBox);
             this.MapVisualizerTab.Controls.Add(this.SelectFloorLabel);
             this.MapVisualizerTab.Controls.Add(this.MapLayoutsTabControl);
@@ -121,11 +123,25 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
             // 
+            // LayoutNotAvailableLabel
+            // 
+            this.LayoutNotAvailableLabel.AutoSize = true;
+            this.LayoutNotAvailableLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LayoutNotAvailableLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
+            this.LayoutNotAvailableLabel.Location = new System.Drawing.Point(12, 803);
+            this.LayoutNotAvailableLabel.Name = "LayoutNotAvailableLabel";
+            this.LayoutNotAvailableLabel.Size = new System.Drawing.Size(582, 20);
+            this.LayoutNotAvailableLabel.TabIndex = 7;
+            this.LayoutNotAvailableLabel.Text = "Layout could not be selected as it was not a unique layout, selecting last unique" +
+    " layout.";
+            this.LayoutNotAvailableLabel.Visible = false;
+            // 
             // FloorSelectorComboBox
             // 
+            this.FloorSelectorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.FloorSelectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FloorSelectorComboBox.FormattingEnabled = true;
-            this.FloorSelectorComboBox.Location = new System.Drawing.Point(110, 258);
+            this.FloorSelectorComboBox.Location = new System.Drawing.Point(109, 254);
             this.FloorSelectorComboBox.Name = "FloorSelectorComboBox";
             this.FloorSelectorComboBox.Size = new System.Drawing.Size(121, 23);
             this.FloorSelectorComboBox.TabIndex = 6;
@@ -133,10 +149,11 @@ namespace DigimonWorld2Tool
             // 
             // SelectFloorLabel
             // 
+            this.SelectFloorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SelectFloorLabel.AutoSize = true;
             this.SelectFloorLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SelectFloorLabel.ForeColor = System.Drawing.Color.White;
-            this.SelectFloorLabel.Location = new System.Drawing.Point(12, 261);
+            this.SelectFloorLabel.Location = new System.Drawing.Point(12, 256);
             this.SelectFloorLabel.Name = "SelectFloorLabel";
             this.SelectFloorLabel.Size = new System.Drawing.Size(91, 21);
             this.SelectFloorLabel.TabIndex = 5;
@@ -154,7 +171,7 @@ namespace DigimonWorld2Tool
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage5);
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage6);
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage7);
-            this.MapLayoutsTabControl.Location = new System.Drawing.Point(12, 294);
+            this.MapLayoutsTabControl.Location = new System.Drawing.Point(13, 283);
             this.MapLayoutsTabControl.Multiline = true;
             this.MapLayoutsTabControl.Name = "MapLayoutsTabControl";
             this.MapLayoutsTabControl.SelectedIndex = 0;
@@ -537,6 +554,7 @@ namespace DigimonWorld2Tool
         public System.Windows.Forms.PictureBox PictureBox0Layout5;
         public System.Windows.Forms.PictureBox PictureBox0Layout6;
         public System.Windows.Forms.PictureBox PictureBox0Layout7;
+        private System.Windows.Forms.Label LayoutNotAvailableLabel;
     }
 }
 

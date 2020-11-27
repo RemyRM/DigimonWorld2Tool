@@ -50,7 +50,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             TrapLevel = ReadTrapLevel();
             DigimonPacks = ReadDigimonPacks();
 
-            PrintDomainFloorData();
+            //PrintDomainFloorData();
             CreateMapPlansForFloor();
             AddMapLayoutOccuranceCount();
         }

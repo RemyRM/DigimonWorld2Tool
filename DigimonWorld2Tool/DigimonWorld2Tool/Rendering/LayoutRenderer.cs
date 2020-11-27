@@ -28,7 +28,7 @@ namespace DigimonWorld2Tool.Rendering
             {
                 for (int j = 0; j < tileSize; j++)
                 {
-                    bmp.SetPixel((tileCombo.leftTile.Position.x * tileSize) + i , (tileCombo.leftTile.Position.y * tileSize) + j, tileCombo.leftTile.TileColour);
+                    bmp.SetPixel((tileCombo.leftTile.Position.x * tileSize) + i, (tileCombo.leftTile.Position.y * tileSize) + j, tileCombo.leftTile.TileColour);
                     bmp.SetPixel((tileCombo.rightTile.Position.x * tileSize) + i, (tileCombo.rightTile.Position.y * tileSize) + j, tileCombo.rightTile.TileColour);
                 }
             }

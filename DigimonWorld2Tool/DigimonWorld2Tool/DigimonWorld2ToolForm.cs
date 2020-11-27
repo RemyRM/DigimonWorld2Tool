@@ -67,11 +67,11 @@ namespace DigimonWorld2Tool
 
         private void DigimonWorld2ToolForm_Load(object sender, EventArgs e)
         {
+            AddPictureBoxes();
+
             AddDungeonFilesToComboBox();
             TabControlMain.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
-
-            AddPictureBoxes();
         }
 
         #region MapVisualizer
@@ -108,6 +108,10 @@ namespace DigimonWorld2Tool
             System.Diagnostics.Debug.WriteLine($"Loading {filename}");
 #endif
             CurrentDomain = new Domain(filename);
+
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[0]);
+            FloorSelectorComboBox.SelectedIndex = 0;
+            MapLayoutsTabControl.SelectedIndex = 0;
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,14 +130,22 @@ namespace DigimonWorld2Tool
 
         private void MapLayoutsTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MapLayoutsTabControl.SelectedIndex >= CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1)
+            if (MapLayoutsTabControl.SelectedIndex > CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1)
             {
                 MapLayoutsTabControl.SelectedIndex = CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1;
+                LayoutNotAvailableLabel.Visible = true;
+                DisableLayoutNotAvailableMessage();
                 if (LayoutRenderer.currentTargetRenderer == FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]) 
                     return;
             }
             LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
             CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].DrawMap();
+        }
+
+        private async void DisableLayoutNotAvailableMessage()
+        {
+            await Task.Delay(5000);
+            LayoutNotAvailableLabel.Visible = false;
         }
         #endregion
     }

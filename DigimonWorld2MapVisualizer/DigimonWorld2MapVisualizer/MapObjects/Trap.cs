@@ -1,6 +1,6 @@
 ﻿using System;
 using DigimonWorld2MapVisualizer.Interfaces;
-using static DigimonWorld2MapVisualizer.BinReader;
+using DigimonWorld2MapVisualizer.Utility;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {
@@ -12,14 +12,17 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
         public Vector2 Position { get; private set; }
 
-        public Trap(IFloorLayoutObject.MapObjectType objectType, string[] data)
+        public Trap(IFloorLayoutObject.MapObjectType objectType, byte[] data)
         {
             this.ObjectType = objectType;
-            this.Position = ReadMapObjectPosition(ref data);
+            this.Position = new Vector2(data[0], data[1]);
 
+            // One trap location has 4 trap "slots" that each have a 25% chance to get picked.
+            // These trap slots can be either empty, the same, or of a different level.
+            // Technically a different trap type can be included, but this is not found in-game I believe.
             for (int i = 0; i < 4; i++)
             {
-                TrapSlots[i] = new TrapSlot(data[i + 2]);// We offset the data by 2 to skip over the first 2 bytes which are the trap its position
+                TrapSlots[i] = new TrapSlot(data[i + 2]);// We offset the data by 2 to skip over the first 2 bytes which make up the traps position
                 this.Type = TrapSlots[i].Type;
             }
         }
@@ -32,7 +35,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
     public class TrapSlot
     {
-        public enum TrapType
+        public enum TrapType : byte
         {
             None = 0,
             Swamp = 1,
@@ -44,25 +47,25 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             Return_Bug = 7,
             Memory_bug = 8,
         }
-
-        public enum TrapLevel
+        public enum TrapLevel : byte
         {
             Zero = 0,
-            One = 10,
-            Two = 20,
-            Three = 30,
-            Four = 40,
-            Five = 50
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5
         }
 
-        public readonly TrapType Type;
-        public readonly TrapLevel Level;
+        public readonly TrapType Type = TrapType.None;
+        public readonly TrapLevel Level = TrapLevel.Zero;
 
-        public TrapSlot(string data)
+        public TrapSlot(byte data)
         {
-            char[] splitData = data.ToCharArray();
-            Level = (TrapLevel)(char.GetNumericValue(splitData[0]) * 10);
-            Type = (TrapType)char.GetNumericValue(splitData[1]);
+            if (data == 0) return;
+
+            Level = (TrapLevel)data.GetLeftHalfByte(); 
+            Type = (TrapType)data.GetRightHalfByte();
         }
 
         public override string ToString()

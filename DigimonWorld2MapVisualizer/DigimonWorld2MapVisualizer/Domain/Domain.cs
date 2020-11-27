@@ -9,7 +9,7 @@ namespace DigimonWorld2MapVisualizer
     {
         private static readonly string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
 
-        public static string[] DomainData { get; private set; }
+        public static byte[] DomainData { get; private set; }
         public readonly string DomainName;
 
         public List<DomainFloor> floorsInThisDomain = new List<DomainFloor>();
@@ -17,7 +17,7 @@ namespace DigimonWorld2MapVisualizer
         public Domain(string domainFilename)
         {
             DomainData = ReadDomainMapDataFile(domainFilename);
-            if(DomainData == null)
+            if (DomainData == null)
             {
                 Program.DungeonFileSelector();
                 return;
@@ -26,17 +26,20 @@ namespace DigimonWorld2MapVisualizer
             bool searchingDomainFloors = true;
             do
             {
-                string[] floorHeaderBasePointerAddress = GetPointer(floorsInThisDomain.Count * 4, out int floorHeaderBasePointerDecimalAddress);
+                var floorHeaderBasePointerDecimalAddress = GetPointer(floorsInThisDomain.Count * 4);
+
                 if (floorHeaderBasePointerDecimalAddress == 0)
                 {
                     searchingDomainFloors = false;
                     continue;
                 }
 
-                floorsInThisDomain.Add(new DomainFloor(floorHeaderBasePointerAddress, floorHeaderBasePointerDecimalAddress));
+                floorsInThisDomain.Add(new DomainFloor(floorHeaderBasePointerDecimalAddress));
             }
             while (searchingDomainFloors);
 
+            Program.watch.Stop();
+            Console.WriteLine($"\nVisualization took {Program.watch.ElapsedMilliseconds}ms\n");
             Program.FinishUpVisualization();
         }
 
@@ -45,18 +48,17 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         /// <param name="domainFilename">The name of the dungeon file to load</param>
         /// <returns>String array containing all the hex values in the binary</returns>
-        private string[] ReadDomainMapDataFile(string domainFilename)
+        /// <remarks>Technically we could use reader.ReadBytes(int.MaxValue), however this may cause an OutOfMemoryException on 32-bit systems.</remarks>
+        private byte[] ReadDomainMapDataFile(string domainFilename)
         {
-            string result;
-            if(File.Exists(FilePathToMapDirectory + domainFilename))
+            if (File.Exists(FilePathToMapDirectory + domainFilename))
             {
-            using (BinaryReader reader = new BinaryReader(File.Open(FilePathToMapDirectory + domainFilename, FileMode.Open)))
-            {
-                using MemoryStream memoryStream = new MemoryStream();
-                reader.BaseStream.CopyTo(memoryStream);
-                result = BitConverter.ToString(memoryStream.ToArray());
-            }
-            return result.Split('-');
+                using (BinaryReader reader = new BinaryReader(File.Open(FilePathToMapDirectory + domainFilename, FileMode.Open)))
+                {
+                    using MemoryStream memoryStream = new MemoryStream();
+                    reader.BaseStream.CopyTo(memoryStream);
+                    return memoryStream.ToArray();
+                }
             }
             else
             {

@@ -43,7 +43,7 @@ Functionality I may or may not add at some point in the future, in semi order of
 
 These people have helped immensely in helping to figure out the data format, providing additional insights, and sharing a lot of information:
 - [Rhymu8354](https://github.com/rhymu8354/)
-- nDoorn 
+- [nDoorn](https://github.com/nd00rn) 
 - Luminaires
 
 # Feedback

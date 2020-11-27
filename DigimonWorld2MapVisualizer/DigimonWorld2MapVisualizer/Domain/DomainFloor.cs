@@ -26,21 +26,19 @@ namespace DigimonWorld2MapVisualizer
 
         private const int MapPlansPerFloor = 8;
 
-        private readonly string[] FloorBasePointerAddress;
         private readonly int FloorBasePointerAddressDecimal;
         private readonly string FloorName;
-        private readonly string[] UnknownData;
+        private readonly int UnknownDataDecimal;
 
         private readonly List<DomainMapPlan> UniqueDomainMapPlans = new List<DomainMapPlan>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
 
-        public DomainFloor(string[] floorBasePointerAddress, int floorBasePointerAddressDecimal)
+        public DomainFloor(int floorBasePointerAddressDecimal)
         {
-            this.FloorBasePointerAddress = floorBasePointerAddress;
             this.FloorBasePointerAddressDecimal = floorBasePointerAddressDecimal;
 
             FloorName = ReadDomainName(FloorBasePointerAddressDecimal);
-            UnknownData = ReadUnknownData(floorBasePointerAddressDecimal);
+            UnknownDataDecimal = ReadUnknownData(floorBasePointerAddressDecimal);
 
             PrintDomainFloorData();
             CreateMapPlansForFloor();
@@ -78,12 +76,10 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         private void PrintDomainFloorData()
         {
-            Console.Write($"\n{FloorName}");
-            Console.Write("\nUnknown data: ");
-            foreach (var item in UnknownData)
-            {
-                Console.Write(item);
-            }
+            Console.Write($"\nFloor name: {FloorName}");
+            Console.Write($"\nFloor base pointer addres: {FloorBasePointerAddressDecimal:X8}");
+            Console.Write($"\nUnknown data: {UnknownDataDecimal:X8}");
+            Console.Write($"\n");
         }
 
         /// <summary>
@@ -95,7 +91,7 @@ namespace DigimonWorld2MapVisualizer
             for (int i = 0; i < MapPlansPerFloor; i++)
             {
                 DomainDataHeaderOffset floorPointerAddressOffset = (DomainDataHeaderOffset)Enum.Parse(typeof(DomainDataHeaderOffset), $"FloorLayout{i}");
-                string[] domainMapPlanPointerAddress = GetPointer(FloorBasePointerAddressDecimal + (int)floorPointerAddressOffset, out int domainMapPlanPointerAddressDecimal);
+                int domainMapPlanPointerAddressDecimal = GetPointer(FloorBasePointerAddressDecimal + (int)floorPointerAddressOffset);
                 if (MapPlanOccuranceRates.ContainsKey(domainMapPlanPointerAddressDecimal))
                 {
                     MapPlanOccuranceRates[domainMapPlanPointerAddressDecimal]++;
@@ -103,7 +99,7 @@ namespace DigimonWorld2MapVisualizer
                 else
                 {
                     MapPlanOccuranceRates.Add(domainMapPlanPointerAddressDecimal, 1);
-                    UniqueDomainMapPlans.Add(new DomainMapPlan(domainMapPlanPointerAddress, domainMapPlanPointerAddressDecimal));
+                    UniqueDomainMapPlans.Add(new DomainMapPlan(domainMapPlanPointerAddressDecimal));
                 }
             }
         }
@@ -114,33 +110,31 @@ namespace DigimonWorld2MapVisualizer
         /// <returns>The domain name and floor</returns>
         private string ReadDomainName(int floorHeaderPointerDecimalAddress)
         {
-            string[] domainNamePointerAddress = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.FileName, out int domainNamePointerDecimalAddress);
-            string[] domainNameBytes = GetDomainNameBytes(domainNamePointerDecimalAddress);
+            int domainNamePointerDecimalAddress = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.FileName);
+            byte[] domainNameBytes = GetDomainNameBytes(domainNamePointerDecimalAddress);
             return TextConversion.DigiBytesToString(domainNameBytes);
         }
 
         /// <summary>
-        /// Get the name of the current domain floor, this is stored in big endian with 0xFF as the terminating bit.
+        /// Get the name of the current domain floor, this is stored in big endian with 0xFF as the terminating byte.
         /// The text is not stored in ASCII, and needs to be converted using the <see cref="TextConversion.DigiBytesToString(string[])" function/>
         /// </summary>
         /// <param name="pointerStartIndex">The decimal address where the pointer starts</param>
         /// <returns>string array of hex values representing the domain name</returns>
-        private string[] GetDomainNameBytes(int pointerStartIndex)
+        private byte[] GetDomainNameBytes(int pointerStartIndex)
         {
-            int delimiterIndex = Array.IndexOf(Domain.DomainData, "FF", pointerStartIndex);
-            string[] domainNameBigEndian = Domain.DomainData[pointerStartIndex..delimiterIndex];
-
-            return domainNameBigEndian.ToArray();
+            int delimiterIndex = Array.IndexOf(Domain.DomainData, (byte)0xFF, pointerStartIndex);
+            return Domain.DomainData[pointerStartIndex..delimiterIndex];
         }
 
         /// <summary>
         /// At the address headerPointer + 4 there is 4 byte of unidentified Data
         /// </summary>
         /// <returns>4 bytes Unknown data</returns>
-        private string[] ReadUnknownData(int floorHeaderPointerDecimalAddress)
+        private int ReadUnknownData(int floorHeaderPointerDecimalAddress)
         {
-            string[] unknownData = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.UnknownValue, out int unknownDataPointerDecimalAddress);
-            return unknownData;
+            int unknownDataPointerDecimalAddress = GetPointer(floorHeaderPointerDecimalAddress + (int)DomainDataHeaderOffset.UnknownValue);
+            return unknownDataPointerDecimalAddress;
         }
     }
 }

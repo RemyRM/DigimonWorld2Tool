@@ -5,7 +5,7 @@ using DigimonWorld2MapVisualizer.MapObjects;
 
 namespace DigimonWorld2MapVisualizer
 {
-    public class DomainTile
+    public class DomainTileCombo
     {
         public string TileValueHex;
         public byte TileValueDec;
@@ -194,20 +194,26 @@ namespace DigimonWorld2MapVisualizer
             {0xAF, "Room_Water"},
         };
 
-        public DomainTile(Vector2 position, string tileValue)
+        /// <summary>
+        /// Container class that contains both the left and right tile at this position.
+        /// </summary>
+        /// <remarks>We need this containe because the game stores the data for two tiles in a single byte.
+        /// This makes a single grid entry 2x1, instead of the usual 1x1.</remarks>
+        /// <param name="position">The position of this tile combo</param>
+        /// <param name="tileValue">The value containing the information for the left and right tile</param>
+        public DomainTileCombo(Vector2 position, byte tileValue)
         {
-            position = new Vector2(position.x * 2, position.y);
-            this.TileValueDec = byte.Parse(tileValue, System.Globalization.NumberStyles.HexNumber);
-            this.TileValueHex = tileValue;
+            position = new Vector2(position.x * 2, position.y); // Since the grid is 32x48 but a single "tile" is actually 2x1 in size we have to double the x position
+            this.TileValueDec = tileValue;
+            this.TileValueHex = tileValue.ToString("X2");
             this.Position = position;
 
-            string[] uniqueTiles = TileComboLookup[TileValueDec].ToString().Split('_');
-            var leftTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), uniqueTiles[0]);
-            var rightTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), uniqueTiles[1]);
-
+            string[] splitTilesLeftRight = TileComboLookup[TileValueDec].ToString().Split('_');
+            var leftTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[0]);
+            var rightTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[1]);
 
             leftTile = new Tile(position, leftTileType);
-            rightTile = new Tile(position + Vector2.Right, rightTileType);
+            rightTile = new Tile(position + Vector2.Right, rightTileType); //We add 1 to the x position to get the true position of the right tile
         }
 
         public void Draw()
@@ -299,7 +305,6 @@ namespace DigimonWorld2MapVisualizer
             {DomainTileType.Machine, ConsoleColor.DarkYellow },
             {DomainTileType.Dark, ConsoleColor.DarkMagenta},
         };
-
         public readonly Dictionary<IFloorLayoutObject.MapObjectType, ConsoleColor> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, ConsoleColor>
         {
             {IFloorLayoutObject.MapObjectType.Chest, ConsoleColor.Green },
@@ -308,7 +313,7 @@ namespace DigimonWorld2MapVisualizer
             {IFloorLayoutObject.MapObjectType.Trap, ConsoleColor.Yellow},
         };
 
-        public enum DomainTileType
+        public enum DomainTileType : byte
         {
             Empty,
             Room,

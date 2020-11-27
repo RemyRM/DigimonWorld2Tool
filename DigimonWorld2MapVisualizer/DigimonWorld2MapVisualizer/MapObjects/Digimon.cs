@@ -8,7 +8,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 {
     public class Digimon : IFloorLayoutObject
     {
-        public enum DigimonPackLevel
+        public enum DigimonPackLevel : byte
         {
             Rookie = 0,
             Champion = 1,
@@ -20,11 +20,11 @@ namespace DigimonWorld2MapVisualizer.MapObjects
         public Vector2 Position { get; private set; }
         public readonly DigimonPackLevel Level;
 
-        public Digimon(IFloorLayoutObject.MapObjectType objectType, string[] data)
+        public Digimon(IFloorLayoutObject.MapObjectType objectType, byte[] data)
         {
             this.ObjectType = objectType;
-            Position = ReadMapObjectPosition(ref data);
-            Level = (DigimonPackLevel)(Position.x % 3);
+            this.Position = new Vector2(data[0], data[1]);
+            Level = (DigimonPackLevel)(Position.x % 3); // For now we just randomly generate the level based on the x position
         }
 
         public override string ToString()

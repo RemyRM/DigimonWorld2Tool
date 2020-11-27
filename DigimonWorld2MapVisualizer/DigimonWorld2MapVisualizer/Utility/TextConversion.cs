@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DigimonWorld2MapVisualizer
 {
@@ -150,14 +151,14 @@ namespace DigimonWorld2MapVisualizer
         /// <summary>
         /// Convert the hex value of DW2 text to the ASCII representation using the text map found here https://docs.google.com/spreadsheets/d/1UiDU4MsSfxO1vhpK6err1KsLRZM53JUOuYqYhfEFp8o/edit#gid=1279970913
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string DigiBytesToString(string[] input)
+        /// <param name="input">The bytes that need to be converted</param>
+        /// <returns>Input bytes converted to ASCII text</returns>
+        public static string DigiBytesToString(byte[] input)
         {
             string converted = "";
             foreach (var item in input)
             {
-                converted += ConversionLookupTable[item];
+                converted += ConversionLookupTable[item.ToString("X2")];
             }
             return converted;
         }

@@ -6,7 +6,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 {
     public class Warp : IFloorLayoutObject
     {
-        public enum WarpType
+        public enum WarpType : byte
         {
             Entrance = 0,
             Next = 1,
@@ -17,17 +17,16 @@ namespace DigimonWorld2MapVisualizer.MapObjects
         public readonly WarpType Type;
         public Vector2 Position { get; private set; }
 
-        public Warp(IFloorLayoutObject.MapObjectType objectType, string[] data)
+        public Warp(IFloorLayoutObject.MapObjectType objectType, byte[] data)
         {
             this.ObjectType = objectType;
-            Position = ReadMapObjectPosition(ref data);
+            this.Position = new Vector2(data[0], data[1]);
             Type = GetWarpType(data[2]);
-            //Console.Write($"Created: {ToString()}\n");
         }
 
-        private WarpType GetWarpType(string data)
+        private WarpType GetWarpType(byte data)
         {
-            return (WarpType)Int32.Parse(data);
+            return (WarpType)data;
         }
 
         public override string ToString()

@@ -7,9 +7,8 @@ namespace DigimonWorld2MapVisualizer
 {
     internal class Program
     {
-        //private static string mapFileName = "";/*"DUNG7000.BIN";*/ // 4000 SCSI, 4900 has coloured floors, 7000 is DVD Domain which has 1 floor only
         public static bool ShowOriginalValueInMapTile = false;
-        public static readonly DungFile[] DungeonFiles = new DungFile[] 
+        private static readonly DungFile[] DungeonFiles = new DungFile[] 
         {
             new DungFile("DUNG4000", "SCSI Domain 1", 0x00, 0x3A),
             new DungFile("DUNG4100", "Video Domain 1", 0x01, 0xE1),
@@ -46,7 +45,7 @@ namespace DigimonWorld2MapVisualizer
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
-
+        public static System.Diagnostics.Stopwatch watch;
         private static void Main(string[] args)
         {
             PrintInfo();
@@ -55,6 +54,9 @@ namespace DigimonWorld2MapVisualizer
             DungeonFileSelector();
         }
 
+        /// <summary>
+        /// Print a list of all possible dungeons, containing the Domain name, ID, Filename and DATA4000 id. 
+        /// </summary>
         public static void DungeonFileSelector()
         {
             Console.Write("\nPlease enter the ID or (full) domain name: ");
@@ -70,9 +72,15 @@ namespace DigimonWorld2MapVisualizer
 
             Console.WriteLine($"Loading {dungeonFilename}");
             PrintIndex();
-            Domain dom = new Domain(dungeonFilename);
+
+            watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+            new Domain(dungeonFilename);
         }
 
+        /// <summary>
+        /// Notify the user that the visualization has completed, and asks if he user wants to render another map
+        /// </summary>
         public static void FinishUpVisualization()
         {
             Console.WriteLine("\n\nEnd of visualisation, Do you wish to quit? y/n. " +
@@ -98,6 +106,14 @@ namespace DigimonWorld2MapVisualizer
             }
         }
 
+        /// <summary>
+        /// Checks if the user's input is either numerical or textual
+        /// - If the input is numerical we search the DUNG files by ID
+        /// - If the input is textual we search the DUNG files by domain name
+        /// </summary>
+        /// <param name="input">THe user inputted text</param>
+        /// <param name="dungeonFilename">The Filename that was found</param>
+        /// <returns>True if a file was found, false otherwise.</returns>
         private static bool ValidateInput(string input, out string dungeonFilename)
         {
             dungeonFilename = "";
@@ -197,11 +213,6 @@ namespace DigimonWorld2MapVisualizer
                               $"\nDigimon Mega    - Red    + ME");
 
             Console.WriteLine();
-        }
-
-        private static void AddDungeonFiles()
-        {
-            
         }
     }
 }

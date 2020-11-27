@@ -2,7 +2,7 @@
 {
     public interface IFloorLayoutObject
     {
-        public enum MapObjectType
+        public enum MapObjectType : byte
         {
             Warp,
             Chest,

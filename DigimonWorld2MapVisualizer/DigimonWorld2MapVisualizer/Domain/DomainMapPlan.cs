@@ -9,7 +9,7 @@ namespace DigimonWorld2MapVisualizer
 {
     public class DomainMapPlan
     {
-        private enum FloorLayoutHeaderOffset
+        private enum FloorLayoutHeaderOffset : byte
         {
             FloorPlan = 0,
             Warps = 4,
@@ -17,8 +17,7 @@ namespace DigimonWorld2MapVisualizer
             Traps = 12,
             Digimon = 16,
         }
-
-        private enum MapObjectDataLength
+        private enum MapObjectDataLength : byte
         {
             Warps = 3,
             Chests = 4,
@@ -26,33 +25,31 @@ namespace DigimonWorld2MapVisualizer
             Digimon = 4,
         }
 
-        private readonly string[] BaseMapPlanPointerAddress;
         public readonly int BaseMapPlanPointerAddressDecimal;
 
         public int OccuranceRate { get; set; }
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
-        private readonly List<DomainTile> DomainFloorTiles = new List<DomainTile>();
+        private readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
         private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
 
-        public DomainMapPlan(string[] baseMapPlanPointerAddress, int baseMapPlanPointerAddressDecimal)
+        public DomainMapPlan(int baseMapPlanPointerAddressDecimal)
         {
-            this.BaseMapPlanPointerAddress = baseMapPlanPointerAddress;
             this.BaseMapPlanPointerAddressDecimal = baseMapPlanPointerAddressDecimal;
 
-            string[] mapLayoutData = ReadMapPlanLayoutData();
+            byte[] mapLayoutData = ReadMapPlanLayoutData();
             CreateDomainFloorTiles(ref mapLayoutData);
 
-            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps, out int BaseMapWarpsPointerAddressDecimal);
+            var BaseMapWarpsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps);
             CreateDomainLayoutObjects(BaseMapWarpsPointerAddressDecimal, MapObjectDataLength.Warps, IFloorLayoutObject.MapObjectType.Warp);
 
-            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests, out int BaseMapChestsPointerAddressDecimal);
+            var BaseMapChestsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests);
             CreateDomainLayoutObjects(BaseMapChestsPointerAddressDecimal, MapObjectDataLength.Chests, IFloorLayoutObject.MapObjectType.Chest);
 
-            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps, out int BaseMapTrapsPointerAddressDecimal);
+            var BaseMapTrapsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps);
             CreateDomainLayoutObjects(BaseMapTrapsPointerAddressDecimal, MapObjectDataLength.Traps, IFloorLayoutObject.MapObjectType.Trap);
 
-            GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon, out int BaseMapDigimonPointerAddressDecimal);
+            var BaseMapDigimonPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon);
             CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLength.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
 
             AddFloorLayoutObjectsToTiles();
@@ -63,36 +60,32 @@ namespace DigimonWorld2MapVisualizer
         /// </summary>
         public void PrintDomainMapPlanData()
         {
-            Console.Write("\nDomain map plan base pointer address: ");
-            foreach (var item in BaseMapPlanPointerAddress)
-            {
-                Console.Write(item);
-            }
-            var occuranceRatePercentage = (OccuranceRate / 8d) * 100;
+            var occuranceRatePercentage = (OccuranceRate / 8d) * 100; // There are always 8 possible layouts per floor
+
+            Console.Write($"\nDomain map plan base pointer address: {BaseMapPlanPointerAddressDecimal.ToString("X8")}");
             Console.Write($"\nOccurance rate: {occuranceRatePercentage}%");
         }
 
         /// <summary>
         /// Read the binary data that makes up this map's layout
         /// </summary>
-        /// <returns>The map layout in hex</returns>
-        private string[] ReadMapPlanLayoutData()
+        /// <returns>List of bytes that makes up the map layout data</returns>
+        private byte[] ReadMapPlanLayoutData()
         {
-            string[] floorPlanStartingAddress = GetPointer(BaseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.FloorPlan, out int floorPlanStartingAddressDecimal);
-            string[] mapLayoutData = Domain.DomainData[floorPlanStartingAddressDecimal..(MapLayoutDataLength + floorPlanStartingAddressDecimal)];
-            return mapLayoutData;
+            var floorPlanStartingAddressDecimal = GetPointer(BaseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.FloorPlan);
+            return Domain.DomainData[floorPlanStartingAddressDecimal..(MapLayoutDataLength + floorPlanStartingAddressDecimal)];
         }
 
         /// <summary>
         /// Create the floor tiles that make up this floor layout
         /// </summary>
-        /// <param name="mapLayoutData">Hex representation of this floor</param>
-        private void CreateDomainFloorTiles(ref string[] mapLayoutData)
+        /// <param name="mapLayoutData">List of bytes representing the layout of this floor</param>
+        private void CreateDomainFloorTiles(ref byte[] mapLayoutData)
         {
             for (var i = 0; i < MapLayoutDataLength; i++)
             {
-                DomainTile tile = new DomainTile(new Vector2(i % 32, (int)Math.Floor(i / 32d)), mapLayoutData[i]);
-                DomainFloorTiles.Add(tile);
+                DomainTileCombo tile = new DomainTileCombo(new Vector2(i % 32, (int)Math.Floor(i / 32d)), mapLayoutData[i]);
+                FloorLayoutTiles.Add(tile);
             }
         }
 
@@ -104,7 +97,7 @@ namespace DigimonWorld2MapVisualizer
         /// <param name="objectType">The type of the object we are creating</param>
         private void CreateDomainLayoutObjects(int baseStartOfObjectListPointerAddressDecimal, MapObjectDataLength dataLength, IFloorLayoutObject.MapObjectType objectType)
         {
-            List<string[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
+            List<byte[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
             foreach (var item in layoutObject)
             {
                 switch (objectType)
@@ -137,12 +130,12 @@ namespace DigimonWorld2MapVisualizer
                 // the domain tile it is on, of which we then take the righTile.
                 if (item.Position.x % 2 == 0)
                 {
-                    Tile tile = DomainFloorTiles.First(o => o.Position == item.Position).leftTile;
+                    Tile tile = FloorLayoutTiles.First(o => o.Position == item.Position).leftTile;
                     tile.AddObjectToTile(item);
                 }
                 else
                 {
-                    Tile tile = DomainFloorTiles.First(o => o.Position == item.Position - Vector2.Right).rightTile;
+                    Tile tile = FloorLayoutTiles.First(o => o.Position == item.Position - Vector2.Right).rightTile;
                     tile.AddObjectToTile(item);
                 }
             }
@@ -154,11 +147,10 @@ namespace DigimonWorld2MapVisualizer
         internal void DrawMap()
         {
             Console.Write(Environment.NewLine);
-            foreach (var item in DomainFloorTiles)
+            foreach (var item in FloorLayoutTiles)
             {
                 item.Draw();
             }
-            //Console.Write(Environment.NewLine);
         }
     }
 }

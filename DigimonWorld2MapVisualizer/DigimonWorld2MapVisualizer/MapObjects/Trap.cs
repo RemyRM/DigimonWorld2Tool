@@ -31,46 +31,46 @@ namespace DigimonWorld2MapVisualizer.MapObjects
         {
             return $"\nObject \"{ObjectType}\" at position \"{Position}\"\n{TrapSlots[0]}\n{TrapSlots[1]}\n{TrapSlots[2]}\n{TrapSlots[3]}";
         }
-    }
 
-    public class TrapSlot
-    {
-        public enum TrapType : byte
+        public class TrapSlot
         {
-            None = 0,
-            Swamp = 1,
-            Spore = 2,
-            Rock = 3,
-            Mine = 4,
-            Bit_Bug = 5,
-            Energy_Bug = 6,
-            Return_Bug = 7,
-            Memory_bug = 8,
-        }
-        public enum TrapLevel : byte
-        {
-            Zero = 0,
-            One = 1,
-            Two = 2,
-            Three = 3,
-            Four = 4,
-            Five = 5
-        }
+            public enum TrapType : byte
+            {
+                None = 0,
+                Swamp = 1,
+                Spore = 2,
+                Rock = 3,
+                Mine = 4,
+                Bit_Bug = 5,
+                Energy_Bug = 6,
+                Return_Bug = 7,
+                Memory_bug = 8,
+            }
+            public enum TrapLevel : byte
+            {
+                Zero = 0,
+                One = 1,
+                Two = 2,
+                Three = 3,
+                Four = 4,
+                Five = 5
+            }
 
-        public readonly TrapType Type = TrapType.None;
-        public readonly TrapLevel Level = TrapLevel.Zero;
+            public readonly TrapType Type = TrapType.None;
+            public readonly TrapLevel Level = TrapLevel.Zero;
 
-        public TrapSlot(byte data)
-        {
-            if (data == 0) return;
+            public TrapSlot(byte data)
+            {
+                if (data == 0) return;
 
-            Level = (TrapLevel)data.GetLeftHalfByte(); 
-            Type = (TrapType)data.GetRightHalfByte();
-        }
+                Level = (TrapLevel)data.GetLeftHalfByte();
+                Type = (TrapType)data.GetRightHalfByte();
+            }
 
-        public override string ToString()
-        {
-            return $"TrapSlot Type {Type}, Level {Level}";
+            public override string ToString()
+            {
+                return $"TrapSlot Type {Type}, Level {Level}";
+            }
         }
     }
 }

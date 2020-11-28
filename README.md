@@ -2,13 +2,13 @@
 
 Work in progress visualizer for the map data of the game "Digimon World 2".
 
-The current visualizer only renders each possible map layout per domain in the console as coloured text or whitespace showing the following object data:
+The current visualizer is only able to render the following data on the layout:
 - Warp    Position+Type
 - Chest   Position
 - Trap    Position+Type
 - Digimon Position
 
-The following items are next on the to-do list:
+The following items are currently being worked on:
 - Switching to Winforms 
 - Adding GUI Layout for selecting maps
 - Pixel/Vector based renderer for map layouts
@@ -32,7 +32,6 @@ Functionality I may or may not add at some point in the future, in semi order of
 - Create a directory called "Maps" in your `AppDomain.CurrentDomain.BaseDirectory` directory (e.g. DigimonWorld2MapVisualizer\DigimonWorld2MapVisualizer\bin\Debug\netcoreapp3.1\Maps`)
 - Add the binary files for the maps you want to be able to view to the \Maps\ directory (e.g. "DUNG4000.BIN")
 - Launch the application from your IDE or build the application
-- Upon launch you will be asked for the 4 digit identifier of the domain you want to load (e.g. "4000")
 
 # Resources
 

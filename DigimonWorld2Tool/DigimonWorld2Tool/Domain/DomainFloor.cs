@@ -64,7 +64,10 @@ namespace DigimonWorld2MapVisualizer.Domains
             {
                 DomainMapLayout domainMapPlan = UniqueDomainMapLayouts.FirstOrDefault(o => o.BaseMapPlanPointerAddressDecimal == item.Key);
                 if (domainMapPlan != null)
+                {
                     domainMapPlan.OccuranceRate = item.Value;
+                    domainMapPlan.OccuranceRatePercentage = (domainMapPlan.OccuranceRate / 8d) * 100; // There are always 8 possible layouts per floor
+                }
             }
         }
 

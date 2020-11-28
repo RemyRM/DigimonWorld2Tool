@@ -31,6 +31,8 @@ namespace DigimonWorld2MapVisualizer.Domains
         public readonly int BaseMapPlanPointerAddressDecimal;
 
         public int OccuranceRate { get; set; }
+        public double OccuranceRatePercentage { get; set; }
+
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
 
         private readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
@@ -63,10 +65,8 @@ namespace DigimonWorld2MapVisualizer.Domains
         /// </summary>
         public void PrintDomainMapPlanData()
         {
-            var occuranceRatePercentage = (OccuranceRate / 8d) * 100; // There are always 8 possible layouts per floor
-
             System.Diagnostics.Debug.Write($"\nDomain map plan base pointer address: {BaseMapPlanPointerAddressDecimal.ToString("X8")}");
-            System.Diagnostics.Debug.Write($"\nOccurance rate: {occuranceRatePercentage}%");
+            System.Diagnostics.Debug.Write($"\nOccurance rate: {OccuranceRatePercentage}%");
         }
 
         /// <summary>

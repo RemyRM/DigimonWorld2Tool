@@ -234,8 +234,8 @@ namespace DigimonWorld2MapVisualizer.Domains
         };
         public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
         {
-            {IFloorLayoutObject.MapObjectType.Chest, Color.Green },
-            {IFloorLayoutObject.MapObjectType.Digimon, Color.Red},
+            {IFloorLayoutObject.MapObjectType.Chest, Color.FromArgb(255,0,255,0) },
+            {IFloorLayoutObject.MapObjectType.Digimon, Color.FromArgb(255, 255, 100, 100)},
             {IFloorLayoutObject.MapObjectType.Warp, Color.Cyan},
             {IFloorLayoutObject.MapObjectType.Trap, Color.Yellow},
         };
@@ -256,7 +256,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         public readonly DomainTileType TileType;
         public Color TileColour { get; private set; }
         public IFloorLayoutObject FloorObject { get; private set; }
-        public string FloorObjectText { get; private set; } = "  ";
+        public string FloorObjectText { get; private set; } = "";
 
         public Tile(Vector2 position, DomainTileType tileType)
         {
@@ -281,13 +281,13 @@ namespace DigimonWorld2MapVisualizer.Domains
                 switch (warp.Type)
                 {
                     case Warp.WarpType.Entrance:
-                        FloorObjectText = "WE";
+                        FloorObjectText = "E";
                         break;
                     case Warp.WarpType.Next:
-                        FloorObjectText = "WN";
+                        FloorObjectText = "N";
                         break;
                     case Warp.WarpType.Exit:
-                        FloorObjectText = "WX";
+                        FloorObjectText = "X";
                         break;
                     default:
                         break;
@@ -295,7 +295,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             }
             else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
             {
-                FloorObjectText = "TC";
+                FloorObjectText = "T";
             }
             else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
             {
@@ -303,31 +303,31 @@ namespace DigimonWorld2MapVisualizer.Domains
                 switch (trap.Type)
                 {
                     case Trap.TrapSlot.TrapType.None:
-                        FloorObjectText = "EM";
+                        FloorObjectText = "";
                         break;
                     case Trap.TrapSlot.TrapType.Swamp:
-                        FloorObjectText = "SW";
+                        FloorObjectText = "S";
                         break;
                     case Trap.TrapSlot.TrapType.Spore:
-                        FloorObjectText = "SP";
+                        FloorObjectText = "S";
                         break;
                     case Trap.TrapSlot.TrapType.Rock:
-                        FloorObjectText = "RO";
+                        FloorObjectText = "R";
                         break;
                     case Trap.TrapSlot.TrapType.Mine:
-                        FloorObjectText = "MI";
+                        FloorObjectText = "M";
                         break;
                     case Trap.TrapSlot.TrapType.Bit_Bug:
-                        FloorObjectText = "BB";
+                        FloorObjectText = "B";
                         break;
                     case Trap.TrapSlot.TrapType.Energy_Bug:
-                        FloorObjectText = "EB";
+                        FloorObjectText = "E";
                         break;
                     case Trap.TrapSlot.TrapType.Return_Bug:
-                        FloorObjectText = "RB";
+                        FloorObjectText = "R";
                         break;
                     case Trap.TrapSlot.TrapType.Memory_bug:
-                        FloorObjectText = "MB";
+                        FloorObjectText = "M";
                         break;
                     default:
                         break;
@@ -339,16 +339,16 @@ namespace DigimonWorld2MapVisualizer.Domains
                 switch (digimon.Level)
                 {
                     case Digimon.DigimonPackLevel.Rookie:
-                        FloorObjectText = "RO";
+                        FloorObjectText = "R";
                         break;
                     case Digimon.DigimonPackLevel.Champion:
-                        FloorObjectText = "CH";
+                        FloorObjectText = "C";
                         break;
                     case Digimon.DigimonPackLevel.Ultimate:
-                        FloorObjectText = "UL";
+                        FloorObjectText = "U";
                         break;
                     case Digimon.DigimonPackLevel.Mega:
-                        FloorObjectText = "ME";
+                        FloorObjectText = "M";
                         break;
                     default:
                         break;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,12 +63,14 @@ namespace DigimonWorld2Tool
         public DigimonWorld2ToolForm()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(0, 0);
             Main = this;
         }
 
         private void DigimonWorld2ToolForm_Load(object sender, EventArgs e)
         {
-            AddPictureBoxes();
+            SetupPictureBoxes();
 
             AddDungeonFilesToComboBox();
             TabControlMain.SelectedIndex = 0;
@@ -75,7 +78,7 @@ namespace DigimonWorld2Tool
         }
 
         #region MapVisualizer
-        private void AddPictureBoxes()
+        private void SetupPictureBoxes()
         {
             FloorLayoutRenderers[0] = PictureBox0Layout0;
             FloorLayoutRenderers[1] = PictureBox0Layout1;
@@ -110,8 +113,11 @@ namespace DigimonWorld2Tool
             CurrentDomain = new Domain(filename);
 
             LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[0]);
+            LayoutRenderer.CurrentTargetRenderer.MouseMove += DisplayMousePositionOnGrid;
             FloorSelectorComboBox.SelectedIndex = 0;
             MapLayoutsTabControl.SelectedIndex = 0;
+            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
+                                        .UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].OccuranceRatePercentage.ToString() + "%";
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -124,28 +130,104 @@ namespace DigimonWorld2Tool
 
         private void FloorSelectorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
-            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[0].DrawMap();
+            var currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[currentLayoutTabIndex]);
+            DrawCurrentMapLayout(0);
+            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
+                              .UniqueDomainMapLayouts[currentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
         }
 
         private void MapLayoutsTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MapLayoutsTabControl.SelectedIndex > CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1)
+            LayoutRenderer.CurrentTargetRenderer.MouseMove -= DisplayMousePositionOnGrid;
+            var availableLayouts = CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1;
+            var currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
+
+            if (currentLayoutTabIndex > availableLayouts)
             {
-                MapLayoutsTabControl.SelectedIndex = CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1;
+                currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex = availableLayouts;
                 LayoutNotAvailableLabel.Visible = true;
                 DisableLayoutNotAvailableMessage();
-                if (LayoutRenderer.currentTargetRenderer == FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]) 
+                if (LayoutRenderer.CurrentTargetRenderer == FloorLayoutRenderers[currentLayoutTabIndex])
                     return;
             }
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
-            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].DrawMap();
+            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
+                              .UniqueDomainMapLayouts[currentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
+
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[currentLayoutTabIndex]);
+            DrawCurrentMapLayout(currentLayoutTabIndex);
+            LayoutRenderer.CurrentTargetRenderer.MouseMove += DisplayMousePositionOnGrid;
+        }
+
+        private void DrawCurrentMapLayout(int mapLayoutIndex)
+        {
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[mapLayoutIndex]);
+            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[mapLayoutIndex].DrawMap();
+        }
+
+
+        private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
+        {
+            MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
         }
 
         private async void DisableLayoutNotAvailableMessage()
         {
             await Task.Delay(5000);
             LayoutNotAvailableLabel.Visible = false;
+        }
+
+        private void ResizeGridButton_Click(object sender, EventArgs e)
+        {
+            LayoutRenderer.tileSize = (int)TileSizeInput.Value;
+            DrawCurrentMapLayout(MapLayoutsTabControl.SelectedIndex);
+        }
+
+        private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
+            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].DrawMap();
+        }
+
+        private void SaveLayoutToFileButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog
+            {
+                Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|PNG Image|*.png",
+                Title = "Save current layout to file"
+            };
+
+            saveFileDialog1.FileName = $"{FloorSelectorComboBox.Text.Replace(" ", "_")}_Layout_{MapLayoutsTabControl.SelectedIndex}";
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (saveFileDialog1.FileName != "")
+                {
+                    System.IO.FileStream fs =
+                        (System.IO.FileStream)saveFileDialog1.OpenFile();
+
+                    switch (saveFileDialog1.FilterIndex)
+                    {
+                        case 1:
+                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Jpeg);
+                            break;
+
+                        case 2:
+                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Bmp);
+                            break;
+
+                        case 3:
+                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Gif);
+                            break;
+                        case 4:
+                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Png);
+                            break;
+                    }
+
+                    fs.Close();
+                }
+            }
         }
         #endregion
     }

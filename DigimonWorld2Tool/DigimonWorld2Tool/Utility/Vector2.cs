@@ -55,8 +55,8 @@ namespace DigimonWorld2MapVisualizer.Utility
 
         public static Vector2 operator +(Vector2 a, Vector2 b) => new Vector2(a.x + b.x, a.y + b.y);
         public static Vector2 operator -(Vector2 a, Vector2 b) => new Vector2(a.x - b.x, a.y - b.y);
-        public static Vector2 operator *(Vector2 a, byte b) => new Vector2(a.x * b, a.y * b);
-        public static Vector2 operator *(byte a, Vector2 b) => new Vector2(b.x * a, b.y * a);
+        public static Vector2 operator *(Vector2 a, int b) => new Vector2(a.x * b, a.y * b);
+        public static Vector2 operator *(int a, Vector2 b) => new Vector2(b.x * a, b.y * a);
 
         public static bool operator ==(Vector2 a, Vector2 b) => a.x == b.x && a.y == b.y;
         public static bool operator !=(Vector2 a, Vector2 b) => a.x != b.x || a.y != b.y;

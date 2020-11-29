@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DigimonWorld2MapVisualizer.Files;
 using DigimonWorld2MapVisualizer.Domains;
+using DigimonWorld2MapVisualizer.Utility;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using System.Diagnostics;
@@ -56,7 +57,10 @@ namespace DigimonWorld2Tool
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
+        
         private static Domain CurrentDomain { get; set; }
+        private static DomainFloor CurrentDomainFloor { get; set; }
+        private static DomainMapLayout CurrentMapLayout { get; set; }
 
         public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
@@ -146,10 +150,30 @@ namespace DigimonWorld2Tool
             FloorSelectorComboBox.SelectedIndex = 0;
         }
 
-        private void ShowCurrentLayoutInformation()
+        private void SetCurrentLayoutInformation()
         {
-            OccuranceChanceLabel.Text = "Occurance chance: " + CurrentDomain.floorsInThisDomain[CurrentFloorIndex]
-                                                    .UniqueDomainMapLayouts[CurrentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
+            if (CurrentMapLayout == null)
+                return; 
+
+            OccuranceChanceLabel.Text = $"Occurance chance: {CurrentMapLayout.OccuranceRatePercentage}%";
+            MapDataAddressLabel.Text = $"Map data address: {CurrentMapLayout.BaseMapPlanPointerAddressDecimal:X8}";
+            WarpsAddressLabel.Text = $"Warps address: {CurrentMapLayout.BaseMapWarpsPointerAddressDecimal:X8}";
+            ChestsAddressLabel.Text = $"Chests address: {CurrentMapLayout.BaseMapChestsPointerAddressDecimal:X8}";
+            TrapsAddressLabel.Text = $"Traps address: {CurrentMapLayout.BaseMapTrapsPointerAddressDecimal:X8}";
+            DigimonAddressLabel.Text = $"Digimons address: {CurrentMapLayout.BaseMapDigimonPointerAddressDecimal:X8}";
+        }
+
+        private void SetCurrentFloorInformation()
+        {
+            if (CurrentDomainFloor == null)
+                return;
+
+            FloorNameLabel.Text = $"Name: {CurrentDomainFloor.FloorName}";
+            FloorHeaderAddressLabel.Text = $"Header address: {CurrentDomainFloor.FloorBasePointerAddressDecimal:X8}";
+            UnknownData1Label.Text = $"Unknown 1: {CurrentDomainFloor.UnknownDataDecimal:X8}";
+            UnknownData2Label.Text = $"Unknown 2: {CurrentDomainFloor.UnknownData2Decimal:X8}";
+            TrapLevelLabel.Text = $"Trap level: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.TrapLevel)}";
+            DigimonPacksLabel.Text = $"Digimon packs: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.DigimonPacks)}";
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,7 +191,18 @@ namespace DigimonWorld2Tool
         private void FloorSelectorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             CurrentFloorIndex = FloorSelectorComboBox.SelectedIndex;
-            MapLayoutsTabControl.SelectedIndex = 0;
+            CurrentDomainFloor = CurrentDomain.floorsInThisDomain[CurrentFloorIndex];
+
+            if (MapLayoutsTabControl.SelectedIndex != 0)
+            {
+                MapLayoutsTabControl.SelectedIndex = 0;
+            }
+            else
+            {
+                DrawCurrentMapLayout();
+            }
+
+            SetCurrentFloorInformation();
         }
 
         /// <summary>
@@ -184,6 +219,8 @@ namespace DigimonWorld2Tool
             if (CurrentLayoutTabIndex > availableLayouts)
             {
                 CurrentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex = availableLayouts;
+                CurrentMapLayout = CurrentDomainFloor.UniqueDomainMapLayouts[CurrentLayoutTabIndex];
+
                 LayoutNotAvailableLabel.Visible = true;
                 DisableLayoutNotAvailableMessage();
 
@@ -191,10 +228,12 @@ namespace DigimonWorld2Tool
                     return;
             }
 
-            ShowCurrentLayoutInformation();
+            CurrentMapLayout = CurrentDomainFloor.UniqueDomainMapLayouts[CurrentLayoutTabIndex];
+
+            SetCurrentLayoutInformation();
 
             CurrentLayoutRenderTab = FloorLayoutRenderTabs[CurrentLayoutTabIndex];
-            DrawCurrentMapLayout(CurrentLayoutTabIndex);
+            DrawCurrentMapLayout();
         }
 
         private async void DisableLayoutNotAvailableMessage()
@@ -207,10 +246,10 @@ namespace DigimonWorld2Tool
         /// Call the renderer for the current floor's current layout tab
         /// </summary>
         /// <param name="mapLayoutIndex"></param>
-        private void DrawCurrentMapLayout(int mapLayoutIndex)
+        private void DrawCurrentMapLayout()
         {
             LayoutRenderer.SetupFloorLayerBitmap();
-            CurrentDomain.floorsInThisDomain[CurrentFloorIndex].UniqueDomainMapLayouts[mapLayoutIndex].DrawMap();
+            CurrentDomain.floorsInThisDomain[CurrentFloorIndex].UniqueDomainMapLayouts[CurrentLayoutTabIndex].DrawMap();
         }
 
         /// <summary>

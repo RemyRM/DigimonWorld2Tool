@@ -28,12 +28,16 @@ namespace DigimonWorld2MapVisualizer.Domains
             Digimon = 4,
         }
 
-        public readonly int BaseMapPlanPointerAddressDecimal;
-
         public int OccuranceRate { get; set; }
         public double OccuranceRatePercentage { get; set; }
 
         private const int MapLayoutDataLength = 1536; //All the layout data for a given map is 1536 bytes long (32x48)
+
+        public readonly int BaseMapPlanPointerAddressDecimal;
+        public readonly int BaseMapWarpsPointerAddressDecimal;
+        public readonly int BaseMapChestsPointerAddressDecimal;
+        public readonly int BaseMapTrapsPointerAddressDecimal;
+        public readonly int BaseMapDigimonPointerAddressDecimal;
 
         private readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
         private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
@@ -45,16 +49,16 @@ namespace DigimonWorld2MapVisualizer.Domains
             byte[] mapLayoutData = ReadMapPlanLayoutData();
             CreateDomainFloorTiles(ref mapLayoutData);
 
-            var BaseMapWarpsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps);
+            BaseMapWarpsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps);
             CreateDomainLayoutObjects(BaseMapWarpsPointerAddressDecimal, MapObjectDataLength.Warps, IFloorLayoutObject.MapObjectType.Warp);
 
-            var BaseMapChestsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests);
+            BaseMapChestsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests);
             CreateDomainLayoutObjects(BaseMapChestsPointerAddressDecimal, MapObjectDataLength.Chests, IFloorLayoutObject.MapObjectType.Chest);
 
-            var BaseMapTrapsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps);
+            BaseMapTrapsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps);
             CreateDomainLayoutObjects(BaseMapTrapsPointerAddressDecimal, MapObjectDataLength.Traps, IFloorLayoutObject.MapObjectType.Trap);
 
-            var BaseMapDigimonPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon);
+            BaseMapDigimonPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon);
             CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLength.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
 
             AddFloorLayoutObjectsToTiles();

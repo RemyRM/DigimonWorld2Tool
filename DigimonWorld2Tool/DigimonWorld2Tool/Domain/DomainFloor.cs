@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigimonWorld2MapVisualizer.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static DigimonWorld2MapVisualizer.BinReader;
@@ -28,12 +29,12 @@ namespace DigimonWorld2MapVisualizer.Domains
 
         public static DomainFloor CurrentDomainFloor;
 
-        private readonly int FloorBasePointerAddressDecimal;
-        public readonly string FloorName;
-        private readonly int UnknownDataDecimal;
-        private readonly int UnknownData2Decimal;
-        private readonly byte[] TrapLevel;
-        public readonly byte[] DigimonPacks = new byte[4];
+        internal readonly int FloorBasePointerAddressDecimal;
+        internal readonly string FloorName;
+        internal readonly int UnknownDataDecimal;
+        internal readonly int UnknownData2Decimal;
+        internal readonly byte[] TrapLevel;
+        internal readonly byte[] DigimonPacks = new byte[4];
 
         public readonly List<DomainMapLayout> UniqueDomainMapLayouts = new List<DomainMapLayout>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();

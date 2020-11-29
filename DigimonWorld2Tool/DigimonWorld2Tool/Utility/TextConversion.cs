@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DigimonWorld2MapVisualizer
+namespace DigimonWorld2MapVisualizer.Utility
 {
     public class TextConversion
     {
@@ -161,6 +161,16 @@ namespace DigimonWorld2MapVisualizer
                 converted += ConversionLookupTable[item.ToString("X2")];
             }
             return converted;
+        }
+
+        public static string ByteArrayToHexString(byte[] data, char seperator = ' ')
+        {
+            string result = "";
+            foreach (var item in data)
+            {
+                result += $"{item:X2}{seperator}";
+            }
+            return result;
         }
     }
 }

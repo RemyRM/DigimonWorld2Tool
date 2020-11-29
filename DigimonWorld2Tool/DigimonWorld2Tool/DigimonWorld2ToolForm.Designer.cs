@@ -31,9 +31,21 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.FloorInformationGroupbox = new System.Windows.Forms.GroupBox();
+            this.UnknownData2Label = new System.Windows.Forms.Label();
+            this.FloorHeaderAddressLabel = new System.Windows.Forms.Label();
+            this.DigimonPacksLabel = new System.Windows.Forms.Label();
+            this.TrapLevelLabel = new System.Windows.Forms.Label();
+            this.UnknownData1Label = new System.Windows.Forms.Label();
+            this.FloorNameLabel = new System.Windows.Forms.Label();
             this.SaveLayoutToFileButton = new System.Windows.Forms.Button();
             this.ShowGridCheckbox = new System.Windows.Forms.CheckBox();
             this.LayoutInformationGroupbox = new System.Windows.Forms.GroupBox();
+            this.DigimonAddressLabel = new System.Windows.Forms.Label();
+            this.TrapsAddressLabel = new System.Windows.Forms.Label();
+            this.ChestsAddressLabel = new System.Windows.Forms.Label();
+            this.WarpsAddressLabel = new System.Windows.Forms.Label();
+            this.MapDataAddressLabel = new System.Windows.Forms.Label();
             this.OccuranceChanceLabel = new System.Windows.Forms.Label();
             this.ResizeGridButton = new System.Windows.Forms.Button();
             this.TileSizeInput = new System.Windows.Forms.NumericUpDown();
@@ -62,8 +74,11 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.MapCustomizerTab = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
+            this.FloorInformationGroupbox.SuspendLayout();
             this.LayoutInformationGroupbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TileSizeInput)).BeginInit();
             this.MapLayoutsTabControl.SuspendLayout();
@@ -75,6 +90,7 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.SuspendLayout();
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -94,7 +110,9 @@ namespace DigimonWorld2Tool
             // MapVisualizerTab
             // 
             this.MapVisualizerTab.AutoScroll = true;
-            this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerTab.Controls.Add(this.groupBox1);
+            this.MapVisualizerTab.Controls.Add(this.FloorInformationGroupbox);
             this.MapVisualizerTab.Controls.Add(this.SaveLayoutToFileButton);
             this.MapVisualizerTab.Controls.Add(this.ShowGridCheckbox);
             this.MapVisualizerTab.Controls.Add(this.LayoutInformationGroupbox);
@@ -114,6 +132,77 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Size = new System.Drawing.Size(1181, 839);
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
+            // 
+            // FloorInformationGroupbox
+            // 
+            this.FloorInformationGroupbox.Controls.Add(this.UnknownData2Label);
+            this.FloorInformationGroupbox.Controls.Add(this.FloorHeaderAddressLabel);
+            this.FloorInformationGroupbox.Controls.Add(this.DigimonPacksLabel);
+            this.FloorInformationGroupbox.Controls.Add(this.TrapLevelLabel);
+            this.FloorInformationGroupbox.Controls.Add(this.UnknownData1Label);
+            this.FloorInformationGroupbox.Controls.Add(this.FloorNameLabel);
+            this.FloorInformationGroupbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FloorInformationGroupbox.ForeColor = System.Drawing.Color.White;
+            this.FloorInformationGroupbox.Location = new System.Drawing.Point(19, 15);
+            this.FloorInformationGroupbox.Name = "FloorInformationGroupbox";
+            this.FloorInformationGroupbox.Size = new System.Drawing.Size(590, 180);
+            this.FloorInformationGroupbox.TabIndex = 17;
+            this.FloorInformationGroupbox.TabStop = false;
+            this.FloorInformationGroupbox.Text = "Floor information";
+            // 
+            // UnknownData2Label
+            // 
+            this.UnknownData2Label.AutoSize = true;
+            this.UnknownData2Label.Location = new System.Drawing.Point(285, 125);
+            this.UnknownData2Label.Name = "UnknownData2Label";
+            this.UnknownData2Label.Size = new System.Drawing.Size(101, 21);
+            this.UnknownData2Label.TabIndex = 5;
+            this.UnknownData2Label.Text = "Unknown 2:  ";
+            // 
+            // FloorHeaderAddressLabel
+            // 
+            this.FloorHeaderAddressLabel.AutoSize = true;
+            this.FloorHeaderAddressLabel.Location = new System.Drawing.Point(6, 25);
+            this.FloorHeaderAddressLabel.Name = "FloorHeaderAddressLabel";
+            this.FloorHeaderAddressLabel.Size = new System.Drawing.Size(121, 21);
+            this.FloorHeaderAddressLabel.TabIndex = 4;
+            this.FloorHeaderAddressLabel.Text = "Header address:";
+            // 
+            // DigimonPacksLabel
+            // 
+            this.DigimonPacksLabel.AutoSize = true;
+            this.DigimonPacksLabel.Location = new System.Drawing.Point(285, 75);
+            this.DigimonPacksLabel.Name = "DigimonPacksLabel";
+            this.DigimonPacksLabel.Size = new System.Drawing.Size(116, 21);
+            this.DigimonPacksLabel.TabIndex = 3;
+            this.DigimonPacksLabel.Text = "Digimon packs:";
+            // 
+            // TrapLevelLabel
+            // 
+            this.TrapLevelLabel.AutoSize = true;
+            this.TrapLevelLabel.Location = new System.Drawing.Point(285, 25);
+            this.TrapLevelLabel.Name = "TrapLevelLabel";
+            this.TrapLevelLabel.Size = new System.Drawing.Size(83, 21);
+            this.TrapLevelLabel.TabIndex = 2;
+            this.TrapLevelLabel.Text = "Trap Level:";
+            // 
+            // UnknownData1Label
+            // 
+            this.UnknownData1Label.AutoSize = true;
+            this.UnknownData1Label.Location = new System.Drawing.Point(6, 125);
+            this.UnknownData1Label.Name = "UnknownData1Label";
+            this.UnknownData1Label.Size = new System.Drawing.Size(101, 21);
+            this.UnknownData1Label.TabIndex = 1;
+            this.UnknownData1Label.Text = "Unknown 1:  ";
+            // 
+            // FloorNameLabel
+            // 
+            this.FloorNameLabel.AutoSize = true;
+            this.FloorNameLabel.Location = new System.Drawing.Point(6, 75);
+            this.FloorNameLabel.Name = "FloorNameLabel";
+            this.FloorNameLabel.Size = new System.Drawing.Size(55, 21);
+            this.FloorNameLabel.TabIndex = 0;
+            this.FloorNameLabel.Text = "Name:";
             // 
             // SaveLayoutToFileButton
             // 
@@ -143,26 +232,77 @@ namespace DigimonWorld2Tool
             // 
             // LayoutInformationGroupbox
             // 
+            this.LayoutInformationGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LayoutInformationGroupbox.Controls.Add(this.DigimonAddressLabel);
+            this.LayoutInformationGroupbox.Controls.Add(this.TrapsAddressLabel);
+            this.LayoutInformationGroupbox.Controls.Add(this.ChestsAddressLabel);
+            this.LayoutInformationGroupbox.Controls.Add(this.WarpsAddressLabel);
+            this.LayoutInformationGroupbox.Controls.Add(this.MapDataAddressLabel);
             this.LayoutInformationGroupbox.Controls.Add(this.OccuranceChanceLabel);
             this.LayoutInformationGroupbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LayoutInformationGroupbox.ForeColor = System.Drawing.Color.White;
-            this.LayoutInformationGroupbox.Location = new System.Drawing.Point(12, 12);
+            this.LayoutInformationGroupbox.Location = new System.Drawing.Point(680, 15);
             this.LayoutInformationGroupbox.Name = "LayoutInformationGroupbox";
-            this.LayoutInformationGroupbox.Size = new System.Drawing.Size(652, 191);
+            this.LayoutInformationGroupbox.Size = new System.Drawing.Size(490, 180);
             this.LayoutInformationGroupbox.TabIndex = 14;
             this.LayoutInformationGroupbox.TabStop = false;
             this.LayoutInformationGroupbox.Text = "Layout information";
+            // 
+            // DigimonAddressLabel
+            // 
+            this.DigimonAddressLabel.AutoSize = true;
+            this.DigimonAddressLabel.Location = new System.Drawing.Point(250, 125);
+            this.DigimonAddressLabel.Name = "DigimonAddressLabel";
+            this.DigimonAddressLabel.Size = new System.Drawing.Size(135, 21);
+            this.DigimonAddressLabel.TabIndex = 18;
+            this.DigimonAddressLabel.Text = "Digimon address: ";
+            // 
+            // TrapsAddressLabel
+            // 
+            this.TrapsAddressLabel.AutoSize = true;
+            this.TrapsAddressLabel.Location = new System.Drawing.Point(250, 75);
+            this.TrapsAddressLabel.Name = "TrapsAddressLabel";
+            this.TrapsAddressLabel.Size = new System.Drawing.Size(108, 21);
+            this.TrapsAddressLabel.TabIndex = 17;
+            this.TrapsAddressLabel.Text = "Traps address:";
+            // 
+            // ChestsAddressLabel
+            // 
+            this.ChestsAddressLabel.AutoSize = true;
+            this.ChestsAddressLabel.Location = new System.Drawing.Point(250, 25);
+            this.ChestsAddressLabel.Name = "ChestsAddressLabel";
+            this.ChestsAddressLabel.Size = new System.Drawing.Size(117, 21);
+            this.ChestsAddressLabel.TabIndex = 16;
+            this.ChestsAddressLabel.Text = "Chests address:";
+            // 
+            // WarpsAddressLabel
+            // 
+            this.WarpsAddressLabel.AutoSize = true;
+            this.WarpsAddressLabel.Location = new System.Drawing.Point(6, 125);
+            this.WarpsAddressLabel.Name = "WarpsAddressLabel";
+            this.WarpsAddressLabel.Size = new System.Drawing.Size(115, 21);
+            this.WarpsAddressLabel.TabIndex = 15;
+            this.WarpsAddressLabel.Text = "Warps address:";
+            // 
+            // MapDataAddressLabel
+            // 
+            this.MapDataAddressLabel.AutoSize = true;
+            this.MapDataAddressLabel.Location = new System.Drawing.Point(6, 75);
+            this.MapDataAddressLabel.Name = "MapDataAddressLabel";
+            this.MapDataAddressLabel.Size = new System.Drawing.Size(136, 21);
+            this.MapDataAddressLabel.TabIndex = 14;
+            this.MapDataAddressLabel.Text = "Map data address:";
             // 
             // OccuranceChanceLabel
             // 
             this.OccuranceChanceLabel.AutoSize = true;
             this.OccuranceChanceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.OccuranceChanceLabel.ForeColor = System.Drawing.Color.White;
-            this.OccuranceChanceLabel.Location = new System.Drawing.Point(7, 34);
+            this.OccuranceChanceLabel.Location = new System.Drawing.Point(6, 25);
             this.OccuranceChanceLabel.Name = "OccuranceChanceLabel";
-            this.OccuranceChanceLabel.Size = new System.Drawing.Size(86, 21);
+            this.OccuranceChanceLabel.Size = new System.Drawing.Size(138, 21);
             this.OccuranceChanceLabel.TabIndex = 13;
-            this.OccuranceChanceLabel.Text = "Occurance:";
+            this.OccuranceChanceLabel.Text = "Occurance chance:";
             // 
             // ResizeGridButton
             // 
@@ -231,9 +371,9 @@ namespace DigimonWorld2Tool
             this.LayoutNotAvailableLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
             this.LayoutNotAvailableLabel.Location = new System.Drawing.Point(12, 810);
             this.LayoutNotAvailableLabel.Name = "LayoutNotAvailableLabel";
-            this.LayoutNotAvailableLabel.Size = new System.Drawing.Size(455, 20);
+            this.LayoutNotAvailableLabel.Size = new System.Drawing.Size(434, 20);
             this.LayoutNotAvailableLabel.TabIndex = 7;
-            this.LayoutNotAvailableLabel.Text = "Layout not be selected as it not unique, selecting last unique layout.";
+            this.LayoutNotAvailableLabel.Text = "Layout not selected as it not unique, selecting last unique layout.";
             this.LayoutNotAvailableLabel.Visible = false;
             // 
             // FloorSelectorComboBox
@@ -476,6 +616,27 @@ namespace DigimonWorld2Tool
             this.MapCustomizerTab.Text = "Empty";
             this.MapCustomizerTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(680, 273);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(396, 326);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Selected object information";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "In progress";
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -490,6 +651,8 @@ namespace DigimonWorld2Tool
             this.TabControlMain.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
+            this.FloorInformationGroupbox.ResumeLayout(false);
+            this.FloorInformationGroupbox.PerformLayout();
             this.LayoutInformationGroupbox.ResumeLayout(false);
             this.LayoutInformationGroupbox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TileSizeInput)).EndInit();
@@ -502,6 +665,8 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.ResumeLayout(false);
             this.TabLayoutPage6.ResumeLayout(false);
             this.TabLayoutPage7.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -541,6 +706,20 @@ namespace DigimonWorld2Tool
         private UserControls.RenderLayoutTab renderLayoutTab5;
         private UserControls.RenderLayoutTab renderLayoutTab6;
         private UserControls.RenderLayoutTab renderLayoutTab7;
+        private System.Windows.Forms.GroupBox FloorInformationGroupbox;
+        private System.Windows.Forms.Label DigimonPacksLabel;
+        private System.Windows.Forms.Label TrapLevelLabel;
+        private System.Windows.Forms.Label UnknownData1Label;
+        private System.Windows.Forms.Label FloorNameLabel;
+        private System.Windows.Forms.Label FloorHeaderAddressLabel;
+        private System.Windows.Forms.Label UnknownData2Label;
+        private System.Windows.Forms.Label MapDataAddressLabel;
+        private System.Windows.Forms.Label WarpsAddressLabel;
+        private System.Windows.Forms.Label DigimonAddressLabel;
+        private System.Windows.Forms.Label TrapsAddressLabel;
+        private System.Windows.Forms.Label ChestsAddressLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

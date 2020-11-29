@@ -44,29 +44,21 @@ namespace DigimonWorld2Tool
             this.SelectFloorLabel = new System.Windows.Forms.Label();
             this.MapLayoutsTabControl = new System.Windows.Forms.TabControl();
             this.TabLayoutPage0 = new System.Windows.Forms.TabPage();
-            this.PanelLayout0 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout0 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab0 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage1 = new System.Windows.Forms.TabPage();
-            this.PanelLayout1 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout1 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab1 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage2 = new System.Windows.Forms.TabPage();
-            this.PanelLayout2 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout2 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab2 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage3 = new System.Windows.Forms.TabPage();
-            this.PanelLayout3 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout3 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab3 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage4 = new System.Windows.Forms.TabPage();
-            this.PanelLayout4 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout4 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab4 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage5 = new System.Windows.Forms.TabPage();
-            this.PanelLayout5 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout5 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab5 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage6 = new System.Windows.Forms.TabPage();
-            this.PanelLayout6 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout6 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab6 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage7 = new System.Windows.Forms.TabPage();
-            this.PanelLayout7 = new System.Windows.Forms.Panel();
-            this.PictureBox0Layout7 = new System.Windows.Forms.PictureBox();
+            this.renderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.MapCustomizerTab = new System.Windows.Forms.TabPage();
@@ -76,29 +68,13 @@ namespace DigimonWorld2Tool
             ((System.ComponentModel.ISupportInitialize)(this.TileSizeInput)).BeginInit();
             this.MapLayoutsTabControl.SuspendLayout();
             this.TabLayoutPage0.SuspendLayout();
-            this.PanelLayout0.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout0)).BeginInit();
             this.TabLayoutPage1.SuspendLayout();
-            this.PanelLayout1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout1)).BeginInit();
             this.TabLayoutPage2.SuspendLayout();
-            this.PanelLayout2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout2)).BeginInit();
             this.TabLayoutPage3.SuspendLayout();
-            this.PanelLayout3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout3)).BeginInit();
             this.TabLayoutPage4.SuspendLayout();
-            this.PanelLayout4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout4)).BeginInit();
             this.TabLayoutPage5.SuspendLayout();
-            this.PanelLayout5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout5)).BeginInit();
             this.TabLayoutPage6.SuspendLayout();
-            this.PanelLayout6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout6)).BeginInit();
             this.TabLayoutPage7.SuspendLayout();
-            this.PanelLayout7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout7)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -306,7 +282,7 @@ namespace DigimonWorld2Tool
             // TabLayoutPage0
             // 
             this.TabLayoutPage0.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage0.Controls.Add(this.PanelLayout0);
+            this.TabLayoutPage0.Controls.Add(this.renderLayoutTab0);
             this.TabLayoutPage0.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage0.Name = "TabLayoutPage0";
             this.TabLayoutPage0.Padding = new System.Windows.Forms.Padding(3);
@@ -314,30 +290,22 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage0.TabIndex = 4;
             this.TabLayoutPage0.Text = "Layout 0";
             // 
-            // PanelLayout0
+            // renderLayoutTab0
             // 
-            this.PanelLayout0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.renderLayoutTab0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout0.AutoScroll = true;
-            this.PanelLayout0.Controls.Add(this.PictureBox0Layout0);
-            this.PanelLayout0.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout0.Name = "PanelLayout0";
-            this.PanelLayout0.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout0.TabIndex = 0;
-            // 
-            // PictureBox0Layout0
-            // 
-            this.PictureBox0Layout0.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout0.Name = "PictureBox0Layout0";
-            this.PictureBox0Layout0.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout0.TabIndex = 0;
-            this.PictureBox0Layout0.TabStop = false;
+            this.renderLayoutTab0.AutoScroll = true;
+            this.renderLayoutTab0.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab0.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab0.Name = "renderLayoutTab0";
+            this.renderLayoutTab0.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab0.TabIndex = 0;
             // 
             // TabLayoutPage1
             // 
             this.TabLayoutPage1.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage1.Controls.Add(this.PanelLayout1);
+            this.TabLayoutPage1.Controls.Add(this.renderLayoutTab1);
             this.TabLayoutPage1.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage1.Name = "TabLayoutPage1";
             this.TabLayoutPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -345,30 +313,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage1.TabIndex = 5;
             this.TabLayoutPage1.Text = "Layout 1";
             // 
-            // PanelLayout1
+            // renderLayoutTab1
             // 
-            this.PanelLayout1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout1.AutoScroll = true;
-            this.PanelLayout1.Controls.Add(this.PictureBox0Layout1);
-            this.PanelLayout1.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout1.Name = "PanelLayout1";
-            this.PanelLayout1.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout1.TabIndex = 1;
-            // 
-            // PictureBox0Layout1
-            // 
-            this.PictureBox0Layout1.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout1.Name = "PictureBox0Layout1";
-            this.PictureBox0Layout1.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout1.TabIndex = 1;
-            this.PictureBox0Layout1.TabStop = false;
+            this.renderLayoutTab1.AutoScroll = true;
+            this.renderLayoutTab1.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab1.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab1.Name = "renderLayoutTab1";
+            this.renderLayoutTab1.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab1.TabIndex = 0;
             // 
             // TabLayoutPage2
             // 
             this.TabLayoutPage2.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage2.Controls.Add(this.PanelLayout2);
+            this.TabLayoutPage2.Controls.Add(this.renderLayoutTab2);
             this.TabLayoutPage2.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage2.Name = "TabLayoutPage2";
             this.TabLayoutPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -376,31 +333,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage2.TabIndex = 6;
             this.TabLayoutPage2.Text = "Layout 2";
             // 
-            // PanelLayout2
+            // renderLayoutTab2
             // 
-            this.PanelLayout2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout2.AutoScroll = true;
-            this.PanelLayout2.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout2.Controls.Add(this.PictureBox0Layout2);
-            this.PanelLayout2.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout2.Name = "PanelLayout2";
-            this.PanelLayout2.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout2.TabIndex = 1;
-            // 
-            // PictureBox0Layout2
-            // 
-            this.PictureBox0Layout2.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout2.Name = "PictureBox0Layout2";
-            this.PictureBox0Layout2.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout2.TabIndex = 2;
-            this.PictureBox0Layout2.TabStop = false;
+            this.renderLayoutTab2.AutoScroll = true;
+            this.renderLayoutTab2.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab2.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab2.Name = "renderLayoutTab2";
+            this.renderLayoutTab2.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab2.TabIndex = 0;
             // 
             // TabLayoutPage3
             // 
             this.TabLayoutPage3.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage3.Controls.Add(this.PanelLayout3);
+            this.TabLayoutPage3.Controls.Add(this.renderLayoutTab3);
             this.TabLayoutPage3.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage3.Name = "TabLayoutPage3";
             this.TabLayoutPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -408,31 +353,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage3.TabIndex = 7;
             this.TabLayoutPage3.Text = "Layout 3";
             // 
-            // PanelLayout3
+            // renderLayoutTab3
             // 
-            this.PanelLayout3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout3.AutoScroll = true;
-            this.PanelLayout3.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout3.Controls.Add(this.PictureBox0Layout3);
-            this.PanelLayout3.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout3.Name = "PanelLayout3";
-            this.PanelLayout3.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout3.TabIndex = 2;
-            // 
-            // PictureBox0Layout3
-            // 
-            this.PictureBox0Layout3.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout3.Name = "PictureBox0Layout3";
-            this.PictureBox0Layout3.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout3.TabIndex = 2;
-            this.PictureBox0Layout3.TabStop = false;
+            this.renderLayoutTab3.AutoScroll = true;
+            this.renderLayoutTab3.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab3.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab3.Name = "renderLayoutTab3";
+            this.renderLayoutTab3.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab3.TabIndex = 0;
             // 
             // TabLayoutPage4
             // 
             this.TabLayoutPage4.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage4.Controls.Add(this.PanelLayout4);
+            this.TabLayoutPage4.Controls.Add(this.renderLayoutTab4);
             this.TabLayoutPage4.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage4.Name = "TabLayoutPage4";
             this.TabLayoutPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -440,31 +373,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage4.TabIndex = 8;
             this.TabLayoutPage4.Text = "Layout 4";
             // 
-            // PanelLayout4
+            // renderLayoutTab4
             // 
-            this.PanelLayout4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout4.AutoScroll = true;
-            this.PanelLayout4.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout4.Controls.Add(this.PictureBox0Layout4);
-            this.PanelLayout4.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout4.Name = "PanelLayout4";
-            this.PanelLayout4.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout4.TabIndex = 2;
-            // 
-            // PictureBox0Layout4
-            // 
-            this.PictureBox0Layout4.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout4.Name = "PictureBox0Layout4";
-            this.PictureBox0Layout4.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout4.TabIndex = 2;
-            this.PictureBox0Layout4.TabStop = false;
+            this.renderLayoutTab4.AutoScroll = true;
+            this.renderLayoutTab4.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab4.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab4.Name = "renderLayoutTab4";
+            this.renderLayoutTab4.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab4.TabIndex = 0;
             // 
             // TabLayoutPage5
             // 
             this.TabLayoutPage5.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage5.Controls.Add(this.PanelLayout5);
+            this.TabLayoutPage5.Controls.Add(this.renderLayoutTab5);
             this.TabLayoutPage5.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage5.Name = "TabLayoutPage5";
             this.TabLayoutPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -472,31 +393,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.TabIndex = 9;
             this.TabLayoutPage5.Text = "Layout 5";
             // 
-            // PanelLayout5
+            // renderLayoutTab5
             // 
-            this.PanelLayout5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout5.AutoScroll = true;
-            this.PanelLayout5.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout5.Controls.Add(this.PictureBox0Layout5);
-            this.PanelLayout5.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout5.Name = "PanelLayout5";
-            this.PanelLayout5.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout5.TabIndex = 2;
-            // 
-            // PictureBox0Layout5
-            // 
-            this.PictureBox0Layout5.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout5.Name = "PictureBox0Layout5";
-            this.PictureBox0Layout5.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout5.TabIndex = 2;
-            this.PictureBox0Layout5.TabStop = false;
+            this.renderLayoutTab5.AutoScroll = true;
+            this.renderLayoutTab5.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab5.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab5.Name = "renderLayoutTab5";
+            this.renderLayoutTab5.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab5.TabIndex = 0;
             // 
             // TabLayoutPage6
             // 
             this.TabLayoutPage6.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage6.Controls.Add(this.PanelLayout6);
+            this.TabLayoutPage6.Controls.Add(this.renderLayoutTab6);
             this.TabLayoutPage6.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage6.Name = "TabLayoutPage6";
             this.TabLayoutPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -504,31 +413,19 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage6.TabIndex = 10;
             this.TabLayoutPage6.Text = "Layout 6";
             // 
-            // PanelLayout6
+            // renderLayoutTab6
             // 
-            this.PanelLayout6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout6.AutoScroll = true;
-            this.PanelLayout6.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout6.Controls.Add(this.PictureBox0Layout6);
-            this.PanelLayout6.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout6.Name = "PanelLayout6";
-            this.PanelLayout6.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout6.TabIndex = 2;
-            // 
-            // PictureBox0Layout6
-            // 
-            this.PictureBox0Layout6.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout6.Name = "PictureBox0Layout6";
-            this.PictureBox0Layout6.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout6.TabIndex = 2;
-            this.PictureBox0Layout6.TabStop = false;
+            this.renderLayoutTab6.AutoScroll = true;
+            this.renderLayoutTab6.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab6.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab6.Name = "renderLayoutTab6";
+            this.renderLayoutTab6.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab6.TabIndex = 0;
             // 
             // TabLayoutPage7
             // 
             this.TabLayoutPage7.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage7.Controls.Add(this.PanelLayout7);
+            this.TabLayoutPage7.Controls.Add(this.renderLayoutTab7);
             this.TabLayoutPage7.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage7.Name = "TabLayoutPage7";
             this.TabLayoutPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -536,26 +433,14 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage7.TabIndex = 11;
             this.TabLayoutPage7.Text = "Layout 7";
             // 
-            // PanelLayout7
+            // renderLayoutTab7
             // 
-            this.PanelLayout7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelLayout7.AutoScroll = true;
-            this.PanelLayout7.BackColor = System.Drawing.Color.Black;
-            this.PanelLayout7.Controls.Add(this.PictureBox0Layout7);
-            this.PanelLayout7.Location = new System.Drawing.Point(1, 1);
-            this.PanelLayout7.Name = "PanelLayout7";
-            this.PanelLayout7.Size = new System.Drawing.Size(655, 490);
-            this.PanelLayout7.TabIndex = 2;
-            // 
-            // PictureBox0Layout7
-            // 
-            this.PictureBox0Layout7.Location = new System.Drawing.Point(1, 1);
-            this.PictureBox0Layout7.Name = "PictureBox0Layout7";
-            this.PictureBox0Layout7.Size = new System.Drawing.Size(645, 485);
-            this.PictureBox0Layout7.TabIndex = 2;
-            this.PictureBox0Layout7.TabStop = false;
+            this.renderLayoutTab7.AutoScroll = true;
+            this.renderLayoutTab7.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab7.Location = new System.Drawing.Point(3, 3);
+            this.renderLayoutTab7.Name = "renderLayoutTab7";
+            this.renderLayoutTab7.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab7.TabIndex = 0;
             // 
             // DungeonFilesComboBox
             // 
@@ -599,6 +484,7 @@ namespace DigimonWorld2Tool
             this.ClientSize = new System.Drawing.Size(1180, 863);
             this.Controls.Add(this.TabControlMain);
             this.Name = "DigimonWorld2ToolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DigimonWorld2ToolForm_Load);
             this.TabControlMain.ResumeLayout(false);
@@ -609,29 +495,13 @@ namespace DigimonWorld2Tool
             ((System.ComponentModel.ISupportInitialize)(this.TileSizeInput)).EndInit();
             this.MapLayoutsTabControl.ResumeLayout(false);
             this.TabLayoutPage0.ResumeLayout(false);
-            this.PanelLayout0.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout0)).EndInit();
             this.TabLayoutPage1.ResumeLayout(false);
-            this.PanelLayout1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout1)).EndInit();
             this.TabLayoutPage2.ResumeLayout(false);
-            this.PanelLayout2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout2)).EndInit();
             this.TabLayoutPage3.ResumeLayout(false);
-            this.PanelLayout3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout3)).EndInit();
             this.TabLayoutPage4.ResumeLayout(false);
-            this.PanelLayout4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout4)).EndInit();
             this.TabLayoutPage5.ResumeLayout(false);
-            this.PanelLayout5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout5)).EndInit();
             this.TabLayoutPage6.ResumeLayout(false);
-            this.PanelLayout6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout6)).EndInit();
             this.TabLayoutPage7.ResumeLayout(false);
-            this.PanelLayout7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox0Layout7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -651,25 +521,9 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.TabPage TabLayoutPage5;
         private System.Windows.Forms.TabPage TabLayoutPage6;
         private System.Windows.Forms.TabPage TabLayoutPage7;
-        private System.Windows.Forms.Panel PanelLayout0;
-        private System.Windows.Forms.Panel PanelLayout1;
-        private System.Windows.Forms.Panel PanelLayout2;
-        private System.Windows.Forms.Panel PanelLayout3;
-        private System.Windows.Forms.Panel PanelLayout4;
-        private System.Windows.Forms.Panel PanelLayout5;
-        private System.Windows.Forms.Panel PanelLayout6;
-        private System.Windows.Forms.Panel PanelLayout7;
         private System.Windows.Forms.Label SelectFloorLabel;
-        public System.Windows.Forms.PictureBox PictureBox0Layout0;
         private System.Windows.Forms.TabPage MapCustomizerTab;
         public System.Windows.Forms.ComboBox FloorSelectorComboBox;
-        public System.Windows.Forms.PictureBox PictureBox0Layout1;
-        public System.Windows.Forms.PictureBox PictureBox0Layout2;
-        public System.Windows.Forms.PictureBox PictureBox0Layout3;
-        public System.Windows.Forms.PictureBox PictureBox0Layout4;
-        public System.Windows.Forms.PictureBox PictureBox0Layout5;
-        public System.Windows.Forms.PictureBox PictureBox0Layout6;
-        public System.Windows.Forms.PictureBox PictureBox0Layout7;
         private System.Windows.Forms.Label LayoutNotAvailableLabel;
         private System.Windows.Forms.Label MousePositionOnGridLabel;
         private System.Windows.Forms.NumericUpDown TileSizeInput;
@@ -679,6 +533,14 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.GroupBox LayoutInformationGroupbox;
         public System.Windows.Forms.CheckBox ShowGridCheckbox;
         private System.Windows.Forms.Button SaveLayoutToFileButton;
+        private UserControls.RenderLayoutTab renderLayoutTab0;
+        private UserControls.RenderLayoutTab renderLayoutTab1;
+        private UserControls.RenderLayoutTab renderLayoutTab2;
+        private UserControls.RenderLayoutTab renderLayoutTab3;
+        private UserControls.RenderLayoutTab renderLayoutTab4;
+        private UserControls.RenderLayoutTab renderLayoutTab5;
+        private UserControls.RenderLayoutTab renderLayoutTab6;
+        private UserControls.RenderLayoutTab renderLayoutTab7;
     }
 }
 

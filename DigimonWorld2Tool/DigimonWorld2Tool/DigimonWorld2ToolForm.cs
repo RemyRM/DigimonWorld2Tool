@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using DigimonWorld2MapVisualizer.Files;
 using DigimonWorld2MapVisualizer.Domains;
 using DigimonWorld2Tool.Rendering;
+using DigimonWorld2Tool.UserControls;
+using System.Diagnostics;
 
 namespace DigimonWorld2Tool
 {
@@ -56,40 +58,59 @@ namespace DigimonWorld2Tool
         };
         private static Domain CurrentDomain { get; set; }
 
-        public static PictureBox[] FloorLayoutRenderers { get; private set; } = new PictureBox[8];
+        public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
+        public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
 
-        public static bool ShowOriginalValueInMapTile = false;
+        public static int CurrentFloorIndex;
+        public static int CurrentLayoutTabIndex;
 
         public DigimonWorld2ToolForm()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
+            this.AllowTransparency = true;
             Main = this;
         }
 
         private void DigimonWorld2ToolForm_Load(object sender, EventArgs e)
         {
-            SetupPictureBoxes();
+            SetupLayoutRenderTabs();
 
             AddDungeonFilesToComboBox();
             TabControlMain.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
+
+            // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
+            MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;  
+            
         }
 
         #region MapVisualizer
-        private void SetupPictureBoxes()
+        /// <summary>
+        /// Add each render tab to the array of possible render tabs
+        /// </summary>
+        private void SetupLayoutRenderTabs()
         {
-            FloorLayoutRenderers[0] = PictureBox0Layout0;
-            FloorLayoutRenderers[1] = PictureBox0Layout1;
-            FloorLayoutRenderers[2] = PictureBox0Layout2;
-            FloorLayoutRenderers[3] = PictureBox0Layout3;
-            FloorLayoutRenderers[4] = PictureBox0Layout4;
-            FloorLayoutRenderers[5] = PictureBox0Layout5;
-            FloorLayoutRenderers[6] = PictureBox0Layout6;
-            FloorLayoutRenderers[7] = PictureBox0Layout7;
+            CurrentLayoutRenderTab =  FloorLayoutRenderTabs[0] = renderLayoutTab0;
+            FloorLayoutRenderTabs[1] = renderLayoutTab1;
+            FloorLayoutRenderTabs[2] = renderLayoutTab2;
+            FloorLayoutRenderTabs[3] = renderLayoutTab3;
+            FloorLayoutRenderTabs[4] = renderLayoutTab4;
+            FloorLayoutRenderTabs[5] = renderLayoutTab5;
+            FloorLayoutRenderTabs[6] = renderLayoutTab6;
+            FloorLayoutRenderTabs[7] = renderLayoutTab7;
+
+            // Add the function for displaying the current mouse position on the grid to the MouseMove event
+            foreach (var item in FloorLayoutRenderTabs)
+            {
+                item.GridRenderLayer.MouseMove += DisplayMousePositionOnGrid;
+            }
         }
 
+        /// <summary>
+        /// Add all the domain names to the combobox for selecting the domain
+        /// </summary>
         private void AddDungeonFilesToComboBox()
         {
             foreach (var item in DungeonFiles)
@@ -98,26 +119,37 @@ namespace DigimonWorld2Tool
             }
         }
 
+        /// <summary>
+        /// Create a new domain whenever a new domain gets selected from the combobox
+        /// </summary>
         private void DungeonFilesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var filename = DungeonFiles.FirstOrDefault(o => o.DomainName == DungeonFilesComboBox.SelectedItem.ToString()).Filename;
             CreateNewDomain(filename);
         }
 
+        /// <summary>
+        /// Create a new domain and start rendering the first floor, first layout.
+        /// </summary>
+        /// <param name="filename">The filename of the domain to load</param>
         private void CreateNewDomain(string filename)
         {
             FloorSelectorComboBox.Items.Clear();
 #if DEBUG
-            System.Diagnostics.Debug.WriteLine($"Loading {filename}");
+            Debug.WriteLine($"Loading {filename}");
 #endif
             CurrentDomain = new Domain(filename);
 
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[0]);
-            LayoutRenderer.CurrentTargetRenderer.MouseMove += DisplayMousePositionOnGrid;
+            CurrentLayoutRenderTab = FloorLayoutRenderTabs[0];
+            
+            //Automatically select the first floor when we create a new domain
             FloorSelectorComboBox.SelectedIndex = 0;
-            MapLayoutsTabControl.SelectedIndex = 0;
-            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
-                                        .UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].OccuranceRatePercentage.ToString() + "%";
+        }
+
+        private void ShowCurrentLayoutInformation()
+        {
+            OccuranceChanceLabel.Text = "Occurance chance: " + CurrentDomain.floorsInThisDomain[CurrentFloorIndex]
+                                                    .UniqueDomainMapLayouts[CurrentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,47 +160,41 @@ namespace DigimonWorld2Tool
             }
         }
 
+        /// <summary>
+        /// Update the <see cref="CurrentFloorIndex"/> and select the first Layout tab.
+        /// Start rendering the first layout of the selected floor
+        /// </summary>
         private void FloorSelectorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[currentLayoutTabIndex]);
-            DrawCurrentMapLayout(0);
-            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
-                              .UniqueDomainMapLayouts[currentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
+            CurrentFloorIndex = FloorSelectorComboBox.SelectedIndex;
+            MapLayoutsTabControl.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Set the <see cref="CurrentLayoutTabIndex"/> to the new index and get the current floor index.
+        /// Start rendering the current floor index.
+        /// If the selected floor index is higher than the max amount of unique floors we select the last unique floor instead
+        /// </summary>
         private void MapLayoutsTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LayoutRenderer.CurrentTargetRenderer.MouseMove -= DisplayMousePositionOnGrid;
-            var availableLayouts = CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts.Count - 1;
-            var currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
+            CurrentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
+            CurrentLayoutRenderTab = FloorLayoutRenderTabs[CurrentLayoutTabIndex];
 
-            if (currentLayoutTabIndex > availableLayouts)
+            var availableLayouts = CurrentDomain.floorsInThisDomain[CurrentFloorIndex].UniqueDomainMapLayouts.Count - 1;
+            if (CurrentLayoutTabIndex > availableLayouts)
             {
-                currentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex = availableLayouts;
+                CurrentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex = availableLayouts;
                 LayoutNotAvailableLabel.Visible = true;
                 DisableLayoutNotAvailableMessage();
-                if (LayoutRenderer.CurrentTargetRenderer == FloorLayoutRenderers[currentLayoutTabIndex])
+
+                if (CurrentLayoutRenderTab.MapRenderLayer == FloorLayoutRenderTabs[CurrentLayoutTabIndex].MapRenderLayer)
                     return;
             }
-            OccuranceChanceLabel.Text = "Chance: " + CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex]
-                              .UniqueDomainMapLayouts[currentLayoutTabIndex].OccuranceRatePercentage.ToString() + "%";
 
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[currentLayoutTabIndex]);
-            DrawCurrentMapLayout(currentLayoutTabIndex);
-            LayoutRenderer.CurrentTargetRenderer.MouseMove += DisplayMousePositionOnGrid;
-        }
+            ShowCurrentLayoutInformation();
 
-        private void DrawCurrentMapLayout(int mapLayoutIndex)
-        {
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[mapLayoutIndex]);
-            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[mapLayoutIndex].DrawMap();
-        }
-
-
-        private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
-        {
-            MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
+            CurrentLayoutRenderTab = FloorLayoutRenderTabs[CurrentLayoutTabIndex];
+            DrawCurrentMapLayout(CurrentLayoutTabIndex);
         }
 
         private async void DisableLayoutNotAvailableMessage()
@@ -177,27 +203,53 @@ namespace DigimonWorld2Tool
             LayoutNotAvailableLabel.Visible = false;
         }
 
+        /// <summary>
+        /// Call the renderer for the current floor's current layout tab
+        /// </summary>
+        /// <param name="mapLayoutIndex"></param>
+        private void DrawCurrentMapLayout(int mapLayoutIndex)
+        {
+            LayoutRenderer.SetupFloorLayerBitmap();
+            CurrentDomain.floorsInThisDomain[CurrentFloorIndex].UniqueDomainMapLayouts[mapLayoutIndex].DrawMap();
+        }
+
+        /// <summary>
+        /// Display the current mouse position on the grid
+        /// </summary>
+        private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
+        {
+            MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
+        }
+
+        /// <summary>
+        /// Update the per-tile size of the grid, and redraw the grid at this size.
+        /// </summary>
         private void ResizeGridButton_Click(object sender, EventArgs e)
         {
             LayoutRenderer.tileSize = (int)TileSizeInput.Value;
-            DrawCurrentMapLayout(MapLayoutsTabControl.SelectedIndex);
+            LayoutRenderer.DrawGrid();
         }
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            LayoutRenderer.SetRenderTarget(FloorLayoutRenderers[MapLayoutsTabControl.SelectedIndex]);
-            CurrentDomain.floorsInThisDomain[FloorSelectorComboBox.SelectedIndex].UniqueDomainMapLayouts[MapLayoutsTabControl.SelectedIndex].DrawMap();
+            if(ShowGridCheckbox.Checked)
+                LayoutRenderer.DrawGrid();
+            else
+                LayoutRenderer.HideGrid();
         }
 
+        /// <summary>
+        /// Save the currently rendered layout to an image file format (png or bmp)
+        /// </summary>
         private void SaveLayoutToFileButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog
             {
-                Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif|PNG Image|*.png",
+                Filter = "PNG Image|*.png|Bitmap Image|*.bmp",
                 Title = "Save current layout to file"
             };
 
-            saveFileDialog1.FileName = $"{FloorSelectorComboBox.Text.Replace(" ", "_")}_Layout_{MapLayoutsTabControl.SelectedIndex}";
+            saveFileDialog1.FileName = $"{FloorSelectorComboBox.Text.Replace(" ", "_")}_Layout_{CurrentLayoutTabIndex}";
             saveFileDialog1.RestoreDirectory = true;
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -210,18 +262,11 @@ namespace DigimonWorld2Tool
                     switch (saveFileDialog1.FilterIndex)
                     {
                         case 1:
-                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Jpeg);
+                            CurrentLayoutRenderTab.MapRenderLayer.Image.Save(fs, ImageFormat.Png);
                             break;
 
                         case 2:
-                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Bmp);
-                            break;
-
-                        case 3:
-                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Gif);
-                            break;
-                        case 4:
-                            LayoutRenderer.CurrentTargetRenderer.Image.Save(fs, ImageFormat.Png);
+                            CurrentLayoutRenderTab.MapRenderLayer.Image.Save(fs, ImageFormat.Bmp);
                             break;
                     }
 

@@ -266,7 +266,7 @@ namespace DigimonWorld2Tool
         private void ResizeGridButton_Click(object sender, EventArgs e)
         {
             LayoutRenderer.tileSize = (int)TileSizeInput.Value;
-            LayoutRenderer.DrawGrid();
+            DrawCurrentMapLayout();
         }
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)

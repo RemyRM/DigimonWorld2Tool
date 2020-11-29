@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DigimonWorld2MapVisualizer.Files;
@@ -14,7 +10,9 @@ using DigimonWorld2MapVisualizer.Utility;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using System.Diagnostics;
+using System.Reflection;
 
+[assembly: AssemblyVersion("1.0.0.0")]
 namespace DigimonWorld2Tool
 {
     public partial class DigimonWorld2ToolForm : Form
@@ -57,7 +55,7 @@ namespace DigimonWorld2Tool
             new DungFile("DUNG7200", "Tera Domain", 0x20, 0xFF),
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
-        
+
         private static Domain CurrentDomain { get; set; }
         private static DomainFloor CurrentDomainFloor { get; set; }
         private static DomainMapLayout CurrentMapLayout { get; set; }
@@ -86,8 +84,8 @@ namespace DigimonWorld2Tool
             DungeonFilesComboBox.SelectedIndex = 0;
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
-            MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;  
-            
+            MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;
+
         }
 
         #region MapVisualizer
@@ -96,7 +94,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void SetupLayoutRenderTabs()
         {
-            CurrentLayoutRenderTab =  FloorLayoutRenderTabs[0] = renderLayoutTab0;
+            CurrentLayoutRenderTab = FloorLayoutRenderTabs[0] = renderLayoutTab0;
             FloorLayoutRenderTabs[1] = renderLayoutTab1;
             FloorLayoutRenderTabs[2] = renderLayoutTab2;
             FloorLayoutRenderTabs[3] = renderLayoutTab3;
@@ -145,7 +143,7 @@ namespace DigimonWorld2Tool
             CurrentDomain = new Domain(filename);
 
             CurrentLayoutRenderTab = FloorLayoutRenderTabs[0];
-            
+
             //Automatically select the first floor when we create a new domain
             FloorSelectorComboBox.SelectedIndex = 0;
         }
@@ -153,7 +151,7 @@ namespace DigimonWorld2Tool
         private void SetCurrentLayoutInformation()
         {
             if (CurrentMapLayout == null)
-                return; 
+                return;
 
             OccuranceChanceLabel.Text = $"Occurance chance: {CurrentMapLayout.OccuranceRatePercentage}%";
             MapDataAddressLabel.Text = $"Map data address: {CurrentMapLayout.BaseMapPlanPointerAddressDecimal:X8}";
@@ -271,7 +269,7 @@ namespace DigimonWorld2Tool
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            if(ShowGridCheckbox.Checked)
+            if (ShowGridCheckbox.Checked)
                 LayoutRenderer.DrawGrid();
             else
                 LayoutRenderer.HideGrid();

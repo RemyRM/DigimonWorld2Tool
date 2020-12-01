@@ -7,15 +7,13 @@ namespace DigimonWorld2MapVisualizer.MapObjects
     {
         public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
         public Vector2 Position { get; private set; }
-        public readonly byte Item;
-        public readonly byte SpawnChance;
+        public readonly byte[] Item;
 
         public Chest(IFloorLayoutObject.MapObjectType objectType, byte[] data)
         {
             this.ObjectType = objectType;
             this.Position = new Vector2(data[0], data[1]);
-            this.Item = data[2];
-            this.SpawnChance = data[3];
+            this.Item = data[2..4];
         }
 
         public override string ToString()

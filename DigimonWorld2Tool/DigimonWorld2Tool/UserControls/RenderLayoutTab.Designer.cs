@@ -56,6 +56,7 @@ namespace DigimonWorld2Tool.UserControls
             this.GridRenderLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.GridRenderLayer.TabIndex = 1;
             this.GridRenderLayer.TabStop = false;
+            this.GridRenderLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridRenderLayer_MouseClick);
             // 
             // MapRenderLayer
             // 

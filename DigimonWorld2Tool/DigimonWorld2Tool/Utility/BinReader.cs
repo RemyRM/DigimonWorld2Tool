@@ -28,6 +28,9 @@ namespace DigimonWorld2MapVisualizer
         /// <returns>A list containing all entries found</returns>
         public static List<byte[]> ReadBytesToDelimiter(int pointerStartIndex, int dataSegmentLength, byte delimiter = 0xFF)
         {
+            try
+            {
+
             int delimiterIndex = Array.IndexOf(Domain.DomainData, delimiter, pointerStartIndex);
             byte[] data = Domain.DomainData[pointerStartIndex..delimiterIndex];
 
@@ -38,6 +41,11 @@ namespace DigimonWorld2MapVisualizer
                 allObjectsData.Add(objectData);
             }
             return allObjectsData;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

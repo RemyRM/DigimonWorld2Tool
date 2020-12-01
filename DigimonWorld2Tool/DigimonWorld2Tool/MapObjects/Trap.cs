@@ -69,7 +69,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
             public override string ToString()
             {
-                return $"TrapSlot Type {Type}, Level {Level}";
+                return $"{Type}, Level {Level}";
             }
         }
     }

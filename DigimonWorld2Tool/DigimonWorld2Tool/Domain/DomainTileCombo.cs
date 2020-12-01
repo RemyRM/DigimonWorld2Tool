@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.MapObjects;
 using DigimonWorld2MapVisualizer.Utility;
+using static DigimonWorld2MapVisualizer.MapObjects.Digimon;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
@@ -223,18 +224,18 @@ namespace DigimonWorld2MapVisualizer.Domains
     {
         public readonly Dictionary<DomainTileType, Color> TileTypeColour = new Dictionary<DomainTileType, Color>
         {
-            {DomainTileType.Empty, Color.Black },
-            {DomainTileType.Room, Color.Gray },
-            {DomainTileType.Corridor, Color.DarkGray },
-            {DomainTileType.Water, Color.DarkBlue },
-            {DomainTileType.Fire, Color.DarkRed },
-            {DomainTileType.Nature, Color.DarkGreen },
+            {DomainTileType.Empty, Color.Black},
+            {DomainTileType.Room, Color.Gray},
+            {DomainTileType.Corridor, Color.DarkGray},
+            {DomainTileType.Water, Color.DarkBlue},
+            {DomainTileType.Fire, Color.DarkRed},
+            {DomainTileType.Nature, Color.DarkGreen},
             {DomainTileType.Machine, Color.FromArgb(255, 184, 165, 24)},
             {DomainTileType.Dark, Color.DarkMagenta},
         };
         public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
         {
-            {IFloorLayoutObject.MapObjectType.Chest, Color.FromArgb(255,0,255,0) },
+            {IFloorLayoutObject.MapObjectType.Chest, Color.FromArgb(255, 0, 255, 0)},
             {IFloorLayoutObject.MapObjectType.Digimon, Color.FromArgb(255, 255, 100, 100)},
             {IFloorLayoutObject.MapObjectType.Warp, Color.Cyan},
             {IFloorLayoutObject.MapObjectType.Trap, Color.Yellow},
@@ -293,11 +294,11 @@ namespace DigimonWorld2MapVisualizer.Domains
                         break;
                 }
             }
-            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
+            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
             {
                 FloorObjectText = "T";
             }
-            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
+            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
             {
                 Trap trap = (Trap)FloorObject;
                 switch (trap.Type)
@@ -306,7 +307,7 @@ namespace DigimonWorld2MapVisualizer.Domains
                         FloorObjectText = "";
                         break;
                     case Trap.TrapSlot.TrapType.Swamp:
-                        FloorObjectText = "S";
+                        FloorObjectText = "A";
                         break;
                     case Trap.TrapSlot.TrapType.Spore:
                         FloorObjectText = "S";
@@ -333,22 +334,29 @@ namespace DigimonWorld2MapVisualizer.Domains
                         break;
                 }
             }
-            else if(FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Digimon)
+            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Digimon)
             {
                 Digimon digimon = (Digimon)FloorObject;
-                switch (digimon.Level)
+                DigimonPack pack = digimon.DigimonPacks[0];
+                switch (pack.Level)
                 {
-                    case Digimon.DigimonPackLevel.Rookie:
+                    case DigimonPack.DigimonPackLevel.Rookie:
                         FloorObjectText = "R";
                         break;
-                    case Digimon.DigimonPackLevel.Champion:
+                    case DigimonPack.DigimonPackLevel.Champion:
                         FloorObjectText = "C";
                         break;
-                    case Digimon.DigimonPackLevel.Ultimate:
+                    case DigimonPack.DigimonPackLevel.Ultimate:
                         FloorObjectText = "U";
                         break;
-                    case Digimon.DigimonPackLevel.Mega:
+                    case DigimonPack.DigimonPackLevel.Mega:
                         FloorObjectText = "M";
+                        break;
+                    case DigimonPack.DigimonPackLevel.Special:
+                        FloorObjectText = "S";
+                        break;
+                    case DigimonPack.DigimonPackLevel.Error:
+                        FloorObjectText = "E";
                         break;
                     default:
                         break;

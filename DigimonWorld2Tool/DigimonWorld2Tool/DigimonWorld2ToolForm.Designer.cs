@@ -31,6 +31,10 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ObjectSubTypeLabel = new System.Windows.Forms.Label();
+            this.ObjectPositionLabel = new System.Windows.Forms.Label();
+            this.ObjectTypeLabel = new System.Windows.Forms.Label();
             this.FloorInformationGroupbox = new System.Windows.Forms.GroupBox();
             this.UnknownData2Label = new System.Windows.Forms.Label();
             this.FloorHeaderAddressLabel = new System.Windows.Forms.Label();
@@ -74,10 +78,13 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.MapCustomizerTab = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ObjectSlotOneLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotTwoLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotThreeLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotFourLabel = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.FloorInformationGroupbox.SuspendLayout();
             this.LayoutInformationGroupbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TileSizeInput)).BeginInit();
@@ -90,7 +97,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.SuspendLayout();
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -132,6 +138,51 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Size = new System.Drawing.Size(1181, 839);
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ObjectSlotFourLabel);
+            this.groupBox1.Controls.Add(this.ObjectSlotThreeLabel);
+            this.groupBox1.Controls.Add(this.ObjectSlotTwoLabel);
+            this.groupBox1.Controls.Add(this.ObjectSlotOneLabel);
+            this.groupBox1.Controls.Add(this.ObjectSubTypeLabel);
+            this.groupBox1.Controls.Add(this.ObjectPositionLabel);
+            this.groupBox1.Controls.Add(this.ObjectTypeLabel);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(680, 273);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(396, 326);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Selected object information";
+            // 
+            // ObjectSubTypeLabel
+            // 
+            this.ObjectSubTypeLabel.AutoSize = true;
+            this.ObjectSubTypeLabel.Location = new System.Drawing.Point(180, 25);
+            this.ObjectSubTypeLabel.Name = "ObjectSubTypeLabel";
+            this.ObjectSubTypeLabel.Size = new System.Drawing.Size(74, 21);
+            this.ObjectSubTypeLabel.TabIndex = 2;
+            this.ObjectSubTypeLabel.Text = "Sub type:";
+            // 
+            // ObjectPositionLabel
+            // 
+            this.ObjectPositionLabel.AutoSize = true;
+            this.ObjectPositionLabel.Location = new System.Drawing.Point(6, 75);
+            this.ObjectPositionLabel.Name = "ObjectPositionLabel";
+            this.ObjectPositionLabel.Size = new System.Drawing.Size(72, 21);
+            this.ObjectPositionLabel.TabIndex = 1;
+            this.ObjectPositionLabel.Text = "Position: ";
+            // 
+            // ObjectTypeLabel
+            // 
+            this.ObjectTypeLabel.AutoSize = true;
+            this.ObjectTypeLabel.Location = new System.Drawing.Point(6, 25);
+            this.ObjectTypeLabel.Name = "ObjectTypeLabel";
+            this.ObjectTypeLabel.Size = new System.Drawing.Size(45, 21);
+            this.ObjectTypeLabel.TabIndex = 0;
+            this.ObjectTypeLabel.Text = "Type:";
             // 
             // FloorInformationGroupbox
             // 
@@ -616,26 +667,41 @@ namespace DigimonWorld2Tool
             this.MapCustomizerTab.Text = "Empty";
             this.MapCustomizerTab.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // ObjectSlotOneLabel
             // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(680, 273);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(396, 326);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Selected object information";
+            this.ObjectSlotOneLabel.AutoSize = true;
+            this.ObjectSlotOneLabel.Location = new System.Drawing.Point(6, 125);
+            this.ObjectSlotOneLabel.Name = "ObjectSlotOneLabel";
+            this.ObjectSlotOneLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotOneLabel.TabIndex = 3;
+            this.ObjectSlotOneLabel.Text = "Slot 1:";
             // 
-            // label1
+            // ObjectSlotTwoLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "In progress";
+            this.ObjectSlotTwoLabel.AutoSize = true;
+            this.ObjectSlotTwoLabel.Location = new System.Drawing.Point(6, 175);
+            this.ObjectSlotTwoLabel.Name = "ObjectSlotTwoLabel";
+            this.ObjectSlotTwoLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotTwoLabel.TabIndex = 4;
+            this.ObjectSlotTwoLabel.Text = "Slot 2:";
+            // 
+            // ObjectSlotThreeLabel
+            // 
+            this.ObjectSlotThreeLabel.AutoSize = true;
+            this.ObjectSlotThreeLabel.Location = new System.Drawing.Point(6, 225);
+            this.ObjectSlotThreeLabel.Name = "ObjectSlotThreeLabel";
+            this.ObjectSlotThreeLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotThreeLabel.TabIndex = 5;
+            this.ObjectSlotThreeLabel.Text = "Slot 3:";
+            // 
+            // ObjectSlotFourLabel
+            // 
+            this.ObjectSlotFourLabel.AutoSize = true;
+            this.ObjectSlotFourLabel.Location = new System.Drawing.Point(6, 275);
+            this.ObjectSlotFourLabel.Name = "ObjectSlotFourLabel";
+            this.ObjectSlotFourLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotFourLabel.TabIndex = 6;
+            this.ObjectSlotFourLabel.Text = "Slot 4:";
             // 
             // DigimonWorld2ToolForm
             // 
@@ -651,6 +717,8 @@ namespace DigimonWorld2Tool
             this.TabControlMain.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.FloorInformationGroupbox.ResumeLayout(false);
             this.FloorInformationGroupbox.PerformLayout();
             this.LayoutInformationGroupbox.ResumeLayout(false);
@@ -665,8 +733,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.ResumeLayout(false);
             this.TabLayoutPage6.ResumeLayout(false);
             this.TabLayoutPage7.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -719,7 +785,13 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label TrapsAddressLabel;
         private System.Windows.Forms.Label ChestsAddressLabel;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ObjectTypeLabel;
+        private System.Windows.Forms.Label ObjectPositionLabel;
+        private System.Windows.Forms.Label ObjectSubTypeLabel;
+        private System.Windows.Forms.Label ObjectSlotOneLabel;
+        private System.Windows.Forms.Label ObjectSlotTwoLabel;
+        private System.Windows.Forms.Label ObjectSlotFourLabel;
+        private System.Windows.Forms.Label ObjectSlotThreeLabel;
     }
 }
 

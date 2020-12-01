@@ -39,7 +39,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         public readonly int BaseMapTrapsPointerAddressDecimal;
         public readonly int BaseMapDigimonPointerAddressDecimal;
 
-        private readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
+        public readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
         private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
 
         public DomainMapLayout(int baseMapPlanPointerAddressDecimal)
@@ -137,12 +137,14 @@ namespace DigimonWorld2MapVisualizer.Domains
                 // the domain tile it is on, of which we then take the righTile.
                 if (item.Position.x % 2 == 0)
                 {
-                    Tile tile = FloorLayoutTiles.First(o => o.Position == item.Position).leftTile;
+                    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position).leftTile;
+                    if(tile != null)
                     tile.AddObjectToTile(item);
                 }
                 else
                 {
-                    Tile tile = FloorLayoutTiles.First(o => o.Position == item.Position - Vector2.Right).rightTile;
+                    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position - Vector2.Right).rightTile;
+                    if(tile != null)
                     tile.AddObjectToTile(item);
                 }
             }

@@ -11,8 +11,9 @@ using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using System.Diagnostics;
 using System.Reflection;
+using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.MapObjects;
 
-[assembly: AssemblyVersion("1.0.0.0")]
 namespace DigimonWorld2Tool
 {
     public partial class DigimonWorld2ToolForm : Form
@@ -58,7 +59,7 @@ namespace DigimonWorld2Tool
 
         private static Domain CurrentDomain { get; set; }
         private static DomainFloor CurrentDomainFloor { get; set; }
-        private static DomainMapLayout CurrentMapLayout { get; set; }
+        public static DomainMapLayout CurrentMapLayout { get; set; }
 
         public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
@@ -174,6 +175,52 @@ namespace DigimonWorld2Tool
             DigimonPacksLabel.Text = $"Digimon packs: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.DigimonPacks)}";
         }
 
+        public void SetCurrentObjectInformation(Tile tile)
+        {
+            ResetCurrentObjectInformation();
+            ObjectTypeLabel.Text = $"Type: {tile.FloorObject.ObjectType}";
+            ObjectPositionLabel.Text = $"Position: {tile.Position}";
+
+            switch (tile.FloorObject.ObjectType)
+            {
+                case IFloorLayoutObject.MapObjectType.Warp:
+                    Warp warp = (Warp)tile.FloorObject;
+                    ObjectSubTypeLabel.Text = $"Subtype: {warp.Type}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Chest:
+                    Chest chest = (Chest)tile.FloorObject;
+                    ObjectSlotOneLabel.Text = $"Slot 1: {chest.Item[0]}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {chest.Item[1]}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Trap:
+                    Trap trap = (Trap)tile.FloorObject;
+                    ObjectSubTypeLabel.Text = $"Subtype: {trap.Type}";
+                    ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {trap.TrapSlots[3]}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Digimon:
+                    Digimon digimon = (Digimon)tile.FloorObject;
+                    ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ResetCurrentObjectInformation()
+        {
+            ObjectTypeLabel.Text = $"Type: ";
+            ObjectPositionLabel.Text = "Position: ";
+            ObjectSubTypeLabel.Text = "Sub type: ";
+            ObjectSlotOneLabel.Text = "Slot 1:";
+            ObjectSlotTwoLabel.Text = "Slot 2:";
+            ObjectSlotThreeLabel.Text = "Slot 3:";
+            ObjectSlotFourLabel.Text = "Slot 4:";
+        }
+
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0)
@@ -197,7 +244,9 @@ namespace DigimonWorld2Tool
             }
             else
             {
+                CurrentMapLayout = CurrentDomainFloor.UniqueDomainMapLayouts[0];
                 DrawCurrentMapLayout();
+                SetCurrentLayoutInformation();
             }
 
             SetCurrentFloorInformation();
@@ -247,7 +296,7 @@ namespace DigimonWorld2Tool
         private void DrawCurrentMapLayout()
         {
             LayoutRenderer.SetupFloorLayerBitmap();
-            CurrentDomain.floorsInThisDomain[CurrentFloorIndex].UniqueDomainMapLayouts[CurrentLayoutTabIndex].DrawMap();
+            CurrentMapLayout.DrawMap();
         }
 
         /// <summary>
@@ -265,6 +314,8 @@ namespace DigimonWorld2Tool
         {
             LayoutRenderer.tileSize = (int)TileSizeInput.Value;
             DrawCurrentMapLayout();
+            if (ShowGridCheckbox.Checked)
+                LayoutRenderer.DrawGrid();
         }
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)

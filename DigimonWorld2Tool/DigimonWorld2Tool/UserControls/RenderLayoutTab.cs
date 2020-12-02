@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2MapVisualizer.Utility;
 using System.Linq;
@@ -42,7 +36,10 @@ namespace DigimonWorld2Tool.UserControls
             }
 
             if (tile.FloorObject == null)
+            {
+                DigimonWorld2ToolForm.Main.ResetCurrentObjectInformation();
                 return;
+            }
 
             DigimonWorld2ToolForm.Main.SetCurrentObjectInformation(tile);
         }

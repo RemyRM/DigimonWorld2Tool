@@ -32,6 +32,10 @@ namespace DigimonWorld2Tool
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ObjectSlotFourLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotThreeLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotTwoLabel = new System.Windows.Forms.Label();
+            this.ObjectSlotOneLabel = new System.Windows.Forms.Label();
             this.ObjectSubTypeLabel = new System.Windows.Forms.Label();
             this.ObjectPositionLabel = new System.Windows.Forms.Label();
             this.ObjectTypeLabel = new System.Windows.Forms.Label();
@@ -78,10 +82,7 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.MapCustomizerTab = new System.Windows.Forms.TabPage();
-            this.ObjectSlotOneLabel = new System.Windows.Forms.Label();
-            this.ObjectSlotTwoLabel = new System.Windows.Forms.Label();
-            this.ObjectSlotThreeLabel = new System.Windows.Forms.Label();
-            this.ObjectSlotFourLabel = new System.Windows.Forms.Label();
+            this.SelectFileButton = new System.Windows.Forms.Button();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -97,6 +98,7 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.SuspendLayout();
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
+            this.MapCustomizerTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -156,6 +158,42 @@ namespace DigimonWorld2Tool
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selected object information";
+            // 
+            // ObjectSlotFourLabel
+            // 
+            this.ObjectSlotFourLabel.AutoSize = true;
+            this.ObjectSlotFourLabel.Location = new System.Drawing.Point(6, 275);
+            this.ObjectSlotFourLabel.Name = "ObjectSlotFourLabel";
+            this.ObjectSlotFourLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotFourLabel.TabIndex = 6;
+            this.ObjectSlotFourLabel.Text = "Slot 4:";
+            // 
+            // ObjectSlotThreeLabel
+            // 
+            this.ObjectSlotThreeLabel.AutoSize = true;
+            this.ObjectSlotThreeLabel.Location = new System.Drawing.Point(6, 225);
+            this.ObjectSlotThreeLabel.Name = "ObjectSlotThreeLabel";
+            this.ObjectSlotThreeLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotThreeLabel.TabIndex = 5;
+            this.ObjectSlotThreeLabel.Text = "Slot 3:";
+            // 
+            // ObjectSlotTwoLabel
+            // 
+            this.ObjectSlotTwoLabel.AutoSize = true;
+            this.ObjectSlotTwoLabel.Location = new System.Drawing.Point(6, 175);
+            this.ObjectSlotTwoLabel.Name = "ObjectSlotTwoLabel";
+            this.ObjectSlotTwoLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotTwoLabel.TabIndex = 4;
+            this.ObjectSlotTwoLabel.Text = "Slot 2:";
+            // 
+            // ObjectSlotOneLabel
+            // 
+            this.ObjectSlotOneLabel.AutoSize = true;
+            this.ObjectSlotOneLabel.Location = new System.Drawing.Point(6, 125);
+            this.ObjectSlotOneLabel.Name = "ObjectSlotOneLabel";
+            this.ObjectSlotOneLabel.Size = new System.Drawing.Size(53, 21);
+            this.ObjectSlotOneLabel.TabIndex = 3;
+            this.ObjectSlotOneLabel.Text = "Slot 1:";
             // 
             // ObjectSubTypeLabel
             // 
@@ -659,49 +697,24 @@ namespace DigimonWorld2Tool
             // 
             // MapCustomizerTab
             // 
+            this.MapCustomizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.MapCustomizerTab.Controls.Add(this.SelectFileButton);
             this.MapCustomizerTab.Location = new System.Drawing.Point(4, 24);
             this.MapCustomizerTab.Name = "MapCustomizerTab";
             this.MapCustomizerTab.Padding = new System.Windows.Forms.Padding(3);
             this.MapCustomizerTab.Size = new System.Drawing.Size(1181, 839);
             this.MapCustomizerTab.TabIndex = 1;
             this.MapCustomizerTab.Text = "Empty";
-            this.MapCustomizerTab.UseVisualStyleBackColor = true;
             // 
-            // ObjectSlotOneLabel
+            // SelectFileButton
             // 
-            this.ObjectSlotOneLabel.AutoSize = true;
-            this.ObjectSlotOneLabel.Location = new System.Drawing.Point(6, 125);
-            this.ObjectSlotOneLabel.Name = "ObjectSlotOneLabel";
-            this.ObjectSlotOneLabel.Size = new System.Drawing.Size(53, 21);
-            this.ObjectSlotOneLabel.TabIndex = 3;
-            this.ObjectSlotOneLabel.Text = "Slot 1:";
-            // 
-            // ObjectSlotTwoLabel
-            // 
-            this.ObjectSlotTwoLabel.AutoSize = true;
-            this.ObjectSlotTwoLabel.Location = new System.Drawing.Point(6, 175);
-            this.ObjectSlotTwoLabel.Name = "ObjectSlotTwoLabel";
-            this.ObjectSlotTwoLabel.Size = new System.Drawing.Size(53, 21);
-            this.ObjectSlotTwoLabel.TabIndex = 4;
-            this.ObjectSlotTwoLabel.Text = "Slot 2:";
-            // 
-            // ObjectSlotThreeLabel
-            // 
-            this.ObjectSlotThreeLabel.AutoSize = true;
-            this.ObjectSlotThreeLabel.Location = new System.Drawing.Point(6, 225);
-            this.ObjectSlotThreeLabel.Name = "ObjectSlotThreeLabel";
-            this.ObjectSlotThreeLabel.Size = new System.Drawing.Size(53, 21);
-            this.ObjectSlotThreeLabel.TabIndex = 5;
-            this.ObjectSlotThreeLabel.Text = "Slot 3:";
-            // 
-            // ObjectSlotFourLabel
-            // 
-            this.ObjectSlotFourLabel.AutoSize = true;
-            this.ObjectSlotFourLabel.Location = new System.Drawing.Point(6, 275);
-            this.ObjectSlotFourLabel.Name = "ObjectSlotFourLabel";
-            this.ObjectSlotFourLabel.Size = new System.Drawing.Size(53, 21);
-            this.ObjectSlotFourLabel.TabIndex = 6;
-            this.ObjectSlotFourLabel.Text = "Slot 4:";
+            this.SelectFileButton.Location = new System.Drawing.Point(22, 17);
+            this.SelectFileButton.Name = "SelectFileButton";
+            this.SelectFileButton.Size = new System.Drawing.Size(163, 70);
+            this.SelectFileButton.TabIndex = 0;
+            this.SelectFileButton.Text = "Select file";
+            this.SelectFileButton.UseVisualStyleBackColor = true;
+            this.SelectFileButton.Click += new System.EventHandler(this.SelectFileButton_Click);
             // 
             // DigimonWorld2ToolForm
             // 
@@ -733,6 +746,7 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.ResumeLayout(false);
             this.TabLayoutPage6.ResumeLayout(false);
             this.TabLayoutPage7.ResumeLayout(false);
+            this.MapCustomizerTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -792,6 +806,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label ObjectSlotTwoLabel;
         private System.Windows.Forms.Label ObjectSlotFourLabel;
         private System.Windows.Forms.Label ObjectSlotThreeLabel;
+        private System.Windows.Forms.Button SelectFileButton;
     }
 }
 

@@ -9,14 +9,13 @@ The current visualizer is only able to render the following data on the layout:
 - Digimon Position
 
 The following items are currently being worked on:
-- Switching to Winforms 
-- Adding GUI Layout for selecting maps
-- Pixel/Vector based renderer for map layouts
+- Displaying digimon data
+- Displaying trap data
+- Displaying chest data
 
 # Roadmap
 
 Functionality I may or may not add at some point in the future, in semi order of relevance (subject to change and my motivation):
-- Graphical interface
 - Map layout editor
 - Map layout randomizer
 - Map object editor
@@ -46,4 +45,10 @@ These people have helped immensely in helping to figure out the data format, pro
 - Luminaires
 
 # Feedback
+
 Found a bug, got a suggestion, or any other kind of feedback? Please create an issue or hit me up on discord @RemyRm#8070
+
+# Screenshots
+
+![Map visualized 1](https://i.gyazo.com/c8848c73bed57198a5e2175a4f049555.png)
+![Map visualized 2](https://i.gyazo.com/4a0b560f5f48a73b89eeba36c6924c1c.png)

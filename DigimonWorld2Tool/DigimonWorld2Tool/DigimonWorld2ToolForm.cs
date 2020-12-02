@@ -7,12 +7,12 @@ using System.Windows.Forms;
 using DigimonWorld2MapVisualizer.Files;
 using DigimonWorld2MapVisualizer.Domains;
 using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapVisualizer.MapObjects;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using System.Diagnostics;
-using System.Reflection;
-using DigimonWorld2MapVisualizer.Interfaces;
-using DigimonWorld2MapVisualizer.MapObjects;
+using System.IO;
 
 namespace DigimonWorld2Tool
 {
@@ -185,7 +185,7 @@ namespace DigimonWorld2Tool
             {
                 case IFloorLayoutObject.MapObjectType.Warp:
                     Warp warp = (Warp)tile.FloorObject;
-                    ObjectSubTypeLabel.Text = $"Subtype: {warp.Type}";
+                    ObjectSubTypeLabel.Text = $"Sub type: {warp.Type}";
                     break;
                 case IFloorLayoutObject.MapObjectType.Chest:
                     Chest chest = (Chest)tile.FloorObject;
@@ -194,7 +194,7 @@ namespace DigimonWorld2Tool
                     break;
                 case IFloorLayoutObject.MapObjectType.Trap:
                     Trap trap = (Trap)tile.FloorObject;
-                    ObjectSubTypeLabel.Text = $"Subtype: {trap.Type}";
+                    ObjectSubTypeLabel.Text = $"Sub type: {trap.Type}";
                     ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
                     ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
                     ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
@@ -202,6 +202,7 @@ namespace DigimonWorld2Tool
                     break;
                 case IFloorLayoutObject.MapObjectType.Digimon:
                     Digimon digimon = (Digimon)tile.FloorObject;
+                    ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
                     ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
                     ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
                     break;
@@ -210,7 +211,7 @@ namespace DigimonWorld2Tool
             }
         }
 
-        private void ResetCurrentObjectInformation()
+        public void ResetCurrentObjectInformation()
         {
             ObjectTypeLabel.Text = $"Type: ";
             ObjectPositionLabel.Text = "Position: ";
@@ -363,5 +364,93 @@ namespace DigimonWorld2Tool
             }
         }
         #endregion
+
+        #region tab2
+        private void SelectFileButton_Click(object sender, EventArgs e)
+        {
+
+            ReadFilesRecursively();
+
+
+            //using (OpenFileDialog fd = new OpenFileDialog())
+            //{
+            //    fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+            //    fd.Filter = "Bin files (.bin)|*.bin";
+            //    fd.RestoreDirectory = true;
+
+            //    if(fd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        var filePath = fd.FileName;
+
+            //        var fileStream = fd.OpenFile();
+
+            //        byte[] arr;
+            //        using (BinaryReader reader = new BinaryReader(fileStream))
+            //        {
+            //            using MemoryStream memoryStream = new MemoryStream();
+            //            reader.BaseStream.CopyTo(memoryStream);
+            //            arr =  memoryStream.ToArray();
+            //        }
+
+            //        var result = TextConversion.DigiBytesToString(arr);
+            //    }
+            //}
+
+        }
+        #endregion
+
+        static string originalBaseDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+        static string destinationBaseDirection = @"D:\Dev\C#\DigimonWorld2MapVisualizer\ConvertedFiles\AAA\4.AAA";
+        private static void ReadFilesRecursively()
+        {
+
+            ProcessDirectory(originalBaseDirectory);
+        }
+
+        public static void ProcessDirectory(string targetDirectory)
+        {
+            // Process the list of files found in the directory.
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            foreach (string fileName in fileEntries)
+                ProcessFile(fileName);
+
+            // Recurse into subdirectories of this directory.
+            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
+                    subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
+                    subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
+                    subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
+                    continue;
+
+                var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
+                if (!Directory.Exists(targetDir))
+                    Directory.CreateDirectory(targetDir);
+
+                ProcessDirectory(subdirectory);
+            }
+        }
+
+        // Insert logic for processing found files here.
+        public static void ProcessFile(string path)
+        {
+            //Debug.WriteLine("Processed file '{0}'.", path);
+            string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
+            targetPath = targetPath.Replace(".BIN", ".txt");
+
+            Debug.WriteLine(targetPath);
+            byte[] arr;
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            {
+                using MemoryStream memoryStream = new MemoryStream();
+                reader.BaseStream.CopyTo(memoryStream);
+                arr = memoryStream.ToArray();
+            }
+
+            var result = TextConversion.DigiBytesToString(arr);
+
+            File.WriteAllText(targetPath, result);
+        }
     }
 }

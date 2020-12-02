@@ -82,6 +82,7 @@ namespace DigimonWorld2MapVisualizer.Utility
             {"FC", "<NEW BOX>"},
             {"FD", " "},
             {"FE", "<ENTER>"},
+            {"FF", "\n" },
             {"F000", "Akira"},
             {"F006", "Digimon"},
             {"F007", "you"},
@@ -158,7 +159,10 @@ namespace DigimonWorld2MapVisualizer.Utility
             string converted = "";
             foreach (var item in input)
             {
-                converted += ConversionLookupTable[item.ToString("X2")];
+                if (ConversionLookupTable.ContainsKey(item.ToString("X2")))
+                    converted += ConversionLookupTable[item.ToString("X2")];
+                else
+                    converted += item.ToString("X2");
             }
             return converted;
         }

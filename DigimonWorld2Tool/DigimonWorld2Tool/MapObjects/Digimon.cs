@@ -3,6 +3,9 @@ using DigimonWorld2MapVisualizer.Utility;
 using DigimonWorld2MapVisualizer.Domains;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using System.Diagnostics;
+using DigimonWorld2Tool;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {
@@ -10,7 +13,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
     {
         public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
         public Vector2 Position { get; private set; }
-        public readonly DigimonPack[] DigimonPacks = new DigimonPack[2];
+        public readonly DigimonPack[] DigimonPacks = new DigimonPack[4];
 
         public Digimon(IFloorLayoutObject.MapObjectType objectType, byte[] data)
         {
@@ -18,10 +21,15 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             this.Position = new Vector2(data[0], data[1]);
 
             // The last 2 bytes of data contains the data for the digimon packs, 1 byte each.
-            for (int i = 0; i < 2; i++)
-            {
-                DigimonPacks[i] = new DigimonPack(data[i + 2]);
-            }
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    DigimonPacks[i] = new DigimonPack(data[i + 2]);
+            //}
+
+            DigimonPacks[0] = new DigimonPack(data[2].GetLeftHalfByte(), Position);
+            DigimonPacks[1] = new DigimonPack(data[2].GetRightHalfByte(), Position);
+            DigimonPacks[2] = new DigimonPack(data[3].GetLeftHalfByte(), Position);
+            DigimonPacks[3] = new DigimonPack(data[3].GetRightHalfByte(), Position);
         }
 
         public override string ToString()
@@ -38,6 +46,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                 Ultimate = 2,
                 Mega = 4,
                 Special = 5,
+                None = 10,
                 Error = 99,
             }
 
@@ -156,15 +165,38 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             public readonly byte EncounterID;
             public readonly byte ModelID;
             public readonly string ObjectModelDigimonName;
-            public readonly byte OccuranceRate;
             public readonly DigimonPackLevel Level;
 
-            public DigimonPack(byte data)
+            public DigimonPack(byte data, Vector2 position)
             {
                 if (data == 0)
+                {
+                    this.ObjectModelDigimonName = "No Digimon";
+                    this.Level = DigimonPackLevel.None;
                     return;
+                }
 
-                this.EncounterID = DomainFloor.CurrentDomainFloor.DigimonPacks[data.GetLeftHalfByte() - 1];
+                if (data - 1 > 4)
+                {
+                    var floorId = Domain.Main.floorsInThisDomain.Count;
+                    var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Index {data} is not a valid digimon on floor {floorId} " +
+                                                                   $"layout {layoutID} at position (Dec){position}");
+
+                    switch (DigimonWorld2ToolForm.ErrorMode)
+                    {
+                        case DigimonWorld2ToolForm.Strictness.Strict:
+                            DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Error checking set to Strict, stopping execution.");
+                            return;
+
+                        case DigimonWorld2ToolForm.Strictness.Sloppy:
+                            this.ObjectModelDigimonName = "Error";
+                            this.Level = DigimonPackLevel.Error;
+                            return;
+                    }
+                }
+
+                this.EncounterID = DomainFloor.CurrentDomainFloor.DigimonPacks[data - 1];
                 this.ModelID = PackIDToModelIDLookupTable[EncounterID];
                 DigimonOverworldPack pack = DigimonModelLookupTable.FirstOrDefault(o => o.OverworldID == ModelID);
 
@@ -172,7 +204,6 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                 {
                     this.ObjectModelDigimonName = pack.Name;
                     this.Level = pack.Level;
-                    this.OccuranceRate = data.GetRightHalfByte();
                 }
                 else
                 {
@@ -181,14 +212,12 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                         case 0x62:
                             this.ObjectModelDigimonName = "Kim";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x65:
                         case 0x75:
                             this.ObjectModelDigimonName = "Bertran";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x66:
@@ -197,50 +226,42 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                         case 0x8C:
                             this.ObjectModelDigimonName = "Damien";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x6C:
                         case 0x81:
                             this.ObjectModelDigimonName = "Crimson";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x76:
                             this.ObjectModelDigimonName = "Jojo";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x77:
                             this.ObjectModelDigimonName = "Mark Shultz";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x78:
                             this.ObjectModelDigimonName = "Debbie";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x79:
                             this.ObjectModelDigimonName = "Chris Connor";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x90:
                             this.ObjectModelDigimonName = "NeoCrimson";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x9c:
                             this.ObjectModelDigimonName = "Centarumon";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         case 0x67:
@@ -255,13 +276,11 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                         case 0x89:
                             this.ObjectModelDigimonName = "Blood knight";
                             this.Level = DigimonPackLevel.Special;
-                            this.OccuranceRate = 100;
                             break;
 
                         default:
                             this.ObjectModelDigimonName = "Error";
                             this.Level = DigimonPackLevel.Error;
-                            this.OccuranceRate = 100;
                             break;
                     }
                 }

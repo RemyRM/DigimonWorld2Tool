@@ -8,6 +8,8 @@ namespace DigimonWorld2MapVisualizer.Domains
 {
     public class Domain
     {
+        public static Domain Main;
+
         private static readonly string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
 
         public static byte[] DomainData { get; private set; }
@@ -17,6 +19,7 @@ namespace DigimonWorld2MapVisualizer.Domains
 
         public Domain(string domainFilename)
         {
+            Main = this;
             DomainData = ReadDomainMapDataFile(domainFilename);
 
             bool searchingDomainFloors = true;
@@ -57,11 +60,9 @@ namespace DigimonWorld2MapVisualizer.Domains
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                System.Diagnostics.Debug.WriteLine($"Error; File {domainFilename} was not found in directory:" +
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Error; File {domainFilename} was not found in directory:" +
                                   $"\n{FilePathToMapDirectory}" +
                                   $"\nPlease check if the \\Maps\\ folder exists and contains the DUNGxxxx.BIN file(s).");
-                Console.ForegroundColor = ConsoleColor.Gray;
                 return null;
             }
         }

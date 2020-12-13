@@ -17,7 +17,19 @@ namespace DigimonWorld2Tool
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += new EventHandler(ApplicationApplicationExit);
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomainProcessExit);
             Application.Run(new DigimonWorld2ToolForm());
+        }
+
+        private static void CurrentDomainProcessExit(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private static void ApplicationApplicationExit(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

@@ -2,17 +2,6 @@
 
 Work in progress visualizer for the map data of the game "Digimon World 2".
 
-The current visualizer is only able to render the following data on the layout:
-- Warp    Position+Type
-- Chest   Position
-- Trap    Position+Type
-- Digimon Position
-
-The following items are currently being worked on:
-- Displaying digimon data
-- Displaying trap data
-- Displaying chest data
-
 # Roadmap
 
 Functionality I may or may not add at some point in the future, in semi order of relevance (subject to change and my motivation):

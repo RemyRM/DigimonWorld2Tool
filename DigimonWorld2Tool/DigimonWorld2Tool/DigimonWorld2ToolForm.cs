@@ -13,6 +13,7 @@ using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using System.Diagnostics;
 using System.IO;
+using System.Collections.Generic;
 
 namespace DigimonWorld2Tool
 {
@@ -57,6 +58,8 @@ namespace DigimonWorld2Tool
             new DungFile("DUNG7300", "ABCDE", 0x21, 0x00),
         };
 
+        private static List<string> LogStack = new List<string>();
+
         private static Domain CurrentDomain { get; set; }
         private static DomainFloor CurrentDomainFloor { get; set; }
         public static DomainMapLayout CurrentMapLayout { get; set; }
@@ -66,6 +69,13 @@ namespace DigimonWorld2Tool
 
         public static int CurrentFloorIndex;
         public static int CurrentLayoutTabIndex;
+
+        public enum Strictness
+        {
+            Strict,
+            Sloppy,
+        }
+        public static Strictness ErrorMode;
 
         public DigimonWorld2ToolForm()
         {
@@ -80,13 +90,23 @@ namespace DigimonWorld2Tool
         {
             SetupLayoutRenderTabs();
 
+            ErrorCheckingComboBox.Items.Add(Strictness.Strict);
+            ErrorCheckingComboBox.Items.Add(Strictness.Sloppy);
+            LoadUserSettings();
             AddDungeonFilesToComboBox();
             TabControlMain.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
             MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;
+        }
 
+        private void LoadUserSettings()
+        {
+            GridPosHexCheckBox.Checked = (bool)Properties.Settings.Default["ShowGridPosAsHex"];
+            ShowGridCheckbox.Checked = (bool)Properties.Settings.Default["ShowGridLines"];
+            TileSizeInput.Value = (int)Properties.Settings.Default["GridTileSize"];
+            ErrorCheckingComboBox.SelectedIndex = (int)Enum.Parse(typeof(Strictness), (string)Properties.Settings.Default["ErrorCheckingLevel"]);
         }
 
         #region MapVisualizer
@@ -125,11 +145,16 @@ namespace DigimonWorld2Tool
         /// <summary>
         /// Create a new domain whenever a new domain gets selected from the combobox
         /// </summary>
-        private void DungeonFilesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void DungeonFilesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var filename = DungeonFiles.FirstOrDefault(o => o.DomainName == DungeonFilesComboBox.SelectedItem.ToString()).Filename;
             CreateNewDomain(filename);
         }
+
+        //private async void CreateNewDomainAsync(string filename)
+        //{
+
+        //}
 
         /// <summary>
         /// Create a new domain and start rendering the first floor, first layout.
@@ -138,15 +163,21 @@ namespace DigimonWorld2Tool
         private void CreateNewDomain(string filename)
         {
             FloorSelectorComboBox.Items.Clear();
-#if DEBUG
-            Debug.WriteLine($"Loading {filename}");
-#endif
-            CurrentDomain = new Domain(filename);
+            AddLogToLogWindow($"Loading {filename}");
 
-            CurrentLayoutRenderTab = FloorLayoutRenderTabs[0];
+            try
+            {
+                CurrentDomain = new Domain(filename);
 
-            //Automatically select the first floor when we create a new domain
-            FloorSelectorComboBox.SelectedIndex = 0;
+                CurrentLayoutRenderTab = FloorLayoutRenderTabs[0];
+
+                //Automatically select the first floor when we create a new domain
+                FloorSelectorComboBox.SelectedIndex = 0;
+            }
+            catch (Exception e)
+            {
+                AddErrorToLogWindow(e, false);
+            }
         }
 
         private void SetCurrentLayoutInformation()
@@ -179,7 +210,7 @@ namespace DigimonWorld2Tool
         {
             ResetCurrentObjectInformation();
             ObjectTypeLabel.Text = $"Type: {tile.FloorObject.ObjectType}";
-            ObjectPositionLabel.Text = $"Position: {tile.Position}";
+            ObjectPositionLabel.Text = GridPosHexCheckBox.Checked ? $"Position: ({tile.Position.x:X2}, {tile.Position.y:X2})" : $"Position: {tile.Position}";
 
             switch (tile.FloorObject.ObjectType)
             {
@@ -189,8 +220,10 @@ namespace DigimonWorld2Tool
                     break;
                 case IFloorLayoutObject.MapObjectType.Chest:
                     Chest chest = (Chest)tile.FloorObject;
-                    ObjectSlotOneLabel.Text = $"Slot 1: {chest.Item[0]}";
-                    ObjectSlotTwoLabel.Text = $"Slot 2: {chest.Item[1]}";
+                    ObjectSlotOneLabel.Text = $"Slot 1: {chest.chestSlots[0].ItemName} - {chest.chestSlots[0].TrapLevel}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {chest.chestSlots[1].ItemName} - {chest.chestSlots[1].TrapLevel}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {chest.chestSlots[2].ItemName} - {chest.chestSlots[2].TrapLevel}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {chest.chestSlots[3].ItemName} - {chest.chestSlots[3].TrapLevel}";
                     break;
                 case IFloorLayoutObject.MapObjectType.Trap:
                     Trap trap = (Trap)tile.FloorObject;
@@ -205,6 +238,8 @@ namespace DigimonWorld2Tool
                     ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
                     ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
                     ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {digimon.DigimonPacks[2].ObjectModelDigimonName:X2}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {digimon.DigimonPacks[3].ObjectModelDigimonName:X2}";
                     break;
                 default:
                     break;
@@ -224,10 +259,7 @@ namespace DigimonWorld2Tool
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabControlMain.SelectedIndex == 0)
-            {
-                //We should only load the visualizer when the tab is selected
-            }
+
         }
 
         /// <summary>
@@ -269,8 +301,7 @@ namespace DigimonWorld2Tool
                 CurrentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex = availableLayouts;
                 CurrentMapLayout = CurrentDomainFloor.UniqueDomainMapLayouts[CurrentLayoutTabIndex];
 
-                LayoutNotAvailableLabel.Visible = true;
-                DisableLayoutNotAvailableMessage();
+                AddWarningToLogWindow($"Selected layout was not unique, selecting last unique layout.", false);
 
                 if (CurrentLayoutRenderTab.MapRenderLayer == FloorLayoutRenderTabs[CurrentLayoutTabIndex].MapRenderLayer)
                     return;
@@ -282,12 +313,6 @@ namespace DigimonWorld2Tool
 
             CurrentLayoutRenderTab = FloorLayoutRenderTabs[CurrentLayoutTabIndex];
             DrawCurrentMapLayout();
-        }
-
-        private async void DisableLayoutNotAvailableMessage()
-        {
-            await Task.Delay(5000);
-            LayoutNotAvailableLabel.Visible = false;
         }
 
         /// <summary>
@@ -305,7 +330,14 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
-            MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
+            if (GridPosHexCheckBox.Checked)
+            {
+                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:X2}";
+            }
+            else
+            {
+                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
+            }
         }
 
         /// <summary>
@@ -313,6 +345,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void ResizeGridButton_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default["GridTileSize"] = (int)TileSizeInput.Value;
             LayoutRenderer.tileSize = (int)TileSizeInput.Value;
             DrawCurrentMapLayout();
             if (ShowGridCheckbox.Checked)
@@ -321,6 +354,7 @@ namespace DigimonWorld2Tool
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default["ShowGridLines"] = ShowGridCheckbox.Checked;
             if (ShowGridCheckbox.Checked)
                 LayoutRenderer.DrawGrid();
             else
@@ -451,6 +485,81 @@ namespace DigimonWorld2Tool
             var result = TextConversion.DigiBytesToString(arr);
 
             File.WriteAllText(targetPath, result);
+        }
+
+        private void GridPosHexCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["ShowGridPosAsHex"] = GridPosHexCheckBox.Checked;
+        }
+
+        private void ErrorCheckingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["ErrorCheckingLevel"] = ErrorCheckingComboBox.SelectedItem.ToString();
+            ErrorMode = (Strictness)ErrorCheckingComboBox.SelectedIndex;
+            switch (ErrorMode)
+            {
+                case Strictness.Strict:
+                    AddLogToLogWindow($"Error checking set to {Strictness.Strict}, Errors will stop execution.");
+                    break;
+                case Strictness.Sloppy:
+                    AddLogToLogWindow($"Error checking set to {Strictness.Sloppy}, Errors will be ignored when possible.");
+                    break;
+            }
+        }
+
+        public void AddErrorToLogWindow(object error, bool stackTrace = true)
+        {
+            StackFrame callStack = new StackFrame(1, true);
+            var delimiterIndex = callStack.GetFileName().LastIndexOf("\\");
+            var fileName = callStack.GetFileName().Substring(delimiterIndex + 1, callStack.GetFileName().Length - delimiterIndex - 1);
+            var errorWithStack = $"{fileName}:{callStack.GetFileLineNumber()} - {error}{Environment.NewLine}";
+
+            LogRichTextBox.SelectionColor = Color.Red;
+
+            if (stackTrace)
+                LogRichTextBox.AppendText($"{errorWithStack}");
+            else
+                LogRichTextBox.AppendText($"{error}{Environment.NewLine}");
+
+            LogRichTextBox.SelectionColor = Color.White;
+
+            LogStack.Add(errorWithStack);
+        }
+
+        public void AddWarningToLogWindow(object warning, bool stackTrace = true)
+        {
+            StackFrame callStack = new StackFrame(1, true);
+            var delimiterIndex = callStack.GetFileName().LastIndexOf("\\");
+            var fileName = callStack.GetFileName().Substring(delimiterIndex + 1, callStack.GetFileName().Length - delimiterIndex - 1);
+            var warningWithStack = $"{fileName}:{callStack.GetFileLineNumber()} - {warning}{Environment.NewLine}";
+
+            LogRichTextBox.SelectionColor = Color.Yellow;
+
+            if (stackTrace)
+                LogRichTextBox.AppendText($"{warningWithStack}");
+            else
+                LogRichTextBox.AppendText($"{warning}{Environment.NewLine}");
+
+            LogRichTextBox.SelectionColor = Color.White;
+
+            LogStack.Add(warningWithStack);
+        }
+
+        public void AddLogToLogWindow(object log)
+        {
+            LogRichTextBox.SelectionColor = Color.White;
+            LogRichTextBox.AppendText($"{log}{Environment.NewLine}");
+
+            LogStack.Add(log.ToString());
+        }
+
+        /// <summary>
+        /// Make sure we automatically scroll to the bottom of the log
+        /// </summary>
+        private void LogRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            LogRichTextBox.SelectionStart = LogRichTextBox.Text.Length;
+            LogRichTextBox.ScrollToCaret();
         }
     }
 }

@@ -132,6 +132,21 @@ namespace DigimonWorld2MapVisualizer.Domains
         {
             foreach (var item in FloorLayoutObjects)
             {
+                if (item.Position.x >= 64 || item.Position.y >= 48)
+                {
+                    var floorId = Domain.Main.floorsInThisDomain.Count;
+                    var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"{item.ObjectType} is out of bounds {item.Position} on floor {floorId} layout {layoutID}");
+                    if(DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Strict)
+                    {
+                        return;
+                    }
+                    else if (DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Sloppy)
+                    {
+                        continue;
+                    }
+                }
                 // If the position of the object is even we can use the objects position to find the tile and place it on the left tile.
                 // However since a grid tile is 2x1 we need to subtract 1 from the object's x axis if it's an odd number, which gives us
                 // the domain tile it is on, of which we then take the righTile.

@@ -22,7 +22,8 @@ namespace DigimonWorld2MapVisualizer.Domains
             FloorLayout7 = 36,
             UnknownValue2 = 40,
             TrapLevel = 44,
-            DigimonTable = 48
+            DigimonTable = 48,
+            TreasureTable = 52
         }
 
         private const int MapPlansPerFloor = 8;
@@ -35,6 +36,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         internal readonly int UnknownData2Decimal;
         internal readonly byte[] TrapLevel;
         internal readonly byte[] DigimonPacks = new byte[4];
+        internal readonly DomainFloorTreasureData[] PossibleTreasure = new DomainFloorTreasureData[8];
 
         public readonly List<DomainMapLayout> UniqueDomainMapLayouts = new List<DomainMapLayout>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
@@ -46,12 +48,13 @@ namespace DigimonWorld2MapVisualizer.Domains
             this.FloorBasePointerAddressDecimal = floorBasePointerAddressDecimal;
 
             FloorName = ReadDomainName();
+
             UnknownDataDecimal = ReadUnknownData();
             UnknownData2Decimal = ReadUnknownData2();
             TrapLevel = ReadTrapLevel();
             DigimonPacks = ReadDigimonPacks();
+            PossibleTreasure = ReadTreasure();
 
-            //PrintDomainFloorData();
             CreateMapPlansForFloor();
             AddMapLayoutOccuranceCount();
         }
@@ -70,17 +73,6 @@ namespace DigimonWorld2MapVisualizer.Domains
                     domainMapPlan.OccuranceRatePercentage = (domainMapPlan.OccuranceRate / 8d) * 100; // There are always 8 possible layouts per floor
                 }
             }
-        }
-
-        /// <summary>
-        /// Print the anme and the unkown data of this floor
-        /// </summary>
-        private void PrintDomainFloorData()
-        {
-            System.Diagnostics.Debug.Write($"\nFloor name: {FloorName}");
-            System.Diagnostics.Debug.Write($"\nFloor base pointer addres: {FloorBasePointerAddressDecimal:X8}");
-            System.Diagnostics.Debug.Write($"\nUnknown data: {UnknownDataDecimal:X8}");
-            System.Diagnostics.Debug.Write($"\n");
         }
 
         /// <summary>
@@ -161,6 +153,22 @@ namespace DigimonWorld2MapVisualizer.Domains
                 trapLevel[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TrapLevel + i];
             }
             return trapLevel;
+        }
+
+        /// <summary>
+        /// Get the 8x 4 byte array of bytes that represent the item data for that floor. This array is used as a lookup table by chests.
+        /// Chests use their last 4 half bytes as an ID for this array.
+        /// </summary>
+        /// <returns></returns>
+        private DomainFloorTreasureData[] ReadTreasure()
+        {
+            DomainFloorTreasureData[] treasureData = new DomainFloorTreasureData[8];
+            for (int i = 0; i < 8; i++)
+            {
+                var treasureItemAddress = FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
+                treasureData[i] = new DomainFloorTreasureData(Domain.DomainData[treasureItemAddress..(treasureItemAddress+4)]);
+            }
+            return treasureData;
         }
 
         /// <summary>

@@ -5,6 +5,7 @@ using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.MapObjects;
 using DigimonWorld2MapVisualizer.Utility;
 using static DigimonWorld2MapVisualizer.MapObjects.Digimon;
+using DigimonWorld2Tool;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
@@ -195,6 +196,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             {0xAD, "Machine_Water"},
             {0xAE, "Dark_Water"},
             {0xAF, "Room_Water"},
+            {0xFE, "Error" }
         };
 
         /// <summary>
@@ -211,7 +213,35 @@ namespace DigimonWorld2MapVisualizer.Domains
             this.TileValueHex = tileValue.ToString("X2");
             this.Position = position;
 
-            string[] splitTilesLeftRight = TileComboLookup[TileValueDec].ToString().Split('_');
+            string[] splitTilesLeftRight = new string[2];
+            if (TileComboLookup.TryGetValue(TileValueDec, out string value))
+            {
+                splitTilesLeftRight = value.Split('_');
+            }
+            else
+            {
+                var floorId = Domain.Main.floorsInThisDomain.Count;
+                var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Key {TileValueDec:X2} was not found in the tile lookup " +
+                                                               $"table on floor {floorId}, layout {layoutID} at position (Dec){position}");
+
+                switch (DigimonWorld2ToolForm.ErrorMode)
+                {
+                    case DigimonWorld2ToolForm.Strictness.Strict:
+                        throw new Exception("Error checking set to Strict, stopping execution.");
+                        //DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Error checking set to Strict, stopping execution.");
+                        break;
+                        //return;
+
+                    case DigimonWorld2ToolForm.Strictness.Sloppy:
+                        splitTilesLeftRight[0] = "Error";
+                        splitTilesLeftRight[1] = "Error";
+                        break;
+                }
+            }
+
+            //this be null??
             var leftTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[0]);
             var rightTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[1]);
 
@@ -232,6 +262,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             {DomainTileType.Nature, Color.DarkGreen},
             {DomainTileType.Machine, Color.FromArgb(255, 184, 165, 24)},
             {DomainTileType.Dark, Color.DarkMagenta},
+            {DomainTileType.Error, Color.Magenta},
         };
         public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
         {
@@ -251,6 +282,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             Nature,
             Machine,
             Dark,
+            Error
         }
 
         public readonly Vector2 Position;
@@ -275,6 +307,14 @@ namespace DigimonWorld2MapVisualizer.Domains
         {
             FloorObject = objectToPlace;
             TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
+
+            if(TileType == DomainTileType.Empty || TileType == DomainTileType.Error)
+            {
+                var floorId = Domain.Main.floorsInThisDomain.Count;
+                var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+                DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"{FloorObject.ObjectType} is placed on an empty tile at position (Dec){Position} " +
+                                                               $"on floor {floorId} layout {layoutID}", false);
+            }
 
             if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Warp)
             {

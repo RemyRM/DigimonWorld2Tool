@@ -31,6 +31,11 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.LogGroupBox = new System.Windows.Forms.GroupBox();
+            this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.ErrorCheckingComboBox = new System.Windows.Forms.ComboBox();
+            this.ErrorCheckLevelLabel = new System.Windows.Forms.Label();
+            this.GridPosHexCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ObjectSlotFourLabel = new System.Windows.Forms.Label();
             this.ObjectSlotThreeLabel = new System.Windows.Forms.Label();
@@ -59,7 +64,6 @@ namespace DigimonWorld2Tool
             this.TileSizeInput = new System.Windows.Forms.NumericUpDown();
             this.TileSizeLabel = new System.Windows.Forms.Label();
             this.MousePositionOnGridLabel = new System.Windows.Forms.Label();
-            this.LayoutNotAvailableLabel = new System.Windows.Forms.Label();
             this.FloorSelectorComboBox = new System.Windows.Forms.ComboBox();
             this.SelectFloorLabel = new System.Windows.Forms.Label();
             this.MapLayoutsTabControl = new System.Windows.Forms.TabControl();
@@ -81,10 +85,9 @@ namespace DigimonWorld2Tool
             this.renderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
-            this.MapCustomizerTab = new System.Windows.Forms.TabPage();
-            this.SelectFileButton = new System.Windows.Forms.Button();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
+            this.LogGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.FloorInformationGroupbox.SuspendLayout();
             this.LayoutInformationGroupbox.SuspendLayout();
@@ -98,7 +101,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.SuspendLayout();
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
-            this.MapCustomizerTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -107,11 +109,10 @@ namespace DigimonWorld2Tool
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControlMain.Controls.Add(this.MapVisualizerTab);
-            this.TabControlMain.Controls.Add(this.MapCustomizerTab);
             this.TabControlMain.Location = new System.Drawing.Point(-5, 0);
             this.TabControlMain.Name = "TabControlMain";
             this.TabControlMain.SelectedIndex = 0;
-            this.TabControlMain.Size = new System.Drawing.Size(1189, 867);
+            this.TabControlMain.Size = new System.Drawing.Size(1579, 867);
             this.TabControlMain.TabIndex = 0;
             this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
@@ -119,6 +120,10 @@ namespace DigimonWorld2Tool
             // 
             this.MapVisualizerTab.AutoScroll = true;
             this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerTab.Controls.Add(this.LogGroupBox);
+            this.MapVisualizerTab.Controls.Add(this.ErrorCheckingComboBox);
+            this.MapVisualizerTab.Controls.Add(this.ErrorCheckLevelLabel);
+            this.MapVisualizerTab.Controls.Add(this.GridPosHexCheckBox);
             this.MapVisualizerTab.Controls.Add(this.groupBox1);
             this.MapVisualizerTab.Controls.Add(this.FloorInformationGroupbox);
             this.MapVisualizerTab.Controls.Add(this.SaveLayoutToFileButton);
@@ -128,7 +133,6 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Controls.Add(this.TileSizeInput);
             this.MapVisualizerTab.Controls.Add(this.TileSizeLabel);
             this.MapVisualizerTab.Controls.Add(this.MousePositionOnGridLabel);
-            this.MapVisualizerTab.Controls.Add(this.LayoutNotAvailableLabel);
             this.MapVisualizerTab.Controls.Add(this.FloorSelectorComboBox);
             this.MapVisualizerTab.Controls.Add(this.SelectFloorLabel);
             this.MapVisualizerTab.Controls.Add(this.MapLayoutsTabControl);
@@ -137,9 +141,79 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Location = new System.Drawing.Point(4, 24);
             this.MapVisualizerTab.Name = "MapVisualizerTab";
             this.MapVisualizerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MapVisualizerTab.Size = new System.Drawing.Size(1181, 839);
+            this.MapVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
+            // 
+            // LogGroupBox
+            // 
+            this.LogGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogGroupBox.Controls.Add(this.LogRichTextBox);
+            this.LogGroupBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LogGroupBox.ForeColor = System.Drawing.Color.White;
+            this.LogGroupBox.Location = new System.Drawing.Point(687, 548);
+            this.LogGroupBox.Name = "LogGroupBox";
+            this.LogGroupBox.Padding = new System.Windows.Forms.Padding(5);
+            this.LogGroupBox.Size = new System.Drawing.Size(880, 279);
+            this.LogGroupBox.TabIndex = 22;
+            this.LogGroupBox.TabStop = false;
+            this.LogGroupBox.Text = "Log";
+            this.LogGroupBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
+            // 
+            // LogRichTextBox
+            // 
+            this.LogRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.LogRichTextBox.ForeColor = System.Drawing.Color.White;
+            this.LogRichTextBox.Location = new System.Drawing.Point(7, 27);
+            this.LogRichTextBox.Name = "LogRichTextBox";
+            this.LogRichTextBox.ReadOnly = true;
+            this.LogRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.LogRichTextBox.Size = new System.Drawing.Size(867, 246);
+            this.LogRichTextBox.TabIndex = 0;
+            this.LogRichTextBox.Text = "";
+            this.LogRichTextBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
+            // 
+            // ErrorCheckingComboBox
+            // 
+            this.ErrorCheckingComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ErrorCheckingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ErrorCheckingComboBox.FormattingEnabled = true;
+            this.ErrorCheckingComboBox.Location = new System.Drawing.Point(436, 212);
+            this.ErrorCheckingComboBox.Name = "ErrorCheckingComboBox";
+            this.ErrorCheckingComboBox.Size = new System.Drawing.Size(121, 23);
+            this.ErrorCheckingComboBox.TabIndex = 21;
+            this.ErrorCheckingComboBox.SelectedIndexChanged += new System.EventHandler(this.ErrorCheckingComboBox_SelectedIndexChanged);
+            // 
+            // ErrorCheckLevelLabel
+            // 
+            this.ErrorCheckLevelLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ErrorCheckLevelLabel.AutoSize = true;
+            this.ErrorCheckLevelLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ErrorCheckLevelLabel.ForeColor = System.Drawing.Color.White;
+            this.ErrorCheckLevelLabel.Location = new System.Drawing.Point(321, 216);
+            this.ErrorCheckLevelLabel.Name = "ErrorCheckLevelLabel";
+            this.ErrorCheckLevelLabel.Size = new System.Drawing.Size(108, 20);
+            this.ErrorCheckLevelLabel.TabIndex = 20;
+            this.ErrorCheckLevelLabel.Text = "Error Checking:";
+            // 
+            // GridPosHexCheckBox
+            // 
+            this.GridPosHexCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GridPosHexCheckBox.AutoSize = true;
+            this.GridPosHexCheckBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GridPosHexCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GridPosHexCheckBox.Location = new System.Drawing.Point(92, 809);
+            this.GridPosHexCheckBox.Name = "GridPosHexCheckBox";
+            this.GridPosHexCheckBox.Size = new System.Drawing.Size(54, 24);
+            this.GridPosHexCheckBox.TabIndex = 19;
+            this.GridPosHexCheckBox.Text = "Hex";
+            this.GridPosHexCheckBox.UseVisualStyleBackColor = true;
+            this.GridPosHexCheckBox.CheckedChanged += new System.EventHandler(this.GridPosHexCheckBox_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -152,7 +226,7 @@ namespace DigimonWorld2Tool
             this.groupBox1.Controls.Add(this.ObjectTypeLabel);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(680, 273);
+            this.groupBox1.Location = new System.Drawing.Point(687, 212);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(396, 326);
             this.groupBox1.TabIndex = 18;
@@ -321,7 +395,6 @@ namespace DigimonWorld2Tool
             // 
             // LayoutInformationGroupbox
             // 
-            this.LayoutInformationGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LayoutInformationGroupbox.Controls.Add(this.DigimonAddressLabel);
             this.LayoutInformationGroupbox.Controls.Add(this.TrapsAddressLabel);
             this.LayoutInformationGroupbox.Controls.Add(this.ChestsAddressLabel);
@@ -330,7 +403,7 @@ namespace DigimonWorld2Tool
             this.LayoutInformationGroupbox.Controls.Add(this.OccuranceChanceLabel);
             this.LayoutInformationGroupbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LayoutInformationGroupbox.ForeColor = System.Drawing.Color.White;
-            this.LayoutInformationGroupbox.Location = new System.Drawing.Point(680, 15);
+            this.LayoutInformationGroupbox.Location = new System.Drawing.Point(687, 15);
             this.LayoutInformationGroupbox.Name = "LayoutInformationGroupbox";
             this.LayoutInformationGroupbox.Size = new System.Drawing.Size(490, 180);
             this.LayoutInformationGroupbox.TabIndex = 14;
@@ -446,24 +519,11 @@ namespace DigimonWorld2Tool
             this.MousePositionOnGridLabel.AutoSize = true;
             this.MousePositionOnGridLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MousePositionOnGridLabel.ForeColor = System.Drawing.Color.White;
-            this.MousePositionOnGridLabel.Location = new System.Drawing.Point(595, 250);
+            this.MousePositionOnGridLabel.Location = new System.Drawing.Point(12, 809);
             this.MousePositionOnGridLabel.Name = "MousePositionOnGridLabel";
             this.MousePositionOnGridLabel.Size = new System.Drawing.Size(74, 21);
             this.MousePositionOnGridLabel.TabIndex = 9;
             this.MousePositionOnGridLabel.Text = "X:00 Y:00";
-            // 
-            // LayoutNotAvailableLabel
-            // 
-            this.LayoutNotAvailableLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LayoutNotAvailableLabel.AutoSize = true;
-            this.LayoutNotAvailableLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LayoutNotAvailableLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.LayoutNotAvailableLabel.Location = new System.Drawing.Point(12, 810);
-            this.LayoutNotAvailableLabel.Name = "LayoutNotAvailableLabel";
-            this.LayoutNotAvailableLabel.Size = new System.Drawing.Size(434, 20);
-            this.LayoutNotAvailableLabel.TabIndex = 7;
-            this.LayoutNotAvailableLabel.Text = "Layout not selected as it not unique, selecting last unique layout.";
-            this.LayoutNotAvailableLabel.Visible = false;
             // 
             // FloorSelectorComboBox
             // 
@@ -695,33 +755,12 @@ namespace DigimonWorld2Tool
             this.DomainNameLabel.TabIndex = 0;
             this.DomainNameLabel.Text = "Domain:";
             // 
-            // MapCustomizerTab
-            // 
-            this.MapCustomizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.MapCustomizerTab.Controls.Add(this.SelectFileButton);
-            this.MapCustomizerTab.Location = new System.Drawing.Point(4, 24);
-            this.MapCustomizerTab.Name = "MapCustomizerTab";
-            this.MapCustomizerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MapCustomizerTab.Size = new System.Drawing.Size(1181, 839);
-            this.MapCustomizerTab.TabIndex = 1;
-            this.MapCustomizerTab.Text = "Empty";
-            // 
-            // SelectFileButton
-            // 
-            this.SelectFileButton.Location = new System.Drawing.Point(22, 17);
-            this.SelectFileButton.Name = "SelectFileButton";
-            this.SelectFileButton.Size = new System.Drawing.Size(163, 70);
-            this.SelectFileButton.TabIndex = 0;
-            this.SelectFileButton.Text = "Select file";
-            this.SelectFileButton.UseVisualStyleBackColor = true;
-            this.SelectFileButton.Click += new System.EventHandler(this.SelectFileButton_Click);
-            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(1180, 863);
+            this.ClientSize = new System.Drawing.Size(1570, 863);
             this.Controls.Add(this.TabControlMain);
             this.Name = "DigimonWorld2ToolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
@@ -730,6 +769,7 @@ namespace DigimonWorld2Tool
             this.TabControlMain.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
+            this.LogGroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.FloorInformationGroupbox.ResumeLayout(false);
@@ -746,7 +786,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.ResumeLayout(false);
             this.TabLayoutPage6.ResumeLayout(false);
             this.TabLayoutPage7.ResumeLayout(false);
-            this.MapCustomizerTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -767,9 +806,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.TabPage TabLayoutPage6;
         private System.Windows.Forms.TabPage TabLayoutPage7;
         private System.Windows.Forms.Label SelectFloorLabel;
-        private System.Windows.Forms.TabPage MapCustomizerTab;
         public System.Windows.Forms.ComboBox FloorSelectorComboBox;
-        private System.Windows.Forms.Label LayoutNotAvailableLabel;
         private System.Windows.Forms.Label MousePositionOnGridLabel;
         private System.Windows.Forms.NumericUpDown TileSizeInput;
         private System.Windows.Forms.Label TileSizeLabel;
@@ -806,7 +843,11 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label ObjectSlotTwoLabel;
         private System.Windows.Forms.Label ObjectSlotFourLabel;
         private System.Windows.Forms.Label ObjectSlotThreeLabel;
-        private System.Windows.Forms.Button SelectFileButton;
+        private System.Windows.Forms.CheckBox GridPosHexCheckBox;
+        private System.Windows.Forms.ComboBox ErrorCheckingComboBox;
+        private System.Windows.Forms.Label ErrorCheckLevelLabel;
+        private System.Windows.Forms.GroupBox LogGroupBox;
+        private System.Windows.Forms.RichTextBox LogRichTextBox;
     }
 }
 

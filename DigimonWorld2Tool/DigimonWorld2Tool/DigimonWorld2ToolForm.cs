@@ -67,6 +67,8 @@ namespace DigimonWorld2Tool
         public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
 
+        public static string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
+
         public static int CurrentFloorIndex;
         public static int CurrentLayoutTabIndex;
 
@@ -103,6 +105,11 @@ namespace DigimonWorld2Tool
 
         private void LoadUserSettings()
         {
+            FilePathToMapDirectory = (string)Properties.Settings.Default["MapDataFolder"];
+            if (FilePathToMapDirectory == "")
+                FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
+            CurrentMapDataFolderLabel.Text = FilePathToMapDirectory;
+
             GridPosHexCheckBox.Checked = (bool)Properties.Settings.Default["ShowGridPosAsHex"];
             ShowGridCheckbox.Checked = (bool)Properties.Settings.Default["ShowGridLines"];
             TileSizeInput.Value = (int)Properties.Settings.Default["GridTileSize"];
@@ -288,6 +295,9 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void MapLayoutsTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(CurrentDomain == null)
+                return;
+
             CurrentLayoutTabIndex = MapLayoutsTabControl.SelectedIndex;
             CurrentLayoutRenderTab = FloorLayoutRenderTabs[CurrentLayoutTabIndex];
 
@@ -566,6 +576,19 @@ namespace DigimonWorld2Tool
         private void ShowLogsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default["ShowLogs"] = ShowLogsCheckBox.Checked;
+        }
+
+        private void SelectMapDataFolderButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if(folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                folderBrowser.SelectedPath += "\\";
+                Properties.Settings.Default["MapDataFolder"] = folderBrowser.SelectedPath;
+                FilePathToMapDirectory = folderBrowser.SelectedPath;
+                AddLogToLogWindow($"Changed map data directory to {FilePathToMapDirectory}");
+                CurrentMapDataFolderLabel.Text = folderBrowser.SelectedPath;
+            }
         }
     }
 }

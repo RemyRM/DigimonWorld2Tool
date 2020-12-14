@@ -10,7 +10,7 @@ namespace DigimonWorld2MapVisualizer.Domains
     {
         public static Domain Main;
 
-        private static readonly string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
+        //private static readonly string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
 
         public static byte[] DomainData { get; private set; }
         public readonly string DomainName;
@@ -49,9 +49,9 @@ namespace DigimonWorld2MapVisualizer.Domains
         /// <remarks>Technically we could use reader.ReadBytes(int.MaxValue), however this may cause an OutOfMemoryException on 32-bit systems.</remarks>
         private byte[] ReadDomainMapDataFile(string domainFilename)
         {
-            if (File.Exists(FilePathToMapDirectory + domainFilename))
+            if (File.Exists(DigimonWorld2ToolForm.FilePathToMapDirectory + domainFilename))
             {
-                using (BinaryReader reader = new BinaryReader(File.Open(FilePathToMapDirectory + domainFilename, FileMode.Open)))
+                using (BinaryReader reader = new BinaryReader(File.Open(DigimonWorld2ToolForm.FilePathToMapDirectory + domainFilename, FileMode.Open)))
                 {
                     using MemoryStream memoryStream = new MemoryStream();
                     reader.BaseStream.CopyTo(memoryStream);
@@ -61,7 +61,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             else
             {
                 DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Error; File {domainFilename} was not found in directory:" +
-                                  $"\n{FilePathToMapDirectory}" +
+                                  $"\n{DigimonWorld2ToolForm.FilePathToMapDirectory }" +
                                   $"\nPlease check if the \\Maps\\ folder exists and contains the DUNGxxxx.BIN file(s).");
                 return null;
             }

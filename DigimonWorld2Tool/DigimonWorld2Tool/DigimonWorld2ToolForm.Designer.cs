@@ -86,6 +86,8 @@ namespace DigimonWorld2Tool
             this.renderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
+            this.SelectMapDataFolderButton = new System.Windows.Forms.Button();
+            this.CurrentMapDataFolderLabel = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -121,6 +123,8 @@ namespace DigimonWorld2Tool
             // 
             this.MapVisualizerTab.AutoScroll = true;
             this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerTab.Controls.Add(this.CurrentMapDataFolderLabel);
+            this.MapVisualizerTab.Controls.Add(this.SelectMapDataFolderButton);
             this.MapVisualizerTab.Controls.Add(this.ShowLogsCheckBox);
             this.MapVisualizerTab.Controls.Add(this.LogGroupBox);
             this.MapVisualizerTab.Controls.Add(this.ErrorCheckingComboBox);
@@ -152,7 +156,7 @@ namespace DigimonWorld2Tool
             this.ShowLogsCheckBox.AutoSize = true;
             this.ShowLogsCheckBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ShowLogsCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ShowLogsCheckBox.Location = new System.Drawing.Point(687, 533);
+            this.ShowLogsCheckBox.Location = new System.Drawing.Point(687, 514);
             this.ShowLogsCheckBox.Name = "ShowLogsCheckBox";
             this.ShowLogsCheckBox.Size = new System.Drawing.Size(96, 24);
             this.ShowLogsCheckBox.TabIndex = 23;
@@ -168,10 +172,10 @@ namespace DigimonWorld2Tool
             this.LogGroupBox.Controls.Add(this.LogRichTextBox);
             this.LogGroupBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LogGroupBox.ForeColor = System.Drawing.Color.White;
-            this.LogGroupBox.Location = new System.Drawing.Point(687, 556);
+            this.LogGroupBox.Location = new System.Drawing.Point(687, 544);
             this.LogGroupBox.Name = "LogGroupBox";
             this.LogGroupBox.Padding = new System.Windows.Forms.Padding(5);
-            this.LogGroupBox.Size = new System.Drawing.Size(880, 271);
+            this.LogGroupBox.Size = new System.Drawing.Size(880, 283);
             this.LogGroupBox.TabIndex = 22;
             this.LogGroupBox.TabStop = false;
             this.LogGroupBox.Text = "Log";
@@ -188,7 +192,7 @@ namespace DigimonWorld2Tool
             this.LogRichTextBox.Name = "LogRichTextBox";
             this.LogRichTextBox.ReadOnly = true;
             this.LogRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.LogRichTextBox.Size = new System.Drawing.Size(867, 238);
+            this.LogRichTextBox.Size = new System.Drawing.Size(867, 250);
             this.LogRichTextBox.TabIndex = 0;
             this.LogRichTextBox.Text = "";
             this.LogRichTextBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
@@ -241,7 +245,7 @@ namespace DigimonWorld2Tool
             this.groupBox1.Controls.Add(this.ObjectTypeLabel);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(687, 201);
+            this.groupBox1.Location = new System.Drawing.Point(687, 182);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(396, 326);
             this.groupBox1.TabIndex = 18;
@@ -323,7 +327,7 @@ namespace DigimonWorld2Tool
             this.FloorInformationGroupbox.ForeColor = System.Drawing.Color.White;
             this.FloorInformationGroupbox.Location = new System.Drawing.Point(19, 15);
             this.FloorInformationGroupbox.Name = "FloorInformationGroupbox";
-            this.FloorInformationGroupbox.Size = new System.Drawing.Size(590, 180);
+            this.FloorInformationGroupbox.Size = new System.Drawing.Size(590, 161);
             this.FloorInformationGroupbox.TabIndex = 17;
             this.FloorInformationGroupbox.TabStop = false;
             this.FloorInformationGroupbox.Text = "Floor information";
@@ -420,7 +424,7 @@ namespace DigimonWorld2Tool
             this.LayoutInformationGroupbox.ForeColor = System.Drawing.Color.White;
             this.LayoutInformationGroupbox.Location = new System.Drawing.Point(687, 15);
             this.LayoutInformationGroupbox.Name = "LayoutInformationGroupbox";
-            this.LayoutInformationGroupbox.Size = new System.Drawing.Size(490, 180);
+            this.LayoutInformationGroupbox.Size = new System.Drawing.Size(490, 161);
             this.LayoutInformationGroupbox.TabIndex = 14;
             this.LayoutInformationGroupbox.TabStop = false;
             this.LayoutInformationGroupbox.Text = "Layout information";
@@ -770,6 +774,28 @@ namespace DigimonWorld2Tool
             this.DomainNameLabel.TabIndex = 0;
             this.DomainNameLabel.Text = "Domain:";
             // 
+            // SelectMapDataFolderButton
+            // 
+            this.SelectMapDataFolderButton.Location = new System.Drawing.Point(16, 183);
+            this.SelectMapDataFolderButton.Name = "SelectMapDataFolderButton";
+            this.SelectMapDataFolderButton.Size = new System.Drawing.Size(110, 23);
+            this.SelectMapDataFolderButton.TabIndex = 24;
+            this.SelectMapDataFolderButton.Text = "Set map folder";
+            this.SelectMapDataFolderButton.UseVisualStyleBackColor = true;
+            this.SelectMapDataFolderButton.Click += new System.EventHandler(this.SelectMapDataFolderButton_Click);
+            // 
+            // CurrentMapDataFolderLabel
+            // 
+            this.CurrentMapDataFolderLabel.AutoSize = true;
+            this.CurrentMapDataFolderLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CurrentMapDataFolderLabel.ForeColor = System.Drawing.Color.White;
+            this.CurrentMapDataFolderLabel.Location = new System.Drawing.Point(132, 183);
+            this.CurrentMapDataFolderLabel.MaximumSize = new System.Drawing.Size(540, 20);
+            this.CurrentMapDataFolderLabel.Name = "CurrentMapDataFolderLabel";
+            this.CurrentMapDataFolderLabel.Size = new System.Drawing.Size(157, 20);
+            this.CurrentMapDataFolderLabel.TabIndex = 25;
+            this.CurrentMapDataFolderLabel.Text = "Current directory label";
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -864,6 +890,8 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.GroupBox LogGroupBox;
         private System.Windows.Forms.RichTextBox LogRichTextBox;
         private System.Windows.Forms.CheckBox ShowLogsCheckBox;
+        private System.Windows.Forms.Label CurrentMapDataFolderLabel;
+        private System.Windows.Forms.Button SelectMapDataFolderButton;
     }
 }
 

@@ -128,6 +128,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                 new DigimonOverworldPack(0x75, "Baihumon", DigimonPackLevel.Mega),
                 new DigimonOverworldPack(0x76, "MasterTyrannomon", DigimonPackLevel.Ultimate),
                 new DigimonOverworldPack(0x77, "Jijimon", DigimonPackLevel.Mega),
+                new DigimonOverworldPack(0xFF, "Custom", DigimonPackLevel.Special),
             };
 
             private readonly Dictionary<byte, byte> PackIDToModelIDLookupTable = new Dictionary<byte, byte>()
@@ -159,7 +160,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                 {0xB4, 0x00},{0xB5, 0x00},{0xB6, 0x00},{0xB7, 0x00},{0xB8, 0x00},{0xB9, 0x2E},{0xBA, 0x41},
                 {0xBB, 0x57},{0xBC, 0x47},{0xBD, 0x4F},{0xBE, 0x77},{0xBF, 0x00},{0xC0, 0x00},{0xC1, 0x00},
                 {0xC2, 0x00},{0xC3, 0x00},{0xC4, 0x00},{0xC5, 0x00},{0xC6, 0x00},{0xC7, 0x00},{0xC8, 0x00},
-                {0xC9, 0x4F},{0xCA, 0x10},{0xCB, 0x11},{0x00, 0x00},
+                {0xC9, 0x4F},{0xCA, 0x10},{0xCB, 0x11},{0x00, 0x00}
             };
 
             public readonly byte EncounterID;
@@ -197,7 +198,26 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                 }
 
                 this.EncounterID = DomainFloor.CurrentDomainFloor.DigimonPacks[data - 1];
-                this.ModelID = PackIDToModelIDLookupTable[EncounterID];
+                if (PackIDToModelIDLookupTable.TryGetValue(EncounterID, out byte value))
+                {
+                    this.ModelID = value;
+                }
+                else
+                {
+                    var floorId = Domain.Main.floorsInThisDomain.Count + 1;
+                    var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Byte {EncounterID:X2} was not found in lookup table for floor {floorId} layout {layoutID}");
+                    // 0xFF maps to the "Custom digimon" encounter
+                    switch (DigimonWorld2ToolForm.ErrorMode)
+                    {
+                        case DigimonWorld2ToolForm.Strictness.Strict:
+                            throw new Exception("Unknown encounter found, stopping execution");
+
+                        case DigimonWorld2ToolForm.Strictness.Sloppy:
+                            this.ModelID = 0xFF;
+                            break;
+                    }
+                }
                 DigimonOverworldPack pack = DigimonModelLookupTable.FirstOrDefault(o => o.OverworldID == ModelID);
 
                 if (pack != null)

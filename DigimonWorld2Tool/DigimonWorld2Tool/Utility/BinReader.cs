@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DigimonWorld2MapVisualizer.Domains;
+using DigimonWorld2Tool;
 
 namespace DigimonWorld2MapVisualizer
 {
@@ -30,22 +31,53 @@ namespace DigimonWorld2MapVisualizer
         {
             try
             {
+                int delimiterIndex = Array.IndexOf(Domain.DomainData, delimiter, pointerStartIndex);
+                if (delimiterIndex == -1)
+                {
+                    var floorId = Domain.Main.floorsInThisDomain.Count;
+                    var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
 
-            int delimiterIndex = Array.IndexOf(Domain.DomainData, delimiter, pointerStartIndex);
-            byte[] data = Domain.DomainData[pointerStartIndex..delimiterIndex];
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Could not find {delimiter:X2} delimiter for object list at floor {floorId} layout {layoutID}");
+                    switch (DigimonWorld2ToolForm.ErrorMode)
+                    {
+                        case DigimonWorld2ToolForm.Strictness.Strict:
+                            throw new Exception($"Error mode set to strict, stopping execution");
 
-            List<byte[]> allObjectsData = new List<byte[]>();
-            for (int i = 0; i < data.Length / dataSegmentLength; i++)
+                        case DigimonWorld2ToolForm.Strictness.Sloppy:
+                            return new List<byte[]>();
+                    }
+                }
+
+                byte[] data = Domain.DomainData[pointerStartIndex..delimiterIndex];
+
+                List<byte[]> allObjectsData = new List<byte[]>();
+                for (int i = 0; i < data.Length / dataSegmentLength; i++)
+                {
+                    byte[] objectData = data[(i * dataSegmentLength)..(i * dataSegmentLength + dataSegmentLength)];
+                    allObjectsData.Add(objectData);
+                }
+                return allObjectsData;
+            }
+            catch
             {
-                byte[] objectData = data[(i * dataSegmentLength)..(i * dataSegmentLength + dataSegmentLength)];
-                allObjectsData.Add(objectData);
+                var floorId = Domain.Main.floorsInThisDomain.Count;
+                var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+
+                if (pointerStartIndex > Domain.DomainData.Length)
+                {
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Pointer address {pointerStartIndex:X8} is out of bounds at floor {floorId} layout {layoutID}");
+
+                    switch (DigimonWorld2ToolForm.ErrorMode)
+                    {
+                        case DigimonWorld2ToolForm.Strictness.Strict:
+                            throw new Exception($"Error mode set to strict, stopping execution");
+
+                        case DigimonWorld2ToolForm.Strictness.Sloppy:
+                            return new List<byte[]>();
+                    }
+                }
             }
-            return allObjectsData;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return new List<byte[]>();
         }
     }
 }

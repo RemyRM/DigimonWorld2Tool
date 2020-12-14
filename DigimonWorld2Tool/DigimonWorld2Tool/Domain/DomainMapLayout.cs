@@ -105,6 +105,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         private void CreateDomainLayoutObjects(int baseStartOfObjectListPointerAddressDecimal, MapObjectDataLength dataLength, IFloorLayoutObject.MapObjectType objectType)
         {
             List<byte[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
+
             foreach (var item in layoutObject)
             {
                 switch (objectType)
@@ -134,7 +135,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             {
                 if (item.Position.x >= 64 || item.Position.y >= 48)
                 {
-                    var floorId = Domain.Main.floorsInThisDomain.Count;
+                    var floorId = Domain.Main.floorsInThisDomain.Count + 1;
                     var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
 
                     DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"{item.ObjectType} is out of bounds {item.Position} on floor {floorId} layout {layoutID}");
@@ -170,12 +171,8 @@ namespace DigimonWorld2MapVisualizer.Domains
         /// </summary>
         internal void DrawMap()
         {
-            //LayoutRenderer.SetRenderTarget(DigimonWorld2ToolForm.Main.PictureBox0Layout0);
             foreach (var item in FloorLayoutTiles)
-            {
                 LayoutRenderer.DrawTile(item);
-                //item.Draw();
-            }
         }
     }
 }

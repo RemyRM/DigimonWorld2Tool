@@ -107,6 +107,7 @@ namespace DigimonWorld2Tool
             ShowGridCheckbox.Checked = (bool)Properties.Settings.Default["ShowGridLines"];
             TileSizeInput.Value = (int)Properties.Settings.Default["GridTileSize"];
             ErrorCheckingComboBox.SelectedIndex = (int)Enum.Parse(typeof(Strictness), (string)Properties.Settings.Default["ErrorCheckingLevel"]);
+            ShowLogsCheckBox.Checked = (bool)Properties.Settings.Default["ShowLogs"];
         }
 
         #region MapVisualizer
@@ -145,16 +146,11 @@ namespace DigimonWorld2Tool
         /// <summary>
         /// Create a new domain whenever a new domain gets selected from the combobox
         /// </summary>
-        private async void DungeonFilesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void DungeonFilesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var filename = DungeonFiles.FirstOrDefault(o => o.DomainName == DungeonFilesComboBox.SelectedItem.ToString()).Filename;
             CreateNewDomain(filename);
         }
-
-        //private async void CreateNewDomainAsync(string filename)
-        //{
-
-        //}
 
         /// <summary>
         /// Create a new domain and start rendering the first floor, first layout.
@@ -514,14 +510,17 @@ namespace DigimonWorld2Tool
             var fileName = callStack.GetFileName().Substring(delimiterIndex + 1, callStack.GetFileName().Length - delimiterIndex - 1);
             var errorWithStack = $"{fileName}:{callStack.GetFileLineNumber()} - {error}{Environment.NewLine}";
 
-            LogRichTextBox.SelectionColor = Color.Red;
+            if (ShowLogsCheckBox.Checked)
+            {
+                LogRichTextBox.SelectionColor = Color.Red;
 
-            if (stackTrace)
-                LogRichTextBox.AppendText($"{errorWithStack}");
-            else
-                LogRichTextBox.AppendText($"{error}{Environment.NewLine}");
+                if (stackTrace)
+                    LogRichTextBox.AppendText($"{errorWithStack}");
+                else
+                    LogRichTextBox.AppendText($"{error}{Environment.NewLine}");
 
-            LogRichTextBox.SelectionColor = Color.White;
+                LogRichTextBox.SelectionColor = Color.White;
+            }
 
             LogStack.Add(errorWithStack);
         }
@@ -533,15 +532,17 @@ namespace DigimonWorld2Tool
             var fileName = callStack.GetFileName().Substring(delimiterIndex + 1, callStack.GetFileName().Length - delimiterIndex - 1);
             var warningWithStack = $"{fileName}:{callStack.GetFileLineNumber()} - {warning}{Environment.NewLine}";
 
-            LogRichTextBox.SelectionColor = Color.Yellow;
+            if (ShowLogsCheckBox.Checked)
+            {
+                LogRichTextBox.SelectionColor = Color.Yellow;
 
-            if (stackTrace)
-                LogRichTextBox.AppendText($"{warningWithStack}");
-            else
-                LogRichTextBox.AppendText($"{warning}{Environment.NewLine}");
+                if (stackTrace)
+                    LogRichTextBox.AppendText($"{warningWithStack}");
+                else
+                    LogRichTextBox.AppendText($"{warning}{Environment.NewLine}");
 
-            LogRichTextBox.SelectionColor = Color.White;
-
+                LogRichTextBox.SelectionColor = Color.White;
+            }
             LogStack.Add(warningWithStack);
         }
 
@@ -560,6 +561,11 @@ namespace DigimonWorld2Tool
         {
             LogRichTextBox.SelectionStart = LogRichTextBox.Text.Length;
             LogRichTextBox.ScrollToCaret();
+        }
+
+        private void ShowLogsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["ShowLogs"] = ShowLogsCheckBox.Checked;
         }
     }
 }

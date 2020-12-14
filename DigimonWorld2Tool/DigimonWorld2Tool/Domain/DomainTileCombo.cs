@@ -220,7 +220,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             }
             else
             {
-                var floorId = Domain.Main.floorsInThisDomain.Count;
+                var floorId = Domain.Main.floorsInThisDomain.Count + 1;
                 var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
 
                 DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Key {TileValueDec:X2} was not found in the tile lookup " +
@@ -230,9 +230,6 @@ namespace DigimonWorld2MapVisualizer.Domains
                 {
                     case DigimonWorld2ToolForm.Strictness.Strict:
                         throw new Exception("Error checking set to Strict, stopping execution.");
-                        //DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Error checking set to Strict, stopping execution.");
-                        break;
-                        //return;
 
                     case DigimonWorld2ToolForm.Strictness.Sloppy:
                         splitTilesLeftRight[0] = "Error";
@@ -310,7 +307,7 @@ namespace DigimonWorld2MapVisualizer.Domains
 
             if(TileType == DomainTileType.Empty || TileType == DomainTileType.Error)
             {
-                var floorId = Domain.Main.floorsInThisDomain.Count;
+                var floorId = Domain.Main.floorsInThisDomain.Count + 1;
                 var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
                 DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"{FloorObject.ObjectType} is placed on an empty tile at position (Dec){Position} " +
                                                                $"on floor {floorId} layout {layoutID}", false);

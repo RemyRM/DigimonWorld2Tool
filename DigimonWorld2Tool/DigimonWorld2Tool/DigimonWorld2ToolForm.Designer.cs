@@ -31,6 +31,7 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.ShowLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.LogGroupBox = new System.Windows.Forms.GroupBox();
             this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.ErrorCheckingComboBox = new System.Windows.Forms.ComboBox();
@@ -120,6 +121,7 @@ namespace DigimonWorld2Tool
             // 
             this.MapVisualizerTab.AutoScroll = true;
             this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerTab.Controls.Add(this.ShowLogsCheckBox);
             this.MapVisualizerTab.Controls.Add(this.LogGroupBox);
             this.MapVisualizerTab.Controls.Add(this.ErrorCheckingComboBox);
             this.MapVisualizerTab.Controls.Add(this.ErrorCheckLevelLabel);
@@ -145,6 +147,19 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
             // 
+            // ShowLogsCheckBox
+            // 
+            this.ShowLogsCheckBox.AutoSize = true;
+            this.ShowLogsCheckBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowLogsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ShowLogsCheckBox.Location = new System.Drawing.Point(687, 533);
+            this.ShowLogsCheckBox.Name = "ShowLogsCheckBox";
+            this.ShowLogsCheckBox.Size = new System.Drawing.Size(96, 24);
+            this.ShowLogsCheckBox.TabIndex = 23;
+            this.ShowLogsCheckBox.Text = "Show logs";
+            this.ShowLogsCheckBox.UseVisualStyleBackColor = true;
+            this.ShowLogsCheckBox.CheckedChanged += new System.EventHandler(this.ShowLogsCheckBox_CheckedChanged);
+            // 
             // LogGroupBox
             // 
             this.LogGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -153,10 +168,10 @@ namespace DigimonWorld2Tool
             this.LogGroupBox.Controls.Add(this.LogRichTextBox);
             this.LogGroupBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LogGroupBox.ForeColor = System.Drawing.Color.White;
-            this.LogGroupBox.Location = new System.Drawing.Point(687, 548);
+            this.LogGroupBox.Location = new System.Drawing.Point(687, 556);
             this.LogGroupBox.Name = "LogGroupBox";
             this.LogGroupBox.Padding = new System.Windows.Forms.Padding(5);
-            this.LogGroupBox.Size = new System.Drawing.Size(880, 279);
+            this.LogGroupBox.Size = new System.Drawing.Size(880, 271);
             this.LogGroupBox.TabIndex = 22;
             this.LogGroupBox.TabStop = false;
             this.LogGroupBox.Text = "Log";
@@ -173,7 +188,7 @@ namespace DigimonWorld2Tool
             this.LogRichTextBox.Name = "LogRichTextBox";
             this.LogRichTextBox.ReadOnly = true;
             this.LogRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.LogRichTextBox.Size = new System.Drawing.Size(867, 246);
+            this.LogRichTextBox.Size = new System.Drawing.Size(867, 238);
             this.LogRichTextBox.TabIndex = 0;
             this.LogRichTextBox.Text = "";
             this.LogRichTextBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
@@ -226,7 +241,7 @@ namespace DigimonWorld2Tool
             this.groupBox1.Controls.Add(this.ObjectTypeLabel);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(687, 212);
+            this.groupBox1.Location = new System.Drawing.Point(687, 201);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(396, 326);
             this.groupBox1.TabIndex = 18;
@@ -848,6 +863,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label ErrorCheckLevelLabel;
         private System.Windows.Forms.GroupBox LogGroupBox;
         private System.Windows.Forms.RichTextBox LogRichTextBox;
+        private System.Windows.Forms.CheckBox ShowLogsCheckBox;
     }
 }
 

@@ -70,5 +70,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["ErrorCheckingLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowLogs {
+            get {
+                return ((bool)(this["ShowLogs"]));
+            }
+            set {
+                this["ShowLogs"] = value;
+            }
+        }
     }
 }

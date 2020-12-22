@@ -10,8 +10,6 @@ namespace DigimonWorld2MapVisualizer.Domains
     {
         public static Domain Main;
 
-        //private static readonly string FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
-
         public static byte[] DomainData { get; private set; }
         public readonly string DomainName;
 

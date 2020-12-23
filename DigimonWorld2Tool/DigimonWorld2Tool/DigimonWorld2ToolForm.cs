@@ -130,7 +130,7 @@ namespace DigimonWorld2Tool
             // Add the function for displaying the current mouse position on the grid to the MouseMove event
             foreach (var item in FloorLayoutRenderTabs)
             {
-                item.GridRenderLayer.MouseMove += DisplayMousePositionOnGrid;
+                item.CursorLayer.MouseMove += DisplayMousePositionOnGrid;
             }
         }
 

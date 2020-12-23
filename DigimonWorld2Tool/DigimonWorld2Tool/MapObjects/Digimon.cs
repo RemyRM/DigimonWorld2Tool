@@ -6,30 +6,52 @@ using System.Collections.Generic;
 using System;
 using System.Diagnostics;
 using DigimonWorld2Tool;
+using System.Drawing;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {
     public class Digimon : IFloorLayoutObject
     {
-        public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
+        public IFloorLayoutObject.MapObjectType ObjectType => IFloorLayoutObject.MapObjectType.Digimon;
         public Vector2 Position { get; private set; }
+        public Color ObjectColour => Color.FromArgb(255, 255, 100, 100);
+        public string ObjectText { get; private set; }
+
         public readonly DigimonPack[] DigimonPacks = new DigimonPack[4];
 
-        public Digimon(IFloorLayoutObject.MapObjectType objectType, byte[] data)
+        public Digimon(byte[] data)
         {
-            this.ObjectType = objectType;
             this.Position = new Vector2(data[0], data[1]);
-
-            // The last 2 bytes of data contains the data for the digimon packs, 1 byte each.
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    DigimonPacks[i] = new DigimonPack(data[i + 2]);
-            //}
+            ObjectText = "";
 
             DigimonPacks[0] = new DigimonPack(data[2].GetLeftHalfByte(), Position);
             DigimonPacks[1] = new DigimonPack(data[2].GetRightHalfByte(), Position);
             DigimonPacks[2] = new DigimonPack(data[3].GetLeftHalfByte(), Position);
             DigimonPacks[3] = new DigimonPack(data[3].GetRightHalfByte(), Position);
+
+            switch (DigimonPacks.FirstOrDefault(o => o.Level != DigimonPack.DigimonPackLevel.None).Level)
+            {
+                case DigimonPack.DigimonPackLevel.Rookie:
+                    ObjectText = "R";
+                    break;
+                case DigimonPack.DigimonPackLevel.Champion:
+                    ObjectText = "C";
+                    break;
+                case DigimonPack.DigimonPackLevel.Ultimate:
+                    ObjectText = "U";
+                    break;
+                case DigimonPack.DigimonPackLevel.Mega:
+                    ObjectText = "M";
+                    break;
+                case DigimonPack.DigimonPackLevel.Special:
+                    ObjectText = "S";
+                    break;
+                case DigimonPack.DigimonPackLevel.Error:
+                    ObjectText = "E";
+                    break;
+                default:
+                    break;
+            }
         }
 
         public override string ToString()

@@ -3,6 +3,7 @@ using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.Utility;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DigimonWorld2MapVisualizer.MapObjects
 {
@@ -268,13 +269,15 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             {0xFF, "Message-2"},
         };
 
-        public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
+        public IFloorLayoutObject.MapObjectType ObjectType => IFloorLayoutObject.MapObjectType.Chest;
         public Vector2 Position { get; private set; }
+        public Color ObjectColour => Color.FromArgb(255, 0, 255, 0);
+        public string ObjectText { get; } = "T";
+
         public readonly ChestSlot[] chestSlots = new ChestSlot[4];
 
-        public Chest(IFloorLayoutObject.MapObjectType objectType, byte[] data)
+        public Chest(byte[] data)
         {
-            this.ObjectType = objectType;
             this.Position = new Vector2(data[0], data[1]);
 
             chestSlots[0] = new ChestSlot(data[2].GetLeftHalfByte());

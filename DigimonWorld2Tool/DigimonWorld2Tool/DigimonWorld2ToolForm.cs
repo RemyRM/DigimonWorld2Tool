@@ -73,16 +73,26 @@ namespace DigimonWorld2Tool
 
         private void LoadUserSettings()
         {
+            // Directories
             FilePathToMapDirectory = (string)Properties.Settings.Default["MapDataFolder"];
             if (FilePathToMapDirectory == "")
                 FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
             CurrentMapDataFolderLabel.Text = FilePathToMapDirectory;
 
+            // Grid
             GridPosHexCheckBox.Checked = (bool)Properties.Settings.Default["ShowGridPosAsHex"];
             ShowGridCheckbox.Checked = (bool)Properties.Settings.Default["ShowGridLines"];
             TileSizeInput.Value = (int)Properties.Settings.Default["GridTileSize"];
+
+            // Error checking
             ErrorCheckingComboBox.SelectedIndex = (int)Enum.Parse(typeof(Strictness), (string)Properties.Settings.Default["ErrorCheckingLevel"]);
             ShowLogsCheckBox.Checked = (bool)Properties.Settings.Default["ShowLogs"];
+
+            // Visible map layers
+            ShowWarpsCheckbox.Checked = (bool)Properties.Settings.Default["ShowWarpsLayer"];
+            ShowTrapsCheckbox.Checked = (bool)Properties.Settings.Default["ShowTrapsLayer"];
+            ShowChestsCheckbox.Checked = (bool)Properties.Settings.Default["ShowChestsLayer"];
+            ShowDigimonCheckbox.Checked = (bool)Properties.Settings.Default["ShowDigimonLayer"];
         }
 
         private void LoadDungeonFiles()
@@ -196,42 +206,42 @@ namespace DigimonWorld2Tool
 
         public void SetCurrentObjectInformation(Tile tile)
         {
-            ResetCurrentObjectInformation();
-            ObjectTypeLabel.Text = $"Type: {tile.FloorObject.ObjectType}";
-            ObjectPositionLabel.Text = GridPosHexCheckBox.Checked ? $"Position: ({tile.Position.x:X2}, {tile.Position.y:X2})" : $"Position: {tile.Position}";
+            //ResetCurrentObjectInformation();
+            //ObjectTypeLabel.Text = $"Type: {tile.FloorObject.ObjectType}";
+            //ObjectPositionLabel.Text = GridPosHexCheckBox.Checked ? $"Position: ({tile.Position.x:X2}, {tile.Position.y:X2})" : $"Position: {tile.Position}";
 
-            switch (tile.FloorObject.ObjectType)
-            {
-                case IFloorLayoutObject.MapObjectType.Warp:
-                    Warp warp = (Warp)tile.FloorObject;
-                    ObjectSubTypeLabel.Text = $"Sub type: {warp.Type}";
-                    break;
-                case IFloorLayoutObject.MapObjectType.Chest:
-                    Chest chest = (Chest)tile.FloorObject;
-                    ObjectSlotOneLabel.Text = $"Slot 1: {chest.chestSlots[0].ItemName} - {chest.chestSlots[0].TrapLevel}";
-                    ObjectSlotTwoLabel.Text = $"Slot 2: {chest.chestSlots[1].ItemName} - {chest.chestSlots[1].TrapLevel}";
-                    ObjectSlotThreeLabel.Text = $"Slot 3: {chest.chestSlots[2].ItemName} - {chest.chestSlots[2].TrapLevel}";
-                    ObjectSlotFourLabel.Text = $"Slot 4: {chest.chestSlots[3].ItemName} - {chest.chestSlots[3].TrapLevel}";
-                    break;
-                case IFloorLayoutObject.MapObjectType.Trap:
-                    Trap trap = (Trap)tile.FloorObject;
-                    ObjectSubTypeLabel.Text = $"Sub type: {trap.Type}";
-                    ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
-                    ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
-                    ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
-                    ObjectSlotFourLabel.Text = $"Slot 4: {trap.TrapSlots[3]}";
-                    break;
-                case IFloorLayoutObject.MapObjectType.Digimon:
-                    Digimon digimon = (Digimon)tile.FloorObject;
-                    ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
-                    ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
-                    ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
-                    ObjectSlotThreeLabel.Text = $"Slot 3: {digimon.DigimonPacks[2].ObjectModelDigimonName:X2}";
-                    ObjectSlotFourLabel.Text = $"Slot 4: {digimon.DigimonPacks[3].ObjectModelDigimonName:X2}";
-                    break;
-                default:
-                    break;
-            }
+            //switch (tile.FloorObject.ObjectType)
+            //{
+            //    case IFloorLayoutObject.MapObjectType.Warp:
+            //        Warp warp = (Warp)tile.FloorObject;
+            //        ObjectSubTypeLabel.Text = $"Sub type: {warp.Type}";
+            //        break;
+            //    case IFloorLayoutObject.MapObjectType.Chest:
+            //        Chest chest = (Chest)tile.FloorObject;
+            //        ObjectSlotOneLabel.Text = $"Slot 1: {chest.chestSlots[0].ItemName} - {chest.chestSlots[0].TrapLevel}";
+            //        ObjectSlotTwoLabel.Text = $"Slot 2: {chest.chestSlots[1].ItemName} - {chest.chestSlots[1].TrapLevel}";
+            //        ObjectSlotThreeLabel.Text = $"Slot 3: {chest.chestSlots[2].ItemName} - {chest.chestSlots[2].TrapLevel}";
+            //        ObjectSlotFourLabel.Text = $"Slot 4: {chest.chestSlots[3].ItemName} - {chest.chestSlots[3].TrapLevel}";
+            //        break;
+            //    case IFloorLayoutObject.MapObjectType.Trap:
+            //        Trap trap = (Trap)tile.FloorObject;
+            //        ObjectSubTypeLabel.Text = $"Sub type: {trap.Type}";
+            //        ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
+            //        ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
+            //        ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
+            //        ObjectSlotFourLabel.Text = $"Slot 4: {trap.TrapSlots[3]}";
+            //        break;
+            //    case IFloorLayoutObject.MapObjectType.Digimon:
+            //        Digimon digimon = (Digimon)tile.FloorObject;
+            //        ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
+            //        ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
+            //        ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
+            //        ObjectSlotThreeLabel.Text = $"Slot 3: {digimon.DigimonPacks[2].ObjectModelDigimonName:X2}";
+            //        ObjectSlotFourLabel.Text = $"Slot 4: {digimon.DigimonPacks[3].ObjectModelDigimonName:X2}";
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         public void ResetCurrentObjectInformation()
@@ -313,7 +323,7 @@ namespace DigimonWorld2Tool
         private void DrawCurrentMapLayout()
         {
             LayoutRenderer.SetupFloorLayerBitmap();
-            CurrentMapLayout.DrawMap();
+            CurrentMapLayout.DrawLayout();
         }
 
         /// <summary>
@@ -370,112 +380,22 @@ namespace DigimonWorld2Tool
             {
                 if (saveFileDialog1.FileName != "")
                 {
-                    System.IO.FileStream fs =
-                        (System.IO.FileStream)saveFileDialog1.OpenFile();
+                    FileStream fs = (FileStream)saveFileDialog1.OpenFile();
 
                     switch (saveFileDialog1.FilterIndex)
                     {
                         case 1:
-                            CurrentLayoutRenderTab.MapRenderLayer.Image.Save(fs, ImageFormat.Png);
+                            LayoutRenderer.combinedLayer.Save(fs, ImageFormat.Png);
                             break;
 
                         case 2:
-                            CurrentLayoutRenderTab.MapRenderLayer.Image.Save(fs, ImageFormat.Bmp);
+                            LayoutRenderer.combinedLayer.Save(fs, ImageFormat.Bmp);
                             break;
                     }
 
                     fs.Close();
                 }
             }
-        }
-        #endregion
-
-        #region tab2
-        private void SelectFileButton_Click(object sender, EventArgs e)
-        {
-
-            ReadFilesRecursively();
-
-
-            //using (OpenFileDialog fd = new OpenFileDialog())
-            //{
-            //    fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
-            //    fd.Filter = "Bin files (.bin)|*.bin";
-            //    fd.RestoreDirectory = true;
-
-            //    if(fd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        var filePath = fd.FileName;
-
-            //        var fileStream = fd.OpenFile();
-
-            //        byte[] arr;
-            //        using (BinaryReader reader = new BinaryReader(fileStream))
-            //        {
-            //            using MemoryStream memoryStream = new MemoryStream();
-            //            reader.BaseStream.CopyTo(memoryStream);
-            //            arr =  memoryStream.ToArray();
-            //        }
-
-            //        var result = TextConversion.DigiBytesToString(arr);
-            //    }
-            //}
-
-        }
-        #endregion
-
-        static string originalBaseDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
-        static string destinationBaseDirection = @"D:\Dev\C#\DigimonWorld2MapVisualizer\ConvertedFiles\AAA\4.AAA";
-        private static void ReadFilesRecursively()
-        {
-
-            ProcessDirectory(originalBaseDirectory);
-        }
-
-        public static void ProcessDirectory(string targetDirectory)
-        {
-            // Process the list of files found in the directory.
-            string[] fileEntries = Directory.GetFiles(targetDirectory);
-            foreach (string fileName in fileEntries)
-                ProcessFile(fileName);
-
-            // Recurse into subdirectories of this directory.
-            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
-                    subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
-                    subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
-                    subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
-                    continue;
-
-                var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
-                if (!Directory.Exists(targetDir))
-                    Directory.CreateDirectory(targetDir);
-
-                ProcessDirectory(subdirectory);
-            }
-        }
-
-        // Insert logic for processing found files here.
-        public static void ProcessFile(string path)
-        {
-            //Debug.WriteLine("Processed file '{0}'.", path);
-            string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
-            targetPath = targetPath.Replace(".BIN", ".txt");
-
-            Debug.WriteLine(targetPath);
-            byte[] arr;
-            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
-            {
-                using MemoryStream memoryStream = new MemoryStream();
-                reader.BaseStream.CopyTo(memoryStream);
-                arr = memoryStream.ToArray();
-            }
-
-            var result = TextConversion.DigiBytesToString(arr);
-
-            File.WriteAllText(targetPath, result);
         }
 
         private void GridPosHexCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -579,5 +499,132 @@ namespace DigimonWorld2Tool
             LoadDungeonFiles();
             AddDungeonFilesToComboBox();
         }
+
+        private void ShowWarpsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Bitmap bmp = ShowWarpsCheckbox.Checked ? LayoutRenderer.warpsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            foreach(RenderLayoutTab tab in FloorLayoutRenderTabs)
+                tab.WarpsRenderLayer.Image = bmp;
+
+            Properties.Settings.Default["ShowWarpsLayer"] = ShowWarpsCheckbox.Checked;
+        }
+
+        private void ShowTrapsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Bitmap bmp = ShowTrapsCheckbox.Checked ? LayoutRenderer.trapsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
+                tab.TrapsRenderLayer.Image = bmp;
+
+            Properties.Settings.Default["ShowTrapsLayer"] = ShowTrapsCheckbox.Checked;
+        }
+
+        private void ShowChestsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Bitmap bmp = ShowChestsCheckbox.Checked ? LayoutRenderer.chestsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
+                tab.ChestsRenderLayer.Image = bmp;
+
+            Properties.Settings.Default["ShowChestsLayer"] = ShowTrapsCheckbox.Checked;
+        }
+
+        private void ShowDigimonCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Bitmap bmp = ShowDigimonCheckbox.Checked ? LayoutRenderer.digimonLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
+                tab.DigimonRenderLayer.Image = bmp;
+
+            Properties.Settings.Default["ShowDigimonLayer"] = ShowDigimonCheckbox.Checked;
+        }
+
+        #endregion
+
+        #region tab2
+        private void SelectFileButton_Click(object sender, EventArgs e)
+        {
+
+            ReadFilesRecursively();
+
+
+            //using (OpenFileDialog fd = new OpenFileDialog())
+            //{
+            //    fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+            //    fd.Filter = "Bin files (.bin)|*.bin";
+            //    fd.RestoreDirectory = true;
+
+            //    if(fd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        var filePath = fd.FileName;
+
+            //        var fileStream = fd.OpenFile();
+
+            //        byte[] arr;
+            //        using (BinaryReader reader = new BinaryReader(fileStream))
+            //        {
+            //            using MemoryStream memoryStream = new MemoryStream();
+            //            reader.BaseStream.CopyTo(memoryStream);
+            //            arr =  memoryStream.ToArray();
+            //        }
+
+            //        var result = TextConversion.DigiBytesToString(arr);
+            //    }
+            //}
+
+        }
+
+        static string originalBaseDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+        static string destinationBaseDirection = @"D:\Dev\C#\DigimonWorld2MapVisualizer\ConvertedFiles\AAA\4.AAA";
+        private static void ReadFilesRecursively()
+        {
+
+            ProcessDirectory(originalBaseDirectory);
+        }
+
+        public static void ProcessDirectory(string targetDirectory)
+        {
+            // Process the list of files found in the directory.
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            foreach (string fileName in fileEntries)
+                ProcessFile(fileName);
+
+            // Recurse into subdirectories of this directory.
+            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
+                    subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
+                    subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
+                    subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
+                    continue;
+
+                var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
+                if (!Directory.Exists(targetDir))
+                    Directory.CreateDirectory(targetDir);
+
+                ProcessDirectory(subdirectory);
+            }
+        }
+
+        // Insert logic for processing found files here.
+        public static void ProcessFile(string path)
+        {
+            //Debug.WriteLine("Processed file '{0}'.", path);
+            string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
+            targetPath = targetPath.Replace(".BIN", ".txt");
+
+            Debug.WriteLine(targetPath);
+            byte[] arr;
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            {
+                using MemoryStream memoryStream = new MemoryStream();
+                reader.BaseStream.CopyTo(memoryStream);
+                arr = memoryStream.ToArray();
+            }
+
+            var result = TextConversion.DigiBytesToString(arr);
+
+            File.WriteAllText(targetPath, result);
+        }
+
+        #endregion
     }
 }

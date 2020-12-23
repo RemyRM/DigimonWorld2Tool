@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Collections.Generic;
 using DigimonWorld2MapVisualizer.Utility;
 using DigimonWorld2MapVisualizer.Domains;
-using System.Windows.Forms;
-using System.Drawing.Drawing2D;
+using DigimonWorld2MapVisualizer.Interfaces;
+using static DigimonWorld2MapVisualizer.Interfaces.IFloorLayoutObject;
 
 namespace DigimonWorld2Tool.Rendering
 {
@@ -13,51 +14,86 @@ namespace DigimonWorld2Tool.Rendering
     {
         private static readonly Vector2 GridSize = new Vector2(32, 48);
         public static int tileSize = 10;
-        //public static PictureBox CurrentTargetRenderer { get; private set; }
+
         private static float TextPadding { get { return tileSize / 10; } }
 
         private static Bitmap floorLayoutLayer;
         private static Bitmap gridLayer;
 
+        public static Bitmap warpsLayer;
+        public static Bitmap trapsLayer;
+        public static Bitmap chestsLayer;
+        public static Bitmap digimonLayer;
+
+        public static Bitmap combinedLayer;
+
+        public static Vector2 GetGridSizeScaled()
+        {
+            return new Vector2(GridSize.x * 2 * tileSize, GridSize.y * tileSize);
+        }
+
         public static void SetupFloorLayerBitmap()
         {
-            floorLayoutLayer = new Bitmap(GridSize.x * 2 * tileSize, GridSize.y * tileSize);
+            combinedLayer = null;
+
+            Vector2 scaledGridSize = GetGridSizeScaled();
+            floorLayoutLayer = new Bitmap(scaledGridSize.x, scaledGridSize.y);
+
+            floorLayoutLayer.MakeTransparent();
             DigimonWorld2ToolForm.CurrentLayoutRenderTab.MapRenderLayer.Size = floorLayoutLayer.Size;
         }
 
-        public static void DrawTile(DomainTileCombo tileCombo)
+        public static void DrawTiles(List<DomainTileCombo> tiles)
         {
-            for (int i = 0; i < tileSize; i++)
+            foreach (DomainTileCombo tileCombo in tiles)
             {
-                for (int j = 0; j < tileSize; j++)
+                for (int i = 0; i < tileSize; i++)
                 {
-                    floorLayoutLayer.SetPixel((tileCombo.leftTile.Position.x * tileSize) + i, (tileCombo.leftTile.Position.y * tileSize) + j, tileCombo.leftTile.TileColour);
-                    floorLayoutLayer.SetPixel((tileCombo.rightTile.Position.x * tileSize) + i, (tileCombo.rightTile.Position.y * tileSize) + j, tileCombo.rightTile.TileColour);
+                    for (int j = 0; j < tileSize; j++)
+                    {
+                        floorLayoutLayer.SetPixel((tileCombo.leftTile.Position.x * tileSize) + i, (tileCombo.leftTile.Position.y * tileSize) + j, tileCombo.leftTile.TileColour);
+                        floorLayoutLayer.SetPixel((tileCombo.rightTile.Position.x * tileSize) + i, (tileCombo.rightTile.Position.y * tileSize) + j, tileCombo.rightTile.TileColour);
+                    }
                 }
             }
-            CheckIfTileHasText(tileCombo);
             DigimonWorld2ToolForm.CurrentLayoutRenderTab.MapRenderLayer.Image = floorLayoutLayer;
+            AddToCombinedLayer(floorLayoutLayer);
         }
 
-        private static void CheckIfTileHasText(DomainTileCombo tileCombo)
+        /// <summary>
+        /// Draw the map object of type <see cref="MapObjectType"/> on its own layer, and add the text if applicable
+        /// </summary>
+        /// <param name="mapObjects">The list of objects to draw</param>
+        /// <param name="mapType">The type of object to draw</param>
+        /// <param name="callback">The layer to draw it to</param>
+        public static void DrawMapObjects(IEnumerable<IFloorLayoutObject> mapObjects, MapObjectType mapType, Action<Bitmap> callback)
         {
+            Bitmap layer = new Bitmap(GridSize.x * 2 * tileSize, GridSize.y * tileSize);
+            layer.MakeTransparent();
 
-            if (tileCombo.leftTile.FloorObjectText != "")
+            foreach (IFloorLayoutObject mapObject in mapObjects.Where(o => o.ObjectType == mapType))
             {
-                AddText(tileCombo.leftTile.Position * tileSize, tileCombo.leftTile.FloorObjectText);
-            }
-            if (tileCombo.rightTile.FloorObjectText != "")
-            {
-                AddText(tileCombo.rightTile.Position * tileSize, tileCombo.rightTile.FloorObjectText);
-            }
+                for (int i = 0; i < tileSize; i++)
+                {
+                    for (int j = 0; j < tileSize; j++)
+                    {
+                        layer.SetPixel((mapObject.Position.x * tileSize) + i, (mapObject.Position.y * tileSize) + j, mapObject.ObjectColour);
+                    }
+                }
 
+                if (mapObject.ObjectText != "")
+                    AddText(mapObject.Position, mapObject.ObjectText, layer);
+            }
+            callback?.Invoke(layer);
+            AddToCombinedLayer(layer);
         }
 
-        private static void AddText(Vector2 pos, string text)
+        private static void AddText(Vector2 pos, string text, Bitmap bmp)
         {
+            pos *= tileSize;
             RectangleF rectf = new RectangleF(pos.x + (tileSize / 10), pos.y + (tileSize / 10), tileSize, tileSize + TextPadding);
 
-            Graphics g = Graphics.FromImage(floorLayoutLayer);
+            Graphics g = Graphics.FromImage(bmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -100,6 +136,22 @@ namespace DigimonWorld2Tool.Rendering
             gridLayer = new Bitmap(GridSize.x * 2 * tileSize, GridSize.y * tileSize);
             gridLayer.MakeTransparent();
             DigimonWorld2ToolForm.CurrentLayoutRenderTab.GridRenderLayer.Image = gridLayer;
+        }
+
+
+        private static void AddToCombinedLayer(Bitmap bmpSource)
+        {
+            if (combinedLayer == null)
+            {
+                Vector2 scaledGridSize = GetGridSizeScaled();
+                combinedLayer = new Bitmap(scaledGridSize.x, scaledGridSize.y);
+            }
+
+            using (Graphics g = Graphics.FromImage(combinedLayer))
+            {
+                g.DrawImage(combinedLayer, Point.Empty);
+                g.DrawImage(bmpSource, Point.Empty);
+            }
         }
     }
 }

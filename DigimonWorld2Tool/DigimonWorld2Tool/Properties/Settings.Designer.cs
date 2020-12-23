@@ -94,5 +94,53 @@ namespace DigimonWorld2Tool.Properties {
                 this["MapDataFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowWarpsLayer {
+            get {
+                return ((bool)(this["ShowWarpsLayer"]));
+            }
+            set {
+                this["ShowWarpsLayer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowTrapsLayer {
+            get {
+                return ((bool)(this["ShowTrapsLayer"]));
+            }
+            set {
+                this["ShowTrapsLayer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowChestsLayer {
+            get {
+                return ((bool)(this["ShowChestsLayer"]));
+            }
+            set {
+                this["ShowChestsLayer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowDigimonLayer {
+            get {
+                return ((bool)(this["ShowDigimonLayer"]));
+            }
+            set {
+                this["ShowDigimonLayer"] = value;
+            }
+        }
     }
 }

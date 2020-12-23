@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using DigimonWorld2MapVisualizer.Interfaces;
-using DigimonWorld2MapVisualizer.MapObjects;
 using DigimonWorld2MapVisualizer.Utility;
-using static DigimonWorld2MapVisualizer.MapObjects.Digimon;
 using DigimonWorld2Tool;
 
 namespace DigimonWorld2MapVisualizer.Domains
@@ -238,7 +235,6 @@ namespace DigimonWorld2MapVisualizer.Domains
                 }
             }
 
-            //this be null??
             var leftTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[0]);
             var rightTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), splitTilesLeftRight[1]);
 
@@ -261,13 +257,13 @@ namespace DigimonWorld2MapVisualizer.Domains
             {DomainTileType.Dark, Color.DarkMagenta},
             {DomainTileType.Error, Color.Magenta},
         };
-        public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
-        {
-            {IFloorLayoutObject.MapObjectType.Chest, Color.FromArgb(255, 0, 255, 0)},
-            {IFloorLayoutObject.MapObjectType.Digimon, Color.FromArgb(255, 255, 100, 100)},
-            {IFloorLayoutObject.MapObjectType.Warp, Color.Cyan},
-            {IFloorLayoutObject.MapObjectType.Trap, Color.Yellow},
-        };
+        //public readonly Dictionary<IFloorLayoutObject.MapObjectType, Color> FloorObjectTypeColour = new Dictionary<IFloorLayoutObject.MapObjectType, Color>
+        //{
+        //    {IFloorLayoutObject.MapObjectType.Chest, Color.FromArgb(255, 0, 255, 0)},
+        //    {IFloorLayoutObject.MapObjectType.Digimon, Color.FromArgb(255, 255, 100, 100)},
+        //    {IFloorLayoutObject.MapObjectType.Warp, Color.Cyan},
+        //    {IFloorLayoutObject.MapObjectType.Trap, Color.Yellow},
+        //};
 
         public enum DomainTileType : byte
         {
@@ -285,120 +281,120 @@ namespace DigimonWorld2MapVisualizer.Domains
         public readonly Vector2 Position;
         public readonly DomainTileType TileType;
         public Color TileColour { get; private set; }
-        public IFloorLayoutObject FloorObject { get; private set; }
-        public string FloorObjectText { get; private set; } = "";
+        //public IFloorLayoutObject FloorObject { get; private set; }
+        //public string FloorObjectText { get; private set; } = "";
 
         public Tile(Vector2 position, DomainTileType tileType)
         {
             this.Position = position;
             this.TileType = tileType;
-            this.TileColour = GetConsoleBackgroundColourBasedOnTileType(tileType);
+            this.TileColour = GetColourBasedOnTileType(tileType);
         }
 
-        public Color GetConsoleBackgroundColourBasedOnTileType(DomainTileType type)
+        public Color GetColourBasedOnTileType(DomainTileType type)
         {
             return TileTypeColour.GetValueOrDefault(type);
         }
 
-        public void AddObjectToTile(IFloorLayoutObject objectToPlace)
-        {
-            FloorObject = objectToPlace;
-            TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
+        //public void AddObjectToTile(IFloorLayoutObject objectToPlace)
+        //{
+        //    FloorObject = objectToPlace;
+        //    TileColour = FloorObjectTypeColour[FloorObject.ObjectType];
 
-            if(TileType == DomainTileType.Empty || TileType == DomainTileType.Error)
-            {
-                var floorId = Domain.Main.floorsInThisDomain.Count + 1;
-                var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
-                DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"{FloorObject.ObjectType} is placed on an empty tile at position (Dec){Position} " +
-                                                               $"on floor {floorId} layout {layoutID}", false);
-            }
+        //    if(TileType == DomainTileType.Empty || TileType == DomainTileType.Error)
+        //    {
+        //        var floorId = Domain.Main.floorsInThisDomain.Count + 1;
+        //        var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+        //        DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"{FloorObject.ObjectType} is placed on an empty tile at position (Dec){Position} " +
+        //                                                       $"on floor {floorId} layout {layoutID}", false);
+        //    }
 
-            if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Warp)
-            {
-                Warp warp = (Warp)FloorObject;
-                switch (warp.Type)
-                {
-                    case Warp.WarpType.Entrance:
-                        FloorObjectText = "E";
-                        break;
-                    case Warp.WarpType.Next:
-                        FloorObjectText = "N";
-                        break;
-                    case Warp.WarpType.Exit:
-                        FloorObjectText = "X";
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
-            {
-                FloorObjectText = "T";
-            }
-            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
-            {
-                Trap trap = (Trap)FloorObject;
-                switch (trap.Type)
-                {
-                    case Trap.TrapSlot.TrapType.None:
-                        FloorObjectText = "";
-                        break;
-                    case Trap.TrapSlot.TrapType.Swamp:
-                        FloorObjectText = "A";
-                        break;
-                    case Trap.TrapSlot.TrapType.Spore:
-                        FloorObjectText = "S";
-                        break;
-                    case Trap.TrapSlot.TrapType.Rock:
-                        FloorObjectText = "R";
-                        break;
-                    case Trap.TrapSlot.TrapType.Mine:
-                        FloorObjectText = "M";
-                        break;
-                    case Trap.TrapSlot.TrapType.Bit_Bug:
-                        FloorObjectText = "B";
-                        break;
-                    case Trap.TrapSlot.TrapType.Energy_Bug:
-                        FloorObjectText = "E";
-                        break;
-                    case Trap.TrapSlot.TrapType.Return_Bug:
-                        FloorObjectText = "R";
-                        break;
-                    case Trap.TrapSlot.TrapType.Memory_bug:
-                        FloorObjectText = "M";
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Digimon)
-            {
-                Digimon digimon = (Digimon)FloorObject;
-                DigimonPack pack = digimon.DigimonPacks[0];
-                switch (pack.Level)
-                {
-                    case DigimonPack.DigimonPackLevel.Rookie:
-                        FloorObjectText = "R";
-                        break;
-                    case DigimonPack.DigimonPackLevel.Champion:
-                        FloorObjectText = "C";
-                        break;
-                    case DigimonPack.DigimonPackLevel.Ultimate:
-                        FloorObjectText = "U";
-                        break;
-                    case DigimonPack.DigimonPackLevel.Mega:
-                        FloorObjectText = "M";
-                        break;
-                    case DigimonPack.DigimonPackLevel.Special:
-                        FloorObjectText = "S";
-                        break;
-                    case DigimonPack.DigimonPackLevel.Error:
-                        FloorObjectText = "E";
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        //    if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Warp)
+        //    {
+        //        Warp warp = (Warp)FloorObject;
+        //        switch (warp.Type)
+        //        {
+        //            case Warp.WarpType.Entrance:
+        //                FloorObjectText = "E";
+        //                break;
+        //            case Warp.WarpType.Next:
+        //                FloorObjectText = "N";
+        //                break;
+        //            case Warp.WarpType.Exit:
+        //                FloorObjectText = "X";
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //    else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Chest)
+        //    {
+        //        FloorObjectText = "T";
+        //    }
+        //    else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Trap)
+        //    {
+        //        Trap trap = (Trap)FloorObject;
+        //        switch (trap.Type)
+        //        {
+        //            case Trap.TrapSlot.TrapType.None:
+        //                FloorObjectText = "";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Swamp:
+        //                FloorObjectText = "A";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Spore:
+        //                FloorObjectText = "S";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Rock:
+        //                FloorObjectText = "R";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Mine:
+        //                FloorObjectText = "M";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Bit_Bug:
+        //                FloorObjectText = "B";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Energy_Bug:
+        //                FloorObjectText = "E";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Return_Bug:
+        //                FloorObjectText = "R";
+        //                break;
+        //            case Trap.TrapSlot.TrapType.Memory_bug:
+        //                FloorObjectText = "M";
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //    else if (FloorObject.ObjectType == IFloorLayoutObject.MapObjectType.Digimon)
+        //    {
+        //        Digimon digimon = (Digimon)FloorObject;
+        //        DigimonPack pack = digimon.DigimonPacks[0];
+        //        switch (pack.Level)
+        //        {
+        //            case DigimonPack.DigimonPackLevel.Rookie:
+        //                FloorObjectText = "R";
+        //                break;
+        //            case DigimonPack.DigimonPackLevel.Champion:
+        //                FloorObjectText = "C";
+        //                break;
+        //            case DigimonPack.DigimonPackLevel.Ultimate:
+        //                FloorObjectText = "U";
+        //                break;
+        //            case DigimonPack.DigimonPackLevel.Mega:
+        //                FloorObjectText = "M";
+        //                break;
+        //            case DigimonPack.DigimonPackLevel.Special:
+        //                FloorObjectText = "S";
+        //                break;
+        //            case DigimonPack.DigimonPackLevel.Error:
+        //                FloorObjectText = "E";
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //}
     }
 }

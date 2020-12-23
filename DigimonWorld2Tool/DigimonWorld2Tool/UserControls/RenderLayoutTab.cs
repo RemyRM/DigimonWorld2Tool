@@ -13,6 +13,10 @@ namespace DigimonWorld2Tool.UserControls
         {
             InitializeComponent();
             MapRenderLayer.Controls.Add(GridRenderLayer);
+            GridRenderLayer.Controls.Add(TrapsRenderLayer);
+            TrapsRenderLayer.Controls.Add(WarpsRenderLayer);
+            WarpsRenderLayer.Controls.Add(ChestsRenderLayer);
+            ChestsRenderLayer.Controls.Add(DigimonRenderLayer);
         }
 
         private void GridRenderLayer_MouseClick(object sender, MouseEventArgs e)
@@ -35,11 +39,11 @@ namespace DigimonWorld2Tool.UserControls
                 tile = DigimonWorld2ToolForm.CurrentMapLayout.FloorLayoutTiles.FirstOrDefault(o => o.Position == gridPos - Vector2.Right).rightTile;
             }
 
-            if (tile.FloorObject == null)
-            {
-                DigimonWorld2ToolForm.Main.ResetCurrentObjectInformation();
-                return;
-            }
+            //if (tile.FloorObject == null)
+            //{
+            //    DigimonWorld2ToolForm.Main.ResetCurrentObjectInformation();
+            //    return;
+            //}
 
             DigimonWorld2ToolForm.Main.SetCurrentObjectInformation(tile);
         }

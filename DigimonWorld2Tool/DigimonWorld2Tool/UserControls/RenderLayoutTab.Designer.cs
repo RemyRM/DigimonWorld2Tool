@@ -30,24 +30,27 @@ namespace DigimonWorld2Tool.UserControls
         private void InitializeComponent()
         {
             this.RenderLayoutPanel = new System.Windows.Forms.Panel();
+            this.DigimonRenderLayer = new System.Windows.Forms.PictureBox();
             this.ChestsRenderLayer = new System.Windows.Forms.PictureBox();
             this.TrapsRenderLayer = new System.Windows.Forms.PictureBox();
             this.WarpsRenderLayer = new System.Windows.Forms.PictureBox();
             this.GridRenderLayer = new System.Windows.Forms.PictureBox();
             this.MapRenderLayer = new System.Windows.Forms.PictureBox();
-            this.DigimonRenderLayer = new System.Windows.Forms.PictureBox();
+            this.CursorLayer = new System.Windows.Forms.PictureBox();
             this.RenderLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChestsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MapRenderLayer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).BeginInit();
             this.SuspendLayout();
             // 
             // RenderLayoutPanel
             // 
             this.RenderLayoutPanel.AutoScroll = true;
+            this.RenderLayoutPanel.Controls.Add(this.CursorLayer);
             this.RenderLayoutPanel.Controls.Add(this.DigimonRenderLayer);
             this.RenderLayoutPanel.Controls.Add(this.ChestsRenderLayer);
             this.RenderLayoutPanel.Controls.Add(this.TrapsRenderLayer);
@@ -58,6 +61,16 @@ namespace DigimonWorld2Tool.UserControls
             this.RenderLayoutPanel.Name = "RenderLayoutPanel";
             this.RenderLayoutPanel.Size = new System.Drawing.Size(645, 485);
             this.RenderLayoutPanel.TabIndex = 0;
+            // 
+            // DigimonRenderLayer
+            // 
+            this.DigimonRenderLayer.BackColor = System.Drawing.Color.Transparent;
+            this.DigimonRenderLayer.Location = new System.Drawing.Point(0, 0);
+            this.DigimonRenderLayer.Name = "DigimonRenderLayer";
+            this.DigimonRenderLayer.Size = new System.Drawing.Size(645, 485);
+            this.DigimonRenderLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.DigimonRenderLayer.TabIndex = 5;
+            this.DigimonRenderLayer.TabStop = false;
             // 
             // ChestsRenderLayer
             // 
@@ -98,7 +111,6 @@ namespace DigimonWorld2Tool.UserControls
             this.GridRenderLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.GridRenderLayer.TabIndex = 1;
             this.GridRenderLayer.TabStop = false;
-            this.GridRenderLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridRenderLayer_MouseClick);
             // 
             // MapRenderLayer
             // 
@@ -110,15 +122,16 @@ namespace DigimonWorld2Tool.UserControls
             this.MapRenderLayer.TabIndex = 0;
             this.MapRenderLayer.TabStop = false;
             // 
-            // DigimonRenderLayer
+            // CursorLayer
             // 
-            this.DigimonRenderLayer.BackColor = System.Drawing.Color.Transparent;
-            this.DigimonRenderLayer.Location = new System.Drawing.Point(0, 0);
-            this.DigimonRenderLayer.Name = "DigimonRenderLayer";
-            this.DigimonRenderLayer.Size = new System.Drawing.Size(645, 485);
-            this.DigimonRenderLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.DigimonRenderLayer.TabIndex = 5;
-            this.DigimonRenderLayer.TabStop = false;
+            this.CursorLayer.BackColor = System.Drawing.Color.Transparent;
+            this.CursorLayer.Location = new System.Drawing.Point(0, 0);
+            this.CursorLayer.Name = "CursorLayer";
+            this.CursorLayer.Size = new System.Drawing.Size(645, 485);
+            this.CursorLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.CursorLayer.TabIndex = 6;
+            this.CursorLayer.TabStop = false;
+            this.CursorLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CursorLayer_MouseClick);
             // 
             // RenderLayoutTab
             // 
@@ -131,12 +144,13 @@ namespace DigimonWorld2Tool.UserControls
             this.Size = new System.Drawing.Size(645, 485);
             this.RenderLayoutPanel.ResumeLayout(false);
             this.RenderLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChestsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MapRenderLayer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -149,5 +163,6 @@ namespace DigimonWorld2Tool.UserControls
         public System.Windows.Forms.PictureBox TrapsRenderLayer;
         public System.Windows.Forms.PictureBox ChestsRenderLayer;
         public System.Windows.Forms.PictureBox DigimonRenderLayer;
+        public System.Windows.Forms.PictureBox CursorLayer;
     }
 }

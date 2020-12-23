@@ -97,7 +97,7 @@ namespace DigimonWorld2Tool
 
         private void LoadDungeonFiles()
         {
-            DungeonFiles.Clear(); 
+            DungeonFiles.Clear();
 
             var filenames = Directory.GetFiles(FilePathToMapDirectory);
             foreach (var item in filenames)
@@ -204,44 +204,44 @@ namespace DigimonWorld2Tool
             DigimonPacksLabel.Text = $"Digimon packs: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.DigimonPacks)}";
         }
 
-        public void SetCurrentObjectInformation(Tile tile)
+        public void SetCurrentObjectInformation(IFloorLayoutObject mapObject)
         {
-            //ResetCurrentObjectInformation();
-            //ObjectTypeLabel.Text = $"Type: {tile.FloorObject.ObjectType}";
-            //ObjectPositionLabel.Text = GridPosHexCheckBox.Checked ? $"Position: ({tile.Position.x:X2}, {tile.Position.y:X2})" : $"Position: {tile.Position}";
+            ResetCurrentObjectInformation();
+            ObjectTypeLabel.Text = $"Type: {mapObject.ObjectType}";
+            ObjectPositionLabel.Text = GridPosHexCheckBox.Checked ? $"Position: ({mapObject.Position.x:X2}, {mapObject.Position.y:X2})" : $"Position: {mapObject.Position}";
 
-            //switch (tile.FloorObject.ObjectType)
-            //{
-            //    case IFloorLayoutObject.MapObjectType.Warp:
-            //        Warp warp = (Warp)tile.FloorObject;
-            //        ObjectSubTypeLabel.Text = $"Sub type: {warp.Type}";
-            //        break;
-            //    case IFloorLayoutObject.MapObjectType.Chest:
-            //        Chest chest = (Chest)tile.FloorObject;
-            //        ObjectSlotOneLabel.Text = $"Slot 1: {chest.chestSlots[0].ItemName} - {chest.chestSlots[0].TrapLevel}";
-            //        ObjectSlotTwoLabel.Text = $"Slot 2: {chest.chestSlots[1].ItemName} - {chest.chestSlots[1].TrapLevel}";
-            //        ObjectSlotThreeLabel.Text = $"Slot 3: {chest.chestSlots[2].ItemName} - {chest.chestSlots[2].TrapLevel}";
-            //        ObjectSlotFourLabel.Text = $"Slot 4: {chest.chestSlots[3].ItemName} - {chest.chestSlots[3].TrapLevel}";
-            //        break;
-            //    case IFloorLayoutObject.MapObjectType.Trap:
-            //        Trap trap = (Trap)tile.FloorObject;
-            //        ObjectSubTypeLabel.Text = $"Sub type: {trap.Type}";
-            //        ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
-            //        ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
-            //        ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
-            //        ObjectSlotFourLabel.Text = $"Slot 4: {trap.TrapSlots[3]}";
-            //        break;
-            //    case IFloorLayoutObject.MapObjectType.Digimon:
-            //        Digimon digimon = (Digimon)tile.FloorObject;
-            //        ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
-            //        ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
-            //        ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
-            //        ObjectSlotThreeLabel.Text = $"Slot 3: {digimon.DigimonPacks[2].ObjectModelDigimonName:X2}";
-            //        ObjectSlotFourLabel.Text = $"Slot 4: {digimon.DigimonPacks[3].ObjectModelDigimonName:X2}";
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (mapObject.ObjectType)
+            {
+                case IFloorLayoutObject.MapObjectType.Warp:
+                    Warp warp = (Warp)mapObject;
+                    ObjectSubTypeLabel.Text = $"Sub type: {warp.Type}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Chest:
+                    Chest chest = (Chest)mapObject;
+                    ObjectSlotOneLabel.Text = $"Slot 1: {chest.chestSlots[0].ItemName} - {chest.chestSlots[0].TrapLevel}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {chest.chestSlots[1].ItemName} - {chest.chestSlots[1].TrapLevel}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {chest.chestSlots[2].ItemName} - {chest.chestSlots[2].TrapLevel}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {chest.chestSlots[3].ItemName} - {chest.chestSlots[3].TrapLevel}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Trap:
+                    Trap trap = (Trap)mapObject;
+                    ObjectSubTypeLabel.Text = $"Sub type: {trap.Type}";
+                    ObjectSlotOneLabel.Text = $"Slot 1: {trap.TrapSlots[0]}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {trap.TrapSlots[1]}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {trap.TrapSlots[2]}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {trap.TrapSlots[3]}";
+                    break;
+                case IFloorLayoutObject.MapObjectType.Digimon:
+                    Digimon digimon = (Digimon)mapObject;
+                    ObjectSubTypeLabel.Text = $"Pack 1 Level: {digimon.DigimonPacks[0].Level}";
+                    ObjectSlotOneLabel.Text = $"Slot 1: {digimon.DigimonPacks[0].ObjectModelDigimonName:X2}";
+                    ObjectSlotTwoLabel.Text = $"Slot 2: {digimon.DigimonPacks[1].ObjectModelDigimonName:X2}";
+                    ObjectSlotThreeLabel.Text = $"Slot 3: {digimon.DigimonPacks[2].ObjectModelDigimonName:X2}";
+                    ObjectSlotFourLabel.Text = $"Slot 4: {digimon.DigimonPacks[3].ObjectModelDigimonName:X2}";
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void ResetCurrentObjectInformation()
@@ -503,7 +503,7 @@ namespace DigimonWorld2Tool
         private void ShowWarpsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Bitmap bmp = ShowWarpsCheckbox.Checked ? LayoutRenderer.warpsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
-            foreach(RenderLayoutTab tab in FloorLayoutRenderTabs)
+            foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
                 tab.WarpsRenderLayer.Image = bmp;
 
             Properties.Settings.Default["ShowWarpsLayer"] = ShowWarpsCheckbox.Checked;

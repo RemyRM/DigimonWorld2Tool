@@ -31,6 +31,10 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.ShowTrapsCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowWarpsCheckbox = new System.Windows.Forms.CheckBox();
+            this.CurrentMapDataFolderLabel = new System.Windows.Forms.Label();
+            this.SelectMapDataFolderButton = new System.Windows.Forms.Button();
             this.ShowLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.LogGroupBox = new System.Windows.Forms.GroupBox();
             this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -86,8 +90,8 @@ namespace DigimonWorld2Tool
             this.renderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
-            this.SelectMapDataFolderButton = new System.Windows.Forms.Button();
-            this.CurrentMapDataFolderLabel = new System.Windows.Forms.Label();
+            this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -123,6 +127,10 @@ namespace DigimonWorld2Tool
             // 
             this.MapVisualizerTab.AutoScroll = true;
             this.MapVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerTab.Controls.Add(this.ShowDigimonCheckbox);
+            this.MapVisualizerTab.Controls.Add(this.ShowChestsCheckbox);
+            this.MapVisualizerTab.Controls.Add(this.ShowTrapsCheckbox);
+            this.MapVisualizerTab.Controls.Add(this.ShowWarpsCheckbox);
             this.MapVisualizerTab.Controls.Add(this.CurrentMapDataFolderLabel);
             this.MapVisualizerTab.Controls.Add(this.SelectMapDataFolderButton);
             this.MapVisualizerTab.Controls.Add(this.ShowLogsCheckBox);
@@ -150,6 +158,60 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
+            // 
+            // ShowTrapsCheckbox
+            // 
+            this.ShowTrapsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowTrapsCheckbox.AutoSize = true;
+            this.ShowTrapsCheckbox.Checked = true;
+            this.ShowTrapsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowTrapsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowTrapsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowTrapsCheckbox.Location = new System.Drawing.Point(226, 809);
+            this.ShowTrapsCheckbox.Name = "ShowTrapsCheckbox";
+            this.ShowTrapsCheckbox.Size = new System.Drawing.Size(63, 24);
+            this.ShowTrapsCheckbox.TabIndex = 27;
+            this.ShowTrapsCheckbox.Text = "Traps";
+            this.ShowTrapsCheckbox.UseVisualStyleBackColor = true;
+            this.ShowTrapsCheckbox.CheckedChanged += new System.EventHandler(this.ShowTrapsCheckbox_CheckedChanged);
+            // 
+            // ShowWarpsCheckbox
+            // 
+            this.ShowWarpsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowWarpsCheckbox.AutoSize = true;
+            this.ShowWarpsCheckbox.Checked = true;
+            this.ShowWarpsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowWarpsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowWarpsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowWarpsCheckbox.Location = new System.Drawing.Point(152, 809);
+            this.ShowWarpsCheckbox.Name = "ShowWarpsCheckbox";
+            this.ShowWarpsCheckbox.Size = new System.Drawing.Size(69, 24);
+            this.ShowWarpsCheckbox.TabIndex = 26;
+            this.ShowWarpsCheckbox.Text = "Warps";
+            this.ShowWarpsCheckbox.UseVisualStyleBackColor = true;
+            this.ShowWarpsCheckbox.CheckedChanged += new System.EventHandler(this.ShowWarpsCheckbox_CheckedChanged);
+            // 
+            // CurrentMapDataFolderLabel
+            // 
+            this.CurrentMapDataFolderLabel.AutoSize = true;
+            this.CurrentMapDataFolderLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CurrentMapDataFolderLabel.ForeColor = System.Drawing.Color.White;
+            this.CurrentMapDataFolderLabel.Location = new System.Drawing.Point(132, 183);
+            this.CurrentMapDataFolderLabel.MaximumSize = new System.Drawing.Size(540, 20);
+            this.CurrentMapDataFolderLabel.Name = "CurrentMapDataFolderLabel";
+            this.CurrentMapDataFolderLabel.Size = new System.Drawing.Size(157, 20);
+            this.CurrentMapDataFolderLabel.TabIndex = 25;
+            this.CurrentMapDataFolderLabel.Text = "Current directory label";
+            // 
+            // SelectMapDataFolderButton
+            // 
+            this.SelectMapDataFolderButton.Location = new System.Drawing.Point(16, 183);
+            this.SelectMapDataFolderButton.Name = "SelectMapDataFolderButton";
+            this.SelectMapDataFolderButton.Size = new System.Drawing.Size(110, 23);
+            this.SelectMapDataFolderButton.TabIndex = 24;
+            this.SelectMapDataFolderButton.Text = "Set map folder";
+            this.SelectMapDataFolderButton.UseVisualStyleBackColor = true;
+            this.SelectMapDataFolderButton.Click += new System.EventHandler(this.SelectMapDataFolderButton_Click);
             // 
             // ShowLogsCheckBox
             // 
@@ -774,27 +836,37 @@ namespace DigimonWorld2Tool
             this.DomainNameLabel.TabIndex = 0;
             this.DomainNameLabel.Text = "Domain:";
             // 
-            // SelectMapDataFolderButton
+            // ShowChestsCheckbox
             // 
-            this.SelectMapDataFolderButton.Location = new System.Drawing.Point(16, 183);
-            this.SelectMapDataFolderButton.Name = "SelectMapDataFolderButton";
-            this.SelectMapDataFolderButton.Size = new System.Drawing.Size(110, 23);
-            this.SelectMapDataFolderButton.TabIndex = 24;
-            this.SelectMapDataFolderButton.Text = "Set map folder";
-            this.SelectMapDataFolderButton.UseVisualStyleBackColor = true;
-            this.SelectMapDataFolderButton.Click += new System.EventHandler(this.SelectMapDataFolderButton_Click);
+            this.ShowChestsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowChestsCheckbox.AutoSize = true;
+            this.ShowChestsCheckbox.Checked = true;
+            this.ShowChestsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowChestsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowChestsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowChestsCheckbox.Location = new System.Drawing.Point(292, 809);
+            this.ShowChestsCheckbox.Name = "ShowChestsCheckbox";
+            this.ShowChestsCheckbox.Size = new System.Drawing.Size(70, 24);
+            this.ShowChestsCheckbox.TabIndex = 28;
+            this.ShowChestsCheckbox.Text = "Chests";
+            this.ShowChestsCheckbox.UseVisualStyleBackColor = true;
+            this.ShowChestsCheckbox.CheckedChanged += new System.EventHandler(this.ShowChestsCheckbox_CheckedChanged);
             // 
-            // CurrentMapDataFolderLabel
+            // ShowDigimonCheckbox
             // 
-            this.CurrentMapDataFolderLabel.AutoSize = true;
-            this.CurrentMapDataFolderLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CurrentMapDataFolderLabel.ForeColor = System.Drawing.Color.White;
-            this.CurrentMapDataFolderLabel.Location = new System.Drawing.Point(132, 183);
-            this.CurrentMapDataFolderLabel.MaximumSize = new System.Drawing.Size(540, 20);
-            this.CurrentMapDataFolderLabel.Name = "CurrentMapDataFolderLabel";
-            this.CurrentMapDataFolderLabel.Size = new System.Drawing.Size(157, 20);
-            this.CurrentMapDataFolderLabel.TabIndex = 25;
-            this.CurrentMapDataFolderLabel.Text = "Current directory label";
+            this.ShowDigimonCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowDigimonCheckbox.AutoSize = true;
+            this.ShowDigimonCheckbox.Checked = true;
+            this.ShowDigimonCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowDigimonCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowDigimonCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowDigimonCheckbox.Location = new System.Drawing.Point(365, 809);
+            this.ShowDigimonCheckbox.Name = "ShowDigimonCheckbox";
+            this.ShowDigimonCheckbox.Size = new System.Drawing.Size(86, 24);
+            this.ShowDigimonCheckbox.TabIndex = 29;
+            this.ShowDigimonCheckbox.Text = "Digimon";
+            this.ShowDigimonCheckbox.UseVisualStyleBackColor = true;
+            this.ShowDigimonCheckbox.CheckedChanged += new System.EventHandler(this.ShowDigimonCheckbox_CheckedChanged);
             // 
             // DigimonWorld2ToolForm
             // 
@@ -892,6 +964,10 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.CheckBox ShowLogsCheckBox;
         private System.Windows.Forms.Label CurrentMapDataFolderLabel;
         private System.Windows.Forms.Button SelectMapDataFolderButton;
+        public System.Windows.Forms.CheckBox ShowWarpsCheckbox;
+        public System.Windows.Forms.CheckBox ShowTrapsCheckbox;
+        public System.Windows.Forms.CheckBox ShowChestsCheckbox;
+        public System.Windows.Forms.CheckBox ShowDigimonCheckbox;
     }
 }
 

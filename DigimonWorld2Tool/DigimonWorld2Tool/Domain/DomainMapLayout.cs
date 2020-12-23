@@ -7,6 +7,7 @@ using DigimonWorld2MapVisualizer.Utility;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool;
 using static DigimonWorld2MapVisualizer.BinReader;
+using System.Drawing;
 
 namespace DigimonWorld2MapVisualizer.Domains
 {
@@ -40,7 +41,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         public readonly int BaseMapDigimonPointerAddressDecimal;
 
         public readonly List<DomainTileCombo> FloorLayoutTiles = new List<DomainTileCombo>();
-        private readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
+        public readonly List<IFloorLayoutObject> FloorLayoutObjects = new List<IFloorLayoutObject>();
 
         public DomainMapLayout(int baseMapPlanPointerAddressDecimal)
         {
@@ -61,7 +62,7 @@ namespace DigimonWorld2MapVisualizer.Domains
             BaseMapDigimonPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon);
             CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLength.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
 
-            AddFloorLayoutObjectsToTiles();
+            //AddFloorLayoutObjectsToTiles();
         }
 
         /// <summary>
@@ -106,21 +107,21 @@ namespace DigimonWorld2MapVisualizer.Domains
         {
             List<byte[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
 
-            foreach (var item in layoutObject)
+            foreach (var data in layoutObject)
             {
                 switch (objectType)
                 {
                     case IFloorLayoutObject.MapObjectType.Warp:
-                        FloorLayoutObjects.Add(new Warp(IFloorLayoutObject.MapObjectType.Warp, item));
+                        FloorLayoutObjects.Add(new Warp(data));
                         break;
                     case IFloorLayoutObject.MapObjectType.Chest:
-                        FloorLayoutObjects.Add(new Chest(IFloorLayoutObject.MapObjectType.Chest, item));
+                        FloorLayoutObjects.Add(new Chest(data));
                         break;
                     case IFloorLayoutObject.MapObjectType.Trap:
-                        FloorLayoutObjects.Add(new Trap(IFloorLayoutObject.MapObjectType.Trap, item));
+                        FloorLayoutObjects.Add(new Trap(data));
                         break;
                     case IFloorLayoutObject.MapObjectType.Digimon:
-                        FloorLayoutObjects.Add(new Digimon(IFloorLayoutObject.MapObjectType.Digimon, item));
+                        FloorLayoutObjects.Add(new Digimon(data));
                         break;
                     default:
                         System.Diagnostics.Debug.Write($"\n Error; could not parse MapObjectType {objectType}");
@@ -139,7 +140,7 @@ namespace DigimonWorld2MapVisualizer.Domains
                     var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
 
                     DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"{item.ObjectType} is out of bounds {item.Position} on floor {floorId} layout {layoutID}");
-                    if(DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Strict)
+                    if (DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Strict)
                     {
                         return;
                     }
@@ -148,31 +149,68 @@ namespace DigimonWorld2MapVisualizer.Domains
                         continue;
                     }
                 }
+
                 // If the position of the object is even we can use the objects position to find the tile and place it on the left tile.
                 // However since a grid tile is 2x1 we need to subtract 1 from the object's x axis if it's an odd number, which gives us
                 // the domain tile it is on, of which we then take the righTile.
-                if (item.Position.x % 2 == 0)
-                {
-                    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position).leftTile;
-                    if(tile != null)
-                    tile.AddObjectToTile(item);
-                }
-                else
-                {
-                    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position - Vector2.Right).rightTile;
-                    if(tile != null)
-                    tile.AddObjectToTile(item);
-                }
+                //if (item.Position.x % 2 == 0)
+                //{
+                //    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position).leftTile;
+                //    if (tile != null)
+                //        tile.AddObjectToTile(item);
+                //}
+                //else
+                //{
+                //    Tile tile = FloorLayoutTiles.FirstOrDefault(o => o.Position == item.Position - Vector2.Right).rightTile;
+                //    if (tile != null)
+                //        tile.AddObjectToTile(item);
+                //}
             }
         }
 
         /// <summary>
         /// Draw the tiles that make up this map
         /// </summary>
-        internal void DrawMap()
+        internal void DrawLayout()
         {
-            foreach (var item in FloorLayoutTiles)
-                LayoutRenderer.DrawTile(item);
+            LayoutRenderer.DrawTiles(FloorLayoutTiles);
+
+            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+                                          IFloorLayoutObject.MapObjectType.Warp,
+                                          bitmap =>
+                                          {
+                                              LayoutRenderer.warpsLayer = bitmap;
+
+                                              if (DigimonWorld2ToolForm.Main.ShowWarpsCheckbox.Checked)
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.WarpsRenderLayer.Image = LayoutRenderer.warpsLayer = bitmap;
+                                          });
+
+            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+                                          IFloorLayoutObject.MapObjectType.Trap,
+                                          bitmap =>
+                                          {
+                                              LayoutRenderer.trapsLayer = bitmap;
+                                              if (DigimonWorld2ToolForm.Main.ShowTrapsCheckbox.Checked)
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.TrapsRenderLayer.Image = LayoutRenderer.trapsLayer = bitmap;
+                                          });
+
+            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+                                          IFloorLayoutObject.MapObjectType.Chest,
+                                          bitmap =>
+                                          {
+                                              LayoutRenderer.chestsLayer = bitmap;
+                                              if (DigimonWorld2ToolForm.Main.ShowChestsCheckbox.Checked)
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.ChestsRenderLayer.Image = LayoutRenderer.chestsLayer = bitmap;
+                                          });
+
+            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+                                          IFloorLayoutObject.MapObjectType.Digimon,
+                                          bitmap =>
+                                          {
+                                              LayoutRenderer.digimonLayer = bitmap;
+                                              if (DigimonWorld2ToolForm.Main.ShowDigimonCheckbox.Checked)
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.DigimonRenderLayer.Image = LayoutRenderer.digimonLayer = bitmap;
+                                          });
         }
     }
 }

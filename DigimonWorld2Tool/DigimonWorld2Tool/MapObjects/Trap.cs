@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.Utility;
 
@@ -6,15 +7,16 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 {
     public class Trap : IFloorLayoutObject
     {
-        public IFloorLayoutObject.MapObjectType ObjectType { get; private set; }
+        public IFloorLayoutObject.MapObjectType ObjectType => IFloorLayoutObject.MapObjectType.Trap;
         public readonly TrapSlot.TrapType Type;
         public readonly TrapSlot[] TrapSlots = new TrapSlot[4];
 
         public Vector2 Position { get; private set; }
+        public Color ObjectColour => Color.Yellow;
+        public string ObjectText { get; private set; }
 
-        public Trap(IFloorLayoutObject.MapObjectType objectType, byte[] data)
+        public Trap(byte[] data)
         {
-            this.ObjectType = objectType;
             this.Position = new Vector2(data[0], data[1]);
 
             // One trap location has 4 trap "slots" that each have a 25% chance to get picked.
@@ -24,6 +26,39 @@ namespace DigimonWorld2MapVisualizer.MapObjects
             {
                 TrapSlots[i] = new TrapSlot(data[i + 2]);// We offset the data by 2 to skip over the first 2 bytes which make up the traps position
                 this.Type = TrapSlots[i].Type;
+            }
+
+            switch (Type)
+            {
+                case TrapSlot.TrapType.None:
+                    ObjectText = "";
+                    break;
+                case TrapSlot.TrapType.Swamp:
+                    ObjectText = "A";
+                    break;
+                case TrapSlot.TrapType.Spore:
+                    ObjectText = "S";
+                    break;
+                case TrapSlot.TrapType.Rock:
+                    ObjectText = "R";
+                    break;
+                case TrapSlot.TrapType.Mine:
+                    ObjectText = "M";
+                    break;
+                case TrapSlot.TrapType.Bit_Bug:
+                    ObjectText = "B";
+                    break;
+                case TrapSlot.TrapType.Energy_Bug:
+                    ObjectText = "E";
+                    break;
+                case TrapSlot.TrapType.Return_Bug:
+                    ObjectText = "R";
+                    break;
+                case TrapSlot.TrapType.Memory_bug:
+                    ObjectText = "M";
+                    break;
+                default:
+                    break;
             }
         }
 

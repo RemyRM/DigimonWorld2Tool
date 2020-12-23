@@ -1,4 +1,5 @@
 ﻿using DigimonWorld2MapVisualizer.Utility;
+using System.Drawing;
 
 namespace DigimonWorld2MapVisualizer.Interfaces
 {
@@ -14,5 +15,7 @@ namespace DigimonWorld2MapVisualizer.Interfaces
 
         public MapObjectType ObjectType { get; }
         public Vector2 Position { get; }
+        public Color ObjectColour { get; }
+        public string ObjectText { get;}
     }
 }

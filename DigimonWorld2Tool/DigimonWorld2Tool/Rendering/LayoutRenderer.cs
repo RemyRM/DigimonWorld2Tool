@@ -73,6 +73,22 @@ namespace DigimonWorld2Tool.Rendering
 
             foreach (IFloorLayoutObject mapObject in mapObjects.Where(o => o.ObjectType == mapType))
             {
+                if (mapObject.Position.x >= 64 || mapObject.Position.y >= 48)
+                {
+                    var floorId = Domain.Main.floorsInThisDomain.Count + 1;
+                    var layoutID = DomainFloor.CurrentDomainFloor.UniqueDomainMapLayouts.Count;
+
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"{mapObject.ObjectType} is out of bounds {mapObject.Position} on floor {floorId} layout {layoutID}");
+                    if (DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Strict)
+                    {
+                        return;
+                    }
+                    else if (DigimonWorld2ToolForm.ErrorMode == DigimonWorld2ToolForm.Strictness.Sloppy)
+                    {
+                        continue;
+                    }
+                }
+
                 for (int i = 0; i < tileSize; i++)
                 {
                     for (int j = 0; j < tileSize; j++)

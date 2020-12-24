@@ -31,13 +31,15 @@ namespace DigimonWorld2Tool
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
+            this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowTrapsCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowWarpsCheckbox = new System.Windows.Forms.CheckBox();
             this.CurrentMapDataFolderLabel = new System.Windows.Forms.Label();
             this.SelectMapDataFolderButton = new System.Windows.Forms.Button();
             this.ShowLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.LogGroupBox = new System.Windows.Forms.GroupBox();
-            this.LogRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.MapVisualizerLogRichTextBox = new System.Windows.Forms.RichTextBox();
             this.ErrorCheckingComboBox = new System.Windows.Forms.ComboBox();
             this.ErrorCheckLevelLabel = new System.Windows.Forms.Label();
             this.GridPosHexCheckBox = new System.Windows.Forms.CheckBox();
@@ -90,8 +92,16 @@ namespace DigimonWorld2Tool
             this.renderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
-            this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
-            this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
+            this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.TextureVisualizerPaletteRenderLayer = new System.Windows.Forms.PictureBox();
+            this.CLUTPaletteLabel = new System.Windows.Forms.Label();
+            this.TextureVisualizerLogGroupbox = new System.Windows.Forms.GroupBox();
+            this.TextureVisualizerLogRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.SelectedTexturePanel = new System.Windows.Forms.Panel();
+            this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
+            this.SelectTextureButton = new System.Windows.Forms.Button();
+            this.SelectedTextureLabel = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -108,6 +118,12 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.SuspendLayout();
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
+            this.TextureVisualizerTab.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).BeginInit();
+            this.TextureVisualizerLogGroupbox.SuspendLayout();
+            this.SelectedTexturePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -116,6 +132,7 @@ namespace DigimonWorld2Tool
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControlMain.Controls.Add(this.MapVisualizerTab);
+            this.TabControlMain.Controls.Add(this.TextureVisualizerTab);
             this.TabControlMain.Location = new System.Drawing.Point(-5, 0);
             this.TabControlMain.Name = "TabControlMain";
             this.TabControlMain.SelectedIndex = 0;
@@ -158,6 +175,38 @@ namespace DigimonWorld2Tool
             this.MapVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.MapVisualizerTab.TabIndex = 0;
             this.MapVisualizerTab.Text = "Map Visualizer";
+            // 
+            // ShowDigimonCheckbox
+            // 
+            this.ShowDigimonCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowDigimonCheckbox.AutoSize = true;
+            this.ShowDigimonCheckbox.Checked = true;
+            this.ShowDigimonCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowDigimonCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowDigimonCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowDigimonCheckbox.Location = new System.Drawing.Point(365, 809);
+            this.ShowDigimonCheckbox.Name = "ShowDigimonCheckbox";
+            this.ShowDigimonCheckbox.Size = new System.Drawing.Size(86, 24);
+            this.ShowDigimonCheckbox.TabIndex = 29;
+            this.ShowDigimonCheckbox.Text = "Digimon";
+            this.ShowDigimonCheckbox.UseVisualStyleBackColor = true;
+            this.ShowDigimonCheckbox.CheckedChanged += new System.EventHandler(this.ShowDigimonCheckbox_CheckedChanged);
+            // 
+            // ShowChestsCheckbox
+            // 
+            this.ShowChestsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ShowChestsCheckbox.AutoSize = true;
+            this.ShowChestsCheckbox.Checked = true;
+            this.ShowChestsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ShowChestsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowChestsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.ShowChestsCheckbox.Location = new System.Drawing.Point(292, 809);
+            this.ShowChestsCheckbox.Name = "ShowChestsCheckbox";
+            this.ShowChestsCheckbox.Size = new System.Drawing.Size(70, 24);
+            this.ShowChestsCheckbox.TabIndex = 28;
+            this.ShowChestsCheckbox.Text = "Chests";
+            this.ShowChestsCheckbox.UseVisualStyleBackColor = true;
+            this.ShowChestsCheckbox.CheckedChanged += new System.EventHandler(this.ShowChestsCheckbox_CheckedChanged);
             // 
             // ShowTrapsCheckbox
             // 
@@ -231,7 +280,7 @@ namespace DigimonWorld2Tool
             this.LogGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogGroupBox.Controls.Add(this.LogRichTextBox);
+            this.LogGroupBox.Controls.Add(this.MapVisualizerLogRichTextBox);
             this.LogGroupBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LogGroupBox.ForeColor = System.Drawing.Color.White;
             this.LogGroupBox.Location = new System.Drawing.Point(687, 544);
@@ -243,21 +292,21 @@ namespace DigimonWorld2Tool
             this.LogGroupBox.Text = "Log";
             this.LogGroupBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
             // 
-            // LogRichTextBox
+            // MapVisualizerLogRichTextBox
             // 
-            this.LogRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.MapVisualizerLogRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.LogRichTextBox.ForeColor = System.Drawing.Color.White;
-            this.LogRichTextBox.Location = new System.Drawing.Point(7, 27);
-            this.LogRichTextBox.Name = "LogRichTextBox";
-            this.LogRichTextBox.ReadOnly = true;
-            this.LogRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.LogRichTextBox.Size = new System.Drawing.Size(867, 250);
-            this.LogRichTextBox.TabIndex = 0;
-            this.LogRichTextBox.Text = "";
-            this.LogRichTextBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
+            this.MapVisualizerLogRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapVisualizerLogRichTextBox.ForeColor = System.Drawing.Color.White;
+            this.MapVisualizerLogRichTextBox.Location = new System.Drawing.Point(7, 27);
+            this.MapVisualizerLogRichTextBox.Name = "MapVisualizerLogRichTextBox";
+            this.MapVisualizerLogRichTextBox.ReadOnly = true;
+            this.MapVisualizerLogRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.MapVisualizerLogRichTextBox.Size = new System.Drawing.Size(867, 250);
+            this.MapVisualizerLogRichTextBox.TabIndex = 0;
+            this.MapVisualizerLogRichTextBox.Text = "";
+            this.MapVisualizerLogRichTextBox.TextChanged += new System.EventHandler(this.LogRichTextBox_TextChanged);
             // 
             // ErrorCheckingComboBox
             // 
@@ -836,37 +885,110 @@ namespace DigimonWorld2Tool
             this.DomainNameLabel.TabIndex = 0;
             this.DomainNameLabel.Text = "Domain:";
             // 
-            // ShowChestsCheckbox
+            // TextureVisualizerTab
             // 
-            this.ShowChestsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ShowChestsCheckbox.AutoSize = true;
-            this.ShowChestsCheckbox.Checked = true;
-            this.ShowChestsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowChestsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ShowChestsCheckbox.ForeColor = System.Drawing.Color.White;
-            this.ShowChestsCheckbox.Location = new System.Drawing.Point(292, 809);
-            this.ShowChestsCheckbox.Name = "ShowChestsCheckbox";
-            this.ShowChestsCheckbox.Size = new System.Drawing.Size(70, 24);
-            this.ShowChestsCheckbox.TabIndex = 28;
-            this.ShowChestsCheckbox.Text = "Chests";
-            this.ShowChestsCheckbox.UseVisualStyleBackColor = true;
-            this.ShowChestsCheckbox.CheckedChanged += new System.EventHandler(this.ShowChestsCheckbox_CheckedChanged);
+            this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.panel1);
+            this.TextureVisualizerTab.Controls.Add(this.CLUTPaletteLabel);
+            this.TextureVisualizerTab.Controls.Add(this.TextureVisualizerLogGroupbox);
+            this.TextureVisualizerTab.Controls.Add(this.SelectedTexturePanel);
+            this.TextureVisualizerTab.Controls.Add(this.SelectTextureButton);
+            this.TextureVisualizerTab.Controls.Add(this.SelectedTextureLabel);
+            this.TextureVisualizerTab.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TextureVisualizerTab.ForeColor = System.Drawing.Color.White;
+            this.TextureVisualizerTab.Location = new System.Drawing.Point(4, 24);
+            this.TextureVisualizerTab.Name = "TextureVisualizerTab";
+            this.TextureVisualizerTab.Padding = new System.Windows.Forms.Padding(3);
+            this.TextureVisualizerTab.Size = new System.Drawing.Size(1571, 839);
+            this.TextureVisualizerTab.TabIndex = 1;
+            this.TextureVisualizerTab.Text = "Texture visualizer";
             // 
-            // ShowDigimonCheckbox
+            // panel1
             // 
-            this.ShowDigimonCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ShowDigimonCheckbox.AutoSize = true;
-            this.ShowDigimonCheckbox.Checked = true;
-            this.ShowDigimonCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowDigimonCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ShowDigimonCheckbox.ForeColor = System.Drawing.Color.White;
-            this.ShowDigimonCheckbox.Location = new System.Drawing.Point(365, 809);
-            this.ShowDigimonCheckbox.Name = "ShowDigimonCheckbox";
-            this.ShowDigimonCheckbox.Size = new System.Drawing.Size(86, 24);
-            this.ShowDigimonCheckbox.TabIndex = 29;
-            this.ShowDigimonCheckbox.Text = "Digimon";
-            this.ShowDigimonCheckbox.UseVisualStyleBackColor = true;
-            this.ShowDigimonCheckbox.CheckedChanged += new System.EventHandler(this.ShowDigimonCheckbox_CheckedChanged);
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel1.Controls.Add(this.TextureVisualizerPaletteRenderLayer);
+            this.panel1.Location = new System.Drawing.Point(17, 668);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(322, 162);
+            this.panel1.TabIndex = 5;
+            // 
+            // TextureVisualizerPaletteRenderLayer
+            // 
+            this.TextureVisualizerPaletteRenderLayer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerPaletteRenderLayer.Location = new System.Drawing.Point(1, 1);
+            this.TextureVisualizerPaletteRenderLayer.Name = "TextureVisualizerPaletteRenderLayer";
+            this.TextureVisualizerPaletteRenderLayer.Size = new System.Drawing.Size(320, 160);
+            this.TextureVisualizerPaletteRenderLayer.TabIndex = 0;
+            this.TextureVisualizerPaletteRenderLayer.TabStop = false;
+            // 
+            // CLUTPaletteLabel
+            // 
+            this.CLUTPaletteLabel.AutoSize = true;
+            this.CLUTPaletteLabel.Location = new System.Drawing.Point(13, 645);
+            this.CLUTPaletteLabel.Name = "CLUTPaletteLabel";
+            this.CLUTPaletteLabel.Size = new System.Drawing.Size(97, 20);
+            this.CLUTPaletteLabel.TabIndex = 4;
+            this.CLUTPaletteLabel.Text = "CLUT palette:";
+            // 
+            // TextureVisualizerLogGroupbox
+            // 
+            this.TextureVisualizerLogGroupbox.Controls.Add(this.TextureVisualizerLogRichTextBox);
+            this.TextureVisualizerLogGroupbox.ForeColor = System.Drawing.Color.White;
+            this.TextureVisualizerLogGroupbox.Location = new System.Drawing.Point(289, 285);
+            this.TextureVisualizerLogGroupbox.Name = "TextureVisualizerLogGroupbox";
+            this.TextureVisualizerLogGroupbox.Size = new System.Drawing.Size(836, 345);
+            this.TextureVisualizerLogGroupbox.TabIndex = 3;
+            this.TextureVisualizerLogGroupbox.TabStop = false;
+            this.TextureVisualizerLogGroupbox.Text = "Log";
+            // 
+            // TextureVisualizerLogRichTextBox
+            // 
+            this.TextureVisualizerLogRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerLogRichTextBox.Location = new System.Drawing.Point(9, 25);
+            this.TextureVisualizerLogRichTextBox.Name = "TextureVisualizerLogRichTextBox";
+            this.TextureVisualizerLogRichTextBox.Size = new System.Drawing.Size(821, 314);
+            this.TextureVisualizerLogRichTextBox.TabIndex = 0;
+            this.TextureVisualizerLogRichTextBox.Text = "";
+            // 
+            // SelectedTexturePanel
+            // 
+            this.SelectedTexturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.SelectedTexturePanel.Controls.Add(this.SelectedTextureRenderLayer);
+            this.SelectedTexturePanel.Location = new System.Drawing.Point(17, 118);
+            this.SelectedTexturePanel.Name = "SelectedTexturePanel";
+            this.SelectedTexturePanel.Size = new System.Drawing.Size(258, 514);
+            this.SelectedTexturePanel.TabIndex = 2;
+            // 
+            // SelectedTextureRenderLayer
+            // 
+            this.SelectedTextureRenderLayer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.SelectedTextureRenderLayer.Location = new System.Drawing.Point(1, 1);
+            this.SelectedTextureRenderLayer.Name = "SelectedTextureRenderLayer";
+            this.SelectedTextureRenderLayer.Size = new System.Drawing.Size(256, 512);
+            this.SelectedTextureRenderLayer.TabIndex = 0;
+            this.SelectedTextureRenderLayer.TabStop = false;
+            // 
+            // SelectTextureButton
+            // 
+            this.SelectTextureButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SelectTextureButton.ForeColor = System.Drawing.Color.Black;
+            this.SelectTextureButton.Location = new System.Drawing.Point(17, 54);
+            this.SelectTextureButton.Name = "SelectTextureButton";
+            this.SelectTextureButton.Size = new System.Drawing.Size(134, 41);
+            this.SelectTextureButton.TabIndex = 1;
+            this.SelectTextureButton.Text = "Select file";
+            this.SelectTextureButton.UseVisualStyleBackColor = true;
+            this.SelectTextureButton.Click += new System.EventHandler(this.SelectTextureButton_Click);
+            // 
+            // SelectedTextureLabel
+            // 
+            this.SelectedTextureLabel.AutoSize = true;
+            this.SelectedTextureLabel.Location = new System.Drawing.Point(17, 22);
+            this.SelectedTextureLabel.MaximumSize = new System.Drawing.Size(1069, 20);
+            this.SelectedTextureLabel.Name = "SelectedTextureLabel";
+            this.SelectedTextureLabel.Size = new System.Drawing.Size(138, 20);
+            this.SelectedTextureLabel.TabIndex = 0;
+            this.SelectedTextureLabel.Text = "Select a file to view";
             // 
             // DigimonWorld2ToolForm
             // 
@@ -899,6 +1021,13 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage5.ResumeLayout(false);
             this.TabLayoutPage6.ResumeLayout(false);
             this.TabLayoutPage7.ResumeLayout(false);
+            this.TextureVisualizerTab.ResumeLayout(false);
+            this.TextureVisualizerTab.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).EndInit();
+            this.TextureVisualizerLogGroupbox.ResumeLayout(false);
+            this.SelectedTexturePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -960,7 +1089,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.ComboBox ErrorCheckingComboBox;
         private System.Windows.Forms.Label ErrorCheckLevelLabel;
         private System.Windows.Forms.GroupBox LogGroupBox;
-        private System.Windows.Forms.RichTextBox LogRichTextBox;
+        private System.Windows.Forms.RichTextBox MapVisualizerLogRichTextBox;
         private System.Windows.Forms.CheckBox ShowLogsCheckBox;
         private System.Windows.Forms.Label CurrentMapDataFolderLabel;
         private System.Windows.Forms.Button SelectMapDataFolderButton;
@@ -968,6 +1097,16 @@ namespace DigimonWorld2Tool
         public System.Windows.Forms.CheckBox ShowTrapsCheckbox;
         public System.Windows.Forms.CheckBox ShowChestsCheckbox;
         public System.Windows.Forms.CheckBox ShowDigimonCheckbox;
+        private System.Windows.Forms.TabPage TextureVisualizerTab;
+        private System.Windows.Forms.Panel SelectedTexturePanel;
+        private System.Windows.Forms.Button SelectTextureButton;
+        private System.Windows.Forms.Label SelectedTextureLabel;
+        private System.Windows.Forms.GroupBox TextureVisualizerLogGroupbox;
+        private System.Windows.Forms.RichTextBox TextureVisualizerLogRichTextBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label CLUTPaletteLabel;
+        public System.Windows.Forms.PictureBox TextureVisualizerPaletteRenderLayer;
+        public System.Windows.Forms.PictureBox SelectedTextureRenderLayer;
     }
 }
 

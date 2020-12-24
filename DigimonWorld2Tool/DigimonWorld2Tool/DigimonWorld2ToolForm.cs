@@ -13,6 +13,7 @@ using DigimonWorld2MapVisualizer.Interfaces;
 using DigimonWorld2MapVisualizer.MapObjects;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
+using DigimonWorld2Tool.Textures;
 
 namespace DigimonWorld2Tool
 {
@@ -30,7 +31,10 @@ namespace DigimonWorld2Tool
         public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
 
+        private RichTextBox CurrentLogTextBox;
+
         public static string FilePathToMapDirectory;
+        public static string FilePathToSelectedTexture;
 
         public static int CurrentFloorIndex;
         public static int CurrentLayoutTabIndex;
@@ -54,7 +58,7 @@ namespace DigimonWorld2Tool
         private void DigimonWorld2ToolForm_Load(object sender, EventArgs e)
         {
             DungeonFilesComboBox.Items.Clear();
-
+            CurrentLogTextBox = MapVisualizerLogRichTextBox;
             SetupLayoutRenderTabs();
 
             ErrorCheckingComboBox.Items.Add(Strictness.Strict);
@@ -257,7 +261,18 @@ namespace DigimonWorld2Tool
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
+            switch (TabControlMain.SelectedIndex)
+            {
+                case 0:
+                    CurrentLogTextBox = MapVisualizerLogRichTextBox;
+                    break;
 
+                case 1:
+                    CurrentLogTextBox = TextureVisualizerLogRichTextBox;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -427,14 +442,14 @@ namespace DigimonWorld2Tool
 
             if (ShowLogsCheckBox.Checked)
             {
-                LogRichTextBox.SelectionColor = Color.Red;
+                CurrentLogTextBox.SelectionColor = Color.Red;
 
                 if (stackTrace)
-                    LogRichTextBox.AppendText($"{errorWithStack}");
+                    CurrentLogTextBox.AppendText($"{errorWithStack}");
                 else
-                    LogRichTextBox.AppendText($"{error}{Environment.NewLine}");
+                    CurrentLogTextBox.AppendText($"{error}{Environment.NewLine}");
 
-                LogRichTextBox.SelectionColor = Color.White;
+                CurrentLogTextBox.SelectionColor = Color.White;
             }
 
             LogStack.Add(errorWithStack);
@@ -449,22 +464,22 @@ namespace DigimonWorld2Tool
 
             if (ShowLogsCheckBox.Checked)
             {
-                LogRichTextBox.SelectionColor = Color.Yellow;
+                CurrentLogTextBox.SelectionColor = Color.Yellow;
 
                 if (stackTrace)
-                    LogRichTextBox.AppendText($"{warningWithStack}");
+                    CurrentLogTextBox.AppendText($"{warningWithStack}");
                 else
-                    LogRichTextBox.AppendText($"{warning}{Environment.NewLine}");
+                    CurrentLogTextBox.AppendText($"{warning}{Environment.NewLine}");
 
-                LogRichTextBox.SelectionColor = Color.White;
+                CurrentLogTextBox.SelectionColor = Color.White;
             }
             LogStack.Add(warningWithStack);
         }
 
         public void AddLogToLogWindow(object log)
         {
-            LogRichTextBox.SelectionColor = Color.White;
-            LogRichTextBox.AppendText($"{log}{Environment.NewLine}");
+            CurrentLogTextBox.SelectionColor = Color.White;
+            CurrentLogTextBox.AppendText($"{log}{Environment.NewLine}");
 
             LogStack.Add(log.ToString());
         }
@@ -474,8 +489,8 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void LogRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            LogRichTextBox.SelectionStart = LogRichTextBox.Text.Length;
-            LogRichTextBox.ScrollToCaret();
+            CurrentLogTextBox.SelectionStart = CurrentLogTextBox.Text.Length;
+            CurrentLogTextBox.ScrollToCaret();
         }
 
         private void ShowLogsCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -538,7 +553,7 @@ namespace DigimonWorld2Tool
 
         #endregion
 
-        #region tab2
+        #region Digitext parser
         private void SelectFileButton_Click(object sender, EventArgs e)
         {
 
@@ -626,5 +641,22 @@ namespace DigimonWorld2Tool
         }
 
         #endregion
+
+        #region TextureVisualizerTab
+        private void SelectTextureButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.RestoreDirectory = true;
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SelectedTextureLabel.Text = fileDialog.FileName;
+                FilePathToSelectedTexture = fileDialog.FileName;
+
+                TIMParser.CheckForTIMHeader(fileDialog.FileName);
+            }
+        }
+
+        #endregion
+
     }
 }

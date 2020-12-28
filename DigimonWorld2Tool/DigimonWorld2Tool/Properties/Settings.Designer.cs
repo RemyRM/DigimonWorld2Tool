@@ -142,5 +142,41 @@ namespace DigimonWorld2Tool.Properties {
                 this["ShowDigimonLayer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScaleTextureToFit {
+            get {
+                return ((bool)(this["ScaleTextureToFit"]));
+            }
+            set {
+                this["ScaleTextureToFit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TextureUseAltClutCheckbox {
+            get {
+                return ((bool)(this["TextureUseAltClutCheckbox"]));
+            }
+            set {
+                this["TextureUseAltClutCheckbox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CLUTFirstColourTransparantCheckbox {
+            get {
+                return ((bool)(this["CLUTFirstColourTransparantCheckbox"]));
+            }
+            set {
+                this["CLUTFirstColourTransparantCheckbox"] = value;
+            }
+        }
     }
 }

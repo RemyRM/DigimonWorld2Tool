@@ -97,6 +97,12 @@ namespace DigimonWorld2Tool
             ShowTrapsCheckbox.Checked = (bool)Properties.Settings.Default["ShowTrapsLayer"];
             ShowChestsCheckbox.Checked = (bool)Properties.Settings.Default["ShowChestsLayer"];
             ShowDigimonCheckbox.Checked = (bool)Properties.Settings.Default["ShowDigimonLayer"];
+
+            //Texture visualizer
+            ScaleTextureToFitCheckbox.Checked = (bool)Properties.Settings.Default["ScaleTextureToFit"];
+            TextureUseAltClutCheckbox.Checked = (bool)Properties.Settings.Default["TextureUseAltClutCheckbox"];
+            CLUTFirstColourTransparantCheckbox.Checked = (bool)Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"];
+
         }
 
         private void LoadDungeonFiles()
@@ -656,7 +662,20 @@ namespace DigimonWorld2Tool
             }
         }
 
+        private void ScaleTextureToFitCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["ScaleTextureToFit"] = ScaleTextureToFitCheckbox.Checked;
+        }
+
+        private void TextureUseAltClutCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["TextureUseAltClutCheckbox"] = TextureUseAltClutCheckbox.Checked;
+        }
         #endregion
 
+        private void CLUTFirstColourTransparantCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"] = CLUTFirstColourTransparantCheckbox.Checked;
+        }
     }
 }

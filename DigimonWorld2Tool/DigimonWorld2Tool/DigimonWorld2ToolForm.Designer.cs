@@ -93,6 +93,9 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
+            this.CLUTFirstColourTransparantCheckbox = new System.Windows.Forms.CheckBox();
+            this.TextureUseAltClutCheckbox = new System.Windows.Forms.CheckBox();
+            this.ScaleTextureToFitCheckbox = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TextureVisualizerPaletteRenderLayer = new System.Windows.Forms.PictureBox();
             this.CLUTPaletteLabel = new System.Windows.Forms.Label();
@@ -888,6 +891,9 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.CLUTFirstColourTransparantCheckbox);
+            this.TextureVisualizerTab.Controls.Add(this.TextureUseAltClutCheckbox);
+            this.TextureVisualizerTab.Controls.Add(this.ScaleTextureToFitCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.panel1);
             this.TextureVisualizerTab.Controls.Add(this.CLUTPaletteLabel);
             this.TextureVisualizerTab.Controls.Add(this.TextureVisualizerLogGroupbox);
@@ -902,6 +908,41 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.TextureVisualizerTab.TabIndex = 1;
             this.TextureVisualizerTab.Text = "Texture visualizer";
+            // 
+            // CLUTFirstColourTransparantCheckbox
+            // 
+            this.CLUTFirstColourTransparantCheckbox.AutoSize = true;
+            this.CLUTFirstColourTransparantCheckbox.Checked = true;
+            this.CLUTFirstColourTransparantCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CLUTFirstColourTransparantCheckbox.Location = new System.Drawing.Point(290, 182);
+            this.CLUTFirstColourTransparantCheckbox.Name = "CLUTFirstColourTransparantCheckbox";
+            this.CLUTFirstColourTransparantCheckbox.Size = new System.Drawing.Size(232, 24);
+            this.CLUTFirstColourTransparantCheckbox.TabIndex = 8;
+            this.CLUTFirstColourTransparantCheckbox.Text = "First CLUT colour is transparant";
+            this.CLUTFirstColourTransparantCheckbox.UseVisualStyleBackColor = true;
+            this.CLUTFirstColourTransparantCheckbox.CheckedChanged += new System.EventHandler(this.CLUTFirstColourTransparantCheckbox_CheckedChanged);
+            // 
+            // TextureUseAltClutCheckbox
+            // 
+            this.TextureUseAltClutCheckbox.AutoSize = true;
+            this.TextureUseAltClutCheckbox.Location = new System.Drawing.Point(290, 152);
+            this.TextureUseAltClutCheckbox.Name = "TextureUseAltClutCheckbox";
+            this.TextureUseAltClutCheckbox.Size = new System.Drawing.Size(166, 24);
+            this.TextureUseAltClutCheckbox.TabIndex = 7;
+            this.TextureUseAltClutCheckbox.Text = "Use Alternative CLUT";
+            this.TextureUseAltClutCheckbox.UseVisualStyleBackColor = true;
+            this.TextureUseAltClutCheckbox.CheckedChanged += new System.EventHandler(this.TextureUseAltClutCheckbox_CheckedChanged);
+            // 
+            // ScaleTextureToFitCheckbox
+            // 
+            this.ScaleTextureToFitCheckbox.AutoSize = true;
+            this.ScaleTextureToFitCheckbox.Location = new System.Drawing.Point(290, 122);
+            this.ScaleTextureToFitCheckbox.Name = "ScaleTextureToFitCheckbox";
+            this.ScaleTextureToFitCheckbox.Size = new System.Drawing.Size(149, 24);
+            this.ScaleTextureToFitCheckbox.TabIndex = 6;
+            this.ScaleTextureToFitCheckbox.Text = "Scale texture to fit";
+            this.ScaleTextureToFitCheckbox.UseVisualStyleBackColor = true;
+            this.ScaleTextureToFitCheckbox.CheckedChanged += new System.EventHandler(this.ScaleTextureToFitCheckbox_CheckedChanged);
             // 
             // panel1
             // 
@@ -1107,6 +1148,9 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label CLUTPaletteLabel;
         public System.Windows.Forms.PictureBox TextureVisualizerPaletteRenderLayer;
         public System.Windows.Forms.PictureBox SelectedTextureRenderLayer;
+        public System.Windows.Forms.CheckBox ScaleTextureToFitCheckbox;
+        public System.Windows.Forms.CheckBox TextureUseAltClutCheckbox;
+        public System.Windows.Forms.CheckBox CLUTFirstColourTransparantCheckbox;
     }
 }
 

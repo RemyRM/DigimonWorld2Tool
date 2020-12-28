@@ -22,6 +22,8 @@ namespace DigimonWorld2Tool.Textures
             EightBPP = 9
         }
 
+        private static int TextureScaleSize = 1;
+
         public static void CheckForTIMHeader(string filePath)
         {
             DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Attempting to parse texture {filePath}");
@@ -43,6 +45,10 @@ namespace DigimonWorld2Tool.Textures
                     DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Found TIM Identifier after following pointer 0x{pointerToTIMFile:X8}");
                     ParseTIMHeader(ref reader);
                 }
+                else
+                {
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No TIM file indentifier was found");
+                }
             }
         }
 
@@ -55,9 +61,26 @@ namespace DigimonWorld2Tool.Textures
             int CLUTColourCount = reader.ReadInt16();
             int CLUTPages = reader.ReadInt16();
 
-            Color[] palette = ParseCLUT(ref reader, bppCount);
+            //Color[] palette = ParseTIMCLUT(ref reader, bppCount);
 
-            int imageByteCount = reader.ReadInt32();
+            Color[] palette = null;
+            if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+            {
+                var readerPos = reader.BaseStream.Position;
+                palette = ParseAlternativeCLUT(ref reader, bppCount);
+
+                reader.BaseStream.Position = readerPos;
+                ParseTIMCLUT(ref reader, bppCount); // This is temporary to ensure the BaseStream's position is put past the CLUT colour data
+                                                    // Should be done by just adding an int based on the CLUT length
+            }
+            else
+            {
+                palette = ParseTIMCLUT(ref reader, bppCount);
+            }
+
+            DrawCLUTPalette(palette);
+
+            int imageByteCount = reader.ReadInt32(); // This length includes the 12 bytes of header data
             int imageDx = reader.ReadInt16();
             int imageDy = reader.ReadInt16();
             int imageWidth = reader.ReadInt16();
@@ -69,7 +92,71 @@ namespace DigimonWorld2Tool.Textures
             reader.Dispose();
         }
 
-        private static Color[] ParseCLUT(ref BinaryReader reader, BPPCount bppCount)
+        private static Color[] ParseAlternativeCLUT(ref BinaryReader reader, BPPCount bppCount)
+        {
+            //reader.BaseStream.Position = 16156; //Set the position of the reader to the start of the real CLUT (this isnt constant)(red clut)
+
+            switch (bppCount)
+            {
+                case BPPCount.FourBPP:
+                    //int[] buffer = new int[256];
+                    ////int[] colourData = new int[80];
+                    //Color[] fourBitPallette = new Color[80];
+
+                    //int colourCount = 0;
+                    //for (int i = 0; i < buffer.Length; i++)
+                    //{
+                    //    buffer[i] = reader.ReadInt16();
+                    //    if (i % 32 > 21 && i % 32 < 32)
+                    //    {
+                    //        //colourData[colourCount] = buffer[i];
+                    //        var colourData = buffer[i];
+                    //        colourData = ~colourData;
+
+                    //        int r = colourData & 0x1F;
+                    //        int g = (colourData & 0x3E0) >> 5;
+                    //        int b = (colourData & 0x7C00) >> 10;
+                    //        int a = (colourData & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit as it is actually a transparancy bit, that is off or on
+
+                    //        Color col = Color.FromArgb(a * 255, r * 8, g * 8, b * 8);
+                    //        //Debug.Write($"#{col.R:X2}{col.G:X2}{col.B:X2}{Environment.NewLine}");
+                    //        //Debug.Write($"{Convert.ToString(a, 2)} {Convert.ToString(b, 2)} {Convert.ToString(g, 2)} {Convert.ToString(r, 2)}\n");
+                    //        //Debug.Write($"{Convert.ToString(colourData, 2)}\n");
+                    //        fourBitPallette[colourCount] = col;
+                    //        colourCount++;
+                    //    }
+                    //}
+
+                    reader.BaseStream.Position = 16156;
+                    Color[] fourBitPalette = new Color[256];
+                    for (int i = 0; i < fourBitPalette.Length; i++)
+                    {
+                        int colourData = reader.ReadInt16();
+                        int colourDataInverted = ~colourData;
+
+                        int r = colourDataInverted & 0x1F;
+                        int g = (colourDataInverted & 0x3E0) >> 5;
+                        int b = (colourDataInverted & 0x7C00) >> 10;
+                        int a = (colourDataInverted & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit back as it is actually a transparancy bit, that is off or on
+
+                        Color col = Color.FromArgb(a * 255, r * 8, g * 8, b * 8);
+
+                        fourBitPalette[i] = col;
+                    }
+                    if (DigimonWorld2ToolForm.Main.CLUTFirstColourTransparantCheckbox.Checked)
+                        fourBitPalette[0] = Color.Transparent;
+
+                    return fourBitPalette;
+                case BPPCount.EightBPP:
+                    break;
+                default:
+                    break;
+            }
+
+            return null;
+        }
+
+        private static Color[] ParseTIMCLUT(ref BinaryReader reader, BPPCount bppCount)
         {
             switch (bppCount)
             {
@@ -77,16 +164,16 @@ namespace DigimonWorld2Tool.Textures
                     Color[] FourBitPallete = new Color[16];
                     for (int i = 0; i < FourBitPallete.Length; i++)
                     {
-                        int colorData = reader.ReadInt16();
-                        int r = colorData & 0x1F;
-                        int g = (colorData & 0x3E0) >> 5;
-                        int b = (colorData & 0x7C00) >> 10;
-                        int a = (colorData & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit as it is actually a transparancy bit, that is off or on
+                        int colourData = reader.ReadInt16();
+                        int r = colourData & 0x1F;
+                        int g = (colourData & 0x3E0) >> 5;
+                        int b = (colourData & 0x7C00) >> 10;
+                        int a = (colourData & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit as it is actually a transparancy bit, that is off or on
 
                         Color col = Color.FromArgb(a * 255, r * 8, g * 8, b * 8);
                         FourBitPallete[i] = col;
                     }
-                    DrawCLUTPalette(FourBitPallete);
+                    //DrawCLUTPalette(FourBitPallete);
                     return FourBitPallete;
 
                 case BPPCount.EightBPP:
@@ -102,17 +189,8 @@ namespace DigimonWorld2Tool.Textures
                         Color col = Color.FromArgb(a * 255, r * 8, g * 8, b * 8);
                         eightBitPalette[i] = col;
                     }
-                    DrawCLUTPalette(eightBitPalette);
+                    //DrawCLUTPalette(eightBitPalette);
                     return eightBitPalette;
-
-                case BPPCount.FourBPPNoCLUT:
-                    break;
-                case BPPCount.EightBPPNoClut:
-                    break;
-                case BPPCount.SixteenBPPNoClut:
-                    break;
-                case BPPCount.TwentyFourBPPNoClut:
-                    break;
 
                 default:
                     break;
@@ -122,23 +200,66 @@ namespace DigimonWorld2Tool.Textures
 
         private static void DrawCLUTPalette(Color[] palette)
         {
-            int CLUTColourSize = 10;
-            int paletteSizeSqrt = (int)Math.Sqrt(palette.Length);
-            Bitmap paletteBmp = new Bitmap(paletteSizeSqrt * CLUTColourSize + CLUTColourSize, paletteSizeSqrt * CLUTColourSize+ CLUTColourSize);
+            int PixelSize = 10;
+            Bitmap paletteBmp;
 
-            int colID = 0;
-            for (int i = 0; i < paletteSizeSqrt; i++)
+            if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
             {
-                for (int j = 0; j < paletteSizeSqrt; j++)
+                //paletteBmp = new Bitmap(10 * PixelSize + PixelSize, 8 * PixelSize + PixelSize);
+
+                //int colID = 0;
+                //for (int y = 0; y < 8; y++)
+                //{
+                //    for (int x = 0; x < 10; x++)
+                //    {
+                //        for (int k = 0; k < PixelSize; k++)
+                //        {
+                //            for (int l = 0; l < PixelSize; l++)
+                //            {
+                //                paletteBmp.SetPixel((x * PixelSize) + k, (y * PixelSize) + l, palette[colID]);
+                //            }
+                //        }
+                //        colID++;
+                //    }
+                //}
+
+                paletteBmp = new Bitmap(32 * PixelSize + PixelSize, 8 * PixelSize + PixelSize);
+
+                int colID = 0;
+                for (int y = 0; y < 8; y++)
                 {
-                    for (int k = 0; k < CLUTColourSize; k++)
+                    for (int x = 0; x < 32; x++)
                     {
-                        for (int l = 0; l < CLUTColourSize; l++)
+                        for (int k = 0; k < PixelSize; k++)
                         {
-                            paletteBmp.SetPixel((i * CLUTColourSize) + k, (j * CLUTColourSize) + l, palette[colID]);
+                            for (int l = 0; l < PixelSize; l++)
+                            {
+                                paletteBmp.SetPixel((x * PixelSize) + k, (y * PixelSize) + l, palette[colID]);
+                            }
                         }
+                        colID++;
                     }
-                    colID++;
+                }
+            }
+            else
+            {
+                int paletteSizeSqrt = (int)Math.Sqrt(palette.Length);
+                paletteBmp = new Bitmap(paletteSizeSqrt * PixelSize + PixelSize, paletteSizeSqrt * PixelSize + PixelSize);
+
+                int colID = 0;
+                for (int y = 0; y < paletteSizeSqrt; y++)
+                {
+                    for (int x = 0; x < paletteSizeSqrt; x++)
+                    {
+                        for (int k = 0; k < PixelSize; k++)
+                        {
+                            for (int l = 0; l < PixelSize; l++)
+                            {
+                                paletteBmp.SetPixel((x * PixelSize) + k, (y * PixelSize) + l, palette[colID]);
+                            }
+                        }
+                        colID++;
+                    }
                 }
             }
             DigimonWorld2ToolForm.Main.TextureVisualizerPaletteRenderLayer.Image = paletteBmp;
@@ -146,6 +267,8 @@ namespace DigimonWorld2Tool.Textures
 
         private static void CreateImageBMP(ref BinaryReader reader, Color[] palette, BPPCount bppCount, int width, int height, int pageX, int pageY, int imageDataCount)
         {
+            TextureScaleSize = DigimonWorld2ToolForm.Main.ScaleTextureToFitCheckbox.Checked ? 2 : 1;
+
             int texturePageX = pageX / 64; // The file stores the raw offset in VRAM, to translate this to pages we divide by 64. Should be in range 5<>15
             int texturePageY = pageY / 256; // The only spread 2 rows, thus should be either 0 or 1
 
@@ -160,23 +283,109 @@ namespace DigimonWorld2Tool.Textures
             switch (bppCount)
             {
                 case BPPCount.FourBPP:
-                    width *= 4; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
 
+                    width *= 4; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
                     imageBmp = new Bitmap(width, height);
 
                     for (int y = 0; y < height; y++)
                     {
-                        for (int x = 0; x < width; x += 2) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
+                        for (int x = 0; x < width; x += 2)// We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
                         {
                             byte colourValue = reader.ReadByte();
 
-                            byte leftPixelValue = colourValue.GetLeftHalfByte();
-                            imageBmp.SetPixel(x, y, palette[leftPixelValue]);
+                            if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+                            {
+                                //imageBmp.SetPixel(x, y, palette[colourValue]);
+                                //imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[colourValue]); //+ 1 to the x to render the right pixel
+                                byte rightPixelValue = colourValue.GetRightHalfByte();
+                                imageBmp.SetPixel(x, y, palette[rightPixelValue * 0x11]); // The left pixel is the right half byte due to endianess
 
-                            byte rightPixelValue = colourValue.GetRightHalfByte();
-                            imageBmp.SetPixel(x + 1, y, palette[rightPixelValue]); //+ 1 to the x to render the right pixel
+                                byte leftPixelValue = colourValue.GetLeftHalfByte();
+                                imageBmp.SetPixel(x + 1, y, palette[leftPixelValue * 0x11]); //+ 1 to the x to render the right pixel
+                            }
+
+
+                            //byte rightPixelValue = colourValue.GetRightHalfByte();
+                            //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                            //byte leftPixelValue = colourValue.GetLeftHalfByte();
+                            //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
                         }
                     }
+
+
+
+                    //******* Most recent working version***********
+                    //width *= 4; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
+                    //imageBmp = new Bitmap(width * TextureScaleSize, height * TextureScaleSize);
+
+                    //for (int y = 0; y < height; y++)
+                    //{
+                    //    for (int x = 0; x < width; x += 2) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
+                    //    {
+                    //        byte colourValue = reader.ReadByte();
+
+                    //        for (int i = 0; i < TextureScaleSize; i++)
+                    //        {
+                    //            for (int j = 0; j < TextureScaleSize; j++)
+                    //            {
+                    //                if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+                    //                {
+                    //                    imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[colourValue]); 
+                    //                    imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[colourValue]); //+ 1 to the x to render the right pixel
+                    //                }
+                    //                else
+                    //                {
+                    //                    byte rightPixelValue = colourValue.GetRightHalfByte();
+                    //                    imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                    //                    byte leftPixelValue = colourValue.GetLeftHalfByte();
+                    //                    imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                    //                }
+                    //            }
+                    //        }
+
+                    //        //byte rightPixelValue = colourValue.GetRightHalfByte();
+                    //        //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                    //        //byte leftPixelValue = colourValue.GetLeftHalfByte();
+                    //        //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                    //    }
+                    //}
+
+
+                    //******** older version *******
+                    //width *= 2; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
+                    //imageBmp = new Bitmap(width * TextureScaleSize, height * TextureScaleSize);
+
+                    //for (int y = 0; y < height; y++)
+                    //{
+                    //    for (int x = 0; x < width; x++) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
+                    //    {
+                    //        byte colourValue = reader.ReadByte();
+
+                    //        for (int i = 0; i < TextureScaleSize; i++)
+                    //        {
+                    //            for (int j = 0; j < TextureScaleSize; j++)
+                    //            {
+                    //                imageBmp.SetPixel(x * TextureScaleSize + i, y * TextureScaleSize + j, palette[colourValue]); // The left pixel is the right half byte due to endianess
+
+                    //                //byte rightPixelValue = colourValue.GetRightHalfByte();
+                    //                //imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                    //                //byte leftPixelValue = colourValue.GetLeftHalfByte();
+                    //                //imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                    //            }
+                    //        }
+
+                    //        //byte rightPixelValue = colourValue.GetRightHalfByte();
+                    //        //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                    //        //byte leftPixelValue = colourValue.GetLeftHalfByte();
+                    //        //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                    //    }
+                    //}
+
                     break;
 
                 case BPPCount.EightBPP:
@@ -192,17 +401,6 @@ namespace DigimonWorld2Tool.Textures
                             imageBmp.SetPixel(x, y, palette[colourValue]);
                         }
                     }
-                    break;
-
-                case BPPCount.FourBPPNoCLUT:
-                    break;
-                case BPPCount.EightBPPNoClut:
-                    break;
-                case BPPCount.SixteenBPPNoClut:
-                    break;
-                case BPPCount.TwentyFourBPPNoClut:
-                    break;
-                default:
                     break;
             }
             DigimonWorld2ToolForm.Main.SelectedTextureRenderLayer.Image = imageBmp;

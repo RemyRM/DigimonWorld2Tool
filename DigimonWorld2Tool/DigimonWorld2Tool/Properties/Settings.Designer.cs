@@ -178,5 +178,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["CLUTFirstColourTransparantCheckbox"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InvertCLUTColours {
+            get {
+                return ((bool)(this["InvertCLUTColours"]));
+            }
+            set {
+                this["InvertCLUTColours"] = value;
+            }
+        }
     }
 }

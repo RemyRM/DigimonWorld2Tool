@@ -102,7 +102,7 @@ namespace DigimonWorld2Tool
             ScaleTextureToFitCheckbox.Checked = (bool)Properties.Settings.Default["ScaleTextureToFit"];
             TextureUseAltClutCheckbox.Checked = (bool)Properties.Settings.Default["TextureUseAltClutCheckbox"];
             CLUTFirstColourTransparantCheckbox.Checked = (bool)Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"];
-
+            InvertCLUTColoursCheckbox.Checked = (bool)Properties.Settings.Default["InvertCLUTColours"];
         }
 
         private void LoadDungeonFiles()
@@ -676,6 +676,11 @@ namespace DigimonWorld2Tool
         private void CLUTFirstColourTransparantCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"] = CLUTFirstColourTransparantCheckbox.Checked;
+        }
+
+        private void InvertCLUTColoursCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["InvertCLUTColours"] = InvertCLUTColoursCheckbox.Checked;
         }
     }
 }

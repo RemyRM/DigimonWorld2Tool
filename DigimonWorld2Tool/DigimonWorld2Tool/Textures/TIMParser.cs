@@ -144,7 +144,11 @@ namespace DigimonWorld2Tool.Textures
                         fourBitPalette[i] = col;
                     }
                     if (DigimonWorld2ToolForm.Main.CLUTFirstColourTransparantCheckbox.Checked)
+                    {
+                        fourBitPalette[240] = Color.Transparent;
+
                         fourBitPalette[0] = Color.Transparent;
+                    }
 
                     return fourBitPalette;
                 case BPPCount.EightBPP:
@@ -285,106 +289,40 @@ namespace DigimonWorld2Tool.Textures
                 case BPPCount.FourBPP:
 
                     width *= 4; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
-                    imageBmp = new Bitmap(width, height);
+                    imageBmp = new Bitmap(width * TextureScaleSize, height * TextureScaleSize);
 
                     for (int y = 0; y < height; y++)
                     {
-                        for (int x = 0; x < width; x += 2)// We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
+                        for (int x = 0; x < width; x += 2) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
                         {
                             byte colourValue = reader.ReadByte();
 
-                            if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+                            for (int i = 0; i < TextureScaleSize; i++)
                             {
-                                //imageBmp.SetPixel(x, y, palette[colourValue]);
-                                //imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[colourValue]); //+ 1 to the x to render the right pixel
-                                byte rightPixelValue = colourValue.GetRightHalfByte();
-                                imageBmp.SetPixel(x, y, palette[rightPixelValue * 0x11]); // The left pixel is the right half byte due to endianess
+                                for (int j = 0; j < TextureScaleSize; j++)
+                                {
+                                    if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+                                    {
+                                        byte rightPixelValue = colourValue.GetRightHalfByte();
+                                        //imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue * 0x11]); // The left pixel is the right half byte due to endianess
+                                        imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[240 + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                byte leftPixelValue = colourValue.GetLeftHalfByte();
-                                imageBmp.SetPixel(x + 1, y, palette[leftPixelValue * 0x11]); //+ 1 to the x to render the right pixel
+                                        byte leftPixelValue = colourValue.GetLeftHalfByte();
+                                        //imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue * 0x11]); //+ 1 to the x to render the right pixel                                     
+                                        imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[240 + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
+                                    }
+                                    else
+                                    {
+                                        byte rightPixelValue = colourValue.GetRightHalfByte();
+                                        imageBmp.SetPixel(x, y, palette[rightPixelValue * 0x11]); // The left pixel is the right half byte due to endianess
+
+                                        byte leftPixelValue = colourValue.GetLeftHalfByte();
+                                        imageBmp.SetPixel(x + 1, y, palette[leftPixelValue * 0x11]); //+ 1 to the x to render the right pixel
+                                    }
+                                }
                             }
-
-
-                            //byte rightPixelValue = colourValue.GetRightHalfByte();
-                            //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
-
-                            //byte leftPixelValue = colourValue.GetLeftHalfByte();
-                            //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
                         }
                     }
-
-
-
-                    //******* Most recent working version***********
-                    //width *= 4; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
-                    //imageBmp = new Bitmap(width * TextureScaleSize, height * TextureScaleSize);
-
-                    //for (int y = 0; y < height; y++)
-                    //{
-                    //    for (int x = 0; x < width; x += 2) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
-                    //    {
-                    //        byte colourValue = reader.ReadByte();
-
-                    //        for (int i = 0; i < TextureScaleSize; i++)
-                    //        {
-                    //            for (int j = 0; j < TextureScaleSize; j++)
-                    //            {
-                    //                if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
-                    //                {
-                    //                    imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[colourValue]); 
-                    //                    imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[colourValue]); //+ 1 to the x to render the right pixel
-                    //                }
-                    //                else
-                    //                {
-                    //                    byte rightPixelValue = colourValue.GetRightHalfByte();
-                    //                    imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
-
-                    //                    byte leftPixelValue = colourValue.GetLeftHalfByte();
-                    //                    imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
-                    //                }
-                    //            }
-                    //        }
-
-                    //        //byte rightPixelValue = colourValue.GetRightHalfByte();
-                    //        //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
-
-                    //        //byte leftPixelValue = colourValue.GetLeftHalfByte();
-                    //        //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
-                    //    }
-                    //}
-
-
-                    //******** older version *******
-                    //width *= 2; // in a 4BPP colour depth we only use a quarter of a byte per pixel, so to get the real width the multiply by 4           
-                    //imageBmp = new Bitmap(width * TextureScaleSize, height * TextureScaleSize);
-
-                    //for (int y = 0; y < height; y++)
-                    //{
-                    //    for (int x = 0; x < width; x++) // We skip every 2nd pixel on the x axis, as we render 2 pixels per byte
-                    //    {
-                    //        byte colourValue = reader.ReadByte();
-
-                    //        for (int i = 0; i < TextureScaleSize; i++)
-                    //        {
-                    //            for (int j = 0; j < TextureScaleSize; j++)
-                    //            {
-                    //                imageBmp.SetPixel(x * TextureScaleSize + i, y * TextureScaleSize + j, palette[colourValue]); // The left pixel is the right half byte due to endianess
-
-                    //                //byte rightPixelValue = colourValue.GetRightHalfByte();
-                    //                //imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
-
-                    //                //byte leftPixelValue = colourValue.GetLeftHalfByte();
-                    //                //imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
-                    //            }
-                    //        }
-
-                    //        //byte rightPixelValue = colourValue.GetRightHalfByte();
-                    //        //imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
-
-                    //        //byte leftPixelValue = colourValue.GetLeftHalfByte();
-                    //        //imageBmp.SetPixel(x + 1, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
-                    //    }
-                    //}
 
                     break;
 

@@ -105,6 +105,7 @@ namespace DigimonWorld2Tool
             this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
+            this.InvertCLUTColoursCheckbox = new System.Windows.Forms.CheckBox();
             this.TabControlMain.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -891,6 +892,7 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.InvertCLUTColoursCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.CLUTFirstColourTransparantCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.TextureUseAltClutCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.ScaleTextureToFitCheckbox);
@@ -1031,6 +1033,19 @@ namespace DigimonWorld2Tool
             this.SelectedTextureLabel.TabIndex = 0;
             this.SelectedTextureLabel.Text = "Select a file to view";
             // 
+            // InvertCLUTColoursCheckbox
+            // 
+            this.InvertCLUTColoursCheckbox.AutoSize = true;
+            this.InvertCLUTColoursCheckbox.Checked = true;
+            this.InvertCLUTColoursCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InvertCLUTColoursCheckbox.Location = new System.Drawing.Point(290, 212);
+            this.InvertCLUTColoursCheckbox.Name = "InvertCLUTColoursCheckbox";
+            this.InvertCLUTColoursCheckbox.Size = new System.Drawing.Size(155, 24);
+            this.InvertCLUTColoursCheckbox.TabIndex = 9;
+            this.InvertCLUTColoursCheckbox.Text = "Invert CLUT colours";
+            this.InvertCLUTColoursCheckbox.UseVisualStyleBackColor = true;
+            this.InvertCLUTColoursCheckbox.CheckedChanged += new System.EventHandler(this.InvertCLUTColoursCheckbox_CheckedChanged);
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1151,6 +1166,7 @@ namespace DigimonWorld2Tool
         public System.Windows.Forms.CheckBox ScaleTextureToFitCheckbox;
         public System.Windows.Forms.CheckBox TextureUseAltClutCheckbox;
         public System.Windows.Forms.CheckBox CLUTFirstColourTransparantCheckbox;
+        public System.Windows.Forms.CheckBox InvertCLUTColoursCheckbox;
     }
 }
 

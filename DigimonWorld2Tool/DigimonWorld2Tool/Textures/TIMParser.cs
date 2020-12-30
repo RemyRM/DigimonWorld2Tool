@@ -103,12 +103,15 @@ namespace DigimonWorld2Tool.Textures
                     for (int i = 0; i < fourBitPalette.Length; i++)
                     {
                         int colourData = reader.ReadInt16();
-                        int colourDataInverted = ~colourData;
+                        if(DigimonWorld2ToolForm.Main.InvertCLUTColoursCheckbox.Checked)
+                        {
+                            colourData = ~colourData;
+                        }
 
-                        int r = colourDataInverted & 0x1F;
-                        int g = (colourDataInverted & 0x3E0) >> 5;
-                        int b = (colourDataInverted & 0x7C00) >> 10;
-                        int a = (colourDataInverted & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit back as it is actually a transparancy bit, that is off or on
+                        int r = colourData & 0x1F;
+                        int g = (colourData & 0x3E0) >> 5;
+                        int b = (colourData & 0x7C00) >> 10;
+                        int a = (colourData & 8000) >> 15 ^ 0x01; // We need to flip the Alpha bit back as it is actually a transparancy bit, that is off or on
 
                         Color col = Color.FromArgb(a * 255, r * 8, g * 8, b * 8);
 

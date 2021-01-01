@@ -68,7 +68,7 @@ namespace DigimonWorld2Tool
             LoadDungeonFiles();
 
             AddDungeonFilesToComboBox();
-            TabControlMain.SelectedIndex = 0;
+            CLUTOffsetNumericUpDown.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
@@ -267,7 +267,7 @@ namespace DigimonWorld2Tool
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (TabControlMain.SelectedIndex)
+            switch (CLUTOffsetNumericUpDown.SelectedIndex)
             {
                 case 0:
                     CurrentLogTextBox = MapVisualizerLogRichTextBox;
@@ -658,7 +658,7 @@ namespace DigimonWorld2Tool
                 SelectedTextureLabel.Text = fileDialog.FileName;
                 FilePathToSelectedTexture = fileDialog.FileName;
 
-                TIMParser.CheckForTIMHeader(fileDialog.FileName);
+                TextureParser.CheckForTIMHeader(fileDialog.FileName);
             }
         }
 
@@ -671,7 +671,6 @@ namespace DigimonWorld2Tool
         {
             Properties.Settings.Default["TextureUseAltClutCheckbox"] = TextureUseAltClutCheckbox.Checked;
         }
-        #endregion
 
         private void CLUTFirstColourTransparantCheckbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -682,5 +681,41 @@ namespace DigimonWorld2Tool
         {
             Properties.Settings.Default["InvertCLUTColours"] = InvertCLUTColoursCheckbox.Checked;
         }
+
+        public void SetSegmentInformationText(int pointer, short positionX, short positionY, byte offsetX, byte offsetY, short unknown, byte fillX, byte fillY, short colour)
+        {
+            TextureSegmentPointerLabel.Text = $"Segment pointer: 0x{pointer:X8}";
+            TextureSegmentOffsetXLabel.Text = $"Offset X: 0x{offsetX:X2}";
+            TextureSegmentOffsetYLabel.Text = $"Offset Y: 0x{offsetY:X2}";
+            TextureSegmentPositionXLabel.Text = $"Position X: 0x{positionX:X4}";
+            TextureSegmentPositionYLabel.Text = $"Position Y: 0x{positionY:X4}";
+            TextureSegmentUnknownLabel.Text = $"Unknown: 0x{unknown:X4}";
+            TextureSegmentFillXLabel.Text = $"Fill X: 0x{fillX:X2}";
+            TextureSegmentFillYLabel.Text = $"Fill Y: 0x{fillY:X2}";
+            TextureSegmentColourLabel.Text = $"Colour?: 0x{colour:X4}";
+        }
+
+        private void TextureSegmentSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TextureParser.CurrentTexture == null)
+                return;
+
+            var currentSegment = TextureParser.CurrentTexture.textureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
+
+            TextureLayerSelectComboBox.Items.Clear();
+            for (int i = 0; i < currentSegment.Layers.Count; i++)
+            {
+                TextureLayerSelectComboBox.Items.Add(i);
+            }
+
+            TextureLayerSelectComboBox.SelectedIndex = 0;
+        }
+
+        private void TextureLayerSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var currentSegment = TextureParser.CurrentTexture.textureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
+            currentSegment.Layers[TextureLayerSelectComboBox.SelectedIndex].DrawInformationToInformationBox(currentSegment.SegmentOffset);
+        }
+        #endregion
     }
 }

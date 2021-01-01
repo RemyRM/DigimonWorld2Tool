@@ -29,7 +29,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void InitializeComponent()
         {
-            this.TabControlMain = new System.Windows.Forms.TabControl();
+            this.CLUTOffsetNumericUpDown = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
             this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
@@ -93,6 +93,24 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
+            this.TextureSheetLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.TextureSegmentPositionYLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentPositionXLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentSelectComboBox = new System.Windows.Forms.ComboBox();
+            this.TextureSegmentSelectLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentColourLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentFillYLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentFillXLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentUnknownLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentOffsetYLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentOffsetXLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentPointerLabel = new System.Windows.Forms.Label();
+            this.TextureLayerSelectComboBox = new System.Windows.Forms.ComboBox();
+            this.TextureSegmentLayerSelectLabel = new System.Windows.Forms.Label();
+            this.CLUTOffsetUpDown = new System.Windows.Forms.NumericUpDown();
+            this.CLUTOffsetLabel = new System.Windows.Forms.Label();
+            this.InvertCLUTColoursCheckbox = new System.Windows.Forms.CheckBox();
             this.CLUTFirstColourTransparantCheckbox = new System.Windows.Forms.CheckBox();
             this.TextureUseAltClutCheckbox = new System.Windows.Forms.CheckBox();
             this.ScaleTextureToFitCheckbox = new System.Windows.Forms.CheckBox();
@@ -105,8 +123,7 @@ namespace DigimonWorld2Tool
             this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
-            this.InvertCLUTColoursCheckbox = new System.Windows.Forms.CheckBox();
-            this.TabControlMain.SuspendLayout();
+            this.CLUTOffsetNumericUpDown.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -123,6 +140,8 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage6.SuspendLayout();
             this.TabLayoutPage7.SuspendLayout();
             this.TextureVisualizerTab.SuspendLayout();
+            this.TextureSegmentGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).BeginInit();
             this.TextureVisualizerLogGroupbox.SuspendLayout();
@@ -130,19 +149,19 @@ namespace DigimonWorld2Tool
             ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).BeginInit();
             this.SuspendLayout();
             // 
-            // TabControlMain
+            // CLUTOffsetNumericUpDown
             // 
-            this.TabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.CLUTOffsetNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabControlMain.Controls.Add(this.MapVisualizerTab);
-            this.TabControlMain.Controls.Add(this.TextureVisualizerTab);
-            this.TabControlMain.Location = new System.Drawing.Point(-5, 0);
-            this.TabControlMain.Name = "TabControlMain";
-            this.TabControlMain.SelectedIndex = 0;
-            this.TabControlMain.Size = new System.Drawing.Size(1579, 867);
-            this.TabControlMain.TabIndex = 0;
-            this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            this.CLUTOffsetNumericUpDown.Controls.Add(this.MapVisualizerTab);
+            this.CLUTOffsetNumericUpDown.Controls.Add(this.TextureVisualizerTab);
+            this.CLUTOffsetNumericUpDown.Location = new System.Drawing.Point(-5, 0);
+            this.CLUTOffsetNumericUpDown.Name = "CLUTOffsetNumericUpDown";
+            this.CLUTOffsetNumericUpDown.SelectedIndex = 0;
+            this.CLUTOffsetNumericUpDown.Size = new System.Drawing.Size(1579, 867);
+            this.CLUTOffsetNumericUpDown.TabIndex = 0;
+            this.CLUTOffsetNumericUpDown.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
             // MapVisualizerTab
             // 
@@ -892,6 +911,10 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.TextureSheetLabel);
+            this.TextureVisualizerTab.Controls.Add(this.TextureSegmentGroupBox);
+            this.TextureVisualizerTab.Controls.Add(this.CLUTOffsetUpDown);
+            this.TextureVisualizerTab.Controls.Add(this.CLUTOffsetLabel);
             this.TextureVisualizerTab.Controls.Add(this.InvertCLUTColoursCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.CLUTFirstColourTransparantCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.TextureUseAltClutCheckbox);
@@ -910,6 +933,198 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.TextureVisualizerTab.TabIndex = 1;
             this.TextureVisualizerTab.Text = "Texture visualizer";
+            // 
+            // TextureSheetLabel
+            // 
+            this.TextureSheetLabel.AutoSize = true;
+            this.TextureSheetLabel.Location = new System.Drawing.Point(17, 105);
+            this.TextureSheetLabel.Name = "TextureSheetLabel";
+            this.TextureSheetLabel.Size = new System.Drawing.Size(99, 20);
+            this.TextureSheetLabel.TabIndex = 13;
+            this.TextureSheetLabel.Text = "Texture sheet:";
+            // 
+            // TextureSegmentGroupBox
+            // 
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPositionYLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPositionXLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentSelectComboBox);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentSelectLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentColourLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentFillYLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentFillXLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentUnknownLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentOffsetYLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentOffsetXLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPointerLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureLayerSelectComboBox);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerSelectLabel);
+            this.TextureSegmentGroupBox.ForeColor = System.Drawing.Color.White;
+            this.TextureSegmentGroupBox.Location = new System.Drawing.Point(530, 56);
+            this.TextureSegmentGroupBox.Name = "TextureSegmentGroupBox";
+            this.TextureSegmentGroupBox.Size = new System.Drawing.Size(1018, 469);
+            this.TextureSegmentGroupBox.TabIndex = 12;
+            this.TextureSegmentGroupBox.TabStop = false;
+            this.TextureSegmentGroupBox.Text = "Texture information";
+            // 
+            // TextureSegmentPositionYLabel
+            // 
+            this.TextureSegmentPositionYLabel.AutoSize = true;
+            this.TextureSegmentPositionYLabel.Location = new System.Drawing.Point(17, 277);
+            this.TextureSegmentPositionYLabel.Name = "TextureSegmentPositionYLabel";
+            this.TextureSegmentPositionYLabel.Size = new System.Drawing.Size(76, 20);
+            this.TextureSegmentPositionYLabel.TabIndex = 12;
+            this.TextureSegmentPositionYLabel.Text = "Position Y:";
+            // 
+            // TextureSegmentPositionXLabel
+            // 
+            this.TextureSegmentPositionXLabel.AutoSize = true;
+            this.TextureSegmentPositionXLabel.Location = new System.Drawing.Point(17, 237);
+            this.TextureSegmentPositionXLabel.Name = "TextureSegmentPositionXLabel";
+            this.TextureSegmentPositionXLabel.Size = new System.Drawing.Size(75, 20);
+            this.TextureSegmentPositionXLabel.TabIndex = 11;
+            this.TextureSegmentPositionXLabel.Text = "Position x:";
+            // 
+            // TextureSegmentSelectComboBox
+            // 
+            this.TextureSegmentSelectComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextureSegmentSelectComboBox.FormattingEnabled = true;
+            this.TextureSegmentSelectComboBox.Location = new System.Drawing.Point(94, 36);
+            this.TextureSegmentSelectComboBox.MaxDropDownItems = 100;
+            this.TextureSegmentSelectComboBox.Name = "TextureSegmentSelectComboBox";
+            this.TextureSegmentSelectComboBox.Size = new System.Drawing.Size(60, 28);
+            this.TextureSegmentSelectComboBox.TabIndex = 10;
+            this.TextureSegmentSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureSegmentSelectComboBox_SelectedIndexChanged);
+            // 
+            // TextureSegmentSelectLabel
+            // 
+            this.TextureSegmentSelectLabel.AutoSize = true;
+            this.TextureSegmentSelectLabel.Location = new System.Drawing.Point(17, 37);
+            this.TextureSegmentSelectLabel.Name = "TextureSegmentSelectLabel";
+            this.TextureSegmentSelectLabel.Size = new System.Drawing.Size(71, 20);
+            this.TextureSegmentSelectLabel.TabIndex = 9;
+            this.TextureSegmentSelectLabel.Text = "Segment:";
+            // 
+            // TextureSegmentColourLabel
+            // 
+            this.TextureSegmentColourLabel.AutoSize = true;
+            this.TextureSegmentColourLabel.Location = new System.Drawing.Point(17, 437);
+            this.TextureSegmentColourLabel.Name = "TextureSegmentColourLabel";
+            this.TextureSegmentColourLabel.Size = new System.Drawing.Size(63, 20);
+            this.TextureSegmentColourLabel.TabIndex = 8;
+            this.TextureSegmentColourLabel.Text = "Colour?:";
+            // 
+            // TextureSegmentFillYLabel
+            // 
+            this.TextureSegmentFillYLabel.AutoSize = true;
+            this.TextureSegmentFillYLabel.Location = new System.Drawing.Point(17, 397);
+            this.TextureSegmentFillYLabel.Name = "TextureSegmentFillYLabel";
+            this.TextureSegmentFillYLabel.Size = new System.Drawing.Size(43, 20);
+            this.TextureSegmentFillYLabel.TabIndex = 7;
+            this.TextureSegmentFillYLabel.Text = "Fill Y:";
+            // 
+            // TextureSegmentFillXLabel
+            // 
+            this.TextureSegmentFillXLabel.AutoSize = true;
+            this.TextureSegmentFillXLabel.Location = new System.Drawing.Point(17, 357);
+            this.TextureSegmentFillXLabel.Name = "TextureSegmentFillXLabel";
+            this.TextureSegmentFillXLabel.Size = new System.Drawing.Size(44, 20);
+            this.TextureSegmentFillXLabel.TabIndex = 6;
+            this.TextureSegmentFillXLabel.Text = "Fill X:";
+            // 
+            // TextureSegmentUnknownLabel
+            // 
+            this.TextureSegmentUnknownLabel.AutoSize = true;
+            this.TextureSegmentUnknownLabel.Location = new System.Drawing.Point(17, 317);
+            this.TextureSegmentUnknownLabel.Name = "TextureSegmentUnknownLabel";
+            this.TextureSegmentUnknownLabel.Size = new System.Drawing.Size(73, 20);
+            this.TextureSegmentUnknownLabel.TabIndex = 5;
+            this.TextureSegmentUnknownLabel.Text = "Unknown:";
+            // 
+            // TextureSegmentOffsetYLabel
+            // 
+            this.TextureSegmentOffsetYLabel.AutoSize = true;
+            this.TextureSegmentOffsetYLabel.Location = new System.Drawing.Point(17, 197);
+            this.TextureSegmentOffsetYLabel.Name = "TextureSegmentOffsetYLabel";
+            this.TextureSegmentOffsetYLabel.Size = new System.Drawing.Size(64, 20);
+            this.TextureSegmentOffsetYLabel.TabIndex = 4;
+            this.TextureSegmentOffsetYLabel.Text = "Offset Y:";
+            // 
+            // TextureSegmentOffsetXLabel
+            // 
+            this.TextureSegmentOffsetXLabel.AutoSize = true;
+            this.TextureSegmentOffsetXLabel.Location = new System.Drawing.Point(17, 157);
+            this.TextureSegmentOffsetXLabel.Name = "TextureSegmentOffsetXLabel";
+            this.TextureSegmentOffsetXLabel.Size = new System.Drawing.Size(65, 20);
+            this.TextureSegmentOffsetXLabel.TabIndex = 3;
+            this.TextureSegmentOffsetXLabel.Text = "Offset X:";
+            // 
+            // TextureSegmentPointerLabel
+            // 
+            this.TextureSegmentPointerLabel.AutoSize = true;
+            this.TextureSegmentPointerLabel.Location = new System.Drawing.Point(17, 117);
+            this.TextureSegmentPointerLabel.Name = "TextureSegmentPointerLabel";
+            this.TextureSegmentPointerLabel.Size = new System.Drawing.Size(123, 20);
+            this.TextureSegmentPointerLabel.TabIndex = 2;
+            this.TextureSegmentPointerLabel.Text = "Segment pointer:";
+            // 
+            // TextureLayerSelectComboBox
+            // 
+            this.TextureLayerSelectComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextureLayerSelectComboBox.FormattingEnabled = true;
+            this.TextureLayerSelectComboBox.Location = new System.Drawing.Point(94, 73);
+            this.TextureLayerSelectComboBox.MaxDropDownItems = 100;
+            this.TextureLayerSelectComboBox.Name = "TextureLayerSelectComboBox";
+            this.TextureLayerSelectComboBox.Size = new System.Drawing.Size(60, 28);
+            this.TextureLayerSelectComboBox.TabIndex = 1;
+            this.TextureLayerSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureLayerSelectComboBox_SelectedIndexChanged);
+            // 
+            // TextureSegmentLayerSelectLabel
+            // 
+            this.TextureSegmentLayerSelectLabel.AutoSize = true;
+            this.TextureSegmentLayerSelectLabel.Location = new System.Drawing.Point(17, 77);
+            this.TextureSegmentLayerSelectLabel.Name = "TextureSegmentLayerSelectLabel";
+            this.TextureSegmentLayerSelectLabel.Size = new System.Drawing.Size(47, 20);
+            this.TextureSegmentLayerSelectLabel.TabIndex = 0;
+            this.TextureSegmentLayerSelectLabel.Text = "Layer:";
+            // 
+            // CLUTOffsetUpDown
+            // 
+            this.CLUTOffsetUpDown.Location = new System.Drawing.Point(386, 240);
+            this.CLUTOffsetUpDown.Maximum = new decimal(new int[] {
+            240,
+            0,
+            0,
+            0});
+            this.CLUTOffsetUpDown.Name = "CLUTOffsetUpDown";
+            this.CLUTOffsetUpDown.Size = new System.Drawing.Size(59, 27);
+            this.CLUTOffsetUpDown.TabIndex = 11;
+            this.CLUTOffsetUpDown.Value = new decimal(new int[] {
+            240,
+            0,
+            0,
+            0});
+            // 
+            // CLUTOffsetLabel
+            // 
+            this.CLUTOffsetLabel.AutoSize = true;
+            this.CLUTOffsetLabel.Location = new System.Drawing.Point(290, 242);
+            this.CLUTOffsetLabel.Name = "CLUTOffsetLabel";
+            this.CLUTOffsetLabel.Size = new System.Drawing.Size(88, 20);
+            this.CLUTOffsetLabel.TabIndex = 10;
+            this.CLUTOffsetLabel.Text = "CLUT offset:";
+            // 
+            // InvertCLUTColoursCheckbox
+            // 
+            this.InvertCLUTColoursCheckbox.AutoSize = true;
+            this.InvertCLUTColoursCheckbox.Checked = true;
+            this.InvertCLUTColoursCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InvertCLUTColoursCheckbox.Location = new System.Drawing.Point(290, 212);
+            this.InvertCLUTColoursCheckbox.Name = "InvertCLUTColoursCheckbox";
+            this.InvertCLUTColoursCheckbox.Size = new System.Drawing.Size(155, 24);
+            this.InvertCLUTColoursCheckbox.TabIndex = 9;
+            this.InvertCLUTColoursCheckbox.Text = "Invert CLUT colours";
+            this.InvertCLUTColoursCheckbox.UseVisualStyleBackColor = true;
+            this.InvertCLUTColoursCheckbox.CheckedChanged += new System.EventHandler(this.InvertCLUTColoursCheckbox_CheckedChanged);
             // 
             // CLUTFirstColourTransparantCheckbox
             // 
@@ -940,9 +1155,9 @@ namespace DigimonWorld2Tool
             this.ScaleTextureToFitCheckbox.AutoSize = true;
             this.ScaleTextureToFitCheckbox.Location = new System.Drawing.Point(290, 122);
             this.ScaleTextureToFitCheckbox.Name = "ScaleTextureToFitCheckbox";
-            this.ScaleTextureToFitCheckbox.Size = new System.Drawing.Size(149, 24);
+            this.ScaleTextureToFitCheckbox.Size = new System.Drawing.Size(152, 24);
             this.ScaleTextureToFitCheckbox.TabIndex = 6;
-            this.ScaleTextureToFitCheckbox.Text = "Scale texture to fit";
+            this.ScaleTextureToFitCheckbox.Text = "Scale texture sheet";
             this.ScaleTextureToFitCheckbox.UseVisualStyleBackColor = true;
             this.ScaleTextureToFitCheckbox.CheckedChanged += new System.EventHandler(this.ScaleTextureToFitCheckbox_CheckedChanged);
             // 
@@ -977,9 +1192,9 @@ namespace DigimonWorld2Tool
             // 
             this.TextureVisualizerLogGroupbox.Controls.Add(this.TextureVisualizerLogRichTextBox);
             this.TextureVisualizerLogGroupbox.ForeColor = System.Drawing.Color.White;
-            this.TextureVisualizerLogGroupbox.Location = new System.Drawing.Point(289, 285);
+            this.TextureVisualizerLogGroupbox.Location = new System.Drawing.Point(530, 531);
             this.TextureVisualizerLogGroupbox.Name = "TextureVisualizerLogGroupbox";
-            this.TextureVisualizerLogGroupbox.Size = new System.Drawing.Size(836, 345);
+            this.TextureVisualizerLogGroupbox.Size = new System.Drawing.Size(1018, 299);
             this.TextureVisualizerLogGroupbox.TabIndex = 3;
             this.TextureVisualizerLogGroupbox.TabStop = false;
             this.TextureVisualizerLogGroupbox.Text = "Log";
@@ -987,9 +1202,9 @@ namespace DigimonWorld2Tool
             // TextureVisualizerLogRichTextBox
             // 
             this.TextureVisualizerLogRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.TextureVisualizerLogRichTextBox.Location = new System.Drawing.Point(9, 25);
+            this.TextureVisualizerLogRichTextBox.Location = new System.Drawing.Point(6, 25);
             this.TextureVisualizerLogRichTextBox.Name = "TextureVisualizerLogRichTextBox";
-            this.TextureVisualizerLogRichTextBox.Size = new System.Drawing.Size(821, 314);
+            this.TextureVisualizerLogRichTextBox.Size = new System.Drawing.Size(1006, 268);
             this.TextureVisualizerLogRichTextBox.TabIndex = 0;
             this.TextureVisualizerLogRichTextBox.Text = "";
             // 
@@ -997,7 +1212,7 @@ namespace DigimonWorld2Tool
             // 
             this.SelectedTexturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.SelectedTexturePanel.Controls.Add(this.SelectedTextureRenderLayer);
-            this.SelectedTexturePanel.Location = new System.Drawing.Point(17, 118);
+            this.SelectedTexturePanel.Location = new System.Drawing.Point(17, 128);
             this.SelectedTexturePanel.Name = "SelectedTexturePanel";
             this.SelectedTexturePanel.Size = new System.Drawing.Size(258, 514);
             this.SelectedTexturePanel.TabIndex = 2;
@@ -1033,31 +1248,18 @@ namespace DigimonWorld2Tool
             this.SelectedTextureLabel.TabIndex = 0;
             this.SelectedTextureLabel.Text = "Select a file to view";
             // 
-            // InvertCLUTColoursCheckbox
-            // 
-            this.InvertCLUTColoursCheckbox.AutoSize = true;
-            this.InvertCLUTColoursCheckbox.Checked = true;
-            this.InvertCLUTColoursCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InvertCLUTColoursCheckbox.Location = new System.Drawing.Point(290, 212);
-            this.InvertCLUTColoursCheckbox.Name = "InvertCLUTColoursCheckbox";
-            this.InvertCLUTColoursCheckbox.Size = new System.Drawing.Size(155, 24);
-            this.InvertCLUTColoursCheckbox.TabIndex = 9;
-            this.InvertCLUTColoursCheckbox.Text = "Invert CLUT colours";
-            this.InvertCLUTColoursCheckbox.UseVisualStyleBackColor = true;
-            this.InvertCLUTColoursCheckbox.CheckedChanged += new System.EventHandler(this.InvertCLUTColoursCheckbox_CheckedChanged);
-            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1570, 863);
-            this.Controls.Add(this.TabControlMain);
+            this.Controls.Add(this.CLUTOffsetNumericUpDown);
             this.Name = "DigimonWorld2ToolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DigimonWorld2ToolForm_Load);
-            this.TabControlMain.ResumeLayout(false);
+            this.CLUTOffsetNumericUpDown.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
             this.LogGroupBox.ResumeLayout(false);
@@ -1079,6 +1281,9 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage7.ResumeLayout(false);
             this.TextureVisualizerTab.ResumeLayout(false);
             this.TextureVisualizerTab.PerformLayout();
+            this.TextureSegmentGroupBox.ResumeLayout(false);
+            this.TextureSegmentGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).EndInit();
             this.TextureVisualizerLogGroupbox.ResumeLayout(false);
@@ -1090,7 +1295,7 @@ namespace DigimonWorld2Tool
 
         #endregion
 
-        private System.Windows.Forms.TabControl TabControlMain;
+        private System.Windows.Forms.TabControl CLUTOffsetNumericUpDown;
         private System.Windows.Forms.TabPage MapVisualizerTab;
         private System.Windows.Forms.ComboBox DungeonFilesComboBox;
         private System.Windows.Forms.Label DomainNameLabel;
@@ -1167,6 +1372,24 @@ namespace DigimonWorld2Tool
         public System.Windows.Forms.CheckBox TextureUseAltClutCheckbox;
         public System.Windows.Forms.CheckBox CLUTFirstColourTransparantCheckbox;
         public System.Windows.Forms.CheckBox InvertCLUTColoursCheckbox;
+        private System.Windows.Forms.Label CLUTOffsetLabel;
+        public System.Windows.Forms.NumericUpDown CLUTOffsetUpDown;
+        private System.Windows.Forms.GroupBox TextureSegmentGroupBox;
+        public System.Windows.Forms.ComboBox TextureLayerSelectComboBox;
+        private System.Windows.Forms.Label TextureSegmentLayerSelectLabel;
+        private System.Windows.Forms.Label TextureSegmentPointerLabel;
+        private System.Windows.Forms.Label TextureSegmentOffsetX;
+        private System.Windows.Forms.Label TextureSegmentOffsetXLabel;
+        private System.Windows.Forms.Label TextureSegmentOffsetYLabel;
+        private System.Windows.Forms.Label TextureSegmentUnknownLabel;
+        private System.Windows.Forms.Label TextureSegmentFillXLabel;
+        private System.Windows.Forms.Label TextureSegmentFillYLabel;
+        private System.Windows.Forms.Label TextureSegmentColourLabel;
+        private System.Windows.Forms.Label TextureSheetLabel;
+        private System.Windows.Forms.Label TextureSegmentSelectLabel;
+        private System.Windows.Forms.Label TextureSegmentPositionXLabel;
+        private System.Windows.Forms.Label TextureSegmentPositionYLabel;
+        public System.Windows.Forms.ComboBox TextureSegmentSelectComboBox;
     }
 }
 

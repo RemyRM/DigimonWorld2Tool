@@ -7,13 +7,22 @@ namespace DigimonWorld2Tool.Textures
 {
     class DigimonWorld2Texture
     {
-        public readonly TextureHeader textureHeader;
-        public readonly TIMHeader timHeader;
+        public readonly TextureHeader TextureHeader;
+        public readonly TIMHeader TimHeader;
+        public byte[] TextureData { get; private set; }
+        private int TextureDataPosition = 0;
 
         public DigimonWorld2Texture(ref BinaryReader reader)
         {
-            textureHeader = new TextureHeader(ref reader);
-            timHeader = new TIMHeader(ref reader);
+            TextureHeader = new TextureHeader(ref reader);
+            TimHeader = new TIMHeader(ref reader);
+            TextureData = new byte[TimHeader.ImageByteCount - 12];// We need to subtract 12 from the length, as this also includes the header
+        }
+
+        public void AddByteToTextureData(byte data)
+        {
+            TextureData[TextureDataPosition] = data;
+            TextureDataPosition++;
         }
     }
 }

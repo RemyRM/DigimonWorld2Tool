@@ -700,7 +700,7 @@ namespace DigimonWorld2Tool
             if (TextureParser.CurrentTexture == null)
                 return;
 
-            var currentSegment = TextureParser.CurrentTexture.textureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
+            var currentSegment = TextureParser.CurrentTexture.TextureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
 
             TextureLayerSelectComboBox.Items.Clear();
             for (int i = 0; i < currentSegment.Layers.Count; i++)
@@ -713,8 +713,18 @@ namespace DigimonWorld2Tool
 
         private void TextureLayerSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var currentSegment = TextureParser.CurrentTexture.textureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
+            var currentSegment = TextureParser.CurrentTexture.TextureHeader.TextureSegments[TextureSegmentSelectComboBox.SelectedIndex];
             currentSegment.Layers[TextureLayerSelectComboBox.SelectedIndex].DrawInformationToInformationBox(currentSegment.SegmentOffset);
+
+            DrawTextureSegment();
+        }
+
+        private void DrawTextureSegment()
+        {
+            var bmp = TextureParser.CreateTextureSegmentBMP();
+
+            if (bmp != null)
+                TextureSegmentPictureBox.Image = bmp;
         }
         #endregion
     }

@@ -11,7 +11,7 @@ namespace DigimonWorld2Tool.Textures
     class TextureHeader
     {
         private readonly int TimOffset;
-        private readonly int[] TextureSectionsOffsets;
+        public readonly int[] TextureSectionsOffsets;
         public readonly TextureSegmentInformation[] TextureSegments;
 
         public TextureHeader(ref BinaryReader reader)

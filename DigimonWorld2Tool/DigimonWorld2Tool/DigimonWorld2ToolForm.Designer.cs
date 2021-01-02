@@ -95,6 +95,12 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
+            this.TextureSegmentLayerLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentLayerPanel = new System.Windows.Forms.Panel();
+            this.TextureSegmentLayerPictureBox = new System.Windows.Forms.PictureBox();
+            this.TextureSegmentLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentPanel = new System.Windows.Forms.Panel();
+            this.TextureSegmentPictureBox = new System.Windows.Forms.PictureBox();
             this.TextureSegmentPositionYLabel = new System.Windows.Forms.Label();
             this.TextureSegmentPositionXLabel = new System.Windows.Forms.Label();
             this.TextureSegmentSelectComboBox = new System.Windows.Forms.ComboBox();
@@ -141,6 +147,10 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage7.SuspendLayout();
             this.TextureVisualizerTab.SuspendLayout();
             this.TextureSegmentGroupBox.SuspendLayout();
+            this.TextureSegmentLayerPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentLayerPictureBox)).BeginInit();
+            this.TextureSegmentPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).BeginInit();
@@ -932,7 +942,7 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.Padding = new System.Windows.Forms.Padding(3);
             this.TextureVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.TextureVisualizerTab.TabIndex = 1;
-            this.TextureVisualizerTab.Text = "Texture visualizer";
+            this.TextureVisualizerTab.Text = "Texture Visualizer";
             // 
             // TextureSheetLabel
             // 
@@ -945,6 +955,10 @@ namespace DigimonWorld2Tool
             // 
             // TextureSegmentGroupBox
             // 
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerPanel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPanel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPositionYLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPositionXLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentSelectComboBox);
@@ -965,6 +979,60 @@ namespace DigimonWorld2Tool
             this.TextureSegmentGroupBox.TabIndex = 12;
             this.TextureSegmentGroupBox.TabStop = false;
             this.TextureSegmentGroupBox.Text = "Texture information";
+            // 
+            // TextureSegmentLayerLabel
+            // 
+            this.TextureSegmentLayerLabel.AutoSize = true;
+            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(238, 247);
+            this.TextureSegmentLayerLabel.Name = "TextureSegmentLayerLabel";
+            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(47, 20);
+            this.TextureSegmentLayerLabel.TabIndex = 16;
+            this.TextureSegmentLayerLabel.Text = "Layer:";
+            // 
+            // TextureSegmentLayerPanel
+            // 
+            this.TextureSegmentLayerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.TextureSegmentLayerPanel.Controls.Add(this.TextureSegmentLayerPictureBox);
+            this.TextureSegmentLayerPanel.Location = new System.Drawing.Point(291, 246);
+            this.TextureSegmentLayerPanel.Name = "TextureSegmentLayerPanel";
+            this.TextureSegmentLayerPanel.Size = new System.Drawing.Size(514, 202);
+            this.TextureSegmentLayerPanel.TabIndex = 15;
+            // 
+            // TextureSegmentLayerPictureBox
+            // 
+            this.TextureSegmentLayerPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureSegmentLayerPictureBox.Location = new System.Drawing.Point(1, 1);
+            this.TextureSegmentLayerPictureBox.Name = "TextureSegmentLayerPictureBox";
+            this.TextureSegmentLayerPictureBox.Size = new System.Drawing.Size(512, 200);
+            this.TextureSegmentLayerPictureBox.TabIndex = 0;
+            this.TextureSegmentLayerPictureBox.TabStop = false;
+            // 
+            // TextureSegmentLabel
+            // 
+            this.TextureSegmentLabel.AutoSize = true;
+            this.TextureSegmentLabel.Location = new System.Drawing.Point(214, 19);
+            this.TextureSegmentLabel.Name = "TextureSegmentLabel";
+            this.TextureSegmentLabel.Size = new System.Drawing.Size(71, 20);
+            this.TextureSegmentLabel.TabIndex = 14;
+            this.TextureSegmentLabel.Text = "Segment:";
+            // 
+            // TextureSegmentPanel
+            // 
+            this.TextureSegmentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.TextureSegmentPanel.Controls.Add(this.TextureSegmentPictureBox);
+            this.TextureSegmentPanel.Location = new System.Drawing.Point(291, 26);
+            this.TextureSegmentPanel.Name = "TextureSegmentPanel";
+            this.TextureSegmentPanel.Size = new System.Drawing.Size(514, 202);
+            this.TextureSegmentPanel.TabIndex = 13;
+            // 
+            // TextureSegmentPictureBox
+            // 
+            this.TextureSegmentPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureSegmentPictureBox.Location = new System.Drawing.Point(1, 1);
+            this.TextureSegmentPictureBox.Name = "TextureSegmentPictureBox";
+            this.TextureSegmentPictureBox.Size = new System.Drawing.Size(512, 200);
+            this.TextureSegmentPictureBox.TabIndex = 0;
+            this.TextureSegmentPictureBox.TabStop = false;
             // 
             // TextureSegmentPositionYLabel
             // 
@@ -1283,6 +1351,10 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.PerformLayout();
             this.TextureSegmentGroupBox.ResumeLayout(false);
             this.TextureSegmentGroupBox.PerformLayout();
+            this.TextureSegmentLayerPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentLayerPictureBox)).EndInit();
+            this.TextureSegmentPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TextureVisualizerPaletteRenderLayer)).EndInit();
@@ -1390,6 +1462,12 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label TextureSegmentPositionXLabel;
         private System.Windows.Forms.Label TextureSegmentPositionYLabel;
         public System.Windows.Forms.ComboBox TextureSegmentSelectComboBox;
+        private System.Windows.Forms.Label TextureSegmentLabel;
+        private System.Windows.Forms.Panel TextureSegmentPanel;
+        private System.Windows.Forms.PictureBox TextureSegmentPictureBox;
+        private System.Windows.Forms.Panel TextureSegmentLayerPanel;
+        private System.Windows.Forms.PictureBox TextureSegmentLayerPictureBox;
+        private System.Windows.Forms.Label TextureSegmentLayerLabel;
     }
 }
 

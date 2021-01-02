@@ -27,7 +27,7 @@ namespace DigimonWorld2Tool.Textures
         private readonly short ClutPages;
         public readonly Color[] TimClutPalette;
         public readonly Color[] AlternativeClutPalette;
-        private readonly long ImageByteCount;
+        public readonly long ImageByteCount;
         private readonly short ImageDx;
         private readonly short ImageDy;
         public readonly short ImageWidth;
@@ -143,7 +143,7 @@ namespace DigimonWorld2Tool.Textures
                     }
                     if (DigimonWorld2ToolForm.Main.CLUTFirstColourTransparantCheckbox.Checked)
                     {
-                        fourBitPalette[240] = Color.Transparent;
+                        fourBitPalette[(int)DigimonWorld2ToolForm.Main.CLUTOffsetUpDown.Value] = Color.Transparent;
 
                         fourBitPalette[0] = Color.Transparent;
                     }

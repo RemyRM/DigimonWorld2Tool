@@ -662,6 +662,11 @@ namespace DigimonWorld2Tool
             }
         }
 
+        private void ReloadTextureButton_Click(object sender, EventArgs e)
+        {
+            TextureParser.CheckForTIMHeader(SelectedTextureLabel.Text);
+        }
+
         private void ScaleTextureToFitCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default["ScaleTextureToFit"] = ScaleTextureToFitCheckbox.Checked;
@@ -682,7 +687,7 @@ namespace DigimonWorld2Tool
             Properties.Settings.Default["InvertCLUTColours"] = InvertCLUTColoursCheckbox.Checked;
         }
 
-        public void SetSegmentInformationText(int pointer, short positionX, short positionY, byte offsetX, byte offsetY, short unknown, byte fillX, byte fillY, short colour)
+        public void SetSegmentInformationText(int pointer, short positionX, short positionY, byte offsetX, byte offsetY, short unknown, byte Width, byte Height, short colour)
         {
             TextureSegmentPointerLabel.Text = $"Segment pointer: 0x{pointer:X8}";
             TextureSegmentOffsetXLabel.Text = $"Offset X: 0x{offsetX:X2}";
@@ -690,8 +695,8 @@ namespace DigimonWorld2Tool
             TextureSegmentPositionXLabel.Text = $"Position X: 0x{positionX:X4}";
             TextureSegmentPositionYLabel.Text = $"Position Y: 0x{positionY:X4}";
             TextureSegmentUnknownLabel.Text = $"Unknown: 0x{unknown:X4}";
-            TextureSegmentFillXLabel.Text = $"Fill X: 0x{fillX:X2}";
-            TextureSegmentFillYLabel.Text = $"Fill Y: 0x{fillY:X2}";
+            TextureSegmentWidthLabel.Text = $"Width: 0x{Width:X2}";
+            TextureSegmentHeightLabel.Text = $"Height: 0x{Height:X2}";
             TextureSegmentColourLabel.Text = $"Colour?: 0x{colour:X4}";
         }
 
@@ -725,6 +730,12 @@ namespace DigimonWorld2Tool
 
             if (bmp != null)
                 TextureSegmentPictureBox.Image = bmp;
+        }
+
+        private void TextureVisualizerLogRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextureVisualizerLogRichTextBox.SelectionStart = TextureVisualizerLogRichTextBox.Text.Length;
+            TextureVisualizerLogRichTextBox.ScrollToCaret();
         }
         #endregion
     }

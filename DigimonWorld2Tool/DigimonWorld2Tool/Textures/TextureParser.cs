@@ -32,11 +32,27 @@ namespace DigimonWorld2Tool.Textures
         {
             DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Attempting to parse texture {filePath}");
 
+            if (!File.Exists(filePath))
+            {
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No file found at \"{filePath}\"");
+                return;
+            }
+
             BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
 
             CurrentTexture = new DigimonWorld2Texture(ref reader);
+            if (CurrentTexture.TimHeader == null)
+                return;
+
             palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
                                                                                              CurrentTexture.TimHeader.TimClutPalette;
+            if(palette == null)
+            {
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
+                reader.Close();
+                reader.Dispose();
+                return;
+            }
 
             DrawCLUTPalette(palette);
             DrawTextureBMP(ref reader, palette, CurrentTexture);
@@ -44,7 +60,17 @@ namespace DigimonWorld2Tool.Textures
             reader.Close();
             reader.Dispose();
 
-            DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.SelectedIndex = 0;
+            if (CurrentTexture.TextureHeader.TextureSectionsOffsets != null && CurrentTexture.TextureHeader.TextureSectionsOffsets.Length > 0)
+            {
+                DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Enabled = true;
+                DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.Enabled = true;
+                DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Enabled = false;
+                DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -253,42 +279,71 @@ namespace DigimonWorld2Tool.Textures
             DigimonWorld2ToolForm.Main.SelectedTextureRenderLayer.Image = imageBmp;
         }
 
+        /// <summary>
+        /// Create a bitmap for a specific segment of the total texture sheet
+        /// </summary>
         public static Bitmap CreateTextureSegmentBMP()
         {
             if (CurrentTexture == null)
                 return null;
 
             var segmentLayer = CurrentTexture.TextureHeader.TextureSegments[DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.SelectedIndex].Layers[DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.SelectedIndex];
-            int startSegmentDataID = segmentLayer.OffsetY * 64;
-            int endSegmentDataID = startSegmentDataID + (64 * 0x28); // 0x28 is the length of a single layer
+
+            var width = 128; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
+            //var width = segmentLayer.Width; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
+            var height = segmentLayer.Height; // Get the height of the texture
+
+            int startSegmentDataID = segmentLayer.OffsetY * (width / 2);
+            int endSegmentDataID = startSegmentDataID + ((width / 2) * height); // 0x28 is the length of a single layer
+
+            //int startSegmentDataID = segmentLayer.OffsetY * 64;
+            //int endSegmentDataID = startSegmentDataID + (64 * 0x28); // 0x28 is the length of a single layer
+
             byte[] textureSegmentData = CurrentTexture.TextureData[startSegmentDataID..endSegmentDataID];
             MemoryStream stream = new MemoryStream(textureSegmentData);
             BinaryReader reader = new BinaryReader(stream);
 
-            var width = 128;
-            var height = 40;
-            Bitmap imageBmp = new Bitmap(width, height);
+            //var width = 128; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
+            //var height = 40; // Every segment is always 0x28 in height, which is 40 dec
+            Bitmap imageBmp = new Bitmap(width * 2, height * 2); // * 2 for upscaling the texture
+
+            int CLUTOffset = (int)DigimonWorld2ToolForm.Main.CLUTOffsetUpDown.Value;
 
             for (int y = 0; y < height; y++)
             {
+                //for (int x = 0; x < 128; x += 2) 
                 for (int x = 0; x < width; x += 2)
                 {
+                    // The width of the texture is 64 bytes, but not all textures take the full width, so we need to throw away excess bytes
+                    //if(x > width - 1)
+                    //{
+                    //    reader.ReadByte();
+                    //    continue;
+                    //}
+
                     byte colourValue = reader.ReadByte();
-                    if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
-                    {
-                        byte rightPixelValue = colourValue.GetRightHalfByte();
-                        imageBmp.SetPixel(x, y, palette[240 + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                        byte leftPixelValue = colourValue.GetLeftHalfByte();
-                        imageBmp.SetPixel(x + 1, y, palette[240 + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
-                    }
-                    else
+                    for (int i = 0; i < 2; i++)
                     {
-                        byte rightPixelValue = colourValue.GetRightHalfByte();
-                        imageBmp.SetPixel(x, y, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+                        for (int j = 0; j < 2; j++)
+                        {
+                            if (DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked)
+                            {
+                                byte rightPixelValue = colourValue.GetRightHalfByte();
+                                imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[CLUTOffset + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                        byte leftPixelValue = colourValue.GetLeftHalfByte();
-                        imageBmp.SetPixel(x, y, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                                byte leftPixelValue = colourValue.GetLeftHalfByte();
+                                imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[CLUTOffset + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
+                            }
+                            else
+                            {
+                                byte rightPixelValue = colourValue.GetRightHalfByte();
+                                imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
+
+                                byte leftPixelValue = colourValue.GetLeftHalfByte();
+                                imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
+                            }
+                        }
                     }
                 }
             }

@@ -10,19 +10,26 @@ namespace DigimonWorld2Tool.Textures
     /// </summary>
     class TextureHeader
     {
-        private readonly int TimOffset;
+        public readonly int TimOffset;
         public readonly int[] TextureSectionsOffsets;
         public readonly TextureSegmentInformation[] TextureSegments;
 
         public TextureHeader(ref BinaryReader reader)
         {
             TimOffset = GetTIMOffset(ref reader);
-            if (TimOffset == -1)
+            if (TimOffset == -1 || TimOffset == 4)
                 return;
 
             reader.BaseStream.Position = 4; //Make sure we continue with reading the Texture header, the position will get set to the TIM header otherwise.
 
+            //Gotta check here if the Tim offset doesn't point directly to position 4, as this would indicate a non existing texture header
+
             TextureSectionsOffsets = GetTextureSectionsOffsets(ref reader);
+            if (TextureSectionsOffsets == null)
+            {
+                reader.BaseStream.Position = TimOffset;
+                return;
+            }
 
             DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Items.Clear();
             TextureSegments = new TextureSegmentInformation[TextureSectionsOffsets.Length];
@@ -55,7 +62,7 @@ namespace DigimonWorld2Tool.Textures
                 if (fileIdentifier == 0x10)
                 {
                     DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Found TIM Identifier after following pointer 0x{reader.BaseStream.Position - 4:X8}");
-                    return fileIdentifier;
+                    return (int)reader.BaseStream.Position - 4;
                 }
                 else
                 {
@@ -75,7 +82,10 @@ namespace DigimonWorld2Tool.Textures
             int firstSectionAddress = reader.ReadInt32();
 
             //The first pointer is offset by 4 due to the TIM header pointer, and points to the first texture information, all data inbetween is texture pointers
-            int sectionsCount = (firstSectionAddress - 4) / 4; 
+            int sectionsCount = (firstSectionAddress - 4) / 4;
+
+            if (sectionsCount < 0)
+                return null;
 
             int[] sectionsOffsets = new int[sectionsCount];
             sectionsOffsets[0] = firstSectionAddress;
@@ -121,8 +131,8 @@ namespace DigimonWorld2Tool.Textures
         public readonly short PositionX;
         public readonly short PositionY;
         public readonly short UnknownValue;
-        public readonly byte fillX;
-        public readonly byte fillY;
+        public readonly byte Width;
+        public readonly byte Height;
         public readonly short UnknownColour;
         private readonly int Delimiter;
 
@@ -136,8 +146,8 @@ namespace DigimonWorld2Tool.Textures
 
             UnknownValue = reader.ReadInt16();
 
-            fillX = reader.ReadByte();
-            fillY = reader.ReadByte();
+            Width = reader.ReadByte();
+            Height = reader.ReadByte();
 
             UnknownColour = reader.ReadInt16();
 
@@ -146,7 +156,7 @@ namespace DigimonWorld2Tool.Textures
 
         public void DrawInformationToInformationBox(int offsetPointer)
         {
-            DigimonWorld2ToolForm.Main.SetSegmentInformationText(offsetPointer, PositionX, PositionY, OffsetX, OffsetY, UnknownValue, fillX, fillY, UnknownColour);
+            DigimonWorld2ToolForm.Main.SetSegmentInformationText(offsetPointer, PositionX, PositionY, OffsetX, OffsetY, UnknownValue, Width, Height, UnknownColour);
         }
     }
 }

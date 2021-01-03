@@ -289,37 +289,33 @@ namespace DigimonWorld2Tool.Textures
 
             var segmentLayer = CurrentTexture.TextureHeader.TextureSegments[DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.SelectedIndex].Layers[DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.SelectedIndex];
 
-            var width = 128; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
-            //var width = segmentLayer.Width; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
-            var height = segmentLayer.Height; // Get the height of the texture
+            var width = segmentLayer.Width;
+            var height = segmentLayer.Height;
 
-            int startSegmentDataID = segmentLayer.OffsetY * (width / 2);
-            int endSegmentDataID = startSegmentDataID + ((width / 2) * height); // 0x28 is the length of a single layer
-
-            //int startSegmentDataID = segmentLayer.OffsetY * 64;
-            //int endSegmentDataID = startSegmentDataID + (64 * 0x28); // 0x28 is the length of a single layer
+            // A texture file is always 64 bytes wide, multiply this by the Y offset to get the start ID in the data array
+            // We need to add half the offsetX because 1 byte is 2 pixels
+            int startSegmentDataID = segmentLayer.OffsetY * 64 + (segmentLayer.OffsetX / 2);
+            int endSegmentDataID = startSegmentDataID + (64 * height);
 
             byte[] textureSegmentData = CurrentTexture.TextureData[startSegmentDataID..endSegmentDataID];
             MemoryStream stream = new MemoryStream(textureSegmentData);
             BinaryReader reader = new BinaryReader(stream);
 
-            //var width = 128; // The Binary has 64 byte of data for the width, but each byte is 2 pixels along the x axis, thus 128 width
-            //var height = 40; // Every segment is always 0x28 in height, which is 40 dec
-            Bitmap imageBmp = new Bitmap(width * 2, height * 2); // * 2 for upscaling the texture
+            Bitmap imageBmp = new Bitmap(width * 2 + 4, height * 2); // * 2 for upscaling the texture, + 4 because... I don't know honestly. But it works ¯\_(ツ)_/¯
 
             int CLUTOffset = (int)DigimonWorld2ToolForm.Main.CLUTOffsetUpDown.Value;
 
             for (int y = 0; y < height; y++)
             {
-                //for (int x = 0; x < 128; x += 2) 
-                for (int x = 0; x < width; x += 2)
+                for (int x = 0; x < 128; x += 2) 
                 {
-                    // The width of the texture is 64 bytes, but not all textures take the full width, so we need to throw away excess bytes
-                    //if(x > width - 1)
-                    //{
-                    //    reader.ReadByte();
-                    //    continue;
-                    //}
+                    // The width of the texture is 64 bytes (with 2 pixels per byte), but not all textures take up the full width, 
+                    // so we need to throw away excess bytes when we're past the width of the texture segment
+                    if (x >= width)
+                    {
+                        reader.ReadByte();
+                        continue;
+                    }
 
                     byte colourValue = reader.ReadByte();
 

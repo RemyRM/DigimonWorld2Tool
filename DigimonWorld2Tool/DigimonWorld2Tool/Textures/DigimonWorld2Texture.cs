@@ -15,6 +15,9 @@ namespace DigimonWorld2Tool.Textures
         public DigimonWorld2Texture(ref BinaryReader reader)
         {
             TextureHeader = new TextureHeader(ref reader);
+            if (TextureHeader.TimOffset == -1)
+                return;
+
             TimHeader = new TIMHeader(ref reader);
             TextureData = new byte[TimHeader.ImageByteCount - 12];// We need to subtract 12 from the length, as this also includes the header
         }

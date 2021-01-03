@@ -76,7 +76,7 @@ namespace DigimonWorld2Tool.Textures
         /// </summary>
         /// <param name="bppCount">Bitdepth for the TIM file</param>
         /// <returns>Colour palette based on the bit depth</returns>
-        private static Color[] GetTIMClutPalette(ref BinaryReader reader, BitDepth bppCount)
+        private Color[] GetTIMClutPalette(ref BinaryReader reader, BitDepth bppCount)
         {
             switch (bppCount)
             {
@@ -113,12 +113,13 @@ namespace DigimonWorld2Tool.Textures
                     return eightBitPalette;
 
                 default:
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No BitDepth found for bppCount {bppCount}");
                     break;
             }
             return null;
         }
 
-        private static Color[] GetAlternativeCLUT(ref BinaryReader reader, BitDepth bppCount, int CLUTColourCount)
+        private Color[] GetAlternativeCLUT(ref BinaryReader reader, BitDepth bppCount, int CLUTColourCount)
         {
             switch (bppCount)
             {
@@ -149,9 +150,14 @@ namespace DigimonWorld2Tool.Textures
                     }
 
                     return fourBitPalette;
+
                 case BitDepth.Eight:
-                    break;
+                    DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Bitdepth is set to 8. Returning the actual TIM CLUT instead as the game doesn't" +
+                                                                     $"seem to include an alternative CLUT in this mode.");
+                    return TimClutPalette;
+
                 default:
+                    DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No BitDepth found for {bppCount}");
                     break;
             }
             return null;

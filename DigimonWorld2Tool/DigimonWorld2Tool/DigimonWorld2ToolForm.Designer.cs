@@ -93,6 +93,7 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
+            this.ReloadTextureButton = new System.Windows.Forms.Button();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
             this.TextureSegmentLayerLabel = new System.Windows.Forms.Label();
@@ -106,8 +107,8 @@ namespace DigimonWorld2Tool
             this.TextureSegmentSelectComboBox = new System.Windows.Forms.ComboBox();
             this.TextureSegmentSelectLabel = new System.Windows.Forms.Label();
             this.TextureSegmentColourLabel = new System.Windows.Forms.Label();
-            this.TextureSegmentFillYLabel = new System.Windows.Forms.Label();
-            this.TextureSegmentFillXLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentHeightLabel = new System.Windows.Forms.Label();
+            this.TextureSegmentWidthLabel = new System.Windows.Forms.Label();
             this.TextureSegmentUnknownLabel = new System.Windows.Forms.Label();
             this.TextureSegmentOffsetYLabel = new System.Windows.Forms.Label();
             this.TextureSegmentOffsetXLabel = new System.Windows.Forms.Label();
@@ -921,6 +922,7 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.ReloadTextureButton);
             this.TextureVisualizerTab.Controls.Add(this.TextureSheetLabel);
             this.TextureVisualizerTab.Controls.Add(this.TextureSegmentGroupBox);
             this.TextureVisualizerTab.Controls.Add(this.CLUTOffsetUpDown);
@@ -944,6 +946,17 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.TabIndex = 1;
             this.TextureVisualizerTab.Text = "Texture Visualizer";
             // 
+            // ReloadTextureButton
+            // 
+            this.ReloadTextureButton.ForeColor = System.Drawing.Color.Black;
+            this.ReloadTextureButton.Location = new System.Drawing.Point(321, 280);
+            this.ReloadTextureButton.Name = "ReloadTextureButton";
+            this.ReloadTextureButton.Size = new System.Drawing.Size(166, 46);
+            this.ReloadTextureButton.TabIndex = 14;
+            this.ReloadTextureButton.Text = "Reload last texture";
+            this.ReloadTextureButton.UseVisualStyleBackColor = true;
+            this.ReloadTextureButton.Click += new System.EventHandler(this.ReloadTextureButton_Click);
+            // 
             // TextureSheetLabel
             // 
             this.TextureSheetLabel.AutoSize = true;
@@ -964,8 +977,8 @@ namespace DigimonWorld2Tool
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentSelectComboBox);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentSelectLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentColourLabel);
-            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentFillYLabel);
-            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentFillXLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentHeightLabel);
+            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentWidthLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentUnknownLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentOffsetYLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentOffsetXLabel);
@@ -1081,23 +1094,23 @@ namespace DigimonWorld2Tool
             this.TextureSegmentColourLabel.TabIndex = 8;
             this.TextureSegmentColourLabel.Text = "Colour?:";
             // 
-            // TextureSegmentFillYLabel
+            // TextureSegmentHeightLabel
             // 
-            this.TextureSegmentFillYLabel.AutoSize = true;
-            this.TextureSegmentFillYLabel.Location = new System.Drawing.Point(17, 397);
-            this.TextureSegmentFillYLabel.Name = "TextureSegmentFillYLabel";
-            this.TextureSegmentFillYLabel.Size = new System.Drawing.Size(43, 20);
-            this.TextureSegmentFillYLabel.TabIndex = 7;
-            this.TextureSegmentFillYLabel.Text = "Fill Y:";
+            this.TextureSegmentHeightLabel.AutoSize = true;
+            this.TextureSegmentHeightLabel.Location = new System.Drawing.Point(17, 397);
+            this.TextureSegmentHeightLabel.Name = "TextureSegmentHeightLabel";
+            this.TextureSegmentHeightLabel.Size = new System.Drawing.Size(61, 20);
+            this.TextureSegmentHeightLabel.TabIndex = 7;
+            this.TextureSegmentHeightLabel.Text = "Height: ";
             // 
-            // TextureSegmentFillXLabel
+            // TextureSegmentWidthLabel
             // 
-            this.TextureSegmentFillXLabel.AutoSize = true;
-            this.TextureSegmentFillXLabel.Location = new System.Drawing.Point(17, 357);
-            this.TextureSegmentFillXLabel.Name = "TextureSegmentFillXLabel";
-            this.TextureSegmentFillXLabel.Size = new System.Drawing.Size(44, 20);
-            this.TextureSegmentFillXLabel.TabIndex = 6;
-            this.TextureSegmentFillXLabel.Text = "Fill X:";
+            this.TextureSegmentWidthLabel.AutoSize = true;
+            this.TextureSegmentWidthLabel.Location = new System.Drawing.Point(17, 357);
+            this.TextureSegmentWidthLabel.Name = "TextureSegmentWidthLabel";
+            this.TextureSegmentWidthLabel.Size = new System.Drawing.Size(56, 20);
+            this.TextureSegmentWidthLabel.TabIndex = 6;
+            this.TextureSegmentWidthLabel.Text = "Width: ";
             // 
             // TextureSegmentUnknownLabel
             // 
@@ -1157,6 +1170,11 @@ namespace DigimonWorld2Tool
             // 
             // CLUTOffsetUpDown
             // 
+            this.CLUTOffsetUpDown.Increment = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
             this.CLUTOffsetUpDown.Location = new System.Drawing.Point(386, 240);
             this.CLUTOffsetUpDown.Maximum = new decimal(new int[] {
             240,
@@ -1275,6 +1293,7 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerLogRichTextBox.Size = new System.Drawing.Size(1006, 268);
             this.TextureVisualizerLogRichTextBox.TabIndex = 0;
             this.TextureVisualizerLogRichTextBox.Text = "";
+            this.TextureVisualizerLogRichTextBox.TextChanged += new System.EventHandler(this.TextureVisualizerLogRichTextBox_TextChanged);
             // 
             // SelectedTexturePanel
             // 
@@ -1454,8 +1473,8 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label TextureSegmentOffsetXLabel;
         private System.Windows.Forms.Label TextureSegmentOffsetYLabel;
         private System.Windows.Forms.Label TextureSegmentUnknownLabel;
-        private System.Windows.Forms.Label TextureSegmentFillXLabel;
-        private System.Windows.Forms.Label TextureSegmentFillYLabel;
+        private System.Windows.Forms.Label TextureSegmentWidthLabel;
+        private System.Windows.Forms.Label TextureSegmentHeightLabel;
         private System.Windows.Forms.Label TextureSegmentColourLabel;
         private System.Windows.Forms.Label TextureSheetLabel;
         private System.Windows.Forms.Label TextureSegmentSelectLabel;
@@ -1468,6 +1487,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Panel TextureSegmentLayerPanel;
         private System.Windows.Forms.PictureBox TextureSegmentLayerPictureBox;
         private System.Windows.Forms.Label TextureSegmentLayerLabel;
+        private System.Windows.Forms.Button ReloadTextureButton;
     }
 }
 

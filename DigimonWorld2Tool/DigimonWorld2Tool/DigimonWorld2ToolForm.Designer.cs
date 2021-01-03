@@ -968,7 +968,6 @@ namespace DigimonWorld2Tool
             // 
             // TextureSegmentGroupBox
             // 
-            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerPanel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPanel);
@@ -996,17 +995,18 @@ namespace DigimonWorld2Tool
             // TextureSegmentLayerLabel
             // 
             this.TextureSegmentLayerLabel.AutoSize = true;
-            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(238, 247);
+            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(2, 12);
             this.TextureSegmentLayerLabel.Name = "TextureSegmentLayerLabel";
-            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(47, 20);
+            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(118, 20);
             this.TextureSegmentLayerLabel.TabIndex = 16;
-            this.TextureSegmentLayerLabel.Text = "Layer:";
+            this.TextureSegmentLayerLabel.Text = "(To come) Layer:";
             // 
             // TextureSegmentLayerPanel
             // 
             this.TextureSegmentLayerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.TextureSegmentLayerPanel.Controls.Add(this.TextureSegmentLayerLabel);
             this.TextureSegmentLayerPanel.Controls.Add(this.TextureSegmentLayerPictureBox);
-            this.TextureSegmentLayerPanel.Location = new System.Drawing.Point(291, 246);
+            this.TextureSegmentLayerPanel.Location = new System.Drawing.Point(291, 305);
             this.TextureSegmentLayerPanel.Name = "TextureSegmentLayerPanel";
             this.TextureSegmentLayerPanel.Size = new System.Drawing.Size(514, 202);
             this.TextureSegmentLayerPanel.TabIndex = 15;
@@ -1014,7 +1014,7 @@ namespace DigimonWorld2Tool
             // TextureSegmentLayerPictureBox
             // 
             this.TextureSegmentLayerPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.TextureSegmentLayerPictureBox.Location = new System.Drawing.Point(1, 1);
+            this.TextureSegmentLayerPictureBox.Location = new System.Drawing.Point(2, 2);
             this.TextureSegmentLayerPictureBox.Name = "TextureSegmentLayerPictureBox";
             this.TextureSegmentLayerPictureBox.Size = new System.Drawing.Size(512, 200);
             this.TextureSegmentLayerPictureBox.TabIndex = 0;
@@ -1035,7 +1035,7 @@ namespace DigimonWorld2Tool
             this.TextureSegmentPanel.Controls.Add(this.TextureSegmentPictureBox);
             this.TextureSegmentPanel.Location = new System.Drawing.Point(291, 26);
             this.TextureSegmentPanel.Name = "TextureSegmentPanel";
-            this.TextureSegmentPanel.Size = new System.Drawing.Size(514, 202);
+            this.TextureSegmentPanel.Size = new System.Drawing.Size(514, 258);
             this.TextureSegmentPanel.TabIndex = 13;
             // 
             // TextureSegmentPictureBox
@@ -1043,7 +1043,7 @@ namespace DigimonWorld2Tool
             this.TextureSegmentPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.TextureSegmentPictureBox.Location = new System.Drawing.Point(1, 1);
             this.TextureSegmentPictureBox.Name = "TextureSegmentPictureBox";
-            this.TextureSegmentPictureBox.Size = new System.Drawing.Size(512, 200);
+            this.TextureSegmentPictureBox.Size = new System.Drawing.Size(512, 256);
             this.TextureSegmentPictureBox.TabIndex = 0;
             this.TextureSegmentPictureBox.TabStop = false;
             // 
@@ -1371,6 +1371,7 @@ namespace DigimonWorld2Tool
             this.TextureSegmentGroupBox.ResumeLayout(false);
             this.TextureSegmentGroupBox.PerformLayout();
             this.TextureSegmentLayerPanel.ResumeLayout(false);
+            this.TextureSegmentLayerPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentLayerPictureBox)).EndInit();
             this.TextureSegmentPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentPictureBox)).EndInit();

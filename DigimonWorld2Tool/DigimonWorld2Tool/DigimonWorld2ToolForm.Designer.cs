@@ -96,8 +96,8 @@ namespace DigimonWorld2Tool
             this.ReloadTextureButton = new System.Windows.Forms.Button();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
-            this.TextureSegmentLayerLabel = new System.Windows.Forms.Label();
             this.TextureSegmentLayerPanel = new System.Windows.Forms.Panel();
+            this.TextureSegmentLayerLabel = new System.Windows.Forms.Label();
             this.TextureSegmentLayerPictureBox = new System.Windows.Forms.PictureBox();
             this.TextureSegmentLabel = new System.Windows.Forms.Label();
             this.TextureSegmentPanel = new System.Windows.Forms.Panel();
@@ -212,7 +212,6 @@ namespace DigimonWorld2Tool
             // 
             // ShowDigimonCheckbox
             // 
-            this.ShowDigimonCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowDigimonCheckbox.AutoSize = true;
             this.ShowDigimonCheckbox.Checked = true;
             this.ShowDigimonCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -228,7 +227,6 @@ namespace DigimonWorld2Tool
             // 
             // ShowChestsCheckbox
             // 
-            this.ShowChestsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowChestsCheckbox.AutoSize = true;
             this.ShowChestsCheckbox.Checked = true;
             this.ShowChestsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -244,7 +242,6 @@ namespace DigimonWorld2Tool
             // 
             // ShowTrapsCheckbox
             // 
-            this.ShowTrapsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowTrapsCheckbox.AutoSize = true;
             this.ShowTrapsCheckbox.Checked = true;
             this.ShowTrapsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -260,7 +257,6 @@ namespace DigimonWorld2Tool
             // 
             // ShowWarpsCheckbox
             // 
-            this.ShowWarpsCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowWarpsCheckbox.AutoSize = true;
             this.ShowWarpsCheckbox.Checked = true;
             this.ShowWarpsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -344,7 +340,6 @@ namespace DigimonWorld2Tool
             // 
             // ErrorCheckingComboBox
             // 
-            this.ErrorCheckingComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ErrorCheckingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ErrorCheckingComboBox.FormattingEnabled = true;
             this.ErrorCheckingComboBox.Location = new System.Drawing.Point(436, 212);
@@ -355,7 +350,6 @@ namespace DigimonWorld2Tool
             // 
             // ErrorCheckLevelLabel
             // 
-            this.ErrorCheckLevelLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ErrorCheckLevelLabel.AutoSize = true;
             this.ErrorCheckLevelLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ErrorCheckLevelLabel.ForeColor = System.Drawing.Color.White;
@@ -367,7 +361,6 @@ namespace DigimonWorld2Tool
             // 
             // GridPosHexCheckBox
             // 
-            this.GridPosHexCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GridPosHexCheckBox.AutoSize = true;
             this.GridPosHexCheckBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GridPosHexCheckBox.ForeColor = System.Drawing.Color.White;
@@ -533,7 +526,6 @@ namespace DigimonWorld2Tool
             // 
             // SaveLayoutToFileButton
             // 
-            this.SaveLayoutToFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SaveLayoutToFileButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SaveLayoutToFileButton.Location = new System.Drawing.Point(570, 798);
             this.SaveLayoutToFileButton.Name = "SaveLayoutToFileButton";
@@ -545,7 +537,6 @@ namespace DigimonWorld2Tool
             // 
             // ShowGridCheckbox
             // 
-            this.ShowGridCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowGridCheckbox.AutoSize = true;
             this.ShowGridCheckbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ShowGridCheckbox.ForeColor = System.Drawing.Color.White;
@@ -632,7 +623,6 @@ namespace DigimonWorld2Tool
             // 
             // ResizeGridButton
             // 
-            this.ResizeGridButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ResizeGridButton.Location = new System.Drawing.Point(371, 250);
             this.ResizeGridButton.Name = "ResizeGridButton";
             this.ResizeGridButton.Size = new System.Drawing.Size(75, 23);
@@ -643,7 +633,6 @@ namespace DigimonWorld2Tool
             // 
             // TileSizeInput
             // 
-            this.TileSizeInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TileSizeInput.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TileSizeInput.Location = new System.Drawing.Point(321, 250);
             this.TileSizeInput.Maximum = new decimal(new int[] {
@@ -667,7 +656,6 @@ namespace DigimonWorld2Tool
             // 
             // TileSizeLabel
             // 
-            this.TileSizeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.TileSizeLabel.AutoSize = true;
             this.TileSizeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TileSizeLabel.ForeColor = System.Drawing.Color.White;
@@ -679,7 +667,6 @@ namespace DigimonWorld2Tool
             // 
             // MousePositionOnGridLabel
             // 
-            this.MousePositionOnGridLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MousePositionOnGridLabel.AutoSize = true;
             this.MousePositionOnGridLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MousePositionOnGridLabel.ForeColor = System.Drawing.Color.White;
@@ -691,7 +678,6 @@ namespace DigimonWorld2Tool
             // 
             // FloorSelectorComboBox
             // 
-            this.FloorSelectorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.FloorSelectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FloorSelectorComboBox.FormattingEnabled = true;
             this.FloorSelectorComboBox.Location = new System.Drawing.Point(110, 250);
@@ -702,7 +688,6 @@ namespace DigimonWorld2Tool
             // 
             // SelectFloorLabel
             // 
-            this.SelectFloorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SelectFloorLabel.AutoSize = true;
             this.SelectFloorLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SelectFloorLabel.ForeColor = System.Drawing.Color.White;
@@ -715,7 +700,6 @@ namespace DigimonWorld2Tool
             // MapLayoutsTabControl
             // 
             this.MapLayoutsTabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.MapLayoutsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage0);
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage1);
             this.MapLayoutsTabControl.Controls.Add(this.TabLayoutPage2);
@@ -897,7 +881,6 @@ namespace DigimonWorld2Tool
             // 
             // DungeonFilesComboBox
             // 
-            this.DungeonFilesComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DungeonFilesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DungeonFilesComboBox.FormattingEnabled = true;
             this.DungeonFilesComboBox.Location = new System.Drawing.Point(110, 215);
@@ -909,7 +892,6 @@ namespace DigimonWorld2Tool
             // 
             // DomainNameLabel
             // 
-            this.DomainNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.DomainNameLabel.AutoSize = true;
             this.DomainNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.DomainNameLabel.ForeColor = System.Drawing.Color.White;
@@ -992,15 +974,6 @@ namespace DigimonWorld2Tool
             this.TextureSegmentGroupBox.TabStop = false;
             this.TextureSegmentGroupBox.Text = "Texture information";
             // 
-            // TextureSegmentLayerLabel
-            // 
-            this.TextureSegmentLayerLabel.AutoSize = true;
-            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(2, 12);
-            this.TextureSegmentLayerLabel.Name = "TextureSegmentLayerLabel";
-            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(118, 20);
-            this.TextureSegmentLayerLabel.TabIndex = 16;
-            this.TextureSegmentLayerLabel.Text = "(To come) Layer:";
-            // 
             // TextureSegmentLayerPanel
             // 
             this.TextureSegmentLayerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -1010,6 +983,15 @@ namespace DigimonWorld2Tool
             this.TextureSegmentLayerPanel.Name = "TextureSegmentLayerPanel";
             this.TextureSegmentLayerPanel.Size = new System.Drawing.Size(514, 202);
             this.TextureSegmentLayerPanel.TabIndex = 15;
+            // 
+            // TextureSegmentLayerLabel
+            // 
+            this.TextureSegmentLayerLabel.AutoSize = true;
+            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(2, 12);
+            this.TextureSegmentLayerLabel.Name = "TextureSegmentLayerLabel";
+            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(118, 20);
+            this.TextureSegmentLayerLabel.TabIndex = 16;
+            this.TextureSegmentLayerLabel.Text = "(To come) Layer:";
             // 
             // TextureSegmentLayerPictureBox
             // 

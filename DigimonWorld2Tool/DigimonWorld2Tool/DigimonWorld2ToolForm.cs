@@ -301,6 +301,18 @@ namespace DigimonWorld2Tool
                 SetCurrentLayoutInformation();
             }
 
+            for (int i = 0; i < 8; i++)
+            {
+                if(i < CurrentDomainFloor.UniqueDomainMapLayouts.Count)
+                {
+                    MapLayoutsTabControl.TabPages[i].Text = $"Layout{i}";
+                }
+                else
+                {
+                    MapLayoutsTabControl.TabPages[i].Text = "";
+                }
+            }
+
             SetCurrentFloorInformation();
         }
 

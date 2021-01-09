@@ -190,5 +190,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["InvertCLUTColours"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ModelTexture {
+            get {
+                return ((bool)(this["ModelTexture"]));
+            }
+            set {
+                this["ModelTexture"] = value;
+            }
+        }
     }
 }

@@ -53,6 +53,8 @@ namespace DigimonWorld2Tool.Rendering
                     {
                         floorLayoutLayer.SetPixel((tileCombo.leftTile.Position.x * tileSize) + i, (tileCombo.leftTile.Position.y * tileSize) + j, tileCombo.leftTile.TileColour);
                         floorLayoutLayer.SetPixel((tileCombo.rightTile.Position.x * tileSize) + i, (tileCombo.rightTile.Position.y * tileSize) + j, tileCombo.rightTile.TileColour);
+                        //AddText(tileCombo.leftTile.Position, tileCombo.leftTile.TileText, floorLayoutLayer);
+                        //AddText(tileCombo.rightTile.Position, tileCombo.rightTile.TileText, floorLayoutLayer);
                     }
                 }
             }

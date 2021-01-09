@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Text;
-
-using DigimonWorld2Tool;
-using DigimonWorld2Tool.Textures;
 using DigimonWorld2MapVisualizer.Utility;
 
 namespace DigimonWorld2Tool.Textures

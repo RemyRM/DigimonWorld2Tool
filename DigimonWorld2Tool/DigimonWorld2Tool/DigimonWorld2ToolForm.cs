@@ -103,6 +103,7 @@ namespace DigimonWorld2Tool
             TextureUseAltClutCheckbox.Checked = (bool)Properties.Settings.Default["TextureUseAltClutCheckbox"];
             CLUTFirstColourTransparantCheckbox.Checked = (bool)Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"];
             InvertCLUTColoursCheckbox.Checked = (bool)Properties.Settings.Default["InvertCLUTColours"];
+            ModelTextureCheckbox.Checked = (bool)Properties.Settings.Default["ModelTexture"];
         }
 
         private void LoadDungeonFiles()
@@ -212,6 +213,7 @@ namespace DigimonWorld2Tool
             UnknownData2Label.Text = $"Unknown 2: {CurrentDomainFloor.UnknownData2Decimal:X8}";
             TrapLevelLabel.Text = $"Trap level: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.TrapLevel)}";
             DigimonPacksLabel.Text = $"Digimon packs: {TextConversion.ByteArrayToHexString(CurrentDomainFloor.DigimonPacks)}";
+            TileOverrideTypeLabel.Text = $"Tile type: {CurrentDomainFloor.FloorTypeOverride}";
         }
 
         public void SetCurrentObjectInformation(IFloorLayoutObject mapObject)
@@ -572,35 +574,35 @@ namespace DigimonWorld2Tool
         #endregion
 
         #region Digitext parser
-        private void SelectFileButton_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
-            ReadFilesRecursively();
+            //ReadFilesRecursively();
 
 
-            //using (OpenFileDialog fd = new OpenFileDialog())
-            //{
-            //    fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
-            //    fd.Filter = "Bin files (.bin)|*.bin";
-            //    fd.RestoreDirectory = true;
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                //fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+                //fd.Filter = "Bin files (.bin)|*.bin";
+                //fd.RestoreDirectory = true;
 
-            //    if(fd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        var filePath = fd.FileName;
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    var filePath = fd.FileName;
 
-            //        var fileStream = fd.OpenFile();
+                    var fileStream = fd.OpenFile();
 
-            //        byte[] arr;
-            //        using (BinaryReader reader = new BinaryReader(fileStream))
-            //        {
-            //            using MemoryStream memoryStream = new MemoryStream();
-            //            reader.BaseStream.CopyTo(memoryStream);
-            //            arr =  memoryStream.ToArray();
-            //        }
+                    byte[] arr;
+                    using (BinaryReader reader = new BinaryReader(fileStream))
+                    {
+                        using MemoryStream memoryStream = new MemoryStream();
+                        reader.BaseStream.CopyTo(memoryStream);
+                        arr = memoryStream.ToArray();
+                    }
 
-            //        var result = TextConversion.DigiBytesToString(arr);
-            //    }
-            //}
+                    var result = TextConversion.DigiBytesToString(arr);
+                }
+            }
 
         }
 
@@ -748,6 +750,11 @@ namespace DigimonWorld2Tool
         {
             TextureVisualizerLogRichTextBox.SelectionStart = TextureVisualizerLogRichTextBox.Text.Length;
             TextureVisualizerLogRichTextBox.ScrollToCaret();
+        }
+
+        private void ModelTextureCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["ModelTexture"] = ModelTextureCheckbox.Checked;
         }
         #endregion
     }

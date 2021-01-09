@@ -93,6 +93,7 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
+            this.ModelTextureCheckbox = new System.Windows.Forms.CheckBox();
             this.ReloadTextureButton = new System.Windows.Forms.Button();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
@@ -130,6 +131,7 @@ namespace DigimonWorld2Tool
             this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
+            this.TileOverrideTypeLabel = new System.Windows.Forms.Label();
             this.CLUTOffsetNumericUpDown.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -455,6 +457,7 @@ namespace DigimonWorld2Tool
             // 
             // FloorInformationGroupbox
             // 
+            this.FloorInformationGroupbox.Controls.Add(this.TileOverrideTypeLabel);
             this.FloorInformationGroupbox.Controls.Add(this.UnknownData2Label);
             this.FloorInformationGroupbox.Controls.Add(this.FloorHeaderAddressLabel);
             this.FloorInformationGroupbox.Controls.Add(this.DigimonPacksLabel);
@@ -473,7 +476,7 @@ namespace DigimonWorld2Tool
             // UnknownData2Label
             // 
             this.UnknownData2Label.AutoSize = true;
-            this.UnknownData2Label.Location = new System.Drawing.Point(285, 125);
+            this.UnknownData2Label.Location = new System.Drawing.Point(213, 125);
             this.UnknownData2Label.Name = "UnknownData2Label";
             this.UnknownData2Label.Size = new System.Drawing.Size(101, 21);
             this.UnknownData2Label.TabIndex = 5;
@@ -491,7 +494,7 @@ namespace DigimonWorld2Tool
             // DigimonPacksLabel
             // 
             this.DigimonPacksLabel.AutoSize = true;
-            this.DigimonPacksLabel.Location = new System.Drawing.Point(285, 75);
+            this.DigimonPacksLabel.Location = new System.Drawing.Point(213, 75);
             this.DigimonPacksLabel.Name = "DigimonPacksLabel";
             this.DigimonPacksLabel.Size = new System.Drawing.Size(116, 21);
             this.DigimonPacksLabel.TabIndex = 3;
@@ -500,7 +503,7 @@ namespace DigimonWorld2Tool
             // TrapLevelLabel
             // 
             this.TrapLevelLabel.AutoSize = true;
-            this.TrapLevelLabel.Location = new System.Drawing.Point(285, 25);
+            this.TrapLevelLabel.Location = new System.Drawing.Point(213, 25);
             this.TrapLevelLabel.Name = "TrapLevelLabel";
             this.TrapLevelLabel.Size = new System.Drawing.Size(83, 21);
             this.TrapLevelLabel.TabIndex = 2;
@@ -904,6 +907,7 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.ModelTextureCheckbox);
             this.TextureVisualizerTab.Controls.Add(this.ReloadTextureButton);
             this.TextureVisualizerTab.Controls.Add(this.TextureSheetLabel);
             this.TextureVisualizerTab.Controls.Add(this.TextureSegmentGroupBox);
@@ -927,6 +931,17 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.Size = new System.Drawing.Size(1571, 839);
             this.TextureVisualizerTab.TabIndex = 1;
             this.TextureVisualizerTab.Text = "Texture Visualizer";
+            // 
+            // ModelTextureCheckbox
+            // 
+            this.ModelTextureCheckbox.AutoSize = true;
+            this.ModelTextureCheckbox.Location = new System.Drawing.Point(290, 92);
+            this.ModelTextureCheckbox.Name = "ModelTextureCheckbox";
+            this.ModelTextureCheckbox.Size = new System.Drawing.Size(144, 24);
+            this.ModelTextureCheckbox.TabIndex = 15;
+            this.ModelTextureCheckbox.Text = "3D Model texture";
+            this.ModelTextureCheckbox.UseVisualStyleBackColor = true;
+            this.ModelTextureCheckbox.CheckedChanged += new System.EventHandler(this.ModelTextureCheckbox_CheckedChanged);
             // 
             // ReloadTextureButton
             // 
@@ -1317,6 +1332,15 @@ namespace DigimonWorld2Tool
             this.SelectedTextureLabel.TabIndex = 0;
             this.SelectedTextureLabel.Text = "Select a file to view";
             // 
+            // TileOverrideTypeLabel
+            // 
+            this.TileOverrideTypeLabel.AutoSize = true;
+            this.TileOverrideTypeLabel.Location = new System.Drawing.Point(374, 25);
+            this.TileOverrideTypeLabel.Name = "TileOverrideTypeLabel";
+            this.TileOverrideTypeLabel.Size = new System.Drawing.Size(71, 21);
+            this.TileOverrideTypeLabel.TabIndex = 6;
+            this.TileOverrideTypeLabel.Text = "Tile type:";
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1471,6 +1495,8 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.PictureBox TextureSegmentLayerPictureBox;
         private System.Windows.Forms.Label TextureSegmentLayerLabel;
         private System.Windows.Forms.Button ReloadTextureButton;
+        public System.Windows.Forms.CheckBox ModelTextureCheckbox;
+        private System.Windows.Forms.Label TileOverrideTypeLabel;
     }
 }
 

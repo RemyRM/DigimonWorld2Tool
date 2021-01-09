@@ -21,7 +21,8 @@ namespace DigimonWorld2MapVisualizer.Domains
             FloorLayout6 = 32,
             FloorLayout7 = 36,
             UnknownValue2 = 40,
-            TrapLevel = 44,
+            FloorTypeOverride = 44,
+            TrapLevel = 45,
             DigimonTable = 48,
             TreasureTable = 52
         }
@@ -34,6 +35,7 @@ namespace DigimonWorld2MapVisualizer.Domains
         internal readonly string FloorName;
         internal readonly int UnknownDataDecimal;
         internal readonly int UnknownData2Decimal;
+        internal readonly byte FloorTypeOverride;
         internal readonly byte[] TrapLevel;
         internal readonly byte[] DigimonPacks = new byte[4];
         internal readonly DomainFloorTreasureData[] PossibleTreasure = new DomainFloorTreasureData[8];
@@ -51,6 +53,7 @@ namespace DigimonWorld2MapVisualizer.Domains
 
             UnknownDataDecimal = ReadUnknownData();
             UnknownData2Decimal = ReadUnknownData2();
+            FloorTypeOverride = ReadFloorOverride();
             TrapLevel = ReadTrapLevel();
             DigimonPacks = ReadDigimonPacks();
             PossibleTreasure = ReadTreasure();
@@ -141,13 +144,18 @@ namespace DigimonWorld2MapVisualizer.Domains
             return unknownData2PointerDecimalAddress;
         }
 
+        private byte ReadFloorOverride()
+        {
+            return Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.FloorTypeOverride];
+        }
+
         /// <summary>
         /// Read the current trap level for this floor. it appears that the trap level gets changed by setting each byte individually
         /// </summary>
         /// <returns>byte array with the trap level(s)</returns>
         private byte[] ReadTrapLevel()
         {
-            byte[] trapLevel = new byte[4];
+            byte[] trapLevel = new byte[3];
             for (int i = 0; i < trapLevel.Length; i++)
             {
                 trapLevel[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TrapLevel + i];

@@ -64,6 +64,9 @@ namespace DigimonWorld2Tool
             ErrorCheckingComboBox.Items.Add(Strictness.Strict);
             ErrorCheckingComboBox.Items.Add(Strictness.Sloppy);
 
+            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Generic);
+            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Model);
+
             LoadUserSettings();
             LoadDungeonFiles();
 
@@ -103,7 +106,7 @@ namespace DigimonWorld2Tool
             TextureUseAltClutCheckbox.Checked = (bool)Properties.Settings.Default["TextureUseAltClutCheckbox"];
             CLUTFirstColourTransparantCheckbox.Checked = (bool)Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"];
             InvertCLUTColoursCheckbox.Checked = (bool)Properties.Settings.Default["InvertCLUTColours"];
-            ModelTextureCheckbox.Checked = (bool)Properties.Settings.Default["ModelTexture"];
+            TextureTypeComboBox.SelectedIndex = (int)Properties.Settings.Default["TextureType"];
         }
 
         private void LoadDungeonFiles()
@@ -752,9 +755,9 @@ namespace DigimonWorld2Tool
             TextureVisualizerLogRichTextBox.ScrollToCaret();
         }
 
-        private void ModelTextureCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void TextureTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default["ModelTexture"] = ModelTextureCheckbox.Checked;
+            Properties.Settings.Default["TextureType"] = TextureTypeComboBox.SelectedIndex;
         }
         #endregion
     }

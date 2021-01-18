@@ -258,6 +258,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
 
                         case 0x65:
                         case 0x75:
+                        case 0xCA:
                             this.ObjectModelDigimonName = "Bertran";
                             this.Level = DigimonPackLevel.Special;
                             break;
@@ -277,6 +278,7 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                             break;
 
                         case 0x76:
+                        case 0xCB:
                             this.ObjectModelDigimonName = "Jojo";
                             this.Level = DigimonPackLevel.Special;
                             break;
@@ -306,9 +308,12 @@ namespace DigimonWorld2MapVisualizer.MapObjects
                             this.Level = DigimonPackLevel.Special;
                             break;
 
+                        case 0x63:
+                        case 0x64:
                         case 0x67:
                         case 0x68:
                         case 0x69:
+                        case 0x6A:
                         case 0x71:
                         case 0x72:
                         case 0x73:

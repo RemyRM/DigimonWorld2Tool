@@ -6,13 +6,13 @@ namespace DigimonWorld2Tool.Textures
     /// <summary>
     /// The TextureHeader is the entire header that prefixes the TIM header, and contains the information on all texture segments
     /// </summary>
-    class TextureHeader
+    class GeneralTextureSegmentHeader
     {
         public readonly int TimOffset;
         public readonly int[] TextureSectionsOffsets;
         public readonly TextureSegmentInformation[] TextureSegments;
 
-        public TextureHeader(ref BinaryReader reader)
+        public GeneralTextureSegmentHeader(ref BinaryReader reader)
         {
             TimOffset = GetTIMOffset(ref reader);
             if (TimOffset == -1 || TimOffset == 4)

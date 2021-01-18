@@ -7,6 +7,12 @@ namespace DigimonWorld2Tool.Textures
 {
     class TextureParser
     {
+        public enum TextureType
+        {
+            Generic,
+            Model,
+        }
+
         public enum BPPCount
         {
             FourBPPNoCLUT = 0,
@@ -17,7 +23,7 @@ namespace DigimonWorld2Tool.Textures
             EightBPP = 9
         }
 
-        public static DigimonWorld2Texture CurrentTexture;
+        public static DigimonWorld2GeneralTexture CurrentTexture;
         private static Color[] palette;
         private static int TextureScaleSize = 1;
 
@@ -34,22 +40,20 @@ namespace DigimonWorld2Tool.Textures
 
             BinaryReader reader = new BinaryReader(File.Open(filePath, FileMode.Open));
 
-            CurrentTexture = new DigimonWorld2Texture(ref reader);
-            if (CurrentTexture.TimHeader == null)
-                return;
-
-            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
-                                                                                             CurrentTexture.TimHeader.TimClutPalette;
-            if(palette == null)
+            switch ((TextureType)DigimonWorld2ToolForm.Main.TextureTypeComboBox.SelectedIndex)
             {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
-                reader.Close();
-                reader.Dispose();
-                return;
-            }
+                case TextureType.Generic:
+                    CheckForGenericTexture(ref reader);
+                    break;
 
-            DrawCLUTPalette(palette);
-            DrawTextureBMP(ref reader, palette, CurrentTexture);
+                case TextureType.Model:
+                    CheckForModelTexture(ref reader);
+                    return;
+                    break;
+
+                default:
+                    break;
+            }
 
             reader.Close();
             reader.Dispose();
@@ -65,6 +69,33 @@ namespace DigimonWorld2Tool.Textures
                 DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Enabled = false;
                 DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.Enabled = false;
             }
+        }
+
+        private static void CheckForGenericTexture(ref BinaryReader reader)
+        {
+            CurrentTexture = new DigimonWorld2GeneralTexture(ref reader);
+            if (CurrentTexture.TimHeader == null)
+                return;
+
+            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
+                                                                                             CurrentTexture.TimHeader.TimClutPalette;
+            if (palette == null)
+            {
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
+                reader.Close();
+                reader.Dispose();
+                return;
+            }
+
+            DrawCLUTPalette(palette);
+            DrawTextureBMP(ref reader, palette, CurrentTexture);
+        }
+
+        private static void CheckForModelTexture(ref BinaryReader reader)
+        {
+            var CurrentTexture = new DigimonWorld2ModelTexture(ref reader);
+            if (CurrentTexture.TimHeader == null)
+                return;
         }
 
         /// <summary>
@@ -203,7 +234,7 @@ namespace DigimonWorld2Tool.Textures
         /// <param name="reader">The stream to read the bytes from</param>
         /// <param name="palette">The colour palette to use</param>
         /// <param name="texture">The texture to draw</param>
-        private static void DrawTextureBMP(ref BinaryReader reader, Color[] palette, DigimonWorld2Texture texture)
+        private static void DrawTextureBMP(ref BinaryReader reader, Color[] palette, DigimonWorld2GeneralTexture texture)
         {
             TextureScaleSize = DigimonWorld2ToolForm.Main.ScaleTextureToFitCheckbox.Checked ? 2 : 1;
 
@@ -301,7 +332,7 @@ namespace DigimonWorld2Tool.Textures
 
             for (int y = 0; y < height; y++)
             {
-                for (int x = 0; x < 128; x += 2) 
+                for (int x = 0; x < 128; x += 2)
                 {
                     // The width of the texture is 64 bytes (with 2 pixels per byte), but not all textures take up the full width, 
                     // so we need to throw away excess bytes when we're past the width of the texture segment

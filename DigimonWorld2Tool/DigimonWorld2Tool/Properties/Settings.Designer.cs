@@ -193,13 +193,13 @@ namespace DigimonWorld2Tool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ModelTexture {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TextureType {
             get {
-                return ((bool)(this["ModelTexture"]));
+                return ((int)(this["TextureType"]));
             }
             set {
-                this["ModelTexture"] = value;
+                this["TextureType"] = value;
             }
         }
     }

@@ -52,6 +52,7 @@ namespace DigimonWorld2Tool
             this.ObjectPositionLabel = new System.Windows.Forms.Label();
             this.ObjectTypeLabel = new System.Windows.Forms.Label();
             this.FloorInformationGroupbox = new System.Windows.Forms.GroupBox();
+            this.TileOverrideTypeLabel = new System.Windows.Forms.Label();
             this.UnknownData2Label = new System.Windows.Forms.Label();
             this.FloorHeaderAddressLabel = new System.Windows.Forms.Label();
             this.DigimonPacksLabel = new System.Windows.Forms.Label();
@@ -93,7 +94,7 @@ namespace DigimonWorld2Tool
             this.DungeonFilesComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNameLabel = new System.Windows.Forms.Label();
             this.TextureVisualizerTab = new System.Windows.Forms.TabPage();
-            this.ModelTextureCheckbox = new System.Windows.Forms.CheckBox();
+            this.TextureTypeComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadTextureButton = new System.Windows.Forms.Button();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
@@ -131,7 +132,6 @@ namespace DigimonWorld2Tool
             this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
-            this.TileOverrideTypeLabel = new System.Windows.Forms.Label();
             this.CLUTOffsetNumericUpDown.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -472,6 +472,15 @@ namespace DigimonWorld2Tool
             this.FloorInformationGroupbox.TabIndex = 17;
             this.FloorInformationGroupbox.TabStop = false;
             this.FloorInformationGroupbox.Text = "Floor information";
+            // 
+            // TileOverrideTypeLabel
+            // 
+            this.TileOverrideTypeLabel.AutoSize = true;
+            this.TileOverrideTypeLabel.Location = new System.Drawing.Point(374, 25);
+            this.TileOverrideTypeLabel.Name = "TileOverrideTypeLabel";
+            this.TileOverrideTypeLabel.Size = new System.Drawing.Size(71, 21);
+            this.TileOverrideTypeLabel.TabIndex = 6;
+            this.TileOverrideTypeLabel.Text = "Tile type:";
             // 
             // UnknownData2Label
             // 
@@ -907,7 +916,7 @@ namespace DigimonWorld2Tool
             // TextureVisualizerTab
             // 
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.TextureVisualizerTab.Controls.Add(this.ModelTextureCheckbox);
+            this.TextureVisualizerTab.Controls.Add(this.TextureTypeComboBox);
             this.TextureVisualizerTab.Controls.Add(this.ReloadTextureButton);
             this.TextureVisualizerTab.Controls.Add(this.TextureSheetLabel);
             this.TextureVisualizerTab.Controls.Add(this.TextureSegmentGroupBox);
@@ -932,16 +941,15 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.TabIndex = 1;
             this.TextureVisualizerTab.Text = "Texture Visualizer";
             // 
-            // ModelTextureCheckbox
+            // TextureTypeComboBox
             // 
-            this.ModelTextureCheckbox.AutoSize = true;
-            this.ModelTextureCheckbox.Location = new System.Drawing.Point(290, 92);
-            this.ModelTextureCheckbox.Name = "ModelTextureCheckbox";
-            this.ModelTextureCheckbox.Size = new System.Drawing.Size(144, 24);
-            this.ModelTextureCheckbox.TabIndex = 15;
-            this.ModelTextureCheckbox.Text = "3D Model texture";
-            this.ModelTextureCheckbox.UseVisualStyleBackColor = true;
-            this.ModelTextureCheckbox.CheckedChanged += new System.EventHandler(this.ModelTextureCheckbox_CheckedChanged);
+            this.TextureTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextureTypeComboBox.FormattingEnabled = true;
+            this.TextureTypeComboBox.Location = new System.Drawing.Point(290, 88);
+            this.TextureTypeComboBox.Name = "TextureTypeComboBox";
+            this.TextureTypeComboBox.Size = new System.Drawing.Size(152, 28);
+            this.TextureTypeComboBox.TabIndex = 15;
+            this.TextureTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TextureTypeComboBox_SelectedIndexChanged);
             // 
             // ReloadTextureButton
             // 
@@ -1332,15 +1340,6 @@ namespace DigimonWorld2Tool
             this.SelectedTextureLabel.TabIndex = 0;
             this.SelectedTextureLabel.Text = "Select a file to view";
             // 
-            // TileOverrideTypeLabel
-            // 
-            this.TileOverrideTypeLabel.AutoSize = true;
-            this.TileOverrideTypeLabel.Location = new System.Drawing.Point(374, 25);
-            this.TileOverrideTypeLabel.Name = "TileOverrideTypeLabel";
-            this.TileOverrideTypeLabel.Size = new System.Drawing.Size(71, 21);
-            this.TileOverrideTypeLabel.TabIndex = 6;
-            this.TileOverrideTypeLabel.Text = "Tile type:";
-            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1459,7 +1458,6 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.TabPage TextureVisualizerTab;
         private System.Windows.Forms.Panel SelectedTexturePanel;
         private System.Windows.Forms.Button SelectTextureButton;
-        private System.Windows.Forms.Label SelectedTextureLabel;
         private System.Windows.Forms.GroupBox TextureVisualizerLogGroupbox;
         private System.Windows.Forms.RichTextBox TextureVisualizerLogRichTextBox;
         private System.Windows.Forms.Panel panel1;
@@ -1495,8 +1493,9 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.PictureBox TextureSegmentLayerPictureBox;
         private System.Windows.Forms.Label TextureSegmentLayerLabel;
         private System.Windows.Forms.Button ReloadTextureButton;
-        public System.Windows.Forms.CheckBox ModelTextureCheckbox;
         private System.Windows.Forms.Label TileOverrideTypeLabel;
+        public System.Windows.Forms.ComboBox TextureTypeComboBox;
+        public System.Windows.Forms.Label SelectedTextureLabel;
     }
 }
 

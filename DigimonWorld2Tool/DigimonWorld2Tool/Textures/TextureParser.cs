@@ -48,6 +48,8 @@ namespace DigimonWorld2Tool.Textures
 
                 case TextureType.Model:
                     CheckForModelTexture(ref reader);
+                    reader.Close();
+                    reader.Dispose();
                     return;
                     break;
 

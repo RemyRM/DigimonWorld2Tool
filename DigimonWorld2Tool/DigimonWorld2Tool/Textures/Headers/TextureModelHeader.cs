@@ -13,7 +13,9 @@ namespace DigimonWorld2Tool.Textures.Headers
         public readonly int TimOffset;
         public readonly int[] HeaderPointers;
         public readonly int[] HeaderPointersOrdered;
-        public readonly List<IModelTextureSegment> SegmentsInHeader = new List<IModelTextureSegment>();
+        public List<IModelTextureSegment> SegmentsInHeader { get; private set; } = new List<IModelTextureSegment>();
+        //private List<int> UnpointedListAddresses = new List<int>();
+        private Dictionary<int, byte[]> UnpointedSegment = new Dictionary<int, byte[]>();
 
         public TextureModelHeader(ref BinaryReader reader)
         {
@@ -29,7 +31,8 @@ namespace DigimonWorld2Tool.Textures.Headers
             //We start at 1 because the first entry is 0x10 which doesnt seem to be a valid pointer in this context
             for (int i = 1; i < HeaderPointersOrdered.Length; i++)
             {
-                SegmentsInHeader.Add(GetSegmentData(i, ref reader));
+                GetSegmentData(i, ref reader);
+                //SegmentsInHeader.Add(GetSegmentData(i, ref reader));
             }
             WriteToFile();
         }
@@ -87,7 +90,7 @@ namespace DigimonWorld2Tool.Textures.Headers
             return pointers.ToArray();
         }
 
-        private IModelTextureSegment GetSegmentData(int index, ref BinaryReader reader)
+        private void GetSegmentData(int index, ref BinaryReader reader)
         {
             reader.BaseStream.Position = HeaderPointersOrdered[index];
             int currentOffset = (int)reader.BaseStream.Position;
@@ -115,9 +118,11 @@ namespace DigimonWorld2Tool.Textures.Headers
 
                 if (value == 0x3F00)
                     checkForNullTerminator = true;
+
                 if (value == 0x00 && checkForNullTerminator)
                 {
                     DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Found 0x00 terminator at index {index} pointer {reader.BaseStream.Position - 4:X6}, setting as new end of list");
+                    //UnpointedListAddresses.Add((int)reader.BaseStream.Position);
                     nextHeaderOffset = (int)(reader.BaseStream.Position - 4);
                 }
             }
@@ -136,7 +141,11 @@ namespace DigimonWorld2Tool.Textures.Headers
                 }
             }
 
+            CreateHeaderSegments(index, itemsInSegmentCount, itemLength, ref reader);
+        }
 
+        private void CreateHeaderSegments(int index, int itemsInSegmentCount, float itemLength, ref BinaryReader reader)
+        {
             byte[,] data = new byte[itemsInSegmentCount, (int)itemLength];
             IModelTextureSegment itemsInSegment = null;
 
@@ -183,8 +192,7 @@ namespace DigimonWorld2Tool.Textures.Headers
                     DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Unhandled case for Model header, itemLength {itemLength}");
                     break;
             }
-
-            return itemsInSegment;
+            SegmentsInHeader.Add(itemsInSegment);
         }
 
         private void WriteToFile()
@@ -195,8 +203,35 @@ namespace DigimonWorld2Tool.Textures.Headers
             using (StreamWriter writer = new StreamWriter($"{target}{fileName}_ParsedHeader.txt"))
             {
                 writer.WriteLine($"Header for: {DigimonWorld2ToolForm.FilePathToSelectedTexture}");
-                int index = 1;
 
+                writer.Write(Environment.NewLine);
+
+                writer.WriteLine($"[Pointers list:]");
+
+                for (int i = 0; i < HeaderPointers.Length; i++)
+                {
+                    //writer.Write($"{HeaderPointers[i]:X8} ");
+                    string hexValueBigEndian = $"{HeaderPointers[i]:X8}";
+                    string printValue = "";
+                    for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
+                    {
+                        printValue += hexValueBigEndian.Substring(j - 2, 1);
+                        printValue += hexValueBigEndian.Substring(j - 1, 1);
+                        printValue += " ";
+                        //writer.Write($"{hexValueBigEndian.Substring(j - 2, 1)}");
+                        //writer.Write($"{hexValueBigEndian.Substring(j - 1, 1)}");
+                    }
+                    writer.Write(printValue);
+                    writer.Write(" ");
+                    if (i == 0)
+                        writer.Write("// This value is the odd one out. It isn't the length of the pointer array, nor is it a pointer into data.");
+                    if (i % 2 == 0)
+                        writer.Write(" ");
+                    if (i % 4 == 0)
+                        writer.Write(Environment.NewLine);
+                }
+
+                int segmentIndex = 1;
                 foreach (var segment in SegmentsInHeader)
                 {
                     writer.WriteLine();
@@ -235,7 +270,7 @@ namespace DigimonWorld2Tool.Textures.Headers
                         }
                         writer.Write(Environment.NewLine);
                     }
-                    index++;
+                    segmentIndex++;
                 }
             }
         }

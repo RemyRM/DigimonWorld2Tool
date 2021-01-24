@@ -12,10 +12,8 @@ namespace DigimonWorld2Tool.Textures.Headers
     {
         public readonly int TimOffset;
         public readonly int[] HeaderPointers;
-        public readonly int[] HeaderPointersOrdered;
+        public readonly List<int> HeaderPointersOrdered = new List<int>();
         public List<IModelTextureSegment> SegmentsInHeader { get; private set; } = new List<IModelTextureSegment>();
-        //private List<int> UnpointedListAddresses = new List<int>();
-        private Dictionary<int, byte[]> UnpointedSegment = new Dictionary<int, byte[]>();
 
         public TextureModelHeader(ref BinaryReader reader)
         {
@@ -27,12 +25,11 @@ namespace DigimonWorld2Tool.Textures.Headers
                 return;
             }
             HeaderPointers = GetHeaderPointers(ref reader);
-            HeaderPointersOrdered = HeaderPointers.OrderBy(i => i).ToArray();
+            HeaderPointersOrdered = HeaderPointers.OrderBy(i => i).ToList();
             //We start at 1 because the first entry is 0x10 which doesnt seem to be a valid pointer in this context
-            for (int i = 1; i < HeaderPointersOrdered.Length; i++)
+            for (int i = 1; i < HeaderPointersOrdered.Count; i++)
             {
                 GetSegmentData(i, ref reader);
-                //SegmentsInHeader.Add(GetSegmentData(i, ref reader));
             }
             WriteToFile();
         }
@@ -103,7 +100,7 @@ namespace DigimonWorld2Tool.Textures.Headers
             int dataStartIndex = (int)reader.BaseStream.Position;
 
             int nextHeaderOffset;
-            if (index + 1 >= HeaderPointersOrdered.Length)
+            if (index + 1 >= HeaderPointersOrdered.Count)
                 nextHeaderOffset = TimOffset;
             else
                 nextHeaderOffset = HeaderPointersOrdered[index + 1];
@@ -122,7 +119,7 @@ namespace DigimonWorld2Tool.Textures.Headers
                 if (value == 0x00 && checkForNullTerminator)
                 {
                     DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Found 0x00 terminator at index {index} pointer {reader.BaseStream.Position - 4:X6}, setting as new end of list");
-                    //UnpointedListAddresses.Add((int)reader.BaseStream.Position);
+                    HeaderPointersOrdered.Insert(index + 1, (int)reader.BaseStream.Position);
                     nextHeaderOffset = (int)(reader.BaseStream.Position - 4);
                 }
             }
@@ -141,10 +138,10 @@ namespace DigimonWorld2Tool.Textures.Headers
                 }
             }
 
-            CreateHeaderSegments(index, itemsInSegmentCount, itemLength, ref reader);
+            CreateHeaderSegment(index, itemsInSegmentCount, itemLength, ref reader);
         }
 
-        private void CreateHeaderSegments(int index, int itemsInSegmentCount, float itemLength, ref BinaryReader reader)
+        private void CreateHeaderSegment(int index, int itemsInSegmentCount, float itemLength, ref BinaryReader reader)
         {
             byte[,] data = new byte[itemsInSegmentCount, (int)itemLength];
             IModelTextureSegment itemsInSegment = null;
@@ -152,7 +149,7 @@ namespace DigimonWorld2Tool.Textures.Headers
             switch (itemLength)
             {
                 case 6:
-                    //It appears that the 6 lenght array always starts of with 2x 0x00, unsure if this is some kind of padding
+                    //It appears that the 6 length array always starts of with 2x 0x00, unsure if this is some kind of padding
                     //Or those arrays just always start with double 00's... Both are equally likely right now.
                     reader.ReadByte();
                     reader.ReadByte();
@@ -208,9 +205,9 @@ namespace DigimonWorld2Tool.Textures.Headers
 
                 writer.WriteLine($"[Pointers list:]");
 
+                //Write the pointer list as its hex representation
                 for (int i = 0; i < HeaderPointers.Length; i++)
                 {
-                    //writer.Write($"{HeaderPointers[i]:X8} ");
                     string hexValueBigEndian = $"{HeaderPointers[i]:X8}";
                     string printValue = "";
                     for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
@@ -218,8 +215,6 @@ namespace DigimonWorld2Tool.Textures.Headers
                         printValue += hexValueBigEndian.Substring(j - 2, 1);
                         printValue += hexValueBigEndian.Substring(j - 1, 1);
                         printValue += " ";
-                        //writer.Write($"{hexValueBigEndian.Substring(j - 2, 1)}");
-                        //writer.Write($"{hexValueBigEndian.Substring(j - 1, 1)}");
                     }
                     writer.Write(printValue);
                     writer.Write(" ");
@@ -231,14 +226,18 @@ namespace DigimonWorld2Tool.Textures.Headers
                         writer.Write(Environment.NewLine);
                 }
 
+                //Write each header segment in its hex representation, formatted to what is likely the length of each item
                 int segmentIndex = 1;
                 foreach (var segment in SegmentsInHeader)
                 {
                     writer.WriteLine();
-                    writer.WriteLine($"[Address: 0x{segment.Address:X4}]");
-                    writer.WriteLine($"[Length: 0x{segment.ArrayLength:X4} ({segment.ArrayLength})]");
+                    writer.WriteLine($"[Address: 0x{segment.Address:X6}]");
+                    writer.WriteLine($"[Length: 0x{segment.ArrayLength:X6} ({segment.ArrayLength})]");
+                    // The [00 00] bytes added here should be in the data array, but arn't. 
                     if (segment.ArrayItemLength == 6)
                         writer.WriteLine("[00 00] //Unsure if this is some kind of padding or the actual start of the array");
+                    if (segment.ArrayItemLength == 16)
+                        writer.WriteLine("//Note: This array has no entry in the pointer list, and might be a nested array in the above header segment");
 
                     for (int i = 0; i < segment.Data.GetLength(0); i++)
                     {
@@ -255,9 +254,7 @@ namespace DigimonWorld2Tool.Textures.Headers
 
                                     case 16:
                                     case 20:
-                                        if (j % 4 == 0)
-                                            writer.Write(" ");
-                                        if (j % 8 == 0)
+                                        if (j % 4 == 0 || j % 8 == 0)
                                             writer.Write(" ");
                                         break;
 

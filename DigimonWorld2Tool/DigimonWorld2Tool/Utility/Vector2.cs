@@ -43,6 +43,11 @@ namespace DigimonWorld2MapVisualizer.Utility
             return $"({x},{y})";
         }
 
+        public string ToStringHex()
+        {
+            return $"{x:X2} {y:X2}";
+        }
+
         public override bool Equals(object obj)
         {
             return base.Equals(obj);

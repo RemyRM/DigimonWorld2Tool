@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using DigimonWorld2Tool.Interfaces;
-using DigimonWorld2Tool.Textures.Headers;
+using DigimonWorld2MapVisualizer.Utility;
 
 namespace DigimonWorld2Tool.Textures.Headers
 {
@@ -13,6 +12,12 @@ namespace DigimonWorld2Tool.Textures.Headers
         public readonly int TimOffset;
         public readonly int[] HeaderPointers;
         public readonly List<int> HeaderPointersOrdered = new List<int>();
+
+        public readonly int BonesCount;
+        public readonly int[] Bones;
+        
+        public Vector2[] EyeTextureAnimationOffsets;
+
         public List<IModelTextureSegment> SegmentsInHeader { get; private set; } = new List<IModelTextureSegment>();
 
         public TextureModelHeader(ref BinaryReader reader)
@@ -24,10 +29,16 @@ namespace DigimonWorld2Tool.Textures.Headers
                 DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No 0x00 terminator found after TIM pointer.");
                 return;
             }
+
+            BonesCount = reader.ReadInt32();
+
             HeaderPointers = GetHeaderPointers(ref reader);
             HeaderPointersOrdered = HeaderPointers.OrderBy(i => i).ToList();
-            //We start at 1 because the first entry is 0x10 which doesnt seem to be a valid pointer in this context
-            for (int i = 1; i < HeaderPointersOrdered.Count; i++)
+
+            Bones = GetBones(ref reader);
+            EyeTextureAnimationOffsets = GetEyeTextureAnimationOffsets(ref reader);
+
+            for (int i = 0; i < HeaderPointersOrdered.Count; i++)
             {
                 GetSegmentData(i, ref reader);
             }
@@ -67,24 +78,65 @@ namespace DigimonWorld2Tool.Textures.Headers
         }
 
         /// <summary>
-        /// Get all the pointers that are in the header of the model texture
+        /// Get all the pointers that are in the header of the model texture.
+        /// This always seems to be 3x the amount of bones found in the model.
         /// </summary>
         private int[] GetHeaderPointers(ref BinaryReader reader)
         {
             List<int> pointers = new List<int>();
-            bool readingPointers = true;
 
-            while (readingPointers)
+            for (int i = 0; i < BonesCount * 3; i++)
             {
-                var pointer = reader.ReadInt32();
-                if (pointer == 0x00)
-                {
-                    readingPointers = false;
-                    continue;
-                }
-                pointers.Add(pointer);
+                pointers.Add(reader.ReadInt32());
             }
+
             return pointers.ToArray();
+        }
+
+        /// <summary>
+        /// Get the values linked to the bones of the texture.
+        /// This seems to be some kind of hierarchy indicating how the bones join together, following a structure of (taken from agumon):
+        /// - Upper body (0)
+        ///   - Head (1)
+        ///     - Jaw (2)
+        ///   - upper arms (1)
+        ///     - lower arms (2)
+        ///       - hands (3)
+        /// - Lower body (0)
+        ///   - Upper legs (1)
+        ///     - Lower legs (2)
+        ///       - Feet (3)
+        /// </summary>
+        /// <returns>The int value for each bone</returns>
+        private int[] GetBones(ref BinaryReader reader)
+        {
+            int[] tmp = new int[BonesCount];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                tmp[i] = reader.ReadInt32();
+            }
+            return tmp;
+        }
+
+        /// <summary>
+        /// In every model file there are 24 bytes dedicated to what seems to be the offset in the texture for each step in the eye blinking animation.
+        /// Most of these only seem to be using the first 10 bytes, and the last 4 bytes are delimiter/padding, and inbetween 0xFF filler.
+        /// The first 4 bytes are quite unknown to me, and changing it will spawns eyes all over (agumons) body.
+        /// the next 6 bytes are 2 bytes each dedicated to 1 step in the blinking animation
+        /// bytes 4..5 X and Y offset of the open eye
+        /// bytes 6..7 X and Y offset of the half open eye
+        /// bytes 8..9 X and Y offset of the closed eye
+        /// </summary>
+        /// <returns>A vector 2 containing the X and Y value of the eye offset in the texture</returns>
+        private Vector2[] GetEyeTextureAnimationOffsets(ref BinaryReader reader)
+        {
+            Vector2[] tmp = new Vector2[12];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                tmp[i].x = reader.ReadByte();
+                tmp[i].y = reader.ReadByte();
+            }
+            return tmp;
         }
 
         private void GetSegmentData(int index, ref BinaryReader reader)
@@ -197,40 +249,55 @@ namespace DigimonWorld2Tool.Textures.Headers
             string filePath = DigimonWorld2ToolForm.Main.SelectedTextureLabel.Text;
             string fileName = filePath.Substring(filePath.LastIndexOf("\\"), filePath.Length - filePath.LastIndexOf("\\"));
             string target = @"D:\Dev\C#\DigimonWorld2MapVisualizer\DigimonWorld2Tool\DigimonWorld2Tool\bin\Debug\netcoreapp3.1\Output";
+
             using (StreamWriter writer = new StreamWriter($"{target}{fileName}_ParsedHeader.txt"))
             {
                 writer.WriteLine($"Header for: {DigimonWorld2ToolForm.FilePathToSelectedTexture}");
 
                 writer.Write(Environment.NewLine);
+                WriteIndex(writer);
+                writer.Write(Environment.NewLine);
 
-                writer.WriteLine($"[Pointers list:]");
+                writer.WriteLine($"[Pointer to TIM header]");
+                PrintIntAsFourByteHex(TimOffset, writer);
+                writer.Write(Environment.NewLine);
 
-                //Write the pointer list as its hex representation
-                for (int i = 0; i < HeaderPointers.Length; i++)
+                writer.WriteLine($"[Likely terminator]");
+                writer.WriteLine($"00 00 00 00");
+                writer.Write(Environment.NewLine);
+
+                writer.WriteLine($"[Bone count]");
+                PrintIntAsFourByteHex(BonesCount, writer);
+                writer.Write(Environment.NewLine);
+
+                writer.WriteLine($"[Pointers list] //This seems to always be 3x the bones count");
+                PrintIntArrayAsFourByteHex(HeaderPointers, writer);
+                writer.Write(Environment.NewLine);
+
+                writer.WriteLine($"[Bones]");
+                PrintIntArrayAsFourByteHex(Bones, writer);
+                writer.Write(Environment.NewLine);
+
+                writer.WriteLine($"[Eye blinking animation]//This appears to be the offset in the TIM for each step of the blinking animation");
+                for (int i = 0; i < EyeTextureAnimationOffsets.Length; i++)
                 {
-                    string hexValueBigEndian = $"{HeaderPointers[i]:X8}";
-                    string printValue = "";
-                    for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
-                    {
-                        printValue += hexValueBigEndian.Substring(j - 2, 1);
-                        printValue += hexValueBigEndian.Substring(j - 1, 1);
-                        printValue += " ";
-                    }
-                    writer.Write(printValue);
+                    writer.Write(EyeTextureAnimationOffsets[i].ToStringHex());
                     writer.Write(" ");
-                    if (i == 0)
-                        writer.Write("// This value is the odd one out. It isn't the length of the pointer array, nor is it a pointer into data.");
-                    if (i % 2 == 0)
+
+                    if (i % 2 == 1)
                         writer.Write(" ");
-                    if (i % 4 == 0)
+                    if (i % 4 == 3)
+                        writer.Write(" ");
+                    if (i % 8 == 7)
                         writer.Write(Environment.NewLine);
                 }
+                writer.Write(Environment.NewLine);
+                writer.Write(Environment.NewLine);
 
                 //Write each header segment in its hex representation, formatted to what is likely the length of each item
                 int segmentIndex = 1;
                 foreach (var segment in SegmentsInHeader)
                 {
-                    writer.WriteLine();
                     writer.WriteLine($"[Address: 0x{segment.Address:X6}]");
                     writer.WriteLine($"[Length: 0x{segment.ArrayLength:X6} ({segment.ArrayLength})]");
                     // The [00 00] bytes added here should be in the data array, but arn't. 
@@ -254,7 +321,9 @@ namespace DigimonWorld2Tool.Textures.Headers
 
                                     case 16:
                                     case 20:
-                                        if (j % 4 == 0 || j % 8 == 0)
+                                        if (j % 4 == 0)
+                                            writer.Write(" ");
+                                        if (j % 8 == 0)
                                             writer.Write(" ");
                                         break;
 
@@ -268,8 +337,54 @@ namespace DigimonWorld2Tool.Textures.Headers
                         writer.Write(Environment.NewLine);
                     }
                     segmentIndex++;
+                    writer.Write(Environment.NewLine);
                 }
             }
+        }
+
+        private void PrintIntAsFourByteHex(int value, StreamWriter writer, bool newLine = true)
+        {
+            string hexValueBigEndian = $"{value:X8}";
+            string printValue = "";
+            for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
+            {
+                printValue += hexValueBigEndian.Substring(j - 2, 1);
+                printValue += hexValueBigEndian.Substring(j - 1, 1);
+                printValue += " ";
+            }
+            if (newLine)
+                writer.WriteLine(printValue);
+            else
+                writer.Write(printValue);
+        }
+
+        private void PrintIntArrayAsFourByteHex(int[] intArray, StreamWriter writer)
+        {
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                string hexValueBigEndian = $"{intArray[i]:X8}";
+                string printValue = "";
+                for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
+                {
+                    printValue += hexValueBigEndian.Substring(j - 2, 1);
+                    printValue += hexValueBigEndian.Substring(j - 1, 1);
+                    printValue += " ";
+                }
+                writer.Write(printValue);
+                writer.Write(" ");
+
+                if (i % 2 == 1)
+                    writer.Write(" ");
+                if (i % 4 == 3)
+                    writer.Write(Environment.NewLine);
+            }
+        }
+
+        private void WriteIndex(StreamWriter writer)
+        {
+            writer.WriteLine("Values are annotated with what I think they are used for, indicated by the [ ].");
+            writer.WriteLine("If the start of a (group of) values can be found by following a pointer, the hex value of that pointer will be shown.");
+            writer.WriteLine("Hex values will always be prefixed by \'0x\', decimal values will be inbetween ( ).");
         }
     }
 }

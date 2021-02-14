@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using DigimonWorld2MapTool.Utility;
-using DigimonWorld2Tool.Interfaces;
 
 namespace DigimonWorld2Tool.Textures
 {
@@ -24,7 +23,7 @@ namespace DigimonWorld2Tool.Textures
             EightBPP = 9
         }
 
-        public static DigimonWorld2GeneralTexture CurrentTexture;
+        public static DigimonWorld2Texture CurrentTexture;
         private static Color[] palette;
         private static int TextureScaleSize = 1;
 
@@ -49,9 +48,6 @@ namespace DigimonWorld2Tool.Textures
 
                 case TextureType.Model:
                     CheckForModelTexture(ref reader);
-                    reader.Close();
-                    reader.Dispose();
-                    return;
                     break;
 
                 default:
@@ -61,7 +57,7 @@ namespace DigimonWorld2Tool.Textures
             reader.Close();
             reader.Dispose();
 
-            if (CurrentTexture.TextureHeader.TextureSectionsOffsets != null && CurrentTexture.TextureHeader.TextureSectionsOffsets.Length > 0)
+            if (CurrentTexture.TextureHeader != null && CurrentTexture.TextureHeader.TextureSectionsOffsets != null && CurrentTexture.TextureHeader.TextureSectionsOffsets.Length > 0)
             {
                 DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Enabled = true;
                 DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.Enabled = true;
@@ -76,7 +72,7 @@ namespace DigimonWorld2Tool.Textures
 
         private static void CheckForGenericTexture(ref BinaryReader reader)
         {
-            CurrentTexture = new DigimonWorld2GeneralTexture(ref reader);
+            CurrentTexture = new DigimonWorld2Texture(ref reader);
             if (CurrentTexture.TimHeader == null)
                 return;
 
@@ -96,12 +92,12 @@ namespace DigimonWorld2Tool.Textures
 
         private static void CheckForModelTexture(ref BinaryReader reader)
         {
-            var CurrentTexture = new DigimonWorld2ModelTexture(ref reader);
-            if (CurrentTexture.TimHeader == null)
-                return;
+            DigimonWorld2Model3D currentModel = new DigimonWorld2Model3D(ref reader);
+            //Grabbing the TIM texture fails because there is no data on the segmenting in this. So when the TIM parser tries to get the segments it fails.
+            CurrentTexture = currentModel.Texture;
 
             palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
-                                                                                             CurrentTexture.TimHeader.TimClutPalette;
+                                                                                            CurrentTexture.TimHeader.TimClutPalette;
             if (palette == null)
             {
                 DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
@@ -111,6 +107,7 @@ namespace DigimonWorld2Tool.Textures
             }
 
             DrawCLUTPalette(palette);
+            DrawTextureBMP(ref reader, palette, CurrentTexture);
         }
 
         /// <summary>
@@ -249,7 +246,7 @@ namespace DigimonWorld2Tool.Textures
         /// <param name="reader">The stream to read the bytes from</param>
         /// <param name="palette">The colour palette to use</param>
         /// <param name="texture">The texture to draw</param>
-        private static void DrawTextureBMP(ref BinaryReader reader, Color[] palette, DigimonWorld2GeneralTexture texture)
+        private static void DrawTextureBMP(ref BinaryReader reader, Color[] palette, DigimonWorld2Texture texture)
         {
             TextureScaleSize = DigimonWorld2ToolForm.Main.ScaleTextureToFitCheckbox.Checked ? 2 : 1;
 

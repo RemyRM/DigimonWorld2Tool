@@ -1,8 +1,0 @@
-File: D:\Program Files (x86)\EmulatorsAndRomhacking\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA\CITY\MESS\AMESS2390.BIN
-
-[10 01 00 00]
-[BC 00 00 00]
-[C8 00 00 00]
-[F4 Unknown]500[F5][F4 Unknown]500[F5][F4 Unknown]500[F5][F4 Unknown]500[FA]0[F9]0500[Speaker]Akira[/Speaker]<ENTER>It looks like this is<ENTER>the Kernel Zone...<X>
-<NEW BOX>Finally, the Kernel Zone.<ENTER>So the Guardians are somewhere<ENTER>here. Lets find the Guardians!<X>
-<NEW BOX>[FA]1[F9]1[F4 Unknown]500[F5][F7]500011016[F5][F3]i0[FF]000BC[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][F1]310[E6]510[87]000[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][87]010[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][F3]1000011111121111100C0000000000000000000000000000000000000000000000000000000000000000000

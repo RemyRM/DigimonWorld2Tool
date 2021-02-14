@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DigimonWorld2MapVisualizer.Utility
+namespace DigimonWorld2MapTool.Utility
 {
     public class TextConversion
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using DigimonWorld2MapVisualizer.Domains;
+using DigimonWorld2MapTool.Domains;
 using DigimonWorld2Tool;
 
-namespace DigimonWorld2MapVisualizer
+namespace DigimonWorld2MapTool
 {
     public static class BinReader
     {

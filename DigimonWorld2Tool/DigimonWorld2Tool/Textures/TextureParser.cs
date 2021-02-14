@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapTool.Utility;
 
 namespace DigimonWorld2Tool.Textures
 {
@@ -98,6 +98,18 @@ namespace DigimonWorld2Tool.Textures
             var CurrentTexture = new DigimonWorld2ModelTexture(ref reader);
             if (CurrentTexture.TimHeader == null)
                 return;
+
+            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
+                                                                                             CurrentTexture.TimHeader.TimClutPalette;
+            if (palette == null)
+            {
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
+                reader.Close();
+                reader.Dispose();
+                return;
+            }
+
+            DrawCLUTPalette(palette);
         }
 
         /// <summary>

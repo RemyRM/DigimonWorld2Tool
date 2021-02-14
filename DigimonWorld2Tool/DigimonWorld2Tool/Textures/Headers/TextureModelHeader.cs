@@ -1,30 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using DigimonWorld2Tool.Interfaces;
-using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapTool.Utility;
 
 namespace DigimonWorld2Tool.Textures.Headers
 {
     class TextureModelHeader
     {
         public readonly int TimOffset;
+        public readonly int timOffsetTerminator;
         public readonly int[] HeaderPointers;
-        public readonly List<int> HeaderPointersOrdered = new List<int>();
+        public readonly int[] HeaderPointersOrdered;
 
         public readonly int BonesCount;
         public readonly int[] Bones;
-        
+
+        public readonly bool OrderDataByPointerValue = true;
+
         public Vector2[] EyeTextureAnimationOffsets;
 
+        public readonly ModelBodyPartHeader[] BodyPartsHeader;
         public List<IModelTextureSegment> SegmentsInHeader { get; private set; } = new List<IModelTextureSegment>();
 
         public TextureModelHeader(ref BinaryReader reader)
         {
             TimOffset = GetTIMOffset(ref reader);
             reader.BaseStream.Position = 0x04; //Ensure we reset the position of the stream to the model texture
-            if (reader.ReadInt32() != 0x00)
+            timOffsetTerminator = reader.ReadInt32();
+            if (timOffsetTerminator != 0x00)
             {
                 DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No 0x00 terminator found after TIM pointer.");
                 return;
@@ -33,15 +38,17 @@ namespace DigimonWorld2Tool.Textures.Headers
             BonesCount = reader.ReadInt32();
 
             HeaderPointers = GetHeaderPointers(ref reader);
-            HeaderPointersOrdered = HeaderPointers.OrderBy(i => i).ToList();
+            HeaderPointersOrdered = HeaderPointers.OrderBy(i => i).ToArray();
 
             Bones = GetBones(ref reader);
             EyeTextureAnimationOffsets = GetEyeTextureAnimationOffsets(ref reader);
 
-            for (int i = 0; i < HeaderPointersOrdered.Count; i++)
+            BodyPartsHeader = new ModelBodyPartHeader[Bones.Length];
+            for (int i = 0; i < BodyPartsHeader.Length; i++)
             {
-                GetSegmentData(i, ref reader);
+                BodyPartsHeader[i] = new ModelBodyPartHeader(ref reader);
             }
+
             WriteToFile();
         }
 
@@ -139,111 +146,6 @@ namespace DigimonWorld2Tool.Textures.Headers
             return tmp;
         }
 
-        private void GetSegmentData(int index, ref BinaryReader reader)
-        {
-            reader.BaseStream.Position = HeaderPointersOrdered[index];
-            int currentOffset = (int)reader.BaseStream.Position;
-
-            int itemsInSegmentCount = reader.ReadInt32();
-            //Sometimes it seems like the segment starts with 0x00 rather than end it
-            if (itemsInSegmentCount == 0x00)
-                itemsInSegmentCount = reader.ReadInt32();
-
-            int dataStartIndex = (int)reader.BaseStream.Position;
-
-            int nextHeaderOffset;
-            if (index + 1 >= HeaderPointersOrdered.Count)
-                nextHeaderOffset = TimOffset;
-            else
-                nextHeaderOffset = HeaderPointersOrdered[index + 1];
-
-            //Sometimes there is a section of data in the header that doens't have a pointer, so to try and catch these segments
-            //we look ahead a bit and see if we find any 0x00's that might terminate the current list
-            //It seems like the 6 byte arrays can have double 00's in it causing a false positive. We stop this by chacking for the 0xF000 delimiter
-            bool checkForNullTerminator = false;
-            while (reader.BaseStream.Position < nextHeaderOffset)
-            {
-                int value = reader.ReadInt32();
-
-                if (value == 0x3F00)
-                    checkForNullTerminator = true;
-
-                if (value == 0x00 && checkForNullTerminator)
-                {
-                    DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Found 0x00 terminator at index {index} pointer {reader.BaseStream.Position - 4:X6}, setting as new end of list");
-                    HeaderPointersOrdered.Insert(index + 1, (int)reader.BaseStream.Position);
-                    nextHeaderOffset = (int)(reader.BaseStream.Position - 4);
-                }
-            }
-            reader.BaseStream.Position = dataStartIndex;
-
-            int segmentLength = nextHeaderOffset - dataStartIndex;
-            //We cast one of the ints to a float here, since the result might be a float is the calculation is off
-            float itemLength = (float)segmentLength / itemsInSegmentCount;
-
-            if (Math.Abs(itemLength % 1) >= (Double.Epsilon * 100))
-            {
-                DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"itemLength {itemLength} was not a round number at index {index}, address {HeaderPointersOrdered[index]:X6}. Rounding to 6");
-                if ((int)itemLength == 6)
-                {
-                    itemLength = (int)itemLength;
-                }
-            }
-
-            CreateHeaderSegment(index, itemsInSegmentCount, itemLength, ref reader);
-        }
-
-        private void CreateHeaderSegment(int index, int itemsInSegmentCount, float itemLength, ref BinaryReader reader)
-        {
-            byte[,] data = new byte[itemsInSegmentCount, (int)itemLength];
-            IModelTextureSegment itemsInSegment = null;
-
-            switch (itemLength)
-            {
-                case 6:
-                    //It appears that the 6 length array always starts of with 2x 0x00, unsure if this is some kind of padding
-                    //Or those arrays just always start with double 00's... Both are equally likely right now.
-                    reader.ReadByte();
-                    reader.ReadByte();
-
-                    for (int i = 0; i < itemsInSegmentCount; i++)
-                    {
-                        for (int j = 0; j < (int)itemLength; j++)
-                        {
-                            data[i, j] = reader.ReadByte();
-                        }
-                    }
-                    itemsInSegment = new ModelHeaderSegmentA(HeaderPointersOrdered[index], itemsInSegmentCount, data);
-                    break;
-
-                case 16:
-                    for (int i = 0; i < itemsInSegmentCount; i++)
-                    {
-                        for (int j = 0; j < (int)itemLength; j++)
-                        {
-                            data[i, j] = reader.ReadByte();
-                        }
-                    }
-                    itemsInSegment = new ModelHeaderSegmentB(HeaderPointersOrdered[index], itemsInSegmentCount, data);
-                    break;
-                case 20:
-                    for (int i = 0; i < itemsInSegmentCount; i++)
-                    {
-                        for (int j = 0; j < (int)itemLength; j++)
-                        {
-                            data[i, j] = reader.ReadByte();
-                        }
-                    }
-                    itemsInSegment = new ModelHeaderSegmentC(HeaderPointersOrdered[index], itemsInSegmentCount, data);
-                    break;
-
-                default:
-                    DigimonWorld2ToolForm.Main.AddWarningToLogWindow($"Unhandled case for Model header, itemLength {itemLength}");
-                    break;
-            }
-            SegmentsInHeader.Add(itemsInSegment);
-        }
-
         private void WriteToFile()
         {
             string filePath = DigimonWorld2ToolForm.Main.SelectedTextureLabel.Text;
@@ -263,7 +165,7 @@ namespace DigimonWorld2Tool.Textures.Headers
                 writer.Write(Environment.NewLine);
 
                 writer.WriteLine($"[Likely terminator]");
-                writer.WriteLine($"00 00 00 00");
+                PrintIntAsFourByteHex(timOffsetTerminator, writer);
                 writer.Write(Environment.NewLine);
 
                 writer.WriteLine($"[Bone count]");
@@ -294,57 +196,167 @@ namespace DigimonWorld2Tool.Textures.Headers
                 writer.Write(Environment.NewLine);
                 writer.Write(Environment.NewLine);
 
-                //Write each header segment in its hex representation, formatted to what is likely the length of each item
-                int segmentIndex = 1;
-                foreach (var segment in SegmentsInHeader)
+                int[] pointerArray = OrderDataByPointerValue ? HeaderPointersOrdered : HeaderPointers;
+
+                //Write each header segment in its hex representation
+                for (int i = 0; i < BodyPartsHeader.Length; i++)
                 {
-                    writer.WriteLine($"[Address: 0x{segment.Address:X6}]");
-                    writer.WriteLine($"[Length: 0x{segment.ArrayLength:X6} ({segment.ArrayLength})]");
-                    // The [00 00] bytes added here should be in the data array, but arn't. 
-                    if (segment.ArrayItemLength == 6)
-                        writer.WriteLine("[00 00] //Unsure if this is some kind of padding or the actual start of the array");
-                    if (segment.ArrayItemLength == 16)
-                        writer.WriteLine("//Note: This array has no entry in the pointer list, and might be a nested array in the above header segment");
+                    var item = BodyPartsHeader[i];
+                    writer.WriteLine($"[Address: 0x{pointerArray[i]:X6}]");
+                    PrintIntAsFourByteHex(item.VerticalFacesNullByte, writer);
+                    PrintIntAsFourByteHex(item.VerticalFaceCount, writer, false);
+                    writer.Write($"//Array length");
+                    writer.Write(Environment.NewLine);
 
-                    for (int i = 0; i < segment.Data.GetLength(0); i++)
+                    //Write the vertical face data
+                    foreach (var faceData in item.VerticalFacesData)
                     {
-                        for (int j = 0; j < segment.Data.GetLength(1); j++)
+                        //VertexID[]
+                        for (int j = 0; j < faceData.VertexIDs.Length; j++)
+                            writer.Write($"{faceData.VertexIDs[j]:X2} ");
+
+                        writer.Write(" ");
+
+                        //VertexColour[]
+                        for (int j = 0; j < faceData.VertexColour.Length; j++)
+                            writer.Write($"{faceData.VertexColour[j]:X2} ");
+
+                        writer.Write(" ");
+
+                        //TexturePlaneOffset[]
+                        for (int j = 0; j < faceData.TexturePlaneOffset.Length; j++)
                         {
-                            if (j > 0)
-                            {
-                                switch (segment.ArrayItemLength)
-                                {
-                                    case 6:
-                                        if (j % 2 == 0)
-                                            writer.Write(" ");
-                                        break;
-
-                                    case 16:
-                                    case 20:
-                                        if (j % 4 == 0)
-                                            writer.Write(" ");
-                                        if (j % 8 == 0)
-                                            writer.Write(" ");
-                                        break;
-
-                                    default:
-                                        DigimonWorld2ToolForm.Main.AddErrorToLogWindow("Default case hit while writing segments");
-                                        break;
-                                }
-                            }
-                            writer.Write($"{segment.Data[i, j]:X2} ");
+                            writer.Write($"{faceData.TexturePlaneOffset[j].x:X2} ");
+                            writer.Write($"{faceData.TexturePlaneOffset[j].y:X2} ");
+                            if (j == 1)
+                                writer.Write(" ");
                         }
+
+                        writer.Write(" ");
+
+                        //Unknowns
+                        writer.Write($"{faceData.Unknown1:X2} ");
+                        writer.Write($"{faceData.Unknown2:X2} ");
+                        writer.Write($"{faceData.Unknown3:X2} ");
+                        writer.Write($"{faceData.Unknown4:X2} ");
+
                         writer.Write(Environment.NewLine);
                     }
-                    segmentIndex++;
+                    writer.Write(Environment.NewLine);
+
+                    //Write the horizontal face data
+                    foreach (var faceData in item.HorizontalFacesData)
+                    {
+                        //VertexID[]
+                        for (int j = 0; j < faceData.VertexIDs.Length; j++)
+                            writer.Write($"{faceData.VertexIDs[j]:X2} ");
+
+                        writer.Write(" ");
+
+                        //VertexColour[]
+                        for (int j = 0; j < faceData.VertexColour.Length; j++)
+                            writer.Write($"{faceData.VertexColour[j]:X2} ");
+
+                        writer.Write("  ");
+
+                        //TexturePlaneOffset[]
+                        for (int j = 0; j < faceData.TexturePlaneOffset.Length; j++)
+                        {
+                            writer.Write($"{faceData.TexturePlaneOffset[j].x:X2} ");
+                            writer.Write($"{faceData.TexturePlaneOffset[j].y:X2} ");
+                            writer.Write(" ");
+                        }
+
+                        writer.Write(" ");
+
+                        //Unknowns
+                        writer.Write($"{faceData.Unknown1:X2} ");
+                        writer.Write($"{faceData.Unknown2:X2} ");
+                        writer.Write($"{faceData.Unknown3:X2} ");
+                        writer.Write($"{faceData.Unknown4:X2} ");
+
+                        writer.Write(Environment.NewLine);
+                    }
+                    writer.Write(Environment.NewLine);
+
+                    writer.WriteLine($"[Address: 0x{pointerArray[i + 1]:X6}]");
+                    PrintShortAsFourByteHex(item.VerticalVertexAllignmentByte, writer, false);
+                    writer.Write($"// Vertex allignment byte");
+                    writer.Write(Environment.NewLine);
+
+                    foreach (var vertex in item.VerticalFaceVertexData)
+                    {
+                        PrintShortAsFourByteHex((short)vertex.x, writer, false);
+                        writer.Write(" ");
+
+                        PrintShortAsFourByteHex((short)vertex.y, writer, false);
+                        writer.Write(" ");
+
+                        PrintShortAsFourByteHex((short)vertex.z, writer, false);
+                        writer.Write(Environment.NewLine);
+                    }
+
+                    if (item.VerticalVertexPaddingBytes != null)
+                    {
+                        foreach (var padding in item.VerticalVertexPaddingBytes)
+                            writer.Write(padding);
+                    }
+                    if (item.VerticalVertexPaddingBytes != null)
+                    {
+                        writer.Write($" //Word padding bytes");
+                        writer.Write(Environment.NewLine);
+                    }
+                    writer.Write(Environment.NewLine);
+
+                    writer.WriteLine($"[Address: 0x{pointerArray[i + 2]:X6}]");
+                    PrintShortAsFourByteHex(item.HorizontalVertexAllignmentByte, writer, false);
+                    writer.Write($" // Vertex allignment byte");
+                    writer.Write(Environment.NewLine);
+                    foreach (var vertex in item.VerticalFaceVertexData)
+                    {
+                        PrintShortAsFourByteHex((short)vertex.x, writer, false);
+                        writer.Write(" ");
+
+                        PrintShortAsFourByteHex((short)vertex.y, writer, false);
+                        writer.Write(" ");
+
+                        PrintShortAsFourByteHex((short)vertex.z, writer, false);
+                        writer.Write(Environment.NewLine);
+                    }
+
+                    if (item.HorizontalVertexPaddingBytes != null)
+                    {
+                        foreach (var padding in item.HorizontalVertexPaddingBytes)
+                            writer.Write(padding);
+                    }
+                    writer.Write($" //Word padding bytes");
+                    writer.Write(Environment.NewLine);
                     writer.Write(Environment.NewLine);
                 }
+                writer.Write(Environment.NewLine);
+                writer.Write(Environment.NewLine);
             }
         }
 
         private void PrintIntAsFourByteHex(int value, StreamWriter writer, bool newLine = true)
         {
             string hexValueBigEndian = $"{value:X8}";
+            string printValue = "";
+            for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
+            {
+                printValue += hexValueBigEndian.Substring(j - 2, 1);
+                printValue += hexValueBigEndian.Substring(j - 1, 1);
+                printValue += " ";
+            }
+            if (newLine)
+                writer.WriteLine(printValue);
+            else
+                writer.Write(printValue);
+        }
+
+        private void PrintShortAsFourByteHex(short value, StreamWriter writer, bool newLine = true)
+        {
+            string hexValueBigEndian = $"{value:X4}";
             string printValue = "";
             for (int j = hexValueBigEndian.Length; j > 0; j -= 2)
             {

@@ -1,10 +1,10 @@
-﻿using static DigimonWorld2MapVisualizer.BinReader;
+﻿using static DigimonWorld2MapTool.BinReader;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using DigimonWorld2Tool;
 
-namespace DigimonWorld2MapVisualizer.Domains
+namespace DigimonWorld2MapTool.Domains
 {
     public class Domain
     {

@@ -1,6 +1,6 @@
-﻿using DigimonWorld2MapVisualizer.Interfaces;
-using DigimonWorld2MapVisualizer.Utility;
-using DigimonWorld2MapVisualizer.Domains;
+﻿using DigimonWorld2MapTool.Interfaces;
+using DigimonWorld2MapTool.Utility;
+using DigimonWorld2MapTool.Domains;
 using System.Linq;
 using System.Collections.Generic;
 using System;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using DigimonWorld2Tool;
 using System.Drawing;
 
-namespace DigimonWorld2MapVisualizer.MapObjects
+namespace DigimonWorld2MapTool.MapObjects
 {
     public class Digimon : IFloorLayoutObject
     {

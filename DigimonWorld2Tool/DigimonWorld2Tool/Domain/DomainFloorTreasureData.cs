@@ -1,4 +1,4 @@
-﻿namespace DigimonWorld2MapVisualizer.Domains
+﻿namespace DigimonWorld2MapTool.Domains
 {
     public class DomainFloorTreasureData
     {

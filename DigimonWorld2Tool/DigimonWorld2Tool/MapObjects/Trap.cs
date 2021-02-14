@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using DigimonWorld2MapVisualizer.Interfaces;
-using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapTool.Interfaces;
+using DigimonWorld2MapTool.Utility;
 
-namespace DigimonWorld2MapVisualizer.MapObjects
+namespace DigimonWorld2MapTool.MapObjects
 {
     public class Trap : IFloorLayoutObject
     {

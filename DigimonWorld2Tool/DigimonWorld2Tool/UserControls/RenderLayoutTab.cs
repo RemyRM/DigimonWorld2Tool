@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows.Forms;
 using DigimonWorld2Tool.Rendering;
-using DigimonWorld2MapVisualizer.Utility;
-using DigimonWorld2MapVisualizer.Interfaces;
+using DigimonWorld2MapTool.Utility;
+using DigimonWorld2MapTool.Interfaces;
 
 namespace DigimonWorld2Tool.UserControls
 {

@@ -1,4 +1,4 @@
-﻿namespace DigimonWorld2MapVisualizer.Files
+﻿namespace DigimonWorld2MapTool.Files
 {
     public class DungFile
     {

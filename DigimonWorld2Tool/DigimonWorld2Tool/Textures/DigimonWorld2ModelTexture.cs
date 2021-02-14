@@ -14,6 +14,7 @@ namespace DigimonWorld2Tool.Textures
         public DigimonWorld2ModelTexture(ref BinaryReader reader)
         {
             ModelHeader = new TextureModelHeader(ref reader);
+            reader.BaseStream.Position = ModelHeader.TimOffset;
             TimHeader = new TIMHeader(ref reader);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DigimonWorld2MapVisualizer.Utility
+namespace DigimonWorld2MapTool.Utility
 {
     public struct Vector2
     {
@@ -20,7 +20,7 @@ namespace DigimonWorld2MapVisualizer.Utility
         /// </summary>
         public static Vector2 Up { get; } = new Vector2(0, 1);
         /// <summary>
-        /// Shorthand for Vector2(0,1)
+        /// Shorthand for Vector2(1,1)
         /// </summary>
         public static Vector2 One { get; } = new Vector2(1, 1);
 

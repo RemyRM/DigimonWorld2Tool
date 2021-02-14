@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DigimonWorld2MapVisualizer.Utility
+namespace DigimonWorld2MapTool.Utility
 {
     public static class ByteExtensions
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using DigimonWorld2MapVisualizer.Utility;
+using DigimonWorld2MapTool.Utility;
 using DigimonWorld2Tool;
 
-namespace DigimonWorld2MapVisualizer.Domains
+namespace DigimonWorld2MapTool.Domains
 {
     public class DomainTileCombo
     {

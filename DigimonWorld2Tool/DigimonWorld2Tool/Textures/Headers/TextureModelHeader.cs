@@ -22,7 +22,6 @@ namespace DigimonWorld2Tool.Textures.Headers
         public Vector2[] EyeTextureAnimationOffsets;
 
         public readonly ModelBodyPartHeader[] BodyPartsHeader;
-        public List<IModelTextureSegment> SegmentsInHeader { get; private set; } = new List<IModelTextureSegment>();
 
         public TextureModelHeader(ref BinaryReader reader)
         {
@@ -208,6 +207,7 @@ namespace DigimonWorld2Tool.Textures.Headers
                     writer.Write($"//Array length");
                     writer.Write(Environment.NewLine);
 
+
                     //Write the vertical face data
                     foreach (var faceData in item.VerticalFacesData)
                     {
@@ -244,7 +244,13 @@ namespace DigimonWorld2Tool.Textures.Headers
                     }
                     writer.Write(Environment.NewLine);
 
+
                     //Write the horizontal face data
+                    PrintIntAsFourByteHex(item.HorizontalFacesNullByte, writer);
+                    PrintIntAsFourByteHex(item.HorizontalFaceCount, writer, false);
+                    writer.Write($"//Array length");
+                    writer.Write(Environment.NewLine);
+
                     foreach (var faceData in item.HorizontalFacesData)
                     {
                         //VertexID[]
@@ -279,63 +285,48 @@ namespace DigimonWorld2Tool.Textures.Headers
                     }
                     writer.Write(Environment.NewLine);
 
-                    writer.WriteLine($"[Address: 0x{pointerArray[i + 1]:X6}]");
-                    PrintShortAsFourByteHex(item.VerticalVertexAllignmentByte, writer, false);
-                    writer.Write($"// Vertex allignment byte");
-                    writer.Write(Environment.NewLine);
 
-                    foreach (var vertex in item.VerticalFaceVertexData)
-                    {
-                        PrintShortAsFourByteHex((short)vertex.x, writer, false);
-                        writer.Write(" ");
+                    //Vertical vertex data
+                    WriteVertexDataToFile(writer, pointerArray, i, item);
 
-                        PrintShortAsFourByteHex((short)vertex.y, writer, false);
-                        writer.Write(" ");
+                    //horizontal vertex data
+                    WriteVertexDataToFile(writer, pointerArray, i, item);
 
-                        PrintShortAsFourByteHex((short)vertex.z, writer, false);
-                        writer.Write(Environment.NewLine);
-                    }
-
-                    if (item.VerticalVertexPaddingBytes != null)
-                    {
-                        foreach (var padding in item.VerticalVertexPaddingBytes)
-                            writer.Write(padding);
-                    }
-                    if (item.VerticalVertexPaddingBytes != null)
-                    {
-                        writer.Write($" //Word padding bytes");
-                        writer.Write(Environment.NewLine);
-                    }
-                    writer.Write(Environment.NewLine);
-
-                    writer.WriteLine($"[Address: 0x{pointerArray[i + 2]:X6}]");
-                    PrintShortAsFourByteHex(item.HorizontalVertexAllignmentByte, writer, false);
-                    writer.Write($" // Vertex allignment byte");
-                    writer.Write(Environment.NewLine);
-                    foreach (var vertex in item.VerticalFaceVertexData)
-                    {
-                        PrintShortAsFourByteHex((short)vertex.x, writer, false);
-                        writer.Write(" ");
-
-                        PrintShortAsFourByteHex((short)vertex.y, writer, false);
-                        writer.Write(" ");
-
-                        PrintShortAsFourByteHex((short)vertex.z, writer, false);
-                        writer.Write(Environment.NewLine);
-                    }
-
-                    if (item.HorizontalVertexPaddingBytes != null)
-                    {
-                        foreach (var padding in item.HorizontalVertexPaddingBytes)
-                            writer.Write(padding);
-                    }
-                    writer.Write($" //Word padding bytes");
-                    writer.Write(Environment.NewLine);
                     writer.Write(Environment.NewLine);
                 }
                 writer.Write(Environment.NewLine);
                 writer.Write(Environment.NewLine);
             }
+        }
+
+        private void WriteVertexDataToFile(StreamWriter writer, int[] pointerArray, int i, ModelBodyPartHeader item)
+        {
+            writer.WriteLine($"[Address: 0x{pointerArray[i + 1]:X6}]");
+            PrintShortAsFourByteHex(item.VerticalVertexAllignmentByte, writer, false);
+            writer.Write($"// Vertex allignment byte");
+            writer.Write(Environment.NewLine);
+
+            foreach (var vertex in item.VerticalFaceVertexData)
+            {
+                PrintShortAsFourByteHex((short)vertex.x, writer, false);
+                writer.Write(" ");
+
+                PrintShortAsFourByteHex((short)vertex.y, writer, false);
+                writer.Write(" ");
+
+                PrintShortAsFourByteHex((short)vertex.z, writer, false);
+                writer.Write(Environment.NewLine);
+            }
+
+            if (item.VerticalVertexPaddingBytes != null)
+            {
+                foreach (var padding in item.VerticalVertexPaddingBytes)
+                    writer.Write(padding);
+
+                writer.Write($" //Word padding bytes");
+                writer.Write(Environment.NewLine);
+            }
+            writer.Write(Environment.NewLine);
         }
 
         private void PrintIntAsFourByteHex(int value, StreamWriter writer, bool newLine = true)

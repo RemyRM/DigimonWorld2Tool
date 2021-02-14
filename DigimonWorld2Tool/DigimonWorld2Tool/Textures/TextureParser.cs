@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Interfaces;
 
 namespace DigimonWorld2Tool.Textures
 {

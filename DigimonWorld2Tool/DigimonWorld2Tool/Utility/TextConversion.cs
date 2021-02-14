@@ -5,148 +5,173 @@ namespace DigimonWorld2MapTool.Utility
 {
     public class TextConversion
     {
-        private static readonly Dictionary<string, string> ConversionLookupTable = new Dictionary<string, string>()
+        private static readonly Dictionary<byte, string> CharacterLookupTable = new Dictionary<byte, string>()
         {
-            {"00", "0"},
-            {"01", "1"},
-            {"02", "2"},
-            {"03", "3"},
-            {"04", "4"},
-            {"05", "5"},
-            {"06", "6"},
-            {"07", "7"},
-            {"08", "8"},
-            {"09", "9"},
-            {"0A", "A"},
-            {"0B", "B"},
-            {"0C", "C"},
-            {"0D", "D"},
-            {"0E", "E"},
-            {"0F", "F"},
-            {"10", "G"},
-            {"11", "H"},
-            {"12", "I"},
-            {"13", "J"},
-            {"14", "K"},
-            {"15", "L"},
-            {"16", "M"},
-            {"17", "N"},
-            {"18", "O"},
-            {"19", "P"},
-            {"1A", "Q"},
-            {"1B", "R"},
-            {"1C", "S"},
-            {"1D", "T"},
-            {"1E", "U"},
-            {"1F", "V"},
-            {"20", "W"},
-            {"21", "X"},
-            {"22", "Y"},
-            {"23", "Z"},
-            {"24", "a"},
-            {"25", "b"},
-            {"26", "c"},
-            {"27", "d"},
-            {"28", "e"},
-            {"29", "f"},
-            {"2A", "g"},
-            {"2B", "h"},
-            {"2C", "i"},
-            {"2D", "j"},
-            {"2E", "k"},
-            {"2F", "l"},
-            {"30", "m"},
-            {"31", "n"},
-            {"32", "o"},
-            {"33", "p"},
-            {"34", "q"},
-            {"35", "r"},
-            {"36", "s"},
-            {"37", "t"},
-            {"38", "u"},
-            {"39", "v"},
-            {"3A", "w"},
-            {"3B", "x"},
-            {"3C", "y"},
-            {"3D", "z"},
-            {"41", "<SQUARE>"},
-            {"44", "?"},
-            {"45", "!"},
-            {"46", "/"},
-            {"49", "-"},
-            {"54", ","},
-            {"55", "."},
-            {"56", ""},
-            {"5B", "PLUS SIGN"},
-            {"FB", "<X>"},
-            {"FC", "<NEW BOX>"},
-            {"FD", " "},
-            {"FE", "<ENTER>"},
-            {"FF", "\n" },
-            {"F000", "Akira"},
-            {"F006", "Digimon"},
-            {"F007", "you"},
-            {"F008", "the"},
-            {"F009", "Digi-Beetle"},
-            {"F00A", "Domain"},
-            {"F00B", "Guard"},
-            {"F00C", "Tamer"},
-            {"F00D", "here"},
-            {"F00E", "have"},
-            {"F00F", "Knights"},
-            {"F010", "and"},
-            {"F011", "thing"},
-            {"F012", "Security"},
-            {"F013", "that"},
-            {"F014", "Bertran"},
-            {"F015", "Tournament"},
-            {"F016", "Crimson"},
-            {"F018", "something"},
-            {"F019", "Item"},
-            {"F01A", "Falcon"},
-            {"F01B", "for"},
-            {"F01C", "That's"},
-            {"F01D", "Commander"},
-            {"F01E", "Blood"},
-            {"F01F", "Leader"},
-            {"F020", "Attendant"},
-            {"F021", "Cecilia"},
-            {"F022", "all"},
-            {"F023", "mission"},
-            {"F024", "this"},
-            {"F026", "Archive"},
-            {"F027", "Black"},
-            {"F028", "I'll"},
-            {"F029", "are"},
-            {"F02A", "Sword"},
-            {"F02B", "right"},
-            {"F02C", "Digivolve"},
-            {"F02D", "enter"},
-            {"F02E", "What"},
-            {"F02F", "will"},
-            {"F030", "come"},
-            {"F031", "You"},
-            {"F032", "Coliseum"},
-            {"F033", "about"},
-            {"F034", "don't"},
-            {"F035", "anything"},
-            {"F037", "Parts"},
-            {"F038", "where"},
-            {"F039", "The"},
-            {"F03A", "know"},
-            {"F03B", "Leomon"},
-            {"F03C", "want"},
-            {"F03D", "Oldman"},
-            {"F03E", "like"},
-            {"F03F", "need"},
-            {"F040", "Chief"},
-            {"F041", "with"},
-            {"F042", "Thank"},
-            {"F044", "Island"},
-            {"F045", "can"},
-            {"F046", "really"},
-            {"F047", "Blue"},
-            {"F048", "time"},
+            {0x00, "0"},
+            {0x01, "1"},
+            {0x02, "2"},
+            {0x03, "3"},
+            {0x04, "4"},
+            {0x05, "5"},
+            {0x06, "6"},
+            {0x07, "7"},
+            {0x08, "8"},
+            {0x09, "9"},
+            {0x0A, "A"},
+            {0x0B, "B"},
+            {0x0C, "C"},
+            {0x0D, "D"},
+            {0x0E, "E"},
+            {0x0F, "F"},
+            {0x10, "G"},
+            {0x11, "H"},
+            {0x12, "I"},
+            {0x13, "J"},
+            {0x14, "K"},
+            {0x15, "L"},
+            {0x16, "M"},
+            {0x17, "N"},
+            {0x18, "O"},
+            {0x19, "P"},
+            {0x1A, "Q"},
+            {0x1B, "R"},
+            {0x1C, "S"},
+            {0x1D, "T"},
+            {0x1E, "U"},
+            {0x1F, "V"},
+            {0x20, "W"},
+            {0x21, "X"},
+            {0x22, "Y"},
+            {0x23, "Z"},
+            {0x24, "a"},
+            {0x25, "b"},
+            {0x26, "c"},
+            {0x27, "d"},
+            {0x28, "e"},
+            {0x29, "f"},
+            {0x2A, "g"},
+            {0x2B, "h"},
+            {0x2C, "i"},
+            {0x2D, "j"},
+            {0x2E, "k"},
+            {0x2F, "l"},
+            {0x30, "m"},
+            {0x31, "n"},
+            {0x32, "o"},
+            {0x33, "p"},
+            {0x34, "q"},
+            {0x35, "r"},
+            {0x36, "s"},
+            {0x37, "t"},
+            {0x38, "u"},
+            {0x39, "v"},
+            {0x3A, "w"},
+            {0x3B, "x"},
+            {0x3C, "y"},
+            {0x3D, "z"},
+            {0x41, "<SQUARE>"},
+            {0x44, "?"},
+            {0x45, "!"},
+            {0x46, "/"},
+            {0x49, "-"},
+            {0x54, ","},
+            {0x55, "."},
+            {0x56, ""},
+            {0x5B, "PLUS SIGN"},
+            {0xFB, "<Input X>"},
+            {0xFC, "<NEW BOX>"},
+            {0xFD, " "},
+            {0xFE, "<ENTER>"},
+        };
+
+        /// <summary>
+        /// Note: All value in this list are prefixed by 0xF0
+        /// </summary>
+        private static readonly Dictionary<byte, string> SpecialLookupTable = new Dictionary<byte, string>()
+        {
+            {0x00, "<Akira>"},
+            {0x06, "<Digimon>"},
+            {0x07, "<you>"},
+            {0x08, "<the>"},
+            {0x09, "<Digi-Beetle>"},
+            {0x0A, "<Domain>"},
+            {0x0B, "<Guard>"},
+            {0x0C, "<Tamer>"},
+            {0x0D, "<here>"},
+            {0x0E, "<have>"},
+            {0x0F, "<Knights>"},
+            {0x10, "<and>"},
+            {0x11, "<thing>"},
+            {0x12, "<Security>"},
+            {0x13, "<that>"},
+            {0x14, "<Bertran>"},
+            {0x15, "<Tournament>"},
+            {0x16, "<Crimson>"},
+            {0x18, "<something>"},
+            {0x19, "<Item>"},
+            {0x1A, "<Falcon>"},
+            {0x1B, "<for>"},
+            {0x1C, "<That's>"},
+            {0x1D, "<Commander>"},
+            {0x1E, "<Blood>"},
+            {0x1F, "<Leader>"},
+            {0x20, "<Attendant>"},
+            {0x21, "<Cecilia>"},
+            {0x22, "<all>"},
+            {0x23, "<mission>"},
+            {0x24, "<this>"},
+            {0x26, "<Archive>"},
+            {0x27, "<Black>"},
+            {0x28, "<I'll>"},
+            {0x29, "<are>"},
+            {0x2A, "<Sword>"},
+            {0x2B, "<right>"},
+            {0x2C, "<Digivolve>"},
+            {0x2D, "<enter>"},
+            {0x2E, "<What>"},
+            {0x2F, "<will>"},
+            {0x30, "<come>"},
+            {0x31, "<You>"},
+            {0x32, "<Coliseum>"},
+            {0x33, "<about>"},
+            {0x34, "<don't>"},
+            {0x35, "<anything>"},
+            {0x37, "<Parts>"},
+            {0x38, "<where>"},
+            {0x39, "<The>"},
+            {0x3A, "<know>"},
+            {0x3B, "<Leomon>"},
+            {0x3C, "<want>"},
+            {0x3D, "<Oldman>"},
+            {0x3E, "<like>"},
+            {0x3F, "<need>"},
+            {0x40, "<Chief>"},
+            {0x41, "<with>"},
+            {0x42, "<Thank>"},
+            {0x43, "<strange>" },
+            {0x44, "<Island>"},
+            {0x45, "<can>"},
+            {0x46, "<really>"},
+            {0x47, "<Blue>"},
+            {0x48, "<time>"},
+        };
+
+        /// <summary>
+        /// These colour changes are always prefixed by 0xF4
+        /// </summary>
+        private static readonly Dictionary<byte, string> SpeakerLookupTable = new Dictionary<byte, string>()
+        {
+            {0x34, "<Text_Yellow>" },
+            {0x30, "<Text_White>" },
+        };
+
+        /// <summary>
+        /// These portraits are always prefixed by 0xF9
+        /// </summary>
+        private static readonly Dictionary<byte, string> PortraitLookupTable = new Dictionary<byte, string>()
+        {
+            {0x00, "[Portrait right]" },
+            {0x01, "[Portrait left]" }, //This is a guess
         };
 
         /// <summary>
@@ -157,13 +182,62 @@ namespace DigimonWorld2MapTool.Utility
         public static string DigiBytesToString(byte[] input)
         {
             string converted = "";
-            foreach (var item in input)
+            bool skipByte = false;
+
+            converted += $"[{input[0]:X2} {input[1]:X2} {input[2]:X2} {input[3]:X2}]\n";
+            converted += $"[{input[4]:X2} {input[5]:X2} {input[6]:X2} {input[7]:X2}]\n";
+            converted += $"[{input[8]:X2} {input[9]:X2} {input[10]:X2} {input[11]:X2}]\n";
+
+            for (int i = 12; i < input.Length; i++)
             {
-                if (ConversionLookupTable.ContainsKey(item.ToString("X2")))
-                    converted += ConversionLookupTable[item.ToString("X2")];
+                if (skipByte)
+                {
+                    skipByte = false;
+                    continue;
+                }
+
+                if (input[i] == 0xF0)
+                {
+                    if (SpecialLookupTable.ContainsKey(input[i + 1]))
+                        converted += $"{SpecialLookupTable[input[i + 1]]}";
+                    else
+                        converted += "[F0 Unknown]";
+
+                    skipByte = true;
+                    continue;
+                }
+
+                if (input[i] == 0xF4)
+                {
+                    if (SpeakerLookupTable.ContainsKey(input[i + 1]))
+                        converted += $"{SpeakerLookupTable[input[i + 1]]}";
+                    else
+                        converted += "[F9 Unknown]";
+
+                    skipByte = true;
+                    continue;
+                }
+
+                if (input[i] == 0xF9)
+                {
+                    if (PortraitLookupTable.ContainsKey(input[i + 1]))
+                        converted += $"{PortraitLookupTable[input[i + 1]]}";
+                    else
+                        converted += "[F4 Unknown]";
+
+                    skipByte = true;
+                    continue;
+                }
+
+                if (CharacterLookupTable.ContainsKey(input[i]))
+                    converted += $"{CharacterLookupTable[input[i]]}";
                 else
-                    converted += item.ToString("X2");
+                    converted += $"[{input[i]:X2}]";
+
+                if(input[i] == 0xFB)
+                    converted += "\n";
             }
+
             return converted;
         }
 

@@ -29,7 +29,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void InitializeComponent()
         {
-            this.CLUTOffsetNumericUpDown = new System.Windows.Forms.TabControl();
+            this.MainTabLayout = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
             this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
@@ -132,7 +132,12 @@ namespace DigimonWorld2Tool
             this.SelectedTextureRenderLayer = new System.Windows.Forms.PictureBox();
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
-            this.CLUTOffsetNumericUpDown.SuspendLayout();
+            this.DigiTextTranslator = new System.Windows.Forms.TabPage();
+            this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
+            this.SelectDialogueFileButton = new System.Windows.Forms.Button();
+            this.DialogueOuputGroupbox = new System.Windows.Forms.GroupBox();
+            this.DialogueOutputRichTextbox = new System.Windows.Forms.RichTextBox();
+            this.MainTabLayout.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -160,21 +165,24 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerLogGroupbox.SuspendLayout();
             this.SelectedTexturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).BeginInit();
+            this.DigiTextTranslator.SuspendLayout();
+            this.DialogueOuputGroupbox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CLUTOffsetNumericUpDown
+            // MainTabLayout
             // 
-            this.CLUTOffsetNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.MainTabLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CLUTOffsetNumericUpDown.Controls.Add(this.MapVisualizerTab);
-            this.CLUTOffsetNumericUpDown.Controls.Add(this.TextureVisualizerTab);
-            this.CLUTOffsetNumericUpDown.Location = new System.Drawing.Point(-5, 0);
-            this.CLUTOffsetNumericUpDown.Name = "CLUTOffsetNumericUpDown";
-            this.CLUTOffsetNumericUpDown.SelectedIndex = 0;
-            this.CLUTOffsetNumericUpDown.Size = new System.Drawing.Size(1579, 867);
-            this.CLUTOffsetNumericUpDown.TabIndex = 0;
-            this.CLUTOffsetNumericUpDown.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            this.MainTabLayout.Controls.Add(this.MapVisualizerTab);
+            this.MainTabLayout.Controls.Add(this.TextureVisualizerTab);
+            this.MainTabLayout.Controls.Add(this.DigiTextTranslator);
+            this.MainTabLayout.Location = new System.Drawing.Point(-5, 0);
+            this.MainTabLayout.Name = "MainTabLayout";
+            this.MainTabLayout.SelectedIndex = 0;
+            this.MainTabLayout.Size = new System.Drawing.Size(1579, 867);
+            this.MainTabLayout.TabIndex = 0;
+            this.MainTabLayout.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
             // MapVisualizerTab
             // 
@@ -1340,18 +1348,76 @@ namespace DigimonWorld2Tool
             this.SelectedTextureLabel.TabIndex = 0;
             this.SelectedTextureLabel.Text = "Select a file to view";
             // 
+            // DigiTextTranslator
+            // 
+            this.DigiTextTranslator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.DigiTextTranslator.Controls.Add(this.DialogueOuputGroupbox);
+            this.DigiTextTranslator.Controls.Add(this.SelectDialogueFileButton);
+            this.DigiTextTranslator.Controls.Add(this.SelectDialogueFileLabel);
+            this.DigiTextTranslator.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DigiTextTranslator.ForeColor = System.Drawing.Color.White;
+            this.DigiTextTranslator.Location = new System.Drawing.Point(4, 24);
+            this.DigiTextTranslator.Name = "DigiTextTranslator";
+            this.DigiTextTranslator.Padding = new System.Windows.Forms.Padding(3);
+            this.DigiTextTranslator.Size = new System.Drawing.Size(1571, 839);
+            this.DigiTextTranslator.TabIndex = 2;
+            this.DigiTextTranslator.Text = "Dialogue";
+            // 
+            // SelectDialogueFileLabel
+            // 
+            this.SelectDialogueFileLabel.AutoSize = true;
+            this.SelectDialogueFileLabel.Location = new System.Drawing.Point(29, 28);
+            this.SelectDialogueFileLabel.Name = "SelectDialogueFileLabel";
+            this.SelectDialogueFileLabel.Size = new System.Drawing.Size(218, 20);
+            this.SelectDialogueFileLabel.TabIndex = 0;
+            this.SelectDialogueFileLabel.Text = "Select a dialogue file to inspect";
+            // 
+            // SelectDialogueFileButton
+            // 
+            this.SelectDialogueFileButton.ForeColor = System.Drawing.Color.Black;
+            this.SelectDialogueFileButton.Location = new System.Drawing.Point(29, 67);
+            this.SelectDialogueFileButton.Name = "SelectDialogueFileButton";
+            this.SelectDialogueFileButton.Size = new System.Drawing.Size(136, 51);
+            this.SelectDialogueFileButton.TabIndex = 1;
+            this.SelectDialogueFileButton.Text = "Select file";
+            this.SelectDialogueFileButton.UseVisualStyleBackColor = true;
+            this.SelectDialogueFileButton.Click += new System.EventHandler(this.SelectDialogueFileButton_Click);
+            // 
+            // DialogueOuputGroupbox
+            // 
+            this.DialogueOuputGroupbox.Controls.Add(this.DialogueOutputRichTextbox);
+            this.DialogueOuputGroupbox.ForeColor = System.Drawing.Color.White;
+            this.DialogueOuputGroupbox.Location = new System.Drawing.Point(331, 13);
+            this.DialogueOuputGroupbox.Name = "DialogueOuputGroupbox";
+            this.DialogueOuputGroupbox.Size = new System.Drawing.Size(1228, 814);
+            this.DialogueOuputGroupbox.TabIndex = 2;
+            this.DialogueOuputGroupbox.TabStop = false;
+            this.DialogueOuputGroupbox.Text = "Output";
+            // 
+            // DialogueOutputRichTextbox
+            // 
+            this.DialogueOutputRichTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.DialogueOutputRichTextbox.ForeColor = System.Drawing.Color.White;
+            this.DialogueOutputRichTextbox.Location = new System.Drawing.Point(10, 23);
+            this.DialogueOutputRichTextbox.Name = "DialogueOutputRichTextbox";
+            this.DialogueOutputRichTextbox.ReadOnly = true;
+            this.DialogueOutputRichTextbox.Size = new System.Drawing.Size(1212, 785);
+            this.DialogueOutputRichTextbox.TabIndex = 0;
+            this.DialogueOutputRichTextbox.Text = "";
+            this.DialogueOutputRichTextbox.TextChanged += new System.EventHandler(this.DialogueOutputRichTextbox_TextChanged);
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1570, 863);
-            this.Controls.Add(this.CLUTOffsetNumericUpDown);
+            this.Controls.Add(this.MainTabLayout);
             this.Name = "DigimonWorld2ToolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DigimonWorld2ToolForm_Load);
-            this.CLUTOffsetNumericUpDown.ResumeLayout(false);
+            this.MainTabLayout.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
             this.LogGroupBox.ResumeLayout(false);
@@ -1386,13 +1452,16 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerLogGroupbox.ResumeLayout(false);
             this.SelectedTexturePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).EndInit();
+            this.DigiTextTranslator.ResumeLayout(false);
+            this.DigiTextTranslator.PerformLayout();
+            this.DialogueOuputGroupbox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl CLUTOffsetNumericUpDown;
+        private System.Windows.Forms.TabControl MainTabLayout;
         private System.Windows.Forms.TabPage MapVisualizerTab;
         private System.Windows.Forms.ComboBox DungeonFilesComboBox;
         private System.Windows.Forms.Label DomainNameLabel;
@@ -1496,6 +1565,11 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label TileOverrideTypeLabel;
         public System.Windows.Forms.ComboBox TextureTypeComboBox;
         public System.Windows.Forms.Label SelectedTextureLabel;
+        private System.Windows.Forms.TabPage DigiTextTranslator;
+        private System.Windows.Forms.Button SelectDialogueFileButton;
+        private System.Windows.Forms.Label SelectDialogueFileLabel;
+        private System.Windows.Forms.GroupBox DialogueOuputGroupbox;
+        public System.Windows.Forms.RichTextBox DialogueOutputRichTextbox;
     }
 }
 

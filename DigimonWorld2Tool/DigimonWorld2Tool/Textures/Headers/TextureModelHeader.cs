@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using DigimonWorld2Tool.Interfaces;
 using DigimonWorld2MapTool.Utility;
 
 namespace DigimonWorld2Tool.Textures.Headers
@@ -150,6 +149,7 @@ namespace DigimonWorld2Tool.Textures.Headers
             string filePath = DigimonWorld2ToolForm.Main.SelectedTextureLabel.Text;
             string fileName = filePath.Substring(filePath.LastIndexOf("\\"), filePath.Length - filePath.LastIndexOf("\\"));
             string target = @"D:\Dev\C#\DigimonWorld2MapVisualizer\DigimonWorld2Tool\DigimonWorld2Tool\bin\Debug\netcoreapp3.1\Output";
+            DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Creating formatted model file: {target}{fileName}_ParsedHeader.txt");
 
             using (StreamWriter writer = new StreamWriter($"{target}{fileName}_ParsedHeader.txt"))
             {

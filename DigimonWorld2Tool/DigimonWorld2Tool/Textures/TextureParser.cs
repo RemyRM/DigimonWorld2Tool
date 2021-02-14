@@ -54,6 +54,19 @@ namespace DigimonWorld2Tool.Textures
                     break;
             }
 
+            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
+                                                                                             CurrentTexture.TimHeader.TimClutPalette;
+            if (palette == null)
+            {
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
+                reader.Close();
+                reader.Dispose();
+                return;
+            }
+
+            DrawCLUTPalette(palette);
+            DrawTextureBMP(ref reader, palette, CurrentTexture);
+
             reader.Close();
             reader.Dispose();
 
@@ -74,40 +87,22 @@ namespace DigimonWorld2Tool.Textures
         {
             CurrentTexture = new DigimonWorld2Texture(ref reader);
             if (CurrentTexture.TimHeader == null)
-                return;
-
-            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
-                                                                                             CurrentTexture.TimHeader.TimClutPalette;
-            if (palette == null)
             {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
-                reader.Close();
-                reader.Dispose();
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
                 return;
             }
-
-            DrawCLUTPalette(palette);
-            DrawTextureBMP(ref reader, palette, CurrentTexture);
         }
 
         private static void CheckForModelTexture(ref BinaryReader reader)
         {
             DigimonWorld2Model3D currentModel = new DigimonWorld2Model3D(ref reader);
-            //Grabbing the TIM texture fails because there is no data on the segmenting in this. So when the TIM parser tries to get the segments it fails.
             CurrentTexture = currentModel.Texture;
 
-            palette = DigimonWorld2ToolForm.Main.TextureUseAltClutCheckbox.Checked ? CurrentTexture.TimHeader.AlternativeClutPalette :
-                                                                                            CurrentTexture.TimHeader.TimClutPalette;
-            if (palette == null)
+            if (CurrentTexture.TimHeader == null)
             {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"No Palette was found, terminating.");
-                reader.Close();
-                reader.Dispose();
+                DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
                 return;
             }
-
-            DrawCLUTPalette(palette);
-            DrawTextureBMP(ref reader, palette, CurrentTexture);
         }
 
         /// <summary>

@@ -71,7 +71,7 @@ namespace DigimonWorld2Tool
             LoadDungeonFiles();
 
             AddDungeonFilesToComboBox();
-            CLUTOffsetNumericUpDown.SelectedIndex = 0;
+            MainTabLayout.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
@@ -272,7 +272,7 @@ namespace DigimonWorld2Tool
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (CLUTOffsetNumericUpDown.SelectedIndex)
+            switch (MainTabLayout.SelectedIndex)
             {
                 case 0:
                     CurrentLogTextBox = MapVisualizerLogRichTextBox;
@@ -576,95 +576,6 @@ namespace DigimonWorld2Tool
 
         #endregion
 
-        #region Digitext parser
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            //ReadFilesRecursively();
-
-
-            using (OpenFileDialog fd = new OpenFileDialog())
-            {
-                //fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
-                //fd.Filter = "Bin files (.bin)|*.bin";
-                //fd.RestoreDirectory = true;
-
-                if (fd.ShowDialog() == DialogResult.OK)
-                {
-                    var filePath = fd.FileName;
-
-                    var fileStream = fd.OpenFile();
-
-                    byte[] arr;
-                    using (BinaryReader reader = new BinaryReader(fileStream))
-                    {
-                        using MemoryStream memoryStream = new MemoryStream();
-                        reader.BaseStream.CopyTo(memoryStream);
-                        arr = memoryStream.ToArray();
-                    }
-
-                    var result = TextConversion.DigiBytesToString(arr);
-                }
-            }
-
-        }
-
-        static string originalBaseDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
-        static string destinationBaseDirection = @"D:\Dev\C#\DigimonWorld2MapVisualizer\ConvertedFiles\AAA\4.AAA";
-        private static void ReadFilesRecursively()
-        {
-
-            ProcessDirectory(originalBaseDirectory);
-        }
-
-        public static void ProcessDirectory(string targetDirectory)
-        {
-            // Process the list of files found in the directory.
-            string[] fileEntries = Directory.GetFiles(targetDirectory);
-            foreach (string fileName in fileEntries)
-                ProcessFile(fileName);
-
-            // Recurse into subdirectories of this directory.
-            string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
-                    subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
-                    subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
-                    subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
-                    continue;
-
-                var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
-                if (!Directory.Exists(targetDir))
-                    Directory.CreateDirectory(targetDir);
-
-                ProcessDirectory(subdirectory);
-            }
-        }
-
-        // Insert logic for processing found files here.
-        public static void ProcessFile(string path)
-        {
-            //Debug.WriteLine("Processed file '{0}'.", path);
-            string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
-            targetPath = targetPath.Replace(".BIN", ".txt");
-
-            Debug.WriteLine(targetPath);
-            byte[] arr;
-            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
-            {
-                using MemoryStream memoryStream = new MemoryStream();
-                reader.BaseStream.CopyTo(memoryStream);
-                arr = memoryStream.ToArray();
-            }
-
-            var result = TextConversion.DigiBytesToString(arr);
-
-            File.WriteAllText(targetPath, result);
-        }
-
-        #endregion
-
         #region TextureVisualizerTab
         private void SelectTextureButton_Click(object sender, EventArgs e)
         {
@@ -759,6 +670,96 @@ namespace DigimonWorld2Tool
         {
             Properties.Settings.Default["TextureType"] = TextureTypeComboBox.SelectedIndex;
         }
+        #endregion
+
+        #region Digitext parser
+
+
+        private void SelectDialogueFileButton_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                fd.RestoreDirectory = true;
+
+                //fd.InitialDirectory = @"D:\Program Files (x86)\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA";
+                fd.Filter = "Bin files (.bin)|*.bin";
+                fd.RestoreDirectory = true;
+
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    var filePath = fd.FileName;
+
+                    var fileStream = fd.OpenFile();
+
+                    byte[] arr;
+                    using (BinaryReader reader = new BinaryReader(fileStream))
+                    {
+                        using MemoryStream memoryStream = new MemoryStream();
+                        reader.BaseStream.CopyTo(memoryStream);
+                        arr = memoryStream.ToArray();
+                    }
+
+                    string result = $"File: {filePath}\n\n";
+                    result += TextConversion.DigiBytesToString(arr);
+
+
+                    DialogueOutputRichTextbox.Text = result;
+                }
+            }
+        }
+
+        private void DialogueOutputRichTextbox_TextChanged(object sender, EventArgs e)
+        {
+            //DialogueOutputRichTextbox.SelectionStart = DialogueOutputRichTextbox.Text.Length;
+            //DialogueOutputRichTextbox.ScrollToCaret();
+        }
+
+        public static void ProcessDirectory(string targetDirectory)
+        {
+            // Process the list of files found in the directory.
+            //string[] fileEntries = Directory.GetFiles(targetDirectory);
+            //foreach (string fileName in fileEntries)
+            //    ProcessFile(fileName);
+
+            //// Recurse into subdirectories of this directory.
+            //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+            //foreach (string subdirectory in subdirectoryEntries)
+            //{
+            //    if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
+            //        subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
+            //        subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
+            //        subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
+            //        continue;
+
+            //    var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
+            //    if (!Directory.Exists(targetDir))
+            //        Directory.CreateDirectory(targetDir);
+
+            //    ProcessDirectory(subdirectory);
+            //}
+        }
+
+        // Insert logic for processing found files here.
+        public static void ProcessFile(string path)
+        {
+            //Debug.WriteLine("Processed file '{0}'.", path);
+            //string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
+            //targetPath = targetPath.Replace(".BIN", ".txt");
+
+            //Debug.WriteLine(targetPath);
+            //byte[] arr;
+            //using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            //{
+            //    using MemoryStream memoryStream = new MemoryStream();
+            //    reader.BaseStream.CopyTo(memoryStream);
+            //    arr = memoryStream.ToArray();
+            //}
+
+            //var result = TextConversion.DigiBytesToString(arr);
+
+            //File.WriteAllText(targetPath, result);
+        }
+
         #endregion
     }
 }

@@ -1,0 +1,12 @@
+File: D:\Program Files (x86)\EmulatorsAndRomhacking\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA\CITY\MESS\AMESS6407.BIN
+
+[D8 00 00 00]
+[78 00 00 00]
+[90 00 00 00]
+[F6]532053025[FA]0[F9]0440<[Text_Yellow]><Blood> <Knights> <Commander><[Text_White]><ENTER>Hail <Crimson>!!<X>
+<NEW BOX>[FA]1[F9]1[FF]00[F6]532099001[FA]0[F9]0500<[Text_Yellow]><Akira><[Text_White]><ENTER>This <Domain> feels<ENTER><strange>ly quiet...<X>
+<NEW BOX>[FA]1[F9]1[FF]00rQ[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF]CB[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][F0 Unknown]10[E5]510[91]300[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][91]310[FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][FF][F3]1300011111121111100C00000000000000000000000[F3]1301211111111111100y0000000000000000000000000000000000000000000000000000000000000000000
+
+"Akira
+This Domain feels 
+stragely quite..."

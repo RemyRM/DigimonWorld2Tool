@@ -1,5 +1,4 @@
-﻿using DigimonWorld2Tool.Interfaces;
-using System.IO;
+﻿using System.IO;
 
 namespace DigimonWorld2Tool.Textures
 {

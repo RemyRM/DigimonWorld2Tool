@@ -43,11 +43,24 @@ namespace DigimonWorld2Tool.Textures
             switch ((TextureType)DigimonWorld2ToolForm.Main.TextureTypeComboBox.SelectedIndex)
             {
                 case TextureType.Generic:
-                    CheckForGenericTexture(ref reader);
+                    CurrentTexture = new DigimonWorld2Texture(ref reader);
+
+                    if (CurrentTexture.TimHeader == null)
+                    {
+                        DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
+                        return;
+                    }
                     break;
 
                 case TextureType.Model:
-                    CheckForModelTexture(ref reader);
+                    DigimonWorld2Model3D currentModel = new DigimonWorld2Model3D(ref reader);
+                    CurrentTexture = currentModel.Texture;
+
+                    if (CurrentTexture.TimHeader == null)
+                    {
+                        DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
+                        return;
+                    }
                     break;
 
                 default:
@@ -80,28 +93,6 @@ namespace DigimonWorld2Tool.Textures
             {
                 DigimonWorld2ToolForm.Main.TextureSegmentSelectComboBox.Enabled = false;
                 DigimonWorld2ToolForm.Main.TextureLayerSelectComboBox.Enabled = false;
-            }
-        }
-
-        private static void CheckForGenericTexture(ref BinaryReader reader)
-        {
-            CurrentTexture = new DigimonWorld2Texture(ref reader);
-            if (CurrentTexture.TimHeader == null)
-            {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
-                return;
-            }
-        }
-
-        private static void CheckForModelTexture(ref BinaryReader reader)
-        {
-            DigimonWorld2Model3D currentModel = new DigimonWorld2Model3D(ref reader);
-            CurrentTexture = currentModel.Texture;
-
-            if (CurrentTexture.TimHeader == null)
-            {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow("No TimHeader found for current texture!");
-                return;
             }
         }
 

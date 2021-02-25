@@ -50,7 +50,7 @@ namespace DigimonWorld2Tool
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(0, 0);
+            this.Location = new Point(1930, 0);
             this.AllowTransparency = true;
             Main = this;
         }

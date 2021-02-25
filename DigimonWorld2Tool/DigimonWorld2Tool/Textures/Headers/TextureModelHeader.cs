@@ -16,8 +16,6 @@ namespace DigimonWorld2Tool.Textures.Headers
         public readonly int BonesCount;
         public readonly int[] Bones;
 
-        public readonly bool OrderDataByPointerValue = true;
-
         public Vector2[] EyeTextureAnimationOffsets;
 
         public readonly ModelBodyPartHeader[] BodyPartsHeader;
@@ -195,13 +193,12 @@ namespace DigimonWorld2Tool.Textures.Headers
                 writer.Write(Environment.NewLine);
                 writer.Write(Environment.NewLine);
 
-                int[] pointerArray = OrderDataByPointerValue ? HeaderPointersOrdered : HeaderPointers;
 
                 //Write each header segment in its hex representation
                 for (int i = 0; i < BodyPartsHeader.Length; i++)
                 {
                     var item = BodyPartsHeader[i];
-                    writer.WriteLine($"[Address: 0x{pointerArray[i]:X6}]");
+                    writer.WriteLine($"[Address: 0x{HeaderPointersOrdered[i]:X6}]");
                     PrintIntAsFourByteHex(item.VerticalFacesNullByte, writer);
                     PrintIntAsFourByteHex(item.VerticalFaceCount, writer, false);
                     writer.Write($"//Array length");
@@ -287,10 +284,10 @@ namespace DigimonWorld2Tool.Textures.Headers
 
 
                     //Vertical vertex data
-                    WriteVertexDataToFile(writer, pointerArray, i, item);
+                    WriteVertexDataToFile(writer, HeaderPointersOrdered, i, item);
 
                     //horizontal vertex data
-                    WriteVertexDataToFile(writer, pointerArray, i, item);
+                    WriteVertexDataToFile(writer, HeaderPointersOrdered, i, item);
 
                     writer.Write(Environment.NewLine);
                 }
@@ -301,7 +298,7 @@ namespace DigimonWorld2Tool.Textures.Headers
 
         private void WriteVertexDataToFile(StreamWriter writer, int[] pointerArray, int i, ModelBodyPartHeader item)
         {
-            writer.WriteLine($"[Address: 0x{pointerArray[i + 1]:X6}]");
+            writer.WriteLine($"[Address: 0x{HeaderPointersOrdered[i + 1]:X6}]");
             PrintShortAsFourByteHex(item.VerticalVertexAllignmentByte, writer, false);
             writer.Write($"// Vertex allignment byte");
             writer.Write(Environment.NewLine);

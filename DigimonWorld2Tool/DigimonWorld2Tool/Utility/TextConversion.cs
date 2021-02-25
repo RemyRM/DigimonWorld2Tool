@@ -79,7 +79,7 @@ namespace DigimonWorld2MapTool.Utility
             {0x56, ""},
             {0x5B, "PLUS SIGN"},
             {0xFB, "<Input X>"},
-            {0xFC, "<NEW BOX>"},
+            {0xFC, "\n<BOX>"},
             {0xFD, " "},
             {0xFE, "<ENTER>"},
         };
@@ -87,7 +87,7 @@ namespace DigimonWorld2MapTool.Utility
         /// <summary>
         /// Note: All value in this list are prefixed by 0xF0
         /// </summary>
-        private static readonly Dictionary<byte, string> SpecialLookupTable = new Dictionary<byte, string>()
+        private static readonly Dictionary<byte, string> CommonWordsLookUpTable = new Dictionary<byte, string>()
         {
             {0x00, "<Akira>"},
             {0x06, "<Digimon>"},
@@ -157,12 +157,123 @@ namespace DigimonWorld2MapTool.Utility
         };
 
         /// <summary>
+        /// The zone is always prefixed by 0xF3
+        /// </summary>
+        private static readonly Dictionary<byte, string> ZoneLookUpTable = new Dictionary<byte, string>()
+        {
+            {0x01, "[Main Gate Entrance]"},
+            {0x02, "[Main Gate DigiBeetle Room]"},
+            {0x03, "[Gold Hawk Entrance]"},
+            {0x04, "[Gold Hawk Leader Room]"},
+            {0x05, "[Gold Hawk Digivolve Room]"},
+            {0x06, "[Gold Hawk Tamer Room]"},
+            {0x07, "[Blue Falcon Entrance]"},
+            {0x08, "[Blue Falcon Leader Room]"},
+            {0x09, "[Blue Falcon Digivolve Room]"},
+            {0x0A, "[Blue Falcon Tamer Room]"},
+            {0x0B, "[Black Sword Entrance]"},
+            {0x0C, "[Black Sword Leader Room]"},
+            {0x0D, "[Black Sword Digivolve Room]"},
+            {0x0E, "[Black Sword Tamer Room]"},
+            {0x0F, "[Tamers Club]"},
+            {0x10, "[Digimon Center]"},
+            {0x11, "[Coliseum Entrance]"},
+            {0x12, "[Coliseum Lobby]"},
+            {0x13, "[Device Dome Entrance]"},
+            {0x14, "[Device Dome Main Hall]"},
+            {0x15, "[Device Dome Digivolve Room]"},
+            {0x16, "[Device Dome DigiBeetle Room]"},
+            {0x17, "[Meditation Dome Entrance]"},
+            {0x18, "[Meditation Dome Angemon Area]"},
+            {0x19, "[Meditation Dome Left Area]"},
+            {0x1A, "[Meditation Dome Right Area]"},
+            {0x1B, "[Archive Ship Shutdown Teleport Entrance]"},
+            {0x1C, "[Archive Ship Shutdown Teleport Room]"},
+            {0x1D, "[Archive Port Teleport Room]"},
+            {0x1E, "[Shuttle Port Shutdown Teleport Entrance]"},
+            {0x1F, "[Shuttle Point Shutdown Teleport Room]"},
+            {0x20, "[Shuttle Port Teleport Entrance]"},
+            {0x21, "[Master Gate]"},
+            {0x22, "[DigiBeetle Factory]"},
+            {0x23, "[File City Item Shop]"},
+            {0x24, "[Jijimon House]"},
+            {0x25, "[Archive Ship Teleport Entrance]"},
+            {0x26, "[Archive Ship Teleport Room]"},
+            {0x27, "[Shuttle Point Teleport Room]"},
+            {0x28, "[Shuttle Port Unused Teleport Entrance]"},
+            {0x29, "[Debug NPC]"},
+            {0x2A, "[Directory Continent]"},
+            {0x2B, "[File Island]"},
+            {0x2C, "[Kernel Zone]"},
+            {0x2D, "[Digital City]"},
+            {0x2E, "[File City]"},
+            {0x2F, "[Menu DNA Digivolve]"},
+            {0x30, "[Menu Item Shop]"},
+            {0x31, "[Menu Ammo Shop]"},
+            {0x33, "[Menu DigiBeetle Upgrade]"},
+            {0xFC, "[Menu PocketStation]"},
+            {0xFD, "[Trigger Battle]"},
+            {0xFE, "[Vídeo FileIsland]"},
+            {0xFF, "[Vídeo KernelZone]"},
+        };
+
+        /// <summary>
         /// These colour changes are always prefixed by 0xF4
         /// </summary>
-        private static readonly Dictionary<byte, string> SpeakerLookupTable = new Dictionary<byte, string>()
+        private static readonly Dictionary<byte, string> SpecialEventsLookUpTable = new Dictionary<byte, string>()
         {
-            {0x34, "<Text_Yellow>" },
-            {0x30, "<Text_White>" },
+            {0x00, "[Stop anim]"},
+            {0x01, "[Walk anim]"},
+            {0x02, "[Conversation anim]"},
+            {0x03, "[Paralyzed anim]"},
+            {0x04, "[Greetings anim]"},
+            {0x05, "[Agree anim]"},
+            {0x06, "[Disagree anim]"},
+            {0x07, "[Running anim]"},
+            {0x08, "[Scared anim]"},
+            {0x10, "[Walk down talk anim]"},
+            {0x11, "[Walk left talk anim]"},
+            {0x12, "[Walk up talk anim]"},
+            {0x13, "[Walk right talk anim]"},
+
+            {0x20, "[Rename Digimon]" },
+            {0x21, "[Rename Character]" },
+            {0x22, "[Rename Digi-Beetle]" },
+
+            {0x30, "[Text White]" },
+            {0x31, "[Text Grey]" },
+            {0x32, "[Text Red]" },
+            {0x33, "[Text Deep Red]" },
+            {0x34, "[Text Yellow]" },
+            {0x35, "[Text Pink]" },
+
+            {0x40, "[Sound item]" },
+            {0x41, "[Sound key item]" },
+            {0x42, "[Sound Elevator]" },
+            {0x43, "[Sound Level up]" },
+            {0x44, "[Sound Earthquake]" },
+            {0x45, "[Sound Archive Ship]" },
+            {0x46, "[Sound auto pilot]" },
+            {0x47, "[Sound unknown]" },
+            {0x48, "[Sound Bits]" },
+        };
+
+        /// <summary>
+        /// Prefixed by F6
+        /// </summary>
+        private static readonly Dictionary<byte, string> TartgetModelEvent = new Dictionary<byte, string>()
+        {
+            {0x03, "[Target Model ID]" }
+        };
+
+        /// <summary>
+        /// Prefixed by 0xF8
+        /// </summary>
+        private static readonly Dictionary<byte, string> OptionsLookupTable = new Dictionary<byte, string>()
+        {
+            {0x00, "[End options]" },
+            {0x01, "[Option 1]" },
+            {0x02, "[Option 2]" },
         };
 
         /// <summary>
@@ -171,7 +282,19 @@ namespace DigimonWorld2MapTool.Utility
         private static readonly Dictionary<byte, string> PortraitLookupTable = new Dictionary<byte, string>()
         {
             {0x00, "[Portrait right]" },
-            {0x01, "[Portrait left]" }, //This is a guess
+            {0x01, "[Get sprite]" },
+            {0x02, "[Portrait Left]" },
+            {0x03, "[Sound window closing]" },
+        };
+
+
+        /// <summary>
+        /// Prefixed by 0xFA
+        /// </summary>
+        private static readonly Dictionary<byte, string> TextBoxEvent = new Dictionary<byte, string>()
+        {
+            {0x00, "[Open text]" },
+            {0x01, "[Close text]\n" },
         };
 
         /// <summary>
@@ -196,49 +319,73 @@ namespace DigimonWorld2MapTool.Utility
                     continue;
                 }
 
-                if (input[i] == 0xF0)
+                switch (input[i])
                 {
-                    if (SpecialLookupTable.ContainsKey(input[i + 1]))
-                        converted += $"{SpecialLookupTable[input[i + 1]]}";
-                    else
-                        converted += "[F0 Unknown]";
+                    case 0xF0:
+                        converted += GetReplacementChar(input[i + 1], CommonWordsLookUpTable, "F0");
+                        skipByte = true;
+                        continue;
 
-                    skipByte = true;
-                    continue;
+                    case 0xF3:
+                        converted += GetReplacementChar(input[i + 1], ZoneLookUpTable, "F3");
+                        skipByte = true;
+                        continue;
+
+                    case 0xF4:
+                        converted += GetReplacementChar(input[i + 1], SpecialEventsLookUpTable, "F4");
+                        skipByte = true;
+                        continue;
+
+                    case 0xF6:
+                        converted += GetReplacementChar(input[i + 1], TartgetModelEvent, "F6");
+                        //The next 2 bytes indicate the model to target, so we skip these in the next loop and print their hex values
+                        converted += $"{input[i + 2]:X2}";
+                        converted += $"{input[i + 3]:X2}";
+
+                        i++;
+                        i++;
+                        converted += " ";
+
+                        skipByte = true;
+                        continue;
+
+                    case 0xF8:
+                        converted += GetReplacementChar(input[i + 1], OptionsLookupTable, "F8");
+                        skipByte = true;
+                        continue;
+
+                    case 0xF9:
+                        converted += GetReplacementChar(input[i + 1], PortraitLookupTable, "F9");
+                        skipByte = true;
+                        continue;
+
+                    case 0xFA:
+                        converted += GetReplacementChar(input[i + 1], TextBoxEvent, "FA");
+                        skipByte = true;
+                        continue;
+
+
+                    default:
+                        if (CharacterLookupTable.ContainsKey(input[i]))
+                            converted += $"{CharacterLookupTable[input[i]]}";
+                        else
+                            converted += $"[{input[i]:X2}]";
+                        break;
                 }
 
-                if (input[i] == 0xF4)
-                {
-                    if (SpeakerLookupTable.ContainsKey(input[i + 1]))
-                        converted += $"{SpeakerLookupTable[input[i + 1]]}";
-                    else
-                        converted += "[F9 Unknown]";
-
-                    skipByte = true;
-                    continue;
-                }
-
-                if (input[i] == 0xF9)
-                {
-                    if (PortraitLookupTable.ContainsKey(input[i + 1]))
-                        converted += $"{PortraitLookupTable[input[i + 1]]}";
-                    else
-                        converted += "[F4 Unknown]";
-
-                    skipByte = true;
-                    continue;
-                }
-
-                if (CharacterLookupTable.ContainsKey(input[i]))
-                    converted += $"{CharacterLookupTable[input[i]]}";
-                else
-                    converted += $"[{input[i]:X2}]";
-
-                if(input[i] == 0xFB)
-                    converted += "\n";
+                //if (input[i] == 0xFB)
+                //    converted += "\n";
             }
 
             return converted;
+        }
+
+        private static string GetReplacementChar(byte index, Dictionary<byte, string> lookupDict, string modifier)
+        {
+            if (lookupDict.ContainsKey(index))
+                return lookupDict[index];
+            else
+                return $"[{modifier} Unknown]";
         }
 
         public static string ByteArrayToHexString(byte[] data, char seperator = ' ')

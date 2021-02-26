@@ -297,12 +297,20 @@ namespace DigimonWorld2MapTool.Utility
             {0x01, "[Close text]\n" },
         };
 
+        public static string DigiStringToASCII(byte[] input)
+        {
+            string converted = "";
+            foreach (var item in input)
+                converted += GetReplacementChar(item, CharacterLookupTable, "");
+            return converted;
+        }
+
         /// <summary>
-        /// Convert the hex value of DW2 text to the ASCII representation using the text map found here https://docs.google.com/spreadsheets/d/1UiDU4MsSfxO1vhpK6err1KsLRZM53JUOuYqYhfEFp8o/edit#gid=1279970913
+        /// Convert the hex value of DW2 text and events found in the MESS files to their ASCII representation 
         /// </summary>
         /// <param name="input">The bytes that need to be converted</param>
         /// <returns>Input bytes converted to ASCII text</returns>
-        public static string DigiBytesToString(byte[] input)
+        public static string MessageFileToString(byte[] input)
         {
             string converted = "";
             bool skipByte = false;
@@ -372,9 +380,6 @@ namespace DigimonWorld2MapTool.Utility
                             converted += $"[{input[i]:X2}]";
                         break;
                 }
-
-                //if (input[i] == 0xFB)
-                //    converted += "\n";
             }
 
             return converted;

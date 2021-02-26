@@ -108,7 +108,7 @@ namespace DigimonWorld2MapTool.Domains
         {
             int domainNamePointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.FileName);
             byte[] domainNameBytes = GetDomainNameBytes(domainNamePointerDecimalAddress);
-            return TextConversion.DigiBytesToString(domainNameBytes);
+            return TextConversion.DigiStringToASCII(domainNameBytes);
         }
 
         /// <summary>

@@ -700,7 +700,7 @@ namespace DigimonWorld2Tool
                     }
 
                     string result = $"File: {filePath}\n\n";
-                    result += TextConversion.DigiBytesToString(arr);
+                    result += TextConversion.MessageFileToString(arr);
 
 
                     DialogueOutputRichTextbox.Text = result;

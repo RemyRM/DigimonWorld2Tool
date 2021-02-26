@@ -146,10 +146,13 @@ namespace DigimonWorld2Tool.Textures.Headers
         {
             string filePath = DigimonWorld2ToolForm.Main.SelectedTextureLabel.Text;
             string fileName = filePath.Substring(filePath.LastIndexOf("\\"), filePath.Length - filePath.LastIndexOf("\\"));
-            string target = @"D:\Dev\C#\DigimonWorld2MapVisualizer\DigimonWorld2Tool\DigimonWorld2Tool\bin\Debug\netcoreapp3.1\Output";
-            DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Creating formatted model file: {target}{fileName}_ParsedHeader.txt");
+            string targetDir = $"{AppDomain.CurrentDomain.BaseDirectory}Output\\ModelFiles\\";
+            if (!Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
 
-            using (StreamWriter writer = new StreamWriter($"{target}{fileName}_ParsedHeader.txt"))
+            DigimonWorld2ToolForm.Main.AddLogToLogWindow($"Creating formatted model file: {targetDir}{fileName}_ParsedHeader.txt");
+
+            using (StreamWriter writer = new StreamWriter($"{targetDir}{fileName}_ParsedHeader.txt"))
             {
                 writer.WriteLine($"Header for: {DigimonWorld2ToolForm.FilePathToSelectedTexture}");
 

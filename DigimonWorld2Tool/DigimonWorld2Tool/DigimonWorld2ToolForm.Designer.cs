@@ -133,10 +133,11 @@ namespace DigimonWorld2Tool
             this.SelectTextureButton = new System.Windows.Forms.Button();
             this.SelectedTextureLabel = new System.Windows.Forms.Label();
             this.DigiTextTranslator = new System.Windows.Forms.TabPage();
-            this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
-            this.SelectDialogueFileButton = new System.Windows.Forms.Button();
+            this.ExportAllMessFilesButton = new System.Windows.Forms.Button();
             this.DialogueOuputGroupbox = new System.Windows.Forms.GroupBox();
             this.DialogueOutputRichTextbox = new System.Windows.Forms.RichTextBox();
+            this.SelectDialogueFileButton = new System.Windows.Forms.Button();
+            this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
             this.MainTabLayout.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -1351,6 +1352,7 @@ namespace DigimonWorld2Tool
             // DigiTextTranslator
             // 
             this.DigiTextTranslator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.DigiTextTranslator.Controls.Add(this.ExportAllMessFilesButton);
             this.DigiTextTranslator.Controls.Add(this.DialogueOuputGroupbox);
             this.DigiTextTranslator.Controls.Add(this.SelectDialogueFileButton);
             this.DigiTextTranslator.Controls.Add(this.SelectDialogueFileLabel);
@@ -1363,25 +1365,17 @@ namespace DigimonWorld2Tool
             this.DigiTextTranslator.TabIndex = 2;
             this.DigiTextTranslator.Text = "Dialogue";
             // 
-            // SelectDialogueFileLabel
+            // ExportAllMessFilesButton
             // 
-            this.SelectDialogueFileLabel.AutoSize = true;
-            this.SelectDialogueFileLabel.Location = new System.Drawing.Point(29, 28);
-            this.SelectDialogueFileLabel.Name = "SelectDialogueFileLabel";
-            this.SelectDialogueFileLabel.Size = new System.Drawing.Size(218, 20);
-            this.SelectDialogueFileLabel.TabIndex = 0;
-            this.SelectDialogueFileLabel.Text = "Select a dialogue file to inspect";
-            // 
-            // SelectDialogueFileButton
-            // 
-            this.SelectDialogueFileButton.ForeColor = System.Drawing.Color.Black;
-            this.SelectDialogueFileButton.Location = new System.Drawing.Point(29, 67);
-            this.SelectDialogueFileButton.Name = "SelectDialogueFileButton";
-            this.SelectDialogueFileButton.Size = new System.Drawing.Size(136, 51);
-            this.SelectDialogueFileButton.TabIndex = 1;
-            this.SelectDialogueFileButton.Text = "Select file";
-            this.SelectDialogueFileButton.UseVisualStyleBackColor = true;
-            this.SelectDialogueFileButton.Click += new System.EventHandler(this.SelectDialogueFileButton_Click);
+            this.ExportAllMessFilesButton.ForeColor = System.Drawing.Color.Black;
+            this.ExportAllMessFilesButton.Location = new System.Drawing.Point(29, 140);
+            this.ExportAllMessFilesButton.Name = "ExportAllMessFilesButton";
+            this.ExportAllMessFilesButton.Size = new System.Drawing.Size(136, 51);
+            this.ExportAllMessFilesButton.TabIndex = 3;
+            this.ExportAllMessFilesButton.Text = "Export All";
+            this.ExportAllMessFilesButton.UseVisualStyleBackColor = true;
+            this.ExportAllMessFilesButton.Visible = false;
+            this.ExportAllMessFilesButton.Click += new System.EventHandler(this.ExportAllMessFilesButton_Click);
             // 
             // DialogueOuputGroupbox
             // 
@@ -1404,7 +1398,26 @@ namespace DigimonWorld2Tool
             this.DialogueOutputRichTextbox.Size = new System.Drawing.Size(1212, 785);
             this.DialogueOutputRichTextbox.TabIndex = 0;
             this.DialogueOutputRichTextbox.Text = "";
-            this.DialogueOutputRichTextbox.TextChanged += new System.EventHandler(this.DialogueOutputRichTextbox_TextChanged);
+            // 
+            // SelectDialogueFileButton
+            // 
+            this.SelectDialogueFileButton.ForeColor = System.Drawing.Color.Black;
+            this.SelectDialogueFileButton.Location = new System.Drawing.Point(29, 67);
+            this.SelectDialogueFileButton.Name = "SelectDialogueFileButton";
+            this.SelectDialogueFileButton.Size = new System.Drawing.Size(136, 51);
+            this.SelectDialogueFileButton.TabIndex = 1;
+            this.SelectDialogueFileButton.Text = "Select file";
+            this.SelectDialogueFileButton.UseVisualStyleBackColor = true;
+            this.SelectDialogueFileButton.Click += new System.EventHandler(this.SelectDialogueFileButton_Click);
+            // 
+            // SelectDialogueFileLabel
+            // 
+            this.SelectDialogueFileLabel.AutoSize = true;
+            this.SelectDialogueFileLabel.Location = new System.Drawing.Point(29, 28);
+            this.SelectDialogueFileLabel.Name = "SelectDialogueFileLabel";
+            this.SelectDialogueFileLabel.Size = new System.Drawing.Size(218, 20);
+            this.SelectDialogueFileLabel.TabIndex = 0;
+            this.SelectDialogueFileLabel.Text = "Select a dialogue file to inspect";
             // 
             // DigimonWorld2ToolForm
             // 
@@ -1570,6 +1583,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label SelectDialogueFileLabel;
         private System.Windows.Forms.GroupBox DialogueOuputGroupbox;
         public System.Windows.Forms.RichTextBox DialogueOutputRichTextbox;
+        private System.Windows.Forms.Button ExportAllMessFilesButton;
     }
 }
 

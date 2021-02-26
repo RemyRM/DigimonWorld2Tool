@@ -673,8 +673,6 @@ namespace DigimonWorld2Tool
         #endregion
 
         #region Digitext parser
-
-
         private void SelectDialogueFileButton_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fd = new OpenFileDialog())
@@ -708,13 +706,59 @@ namespace DigimonWorld2Tool
             }
         }
 
-        private void DialogueOutputRichTextbox_TextChanged(object sender, EventArgs e)
+        private void ExportAllMessFilesButton_Click(object sender, EventArgs e)
         {
-            //DialogueOutputRichTextbox.SelectionStart = DialogueOutputRichTextbox.Text.Length;
-            //DialogueOutputRichTextbox.ScrollToCaret();
+            string targetDirCity = $"{AppDomain.CurrentDomain.BaseDirectory}Output\\MESS\\City";
+            if (!Directory.Exists(targetDirCity))
+                Directory.CreateDirectory(targetDirCity);
+
+            string targetDirDung = $"{AppDomain.CurrentDomain.BaseDirectory}Output\\MESS\\Dung";
+            if (!Directory.Exists(targetDirDung))
+                Directory.CreateDirectory(targetDirDung);
+
+            string sourceDirCityMess = @"D:\Program Files (x86)\EmulatorsAndRomhacking\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA\CITY\MESS";
+            string sourceDirDungMess = @"D:\Program Files (x86)\EmulatorsAndRomhacking\ePSXe\Games\DigimonWorld2\Extracted\AAA\4.AAA\DUNG\MESS";
+
+            foreach (var file in Directory.GetFiles(sourceDirCityMess))
+            {
+                byte[] arr;
+                using (BinaryReader reader = new BinaryReader(File.Open(file, FileMode.Open)))
+                {
+                    using MemoryStream memoryStream = new MemoryStream();
+                    reader.BaseStream.CopyTo(memoryStream);
+                    arr = memoryStream.ToArray();
+                }
+
+                var result = TextConversion.MessageFileToString(arr);
+
+                string filename = file.Substring(file.LastIndexOf("\\"), file.Length - file.LastIndexOf("\\"));
+                filename = filename.Replace(".BIN", ".txt");
+                string targetPath = targetDirCity + filename;
+
+                File.WriteAllText(targetPath, result);
+            }
+
+            foreach (var file in Directory.GetFiles(sourceDirDungMess))
+            {
+                byte[] arr;
+                using (BinaryReader reader = new BinaryReader(File.Open(file, FileMode.Open)))
+                {
+                    using MemoryStream memoryStream = new MemoryStream();
+                    reader.BaseStream.CopyTo(memoryStream);
+                    arr = memoryStream.ToArray();
+                }
+
+                var result = TextConversion.MessageFileToString(arr);
+
+                string filename = file.Substring(file.LastIndexOf("\\"), file.Length - file.LastIndexOf("\\"));
+                filename = filename.Replace(".BIN", ".txt");
+                string targetPath = targetDirDung + filename;
+
+                File.WriteAllText(targetPath, result);
+            }
         }
 
-        public static void ProcessDirectory(string targetDirectory)
+            public static void ProcessDirectory(string targetDirectory)
         {
             // Process the list of files found in the directory.
             //string[] fileEntries = Directory.GetFiles(targetDirectory);
@@ -759,6 +803,7 @@ namespace DigimonWorld2Tool
 
             //File.WriteAllText(targetPath, result);
         }
+
 
         #endregion
     }

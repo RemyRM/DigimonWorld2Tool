@@ -29,7 +29,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void InitializeComponent()
         {
-            this.MainTabLayout = new System.Windows.Forms.TabControl();
+            this.MainTabControl = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
             this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowChestsCheckbox = new System.Windows.Forms.CheckBox();
@@ -98,9 +98,6 @@ namespace DigimonWorld2Tool
             this.ReloadTextureButton = new System.Windows.Forms.Button();
             this.TextureSheetLabel = new System.Windows.Forms.Label();
             this.TextureSegmentGroupBox = new System.Windows.Forms.GroupBox();
-            this.TextureSegmentLayerPanel = new System.Windows.Forms.Panel();
-            this.TextureSegmentLayerLabel = new System.Windows.Forms.Label();
-            this.TextureSegmentLayerPictureBox = new System.Windows.Forms.PictureBox();
             this.TextureSegmentLabel = new System.Windows.Forms.Label();
             this.TextureSegmentPanel = new System.Windows.Forms.Panel();
             this.TextureSegmentPictureBox = new System.Windows.Forms.PictureBox();
@@ -138,7 +135,36 @@ namespace DigimonWorld2Tool
             this.DialogueOutputRichTextbox = new System.Windows.Forms.RichTextBox();
             this.SelectDialogueFileButton = new System.Windows.Forms.Button();
             this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
-            this.MainTabLayout.SuspendLayout();
+            this.MapEditorTab = new System.Windows.Forms.TabPage();
+            this.EditorMapLayoutsTabControl = new System.Windows.Forms.TabControl();
+            this.EditorTabLayoutPage0 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab0 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage1 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab1 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage2 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab2 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage3 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab3 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage4 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab4 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage5 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab5 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage6 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab6 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorTabLayoutPage7 = new System.Windows.Forms.TabPage();
+            this.EditorRenderLayoutTab7 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.EditorShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditorShowChestsCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditorShowTrapsCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditorShowWarpsTextbox = new System.Windows.Forms.CheckBox();
+            this.EditorGridPosHexCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditorSaveLayoutToFileButton = new System.Windows.Forms.Button();
+            this.EditorShowGridCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditMousePositionOnGridLabel = new System.Windows.Forms.Label();
+            this.EditorResizeGridButton = new System.Windows.Forms.Button();
+            this.EditorTileSizeInput = new System.Windows.Forms.NumericUpDown();
+            this.EditorTileSizeLabel = new System.Windows.Forms.Label();
+            this.MainTabControl.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -156,8 +182,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage7.SuspendLayout();
             this.TextureVisualizerTab.SuspendLayout();
             this.TextureSegmentGroupBox.SuspendLayout();
-            this.TextureSegmentLayerPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentLayerPictureBox)).BeginInit();
             this.TextureSegmentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).BeginInit();
@@ -168,22 +192,34 @@ namespace DigimonWorld2Tool
             ((System.ComponentModel.ISupportInitialize)(this.SelectedTextureRenderLayer)).BeginInit();
             this.DigiTextTranslator.SuspendLayout();
             this.DialogueOuputGroupbox.SuspendLayout();
+            this.MapEditorTab.SuspendLayout();
+            this.EditorMapLayoutsTabControl.SuspendLayout();
+            this.EditorTabLayoutPage0.SuspendLayout();
+            this.EditorTabLayoutPage1.SuspendLayout();
+            this.EditorTabLayoutPage2.SuspendLayout();
+            this.EditorTabLayoutPage3.SuspendLayout();
+            this.EditorTabLayoutPage4.SuspendLayout();
+            this.EditorTabLayoutPage5.SuspendLayout();
+            this.EditorTabLayoutPage6.SuspendLayout();
+            this.EditorTabLayoutPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).BeginInit();
             this.SuspendLayout();
             // 
-            // MainTabLayout
+            // MainTabControl
             // 
-            this.MainTabLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.MainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MainTabLayout.Controls.Add(this.MapVisualizerTab);
-            this.MainTabLayout.Controls.Add(this.TextureVisualizerTab);
-            this.MainTabLayout.Controls.Add(this.DigiTextTranslator);
-            this.MainTabLayout.Location = new System.Drawing.Point(-5, 0);
-            this.MainTabLayout.Name = "MainTabLayout";
-            this.MainTabLayout.SelectedIndex = 0;
-            this.MainTabLayout.Size = new System.Drawing.Size(1579, 867);
-            this.MainTabLayout.TabIndex = 0;
-            this.MainTabLayout.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
+            this.MainTabControl.Controls.Add(this.MapVisualizerTab);
+            this.MainTabControl.Controls.Add(this.TextureVisualizerTab);
+            this.MainTabControl.Controls.Add(this.DigiTextTranslator);
+            this.MainTabControl.Controls.Add(this.MapEditorTab);
+            this.MainTabControl.Location = new System.Drawing.Point(-5, 0);
+            this.MainTabControl.Name = "MainTabControl";
+            this.MainTabControl.SelectedIndex = 0;
+            this.MainTabControl.Size = new System.Drawing.Size(1579, 867);
+            this.MainTabControl.TabIndex = 0;
+            this.MainTabControl.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
             // MapVisualizerTab
             // 
@@ -982,7 +1018,6 @@ namespace DigimonWorld2Tool
             // 
             // TextureSegmentGroupBox
             // 
-            this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLayerPanel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentLabel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPanel);
             this.TextureSegmentGroupBox.Controls.Add(this.TextureSegmentPositionYLabel);
@@ -1005,34 +1040,6 @@ namespace DigimonWorld2Tool
             this.TextureSegmentGroupBox.TabIndex = 12;
             this.TextureSegmentGroupBox.TabStop = false;
             this.TextureSegmentGroupBox.Text = "Texture information";
-            // 
-            // TextureSegmentLayerPanel
-            // 
-            this.TextureSegmentLayerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.TextureSegmentLayerPanel.Controls.Add(this.TextureSegmentLayerLabel);
-            this.TextureSegmentLayerPanel.Controls.Add(this.TextureSegmentLayerPictureBox);
-            this.TextureSegmentLayerPanel.Location = new System.Drawing.Point(291, 305);
-            this.TextureSegmentLayerPanel.Name = "TextureSegmentLayerPanel";
-            this.TextureSegmentLayerPanel.Size = new System.Drawing.Size(514, 202);
-            this.TextureSegmentLayerPanel.TabIndex = 15;
-            // 
-            // TextureSegmentLayerLabel
-            // 
-            this.TextureSegmentLayerLabel.AutoSize = true;
-            this.TextureSegmentLayerLabel.Location = new System.Drawing.Point(2, 12);
-            this.TextureSegmentLayerLabel.Name = "TextureSegmentLayerLabel";
-            this.TextureSegmentLayerLabel.Size = new System.Drawing.Size(118, 20);
-            this.TextureSegmentLayerLabel.TabIndex = 16;
-            this.TextureSegmentLayerLabel.Text = "(To come) Layer:";
-            // 
-            // TextureSegmentLayerPictureBox
-            // 
-            this.TextureSegmentLayerPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.TextureSegmentLayerPictureBox.Location = new System.Drawing.Point(2, 2);
-            this.TextureSegmentLayerPictureBox.Name = "TextureSegmentLayerPictureBox";
-            this.TextureSegmentLayerPictureBox.Size = new System.Drawing.Size(512, 200);
-            this.TextureSegmentLayerPictureBox.TabIndex = 0;
-            this.TextureSegmentLayerPictureBox.TabStop = false;
             // 
             // TextureSegmentLabel
             // 
@@ -1419,18 +1426,364 @@ namespace DigimonWorld2Tool
             this.SelectDialogueFileLabel.TabIndex = 0;
             this.SelectDialogueFileLabel.Text = "Select a dialogue file to inspect";
             // 
+            // MapEditorTab
+            // 
+            this.MapEditorTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapEditorTab.Controls.Add(this.EditorTileSizeLabel);
+            this.MapEditorTab.Controls.Add(this.EditorTileSizeInput);
+            this.MapEditorTab.Controls.Add(this.EditorResizeGridButton);
+            this.MapEditorTab.Controls.Add(this.EditorMapLayoutsTabControl);
+            this.MapEditorTab.Controls.Add(this.EditorShowDigimonCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditorShowChestsCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditorShowTrapsCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditorShowWarpsTextbox);
+            this.MapEditorTab.Controls.Add(this.EditorGridPosHexCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditorSaveLayoutToFileButton);
+            this.MapEditorTab.Controls.Add(this.EditorShowGridCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditMousePositionOnGridLabel);
+            this.MapEditorTab.Location = new System.Drawing.Point(4, 24);
+            this.MapEditorTab.Name = "MapEditorTab";
+            this.MapEditorTab.Padding = new System.Windows.Forms.Padding(3);
+            this.MapEditorTab.Size = new System.Drawing.Size(1571, 839);
+            this.MapEditorTab.TabIndex = 3;
+            this.MapEditorTab.Text = "Map Editor";
+            // 
+            // EditorMapLayoutsTabControl
+            // 
+            this.EditorMapLayoutsTabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage0);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage1);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage2);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage3);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage4);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage5);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage6);
+            this.EditorMapLayoutsTabControl.Controls.Add(this.EditorTabLayoutPage7);
+            this.EditorMapLayoutsTabControl.Location = new System.Drawing.Point(12, 285);
+            this.EditorMapLayoutsTabControl.Multiline = true;
+            this.EditorMapLayoutsTabControl.Name = "EditorMapLayoutsTabControl";
+            this.EditorMapLayoutsTabControl.SelectedIndex = 0;
+            this.EditorMapLayoutsTabControl.Size = new System.Drawing.Size(660, 520);
+            this.EditorMapLayoutsTabControl.TabIndex = 39;
+            // 
+            // EditorTabLayoutPage0
+            // 
+            this.EditorTabLayoutPage0.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage0.Controls.Add(this.EditorRenderLayoutTab0);
+            this.EditorTabLayoutPage0.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage0.Name = "EditorTabLayoutPage0";
+            this.EditorTabLayoutPage0.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage0.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage0.TabIndex = 4;
+            this.EditorTabLayoutPage0.Text = "Layout 0";
+            // 
+            // EditorRenderLayoutTab0
+            // 
+            this.EditorRenderLayoutTab0.AutoScroll = true;
+            this.EditorRenderLayoutTab0.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab0.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab0.Name = "EditorRenderLayoutTab0";
+            this.EditorRenderLayoutTab0.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab0.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage1
+            // 
+            this.EditorTabLayoutPage1.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage1.Controls.Add(this.EditorRenderLayoutTab1);
+            this.EditorTabLayoutPage1.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage1.Name = "EditorTabLayoutPage1";
+            this.EditorTabLayoutPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage1.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage1.TabIndex = 5;
+            this.EditorTabLayoutPage1.Text = "Layout 1";
+            // 
+            // EditorRenderLayoutTab1
+            // 
+            this.EditorRenderLayoutTab1.AutoScroll = true;
+            this.EditorRenderLayoutTab1.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab1.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab1.Name = "EditorRenderLayoutTab1";
+            this.EditorRenderLayoutTab1.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab1.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage2
+            // 
+            this.EditorTabLayoutPage2.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage2.Controls.Add(this.EditorRenderLayoutTab2);
+            this.EditorTabLayoutPage2.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage2.Name = "EditorTabLayoutPage2";
+            this.EditorTabLayoutPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage2.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage2.TabIndex = 6;
+            this.EditorTabLayoutPage2.Text = "Layout 2";
+            // 
+            // EditorRenderLayoutTab2
+            // 
+            this.EditorRenderLayoutTab2.AutoScroll = true;
+            this.EditorRenderLayoutTab2.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab2.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab2.Name = "EditorRenderLayoutTab2";
+            this.EditorRenderLayoutTab2.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab2.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage3
+            // 
+            this.EditorTabLayoutPage3.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage3.Controls.Add(this.EditorRenderLayoutTab3);
+            this.EditorTabLayoutPage3.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage3.Name = "EditorTabLayoutPage3";
+            this.EditorTabLayoutPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage3.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage3.TabIndex = 7;
+            this.EditorTabLayoutPage3.Text = "Layout 3";
+            // 
+            // EditorRenderLayoutTab3
+            // 
+            this.EditorRenderLayoutTab3.AutoScroll = true;
+            this.EditorRenderLayoutTab3.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab3.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab3.Name = "EditorRenderLayoutTab3";
+            this.EditorRenderLayoutTab3.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab3.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage4
+            // 
+            this.EditorTabLayoutPage4.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage4.Controls.Add(this.EditorRenderLayoutTab4);
+            this.EditorTabLayoutPage4.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage4.Name = "EditorTabLayoutPage4";
+            this.EditorTabLayoutPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage4.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage4.TabIndex = 8;
+            this.EditorTabLayoutPage4.Text = "Layout 4";
+            // 
+            // EditorRenderLayoutTab4
+            // 
+            this.EditorRenderLayoutTab4.AutoScroll = true;
+            this.EditorRenderLayoutTab4.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab4.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab4.Name = "EditorRenderLayoutTab4";
+            this.EditorRenderLayoutTab4.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab4.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage5
+            // 
+            this.EditorTabLayoutPage5.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage5.Controls.Add(this.EditorRenderLayoutTab5);
+            this.EditorTabLayoutPage5.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage5.Name = "EditorTabLayoutPage5";
+            this.EditorTabLayoutPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage5.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage5.TabIndex = 9;
+            this.EditorTabLayoutPage5.Text = "Layout 5";
+            // 
+            // EditorRenderLayoutTab5
+            // 
+            this.EditorRenderLayoutTab5.AutoScroll = true;
+            this.EditorRenderLayoutTab5.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab5.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab5.Name = "EditorRenderLayoutTab5";
+            this.EditorRenderLayoutTab5.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab5.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage6
+            // 
+            this.EditorTabLayoutPage6.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage6.Controls.Add(this.EditorRenderLayoutTab6);
+            this.EditorTabLayoutPage6.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage6.Name = "EditorTabLayoutPage6";
+            this.EditorTabLayoutPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage6.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage6.TabIndex = 10;
+            this.EditorTabLayoutPage6.Text = "Layout 6";
+            // 
+            // EditorRenderLayoutTab6
+            // 
+            this.EditorRenderLayoutTab6.AutoScroll = true;
+            this.EditorRenderLayoutTab6.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab6.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab6.Name = "EditorRenderLayoutTab6";
+            this.EditorRenderLayoutTab6.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab6.TabIndex = 0;
+            // 
+            // EditorTabLayoutPage7
+            // 
+            this.EditorTabLayoutPage7.BackColor = System.Drawing.Color.Black;
+            this.EditorTabLayoutPage7.Controls.Add(this.EditorRenderLayoutTab7);
+            this.EditorTabLayoutPage7.Location = new System.Drawing.Point(4, 4);
+            this.EditorTabLayoutPage7.Name = "EditorTabLayoutPage7";
+            this.EditorTabLayoutPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.EditorTabLayoutPage7.Size = new System.Drawing.Size(652, 492);
+            this.EditorTabLayoutPage7.TabIndex = 11;
+            this.EditorTabLayoutPage7.Text = "Layout 7";
+            // 
+            // EditorRenderLayoutTab7
+            // 
+            this.EditorRenderLayoutTab7.AutoScroll = true;
+            this.EditorRenderLayoutTab7.BackColor = System.Drawing.Color.Black;
+            this.EditorRenderLayoutTab7.Location = new System.Drawing.Point(3, 3);
+            this.EditorRenderLayoutTab7.Name = "EditorRenderLayoutTab7";
+            this.EditorRenderLayoutTab7.Size = new System.Drawing.Size(645, 485);
+            this.EditorRenderLayoutTab7.TabIndex = 0;
+            // 
+            // EditorShowDigimonCheckbox
+            // 
+            this.EditorShowDigimonCheckbox.AutoSize = true;
+            this.EditorShowDigimonCheckbox.Checked = true;
+            this.EditorShowDigimonCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EditorShowDigimonCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorShowDigimonCheckbox.ForeColor = System.Drawing.Color.White;
+            this.EditorShowDigimonCheckbox.Location = new System.Drawing.Point(365, 809);
+            this.EditorShowDigimonCheckbox.Name = "EditorShowDigimonCheckbox";
+            this.EditorShowDigimonCheckbox.Size = new System.Drawing.Size(86, 24);
+            this.EditorShowDigimonCheckbox.TabIndex = 38;
+            this.EditorShowDigimonCheckbox.Text = "Digimon";
+            this.EditorShowDigimonCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorShowChestsCheckbox
+            // 
+            this.EditorShowChestsCheckbox.AutoSize = true;
+            this.EditorShowChestsCheckbox.Checked = true;
+            this.EditorShowChestsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EditorShowChestsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorShowChestsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.EditorShowChestsCheckbox.Location = new System.Drawing.Point(292, 809);
+            this.EditorShowChestsCheckbox.Name = "EditorShowChestsCheckbox";
+            this.EditorShowChestsCheckbox.Size = new System.Drawing.Size(70, 24);
+            this.EditorShowChestsCheckbox.TabIndex = 37;
+            this.EditorShowChestsCheckbox.Text = "Chests";
+            this.EditorShowChestsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorShowTrapsCheckbox
+            // 
+            this.EditorShowTrapsCheckbox.AutoSize = true;
+            this.EditorShowTrapsCheckbox.Checked = true;
+            this.EditorShowTrapsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EditorShowTrapsCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorShowTrapsCheckbox.ForeColor = System.Drawing.Color.White;
+            this.EditorShowTrapsCheckbox.Location = new System.Drawing.Point(226, 809);
+            this.EditorShowTrapsCheckbox.Name = "EditorShowTrapsCheckbox";
+            this.EditorShowTrapsCheckbox.Size = new System.Drawing.Size(63, 24);
+            this.EditorShowTrapsCheckbox.TabIndex = 36;
+            this.EditorShowTrapsCheckbox.Text = "Traps";
+            this.EditorShowTrapsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorShowWarpsTextbox
+            // 
+            this.EditorShowWarpsTextbox.AutoSize = true;
+            this.EditorShowWarpsTextbox.Checked = true;
+            this.EditorShowWarpsTextbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EditorShowWarpsTextbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorShowWarpsTextbox.ForeColor = System.Drawing.Color.White;
+            this.EditorShowWarpsTextbox.Location = new System.Drawing.Point(152, 809);
+            this.EditorShowWarpsTextbox.Name = "EditorShowWarpsTextbox";
+            this.EditorShowWarpsTextbox.Size = new System.Drawing.Size(69, 24);
+            this.EditorShowWarpsTextbox.TabIndex = 35;
+            this.EditorShowWarpsTextbox.Text = "Warps";
+            this.EditorShowWarpsTextbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorGridPosHexCheckbox
+            // 
+            this.EditorGridPosHexCheckbox.AutoSize = true;
+            this.EditorGridPosHexCheckbox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorGridPosHexCheckbox.ForeColor = System.Drawing.Color.White;
+            this.EditorGridPosHexCheckbox.Location = new System.Drawing.Point(92, 809);
+            this.EditorGridPosHexCheckbox.Name = "EditorGridPosHexCheckbox";
+            this.EditorGridPosHexCheckbox.Size = new System.Drawing.Size(54, 24);
+            this.EditorGridPosHexCheckbox.TabIndex = 34;
+            this.EditorGridPosHexCheckbox.Text = "Hex";
+            this.EditorGridPosHexCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorSaveLayoutToFileButton
+            // 
+            this.EditorSaveLayoutToFileButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorSaveLayoutToFileButton.Location = new System.Drawing.Point(570, 798);
+            this.EditorSaveLayoutToFileButton.Name = "EditorSaveLayoutToFileButton";
+            this.EditorSaveLayoutToFileButton.Size = new System.Drawing.Size(102, 32);
+            this.EditorSaveLayoutToFileButton.TabIndex = 33;
+            this.EditorSaveLayoutToFileButton.Text = "Save Layout";
+            this.EditorSaveLayoutToFileButton.UseVisualStyleBackColor = true;
+            // 
+            // EditorShowGridCheckbox
+            // 
+            this.EditorShowGridCheckbox.AutoSize = true;
+            this.EditorShowGridCheckbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorShowGridCheckbox.ForeColor = System.Drawing.Color.White;
+            this.EditorShowGridCheckbox.Location = new System.Drawing.Point(462, 250);
+            this.EditorShowGridCheckbox.Name = "EditorShowGridCheckbox";
+            this.EditorShowGridCheckbox.Size = new System.Drawing.Size(100, 25);
+            this.EditorShowGridCheckbox.TabIndex = 32;
+            this.EditorShowGridCheckbox.Text = "Show grid";
+            this.EditorShowGridCheckbox.UseVisualStyleBackColor = true;
+            this.EditorShowGridCheckbox.CheckedChanged += new System.EventHandler(this.EditorShowGridCheckbox_CheckedChanged);
+            // 
+            // EditMousePositionOnGridLabel
+            // 
+            this.EditMousePositionOnGridLabel.AutoSize = true;
+            this.EditMousePositionOnGridLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditMousePositionOnGridLabel.ForeColor = System.Drawing.Color.White;
+            this.EditMousePositionOnGridLabel.Location = new System.Drawing.Point(12, 809);
+            this.EditMousePositionOnGridLabel.Name = "EditMousePositionOnGridLabel";
+            this.EditMousePositionOnGridLabel.Size = new System.Drawing.Size(74, 21);
+            this.EditMousePositionOnGridLabel.TabIndex = 31;
+            this.EditMousePositionOnGridLabel.Text = "X:00 Y:00";
+            // 
+            // EditorResizeGridButton
+            // 
+            this.EditorResizeGridButton.Location = new System.Drawing.Point(371, 250);
+            this.EditorResizeGridButton.Name = "EditorResizeGridButton";
+            this.EditorResizeGridButton.Size = new System.Drawing.Size(75, 23);
+            this.EditorResizeGridButton.TabIndex = 40;
+            this.EditorResizeGridButton.Text = "Resize grid";
+            this.EditorResizeGridButton.UseVisualStyleBackColor = true;
+            this.EditorResizeGridButton.Click += new System.EventHandler(this.EditorResizeGridButton_Click);
+            // 
+            // EditorTileSizeInput
+            // 
+            this.EditorTileSizeInput.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorTileSizeInput.Location = new System.Drawing.Point(321, 250);
+            this.EditorTileSizeInput.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.EditorTileSizeInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.EditorTileSizeInput.Name = "EditorTileSizeInput";
+            this.EditorTileSizeInput.Size = new System.Drawing.Size(44, 23);
+            this.EditorTileSizeInput.TabIndex = 41;
+            this.EditorTileSizeInput.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // EditorTileSizeLabel
+            // 
+            this.EditorTileSizeLabel.AutoSize = true;
+            this.EditorTileSizeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorTileSizeLabel.ForeColor = System.Drawing.Color.White;
+            this.EditorTileSizeLabel.Location = new System.Drawing.Point(248, 250);
+            this.EditorTileSizeLabel.Name = "EditorTileSizeLabel";
+            this.EditorTileSizeLabel.Size = new System.Drawing.Size(67, 21);
+            this.EditorTileSizeLabel.TabIndex = 42;
+            this.EditorTileSizeLabel.Text = "Tile size:";
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1570, 863);
-            this.Controls.Add(this.MainTabLayout);
+            this.Controls.Add(this.MainTabControl);
             this.Name = "DigimonWorld2ToolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DigimonWorld2ToolForm_Load);
-            this.MainTabLayout.ResumeLayout(false);
+            this.MainTabControl.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
             this.MapVisualizerTab.PerformLayout();
             this.LogGroupBox.ResumeLayout(false);
@@ -1454,9 +1807,6 @@ namespace DigimonWorld2Tool
             this.TextureVisualizerTab.PerformLayout();
             this.TextureSegmentGroupBox.ResumeLayout(false);
             this.TextureSegmentGroupBox.PerformLayout();
-            this.TextureSegmentLayerPanel.ResumeLayout(false);
-            this.TextureSegmentLayerPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentLayerPictureBox)).EndInit();
             this.TextureSegmentPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TextureSegmentPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CLUTOffsetUpDown)).EndInit();
@@ -1468,13 +1818,25 @@ namespace DigimonWorld2Tool
             this.DigiTextTranslator.ResumeLayout(false);
             this.DigiTextTranslator.PerformLayout();
             this.DialogueOuputGroupbox.ResumeLayout(false);
+            this.MapEditorTab.ResumeLayout(false);
+            this.MapEditorTab.PerformLayout();
+            this.EditorMapLayoutsTabControl.ResumeLayout(false);
+            this.EditorTabLayoutPage0.ResumeLayout(false);
+            this.EditorTabLayoutPage1.ResumeLayout(false);
+            this.EditorTabLayoutPage2.ResumeLayout(false);
+            this.EditorTabLayoutPage3.ResumeLayout(false);
+            this.EditorTabLayoutPage4.ResumeLayout(false);
+            this.EditorTabLayoutPage5.ResumeLayout(false);
+            this.EditorTabLayoutPage6.ResumeLayout(false);
+            this.EditorTabLayoutPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl MainTabLayout;
+        private System.Windows.Forms.TabControl MainTabControl;
         private System.Windows.Forms.TabPage MapVisualizerTab;
         private System.Windows.Forms.ComboBox DungeonFilesComboBox;
         private System.Windows.Forms.Label DomainNameLabel;
@@ -1571,9 +1933,6 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label TextureSegmentLabel;
         private System.Windows.Forms.Panel TextureSegmentPanel;
         private System.Windows.Forms.PictureBox TextureSegmentPictureBox;
-        private System.Windows.Forms.Panel TextureSegmentLayerPanel;
-        private System.Windows.Forms.PictureBox TextureSegmentLayerPictureBox;
-        private System.Windows.Forms.Label TextureSegmentLayerLabel;
         private System.Windows.Forms.Button ReloadTextureButton;
         private System.Windows.Forms.Label TileOverrideTypeLabel;
         public System.Windows.Forms.ComboBox TextureTypeComboBox;
@@ -1584,6 +1943,35 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.GroupBox DialogueOuputGroupbox;
         public System.Windows.Forms.RichTextBox DialogueOutputRichTextbox;
         private System.Windows.Forms.Button ExportAllMessFilesButton;
+        private System.Windows.Forms.TabPage MapEditorTab;
+        public System.Windows.Forms.CheckBox EditorShowDigimonCheckbox;
+        public System.Windows.Forms.CheckBox EditorShowChestsCheckbox;
+        public System.Windows.Forms.CheckBox EditorShowTrapsCheckbox;
+        public System.Windows.Forms.CheckBox EditorShowWarpsTextbox;
+        private System.Windows.Forms.CheckBox EditorGridPosHexCheckbox;
+        private System.Windows.Forms.Button EditorSaveLayoutToFileButton;
+        public System.Windows.Forms.CheckBox EditorShowGridCheckbox;
+        private System.Windows.Forms.Label EditMousePositionOnGridLabel;
+        private System.Windows.Forms.TabControl EditorMapLayoutsTabControl;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage0;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage1;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab1;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage2;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab2;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage3;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab3;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage4;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab4;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage5;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab5;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage6;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab6;
+        private System.Windows.Forms.TabPage EditorTabLayoutPage7;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab7;
+        private UserControls.RenderLayoutTab EditorRenderLayoutTab0;
+        private System.Windows.Forms.Button EditorResizeGridButton;
+        private System.Windows.Forms.NumericUpDown EditorTileSizeInput;
+        private System.Windows.Forms.Label EditorTileSizeLabel;
     }
 }
 

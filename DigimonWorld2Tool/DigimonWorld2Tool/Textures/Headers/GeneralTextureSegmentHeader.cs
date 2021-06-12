@@ -19,7 +19,6 @@ namespace DigimonWorld2Tool.Textures
                 return;
 
             reader.BaseStream.Position = 4; //Make sure we continue with reading the Texture header, the position will get set to the TIM header otherwise.
-
             //Gotta check here if the Tim offset doesn't point directly to position 4, as this would indicate a non existing texture header
 
             TextureSectionsOffsets = GetTextureSectionsOffsets(ref reader);

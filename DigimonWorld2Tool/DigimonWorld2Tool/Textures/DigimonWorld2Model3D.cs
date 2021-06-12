@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using DigimonWorld2Tool.Textures.Headers;
+using DigimonWorld2Tool.Model3D;
+using System.Threading;
 
 namespace DigimonWorld2Tool.Textures
 {
@@ -13,6 +15,8 @@ namespace DigimonWorld2Tool.Textures
             ModelHeader = new TextureModelHeader(ref reader);
             reader.BaseStream.Position = ModelHeader.TimOffset;
             Texture = new DigimonWorld2Texture(ref reader, false);
+
+            //new Thread(() => { Model3DWindow window = new Model3DWindow(); }).Start();
         }
     }
 }

@@ -31,6 +31,9 @@ namespace DigimonWorld2Tool
         public static RenderLayoutTab[] FloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab CurrentLayoutRenderTab { get; private set; }
 
+        public static RenderLayoutTab[] EditorFloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
+        public static RenderLayoutTab EditorLayoutRenderTab { get; private set; }
+
         private RichTextBox CurrentLogTextBox;
 
         public static string FilePathToMapDirectory;
@@ -50,7 +53,8 @@ namespace DigimonWorld2Tool
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(1930, 0);
+            this.Location = new Point(10, 0);
+            //this.Location = new Point(0, 0);
             this.AllowTransparency = true;
             Main = this;
         }
@@ -60,6 +64,7 @@ namespace DigimonWorld2Tool
             DungeonFilesComboBox.Items.Clear();
             CurrentLogTextBox = MapVisualizerLogRichTextBox;
             SetupLayoutRenderTabs();
+            SetupEditorLayoutRenderTabs();
 
             ErrorCheckingComboBox.Items.Add(Strictness.Strict);
             ErrorCheckingComboBox.Items.Add(Strictness.Sloppy);
@@ -71,7 +76,7 @@ namespace DigimonWorld2Tool
             LoadDungeonFiles();
 
             AddDungeonFilesToComboBox();
-            MainTabLayout.SelectedIndex = 0;
+            MainTabControl.SelectedIndex = 0;
             DungeonFilesComboBox.SelectedIndex = 0;
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
@@ -107,6 +112,10 @@ namespace DigimonWorld2Tool
             CLUTFirstColourTransparantCheckbox.Checked = (bool)Properties.Settings.Default["CLUTFirstColourTransparantCheckbox"];
             InvertCLUTColoursCheckbox.Checked = (bool)Properties.Settings.Default["InvertCLUTColours"];
             TextureTypeComboBox.SelectedIndex = (int)Properties.Settings.Default["TextureType"];
+
+            //Map editor
+            EditorShowGridCheckbox.Checked = (bool)Properties.Settings.Default["EditorShowGridLines"];
+            EditorTileSizeInput.Value = (int)Properties.Settings.Default["EditorGridTileSize"];
         }
 
         private void LoadDungeonFiles()
@@ -272,7 +281,7 @@ namespace DigimonWorld2Tool
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (MainTabLayout.SelectedIndex)
+            switch (MainTabControl.SelectedIndex)
             {
                 case 0:
                     CurrentLogTextBox = MapVisualizerLogRichTextBox;
@@ -308,7 +317,7 @@ namespace DigimonWorld2Tool
 
             for (int i = 0; i < 8; i++)
             {
-                if(i < CurrentDomainFloor.UniqueDomainMapLayouts.Count)
+                if (i < CurrentDomainFloor.UniqueDomainMapLayouts.Count)
                 {
                     MapLayoutsTabControl.TabPages[i].Text = $"Layout{i}";
                 }
@@ -757,54 +766,48 @@ namespace DigimonWorld2Tool
                 File.WriteAllText(targetPath, result);
             }
         }
+        #endregion
 
-            public static void ProcessDirectory(string targetDirectory)
+        #region LayoutEditor
+
+        /// <summary>
+        /// Add each render tab to the array of possible render tabs
+        /// </summary>
+        private void SetupEditorLayoutRenderTabs()
         {
-            // Process the list of files found in the directory.
-            //string[] fileEntries = Directory.GetFiles(targetDirectory);
-            //foreach (string fileName in fileEntries)
-            //    ProcessFile(fileName);
+            EditorLayoutRenderTab = EditorFloorLayoutRenderTabs[0] = EditorRenderLayoutTab0;
+            EditorFloorLayoutRenderTabs[1] = EditorRenderLayoutTab1;
+            EditorFloorLayoutRenderTabs[2] = EditorRenderLayoutTab2;
+            EditorFloorLayoutRenderTabs[3] = EditorRenderLayoutTab3;
+            EditorFloorLayoutRenderTabs[4] = EditorRenderLayoutTab4;
+            EditorFloorLayoutRenderTabs[5] = EditorRenderLayoutTab5;
+            EditorFloorLayoutRenderTabs[6] = EditorRenderLayoutTab6;
+            EditorFloorLayoutRenderTabs[7] = EditorRenderLayoutTab7;
 
-            //// Recurse into subdirectories of this directory.
-            //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-            //foreach (string subdirectory in subdirectoryEntries)
-            //{
-            //    if (subdirectory.Contains(@"4.AAA\CITY\BG") ||
-            //        subdirectory.Contains(@"4.AAA\CITY\SOUND") ||
-            //        subdirectory.Contains(@"4.AAA\DUNG\DUNG") ||
-            //        subdirectory.Contains(@"4.AAA\DUNG\SOUND"))
-            //        continue;
-
-            //    var targetDir = subdirectory.Replace(originalBaseDirectory, destinationBaseDirection);
-            //    if (!Directory.Exists(targetDir))
-            //        Directory.CreateDirectory(targetDir);
-
-            //    ProcessDirectory(subdirectory);
-            //}
+            // Add the function for displaying the current mouse position on the grid to the MouseMove event
+            foreach (var item in FloorLayoutRenderTabs)
+            {
+                item.CursorLayer.MouseMove += DisplayMousePositionOnGrid;
+            }
         }
 
-        // Insert logic for processing found files here.
-        public static void ProcessFile(string path)
+        private void EditorShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            //Debug.WriteLine("Processed file '{0}'.", path);
-            //string targetPath = path.Replace(originalBaseDirectory, destinationBaseDirection);
-            //targetPath = targetPath.Replace(".BIN", ".txt");
-
-            //Debug.WriteLine(targetPath);
-            //byte[] arr;
-            //using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
-            //{
-            //    using MemoryStream memoryStream = new MemoryStream();
-            //    reader.BaseStream.CopyTo(memoryStream);
-            //    arr = memoryStream.ToArray();
-            //}
-
-            //var result = TextConversion.DigiBytesToString(arr);
-
-            //File.WriteAllText(targetPath, result);
+            Properties.Settings.Default["EditorShowGridLines"] = EditorShowGridCheckbox.Checked;
+            if (EditorShowGridCheckbox.Checked)
+                EditorLayoutRenderer.DrawGrid();
+            else
+                EditorLayoutRenderer.HideGrid();
         }
 
-
+        private void EditorResizeGridButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["EditorGridTileSize"] = (int)EditorTileSizeInput.Value;
+            EditorLayoutRenderer.tileSize = (int)EditorTileSizeInput.Value;
+            //DrawCurrentMapLayout();
+            if (EditorShowGridCheckbox.Checked)
+                EditorLayoutRenderer.DrawGrid();
+        }
         #endregion
     }
 }

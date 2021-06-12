@@ -202,5 +202,29 @@ namespace DigimonWorld2Tool.Properties {
                 this["TextureType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EditorShowGridLines {
+            get {
+                return ((bool)(this["EditorShowGridLines"]));
+            }
+            set {
+                this["EditorShowGridLines"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int EditorGridTileSize {
+            get {
+                return ((int)(this["EditorGridTileSize"]));
+            }
+            set {
+                this["EditorGridTileSize"] = value;
+            }
+        }
     }
 }

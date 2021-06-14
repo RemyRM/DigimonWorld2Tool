@@ -5,14 +5,12 @@ Work in progress visualizer for the map data of the game "Digimon World 2".
 # Roadmap
 
 Functionality I may or may not add at some point in the future, in semi order of relevance (subject to change and my motivation):
-- Map layout editor
 - Map layout randomizer
 - Map object editor
 - Map object randomizer
 - A*/Dijkstra algorithm to find best routes
 - 3D model extractor/viewer
 - 3D model injector (add your own digimon!)
-- Sprite/texture extractor/viewer
 - Sprite/texture editor/injector
 
 # Build steps

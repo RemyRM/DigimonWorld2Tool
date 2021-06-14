@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using DigimonWorld2MapTool.Utility;
 using DigimonWorld2Tool;
+using System.Linq;
 
 namespace DigimonWorld2MapTool.Domains
 {
@@ -234,7 +235,7 @@ namespace DigimonWorld2MapTool.Domains
             Empty,
         }
 
-        public readonly Dictionary<DomainTileType, Color> TileTypeColour = new Dictionary<DomainTileType, Color>
+        public static readonly Dictionary<DomainTileType, Color> TileTypeColour = new Dictionary<DomainTileType, Color>
         {
             {DomainTileType.Empty, Color.Black},
             {DomainTileType.Room, Color.Gray},
@@ -247,9 +248,9 @@ namespace DigimonWorld2MapTool.Domains
         };
 
         public readonly Vector2 Position;
-        public readonly DomainTileType TileType;
         public readonly string TileText;
 
+        public DomainTileType TileType { get; private set; }
         public Color TileColour { get; private set; }
 
         public Tile(Vector2 position, DomainTileType tileType, string tileText)
@@ -271,6 +272,21 @@ namespace DigimonWorld2MapTool.Domains
                 var tileType = (DomainTileType)((DomainFloor.CurrentDomainFloor.FloorTypeOverride + 2) % 7);
                 return TileTypeColour.GetValueOrDefault(tileType);
             }
+        }
+
+        public DomainTileType GetTileTypeBasedOnColour(Color colour)
+        {
+            return TileTypeColour.FirstOrDefault(o => o.Value == colour).Key;
+        }
+
+        public void SetTileColour(Color colour)
+        {
+            TileColour = colour;
+        }
+
+        public void SetTileType(DomainTileType type)
+        {
+            TileType = type;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2MapTool.Utility;
 using DigimonWorld2MapTool.Interfaces;
+using DigimonWorld2MapTool.Domains;
 
 namespace DigimonWorld2Tool.UserControls
 {
@@ -18,9 +19,19 @@ namespace DigimonWorld2Tool.UserControls
             WarpsRenderLayer.Controls.Add(ChestsRenderLayer);
             ChestsRenderLayer.Controls.Add(DigimonRenderLayer);
 
-
             // This cursor layer always needs to be added as the last layer, so it is on top for receiving mouse events
             DigimonRenderLayer.Controls.Add(CursorLayer);
+        }
+
+        private void CursorLayer_MouseClick(object sender, MouseEventArgs e)
+        {
+            Vector2 mouseGridPos = new Vector2((int)Math.Floor((double)e.Location.X / LayoutRenderer.tileSize),
+                                               (int)Math.Floor((double)e.Location.Y / LayoutRenderer.tileSize));
+
+            if (DigimonWorld2ToolForm.Main.MainTabControl.SelectedTab.Name == "MapEditorTab" && DigimonWorld2ToolForm.Main.PlaceModeCheckbox.Checked)
+                PlaceTileOrObjectAtGridPosition(mouseGridPos);
+            else
+                GetObjectAtGridPosition(mouseGridPos);
         }
 
         private void GetObjectAtGridPosition(Vector2 gridPos)
@@ -31,12 +42,9 @@ namespace DigimonWorld2Tool.UserControls
                 DigimonWorld2ToolForm.Main.SetCurrentObjectInformation(mapObject);
         }
 
-        private void CursorLayer_MouseClick(object sender, MouseEventArgs e)
+        private void PlaceTileOrObjectAtGridPosition(Vector2 gridPos)
         {
-            Vector2 mouseGridPos = new Vector2((int)Math.Floor((double)e.Location.X / LayoutRenderer.tileSize),
-                                               (int)Math.Floor((double)e.Location.Y / LayoutRenderer.tileSize));
-
-            GetObjectAtGridPosition(mouseGridPos);
+            EditorLayoutRenderer.UpdateTile(gridPos, DigimonWorld2ToolForm.EditorSelectedTileType);
         }
     }
 }

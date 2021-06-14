@@ -34,6 +34,8 @@ namespace DigimonWorld2Tool
         public static RenderLayoutTab[] EditorFloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab EditorLayoutRenderTab { get; private set; }
 
+        public static Tile.DomainTileType EditorSelectedTileType { get; private set; }
+
         private RichTextBox CurrentLogTextBox;
 
         public static string FilePathToMapDirectory;
@@ -66,11 +68,7 @@ namespace DigimonWorld2Tool
             SetupLayoutRenderTabs();
             SetupEditorLayoutRenderTabs();
 
-            ErrorCheckingComboBox.Items.Add(Strictness.Strict);
-            ErrorCheckingComboBox.Items.Add(Strictness.Sloppy);
-
-            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Generic);
-            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Model);
+            PopulateComboBoxes();
 
             LoadUserSettings();
             LoadDungeonFiles();
@@ -81,6 +79,16 @@ namespace DigimonWorld2Tool
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
             MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;
+            EditorLayoutRenderer.SetupFloorLayerBitmap();
+        }
+
+        private void PopulateComboBoxes()
+        {
+            ErrorCheckingComboBox.Items.Add(Strictness.Strict);
+            ErrorCheckingComboBox.Items.Add(Strictness.Sloppy);
+
+            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Generic);
+            TextureTypeComboBox.Items.Add(TextureParser.TextureType.Model);
         }
 
         private void LoadUserSettings()
@@ -785,9 +793,9 @@ namespace DigimonWorld2Tool
             EditorFloorLayoutRenderTabs[7] = EditorRenderLayoutTab7;
 
             // Add the function for displaying the current mouse position on the grid to the MouseMove event
-            foreach (var item in FloorLayoutRenderTabs)
+            foreach (var item in EditorFloorLayoutRenderTabs)
             {
-                item.CursorLayer.MouseMove += DisplayMousePositionOnGrid;
+                item.CursorLayer.MouseMove += EditorDisplayMousePositionOnGrid;
             }
         }
 
@@ -807,6 +815,111 @@ namespace DigimonWorld2Tool
             //DrawCurrentMapLayout();
             if (EditorShowGridCheckbox.Checked)
                 EditorLayoutRenderer.DrawGrid();
+        }
+
+        /// <summary>
+        /// Display the current mouse position on the grid
+        /// </summary>
+        private void EditorDisplayMousePositionOnGrid(object sender, MouseEventArgs e)
+        {
+            if (GridPosHexCheckBox.Checked)
+            {
+                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:X2}";
+            }
+            else
+            {
+                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:00}";
+            }
+        }
+
+        /// <summary>
+        /// Call the renderer for the current floor's current layout tab
+        /// </summary>
+        /// <param name="mapLayoutIndex"></param>
+        private void EditorDrawCurrentMapLayout(object sender, EventArgs e)
+        {
+            EditorLayoutRenderer.SetupFloorLayerBitmap();
+        }
+
+        private void EditorReloadLayout_Click(object sender, EventArgs e)
+        {
+            EditorLayoutRenderer.SetupFloorLayerBitmap();
+        }
+
+        private void EditorTileTypeButton_Click(object sender, EventArgs e)
+        {
+            PictureBox pictureBox = (PictureBox)sender;
+            string tileName = pictureBox.Name.Replace("TileTypePictureBox", "");
+            EditorSelectedTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), tileName);
+            PlaceModeCheckbox.Checked = true;
+
+            EditorSelectedTileTypePicturebox.Location = new Point(pictureBox.Location.X - 3, pictureBox.Location.Y - 3);
+        }
+
+        private void EditorSaveLayoutToFileButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Binaries| *.bin",
+                Title = "Save current layout to file"
+            };
+
+            saveFileDialog.FileName = $"DUNG";
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (saveFileDialog.FileName != "")
+                {
+                    FileStream fs = (FileStream)saveFileDialog.OpenFile();
+
+                    byte[] bytes = new byte[EditorLayoutRenderer.tiles.Length];
+                    for (int i = 0; i < bytes.Length; i++)
+                    {
+                        bytes[i] = EditorLayoutRenderer.tiles[i].TileValueDec;
+                    }
+                    fs.Write(bytes, 0, bytes.Length);
+
+                    fs.Close();
+                    fs.Dispose();
+                }
+            }
+        }
+
+        private void EditorLoadLayoutButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Binaries | *.bin",
+                Title = "Open custom dungeon layout",
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Stream fs = openFileDialog.OpenFile();
+                byte[] data = new byte[1536];
+                fs.Read(data, 0, 1536);
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    Vector2 pos = new Vector2(i % 32, (int)Math.Floor((double)i / 32)); //32 is the width of the grid
+                    pos.x *= 2;
+
+                    Tile.DomainTileType tileType = Tile.DomainTileType.Empty;
+                    tileType = (Tile.DomainTileType)data[i].GetLeftHalfByte();
+                    EditorLayoutRenderer.UpdateTile(pos, tileType);
+
+                    pos += Vector2.Right;
+                    tileType = (Tile.DomainTileType)data[i].GetRightHalfByte();
+                    EditorLayoutRenderer.UpdateTile(pos, tileType);
+
+                }
+
+                fs.Close();
+                fs.Dispose();
+            }
+
         }
         #endregion
     }

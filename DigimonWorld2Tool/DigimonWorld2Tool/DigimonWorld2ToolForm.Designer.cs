@@ -76,6 +76,8 @@ namespace DigimonWorld2Tool
             this.SelectFloorLabel = new System.Windows.Forms.Label();
             this.MapLayoutsTabControl = new System.Windows.Forms.TabControl();
             this.TabLayoutPage0 = new System.Windows.Forms.TabPage();
+            this.renderLayoutTab9 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
+            this.renderLayoutTab8 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.renderLayoutTab0 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage1 = new System.Windows.Forms.TabPage();
             this.renderLayoutTab1 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
@@ -136,6 +138,19 @@ namespace DigimonWorld2Tool
             this.SelectDialogueFileButton = new System.Windows.Forms.Button();
             this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
             this.MapEditorTab = new System.Windows.Forms.TabPage();
+            this.EmptyTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.NatureTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.WaterTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.MachineTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.FireTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.DarkTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.RoomTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.CorridorTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.PlaceModeCheckbox = new System.Windows.Forms.CheckBox();
+            this.EditorReloadLayout = new System.Windows.Forms.Button();
+            this.EditorTileSizeLabel = new System.Windows.Forms.Label();
+            this.EditorTileSizeInput = new System.Windows.Forms.NumericUpDown();
+            this.EditorResizeGridButton = new System.Windows.Forms.Button();
             this.EditorMapLayoutsTabControl = new System.Windows.Forms.TabControl();
             this.EditorTabLayoutPage0 = new System.Windows.Forms.TabPage();
             this.EditorRenderLayoutTab0 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
@@ -160,10 +175,9 @@ namespace DigimonWorld2Tool
             this.EditorGridPosHexCheckbox = new System.Windows.Forms.CheckBox();
             this.EditorSaveLayoutToFileButton = new System.Windows.Forms.Button();
             this.EditorShowGridCheckbox = new System.Windows.Forms.CheckBox();
-            this.EditMousePositionOnGridLabel = new System.Windows.Forms.Label();
-            this.EditorResizeGridButton = new System.Windows.Forms.Button();
-            this.EditorTileSizeInput = new System.Windows.Forms.NumericUpDown();
-            this.EditorTileSizeLabel = new System.Windows.Forms.Label();
+            this.EditorMousePositionOnGridLabel = new System.Windows.Forms.Label();
+            this.EditorSelectedTileTypePicturebox = new System.Windows.Forms.PictureBox();
+            this.EditorLoadLayoutButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -193,6 +207,15 @@ namespace DigimonWorld2Tool
             this.DigiTextTranslator.SuspendLayout();
             this.DialogueOuputGroupbox.SuspendLayout();
             this.MapEditorTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EmptyTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NatureTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WaterTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MachineTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FireTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DarkTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).BeginInit();
             this.EditorMapLayoutsTabControl.SuspendLayout();
             this.EditorTabLayoutPage0.SuspendLayout();
             this.EditorTabLayoutPage1.SuspendLayout();
@@ -202,7 +225,7 @@ namespace DigimonWorld2Tool
             this.EditorTabLayoutPage5.SuspendLayout();
             this.EditorTabLayoutPage6.SuspendLayout();
             this.EditorTabLayoutPage7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -776,6 +799,8 @@ namespace DigimonWorld2Tool
             // TabLayoutPage0
             // 
             this.TabLayoutPage0.BackColor = System.Drawing.Color.Black;
+            this.TabLayoutPage0.Controls.Add(this.renderLayoutTab9);
+            this.TabLayoutPage0.Controls.Add(this.renderLayoutTab8);
             this.TabLayoutPage0.Controls.Add(this.renderLayoutTab0);
             this.TabLayoutPage0.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage0.Name = "TabLayoutPage0";
@@ -783,6 +808,24 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage0.Size = new System.Drawing.Size(652, 492);
             this.TabLayoutPage0.TabIndex = 4;
             this.TabLayoutPage0.Text = "Layout 0";
+            // 
+            // renderLayoutTab9
+            // 
+            this.renderLayoutTab9.AutoScroll = true;
+            this.renderLayoutTab9.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab9.Location = new System.Drawing.Point(0, 0);
+            this.renderLayoutTab9.Name = "renderLayoutTab9";
+            this.renderLayoutTab9.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab9.TabIndex = 2;
+            // 
+            // renderLayoutTab8
+            // 
+            this.renderLayoutTab8.AutoScroll = true;
+            this.renderLayoutTab8.BackColor = System.Drawing.Color.Black;
+            this.renderLayoutTab8.Location = new System.Drawing.Point(0, 0);
+            this.renderLayoutTab8.Name = "renderLayoutTab8";
+            this.renderLayoutTab8.Size = new System.Drawing.Size(645, 485);
+            this.renderLayoutTab8.TabIndex = 1;
             // 
             // renderLayoutTab0
             // 
@@ -1429,6 +1472,17 @@ namespace DigimonWorld2Tool
             // MapEditorTab
             // 
             this.MapEditorTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.MapEditorTab.Controls.Add(this.EditorLoadLayoutButton);
+            this.MapEditorTab.Controls.Add(this.EmptyTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.NatureTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.WaterTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.MachineTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.FireTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.DarkTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.RoomTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.CorridorTileTypePictureBox);
+            this.MapEditorTab.Controls.Add(this.PlaceModeCheckbox);
+            this.MapEditorTab.Controls.Add(this.EditorReloadLayout);
             this.MapEditorTab.Controls.Add(this.EditorTileSizeLabel);
             this.MapEditorTab.Controls.Add(this.EditorTileSizeInput);
             this.MapEditorTab.Controls.Add(this.EditorResizeGridButton);
@@ -1440,13 +1494,168 @@ namespace DigimonWorld2Tool
             this.MapEditorTab.Controls.Add(this.EditorGridPosHexCheckbox);
             this.MapEditorTab.Controls.Add(this.EditorSaveLayoutToFileButton);
             this.MapEditorTab.Controls.Add(this.EditorShowGridCheckbox);
-            this.MapEditorTab.Controls.Add(this.EditMousePositionOnGridLabel);
+            this.MapEditorTab.Controls.Add(this.EditorMousePositionOnGridLabel);
+            this.MapEditorTab.Controls.Add(this.EditorSelectedTileTypePicturebox);
             this.MapEditorTab.Location = new System.Drawing.Point(4, 24);
             this.MapEditorTab.Name = "MapEditorTab";
             this.MapEditorTab.Padding = new System.Windows.Forms.Padding(3);
             this.MapEditorTab.Size = new System.Drawing.Size(1571, 839);
             this.MapEditorTab.TabIndex = 3;
             this.MapEditorTab.Text = "Map Editor";
+            // 
+            // EmptyTileTypePictureBox
+            // 
+            this.EmptyTileTypePictureBox.BackColor = System.Drawing.Color.Black;
+            this.EmptyTileTypePictureBox.Location = new System.Drawing.Point(570, 10);
+            this.EmptyTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.EmptyTileTypePictureBox.Name = "EmptyTileTypePictureBox";
+            this.EmptyTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.EmptyTileTypePictureBox.TabIndex = 55;
+            this.EmptyTileTypePictureBox.TabStop = false;
+            this.EmptyTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // NatureTileTypePictureBox
+            // 
+            this.NatureTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.NatureTile;
+            this.NatureTileTypePictureBox.Location = new System.Drawing.Point(490, 12);
+            this.NatureTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.NatureTileTypePictureBox.Name = "NatureTileTypePictureBox";
+            this.NatureTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.NatureTileTypePictureBox.TabIndex = 53;
+            this.NatureTileTypePictureBox.TabStop = false;
+            this.NatureTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // WaterTileTypePictureBox
+            // 
+            this.WaterTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.WaterTile;
+            this.WaterTileTypePictureBox.Location = new System.Drawing.Point(410, 12);
+            this.WaterTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.WaterTileTypePictureBox.Name = "WaterTileTypePictureBox";
+            this.WaterTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.WaterTileTypePictureBox.TabIndex = 52;
+            this.WaterTileTypePictureBox.TabStop = false;
+            this.WaterTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // MachineTileTypePictureBox
+            // 
+            this.MachineTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.MachineTile;
+            this.MachineTileTypePictureBox.Location = new System.Drawing.Point(330, 12);
+            this.MachineTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.MachineTileTypePictureBox.Name = "MachineTileTypePictureBox";
+            this.MachineTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.MachineTileTypePictureBox.TabIndex = 51;
+            this.MachineTileTypePictureBox.TabStop = false;
+            this.MachineTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // FireTileTypePictureBox
+            // 
+            this.FireTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.FireTile;
+            this.FireTileTypePictureBox.Location = new System.Drawing.Point(250, 12);
+            this.FireTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.FireTileTypePictureBox.Name = "FireTileTypePictureBox";
+            this.FireTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.FireTileTypePictureBox.TabIndex = 50;
+            this.FireTileTypePictureBox.TabStop = false;
+            this.FireTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // DarkTileTypePictureBox
+            // 
+            this.DarkTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.DarkTile;
+            this.DarkTileTypePictureBox.Location = new System.Drawing.Point(170, 12);
+            this.DarkTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.DarkTileTypePictureBox.Name = "DarkTileTypePictureBox";
+            this.DarkTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.DarkTileTypePictureBox.TabIndex = 49;
+            this.DarkTileTypePictureBox.TabStop = false;
+            this.DarkTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // RoomTileTypePictureBox
+            // 
+            this.RoomTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.RoomTile;
+            this.RoomTileTypePictureBox.Location = new System.Drawing.Point(90, 12);
+            this.RoomTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.RoomTileTypePictureBox.Name = "RoomTileTypePictureBox";
+            this.RoomTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.RoomTileTypePictureBox.TabIndex = 48;
+            this.RoomTileTypePictureBox.TabStop = false;
+            this.RoomTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // CorridorTileTypePictureBox
+            // 
+            this.CorridorTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.CorridorTile;
+            this.CorridorTileTypePictureBox.Location = new System.Drawing.Point(10, 12);
+            this.CorridorTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.CorridorTileTypePictureBox.Name = "CorridorTileTypePictureBox";
+            this.CorridorTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.CorridorTileTypePictureBox.TabIndex = 47;
+            this.CorridorTileTypePictureBox.TabStop = false;
+            this.CorridorTileTypePictureBox.Click += new System.EventHandler(this.EditorTileTypeButton_Click);
+            // 
+            // PlaceModeCheckbox
+            // 
+            this.PlaceModeCheckbox.AutoSize = true;
+            this.PlaceModeCheckbox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PlaceModeCheckbox.ForeColor = System.Drawing.Color.White;
+            this.PlaceModeCheckbox.Location = new System.Drawing.Point(12, 250);
+            this.PlaceModeCheckbox.Name = "PlaceModeCheckbox";
+            this.PlaceModeCheckbox.Size = new System.Drawing.Size(109, 25);
+            this.PlaceModeCheckbox.TabIndex = 44;
+            this.PlaceModeCheckbox.Text = "Place Mode";
+            this.PlaceModeCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EditorReloadLayout
+            // 
+            this.EditorReloadLayout.Location = new System.Drawing.Point(570, 250);
+            this.EditorReloadLayout.Name = "EditorReloadLayout";
+            this.EditorReloadLayout.Size = new System.Drawing.Size(75, 23);
+            this.EditorReloadLayout.TabIndex = 43;
+            this.EditorReloadLayout.Text = "Clear";
+            this.EditorReloadLayout.UseVisualStyleBackColor = true;
+            this.EditorReloadLayout.Click += new System.EventHandler(this.EditorReloadLayout_Click);
+            // 
+            // EditorTileSizeLabel
+            // 
+            this.EditorTileSizeLabel.AutoSize = true;
+            this.EditorTileSizeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorTileSizeLabel.ForeColor = System.Drawing.Color.White;
+            this.EditorTileSizeLabel.Location = new System.Drawing.Point(248, 250);
+            this.EditorTileSizeLabel.Name = "EditorTileSizeLabel";
+            this.EditorTileSizeLabel.Size = new System.Drawing.Size(67, 21);
+            this.EditorTileSizeLabel.TabIndex = 42;
+            this.EditorTileSizeLabel.Text = "Tile size:";
+            // 
+            // EditorTileSizeInput
+            // 
+            this.EditorTileSizeInput.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorTileSizeInput.Location = new System.Drawing.Point(321, 250);
+            this.EditorTileSizeInput.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.EditorTileSizeInput.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.EditorTileSizeInput.Name = "EditorTileSizeInput";
+            this.EditorTileSizeInput.Size = new System.Drawing.Size(44, 23);
+            this.EditorTileSizeInput.TabIndex = 41;
+            this.EditorTileSizeInput.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // EditorResizeGridButton
+            // 
+            this.EditorResizeGridButton.Location = new System.Drawing.Point(371, 250);
+            this.EditorResizeGridButton.Name = "EditorResizeGridButton";
+            this.EditorResizeGridButton.Size = new System.Drawing.Size(75, 23);
+            this.EditorResizeGridButton.TabIndex = 40;
+            this.EditorResizeGridButton.Text = "Resize grid";
+            this.EditorResizeGridButton.UseVisualStyleBackColor = true;
+            this.EditorResizeGridButton.Click += new System.EventHandler(this.EditorResizeGridButton_Click);
             // 
             // EditorMapLayoutsTabControl
             // 
@@ -1465,6 +1674,7 @@ namespace DigimonWorld2Tool
             this.EditorMapLayoutsTabControl.SelectedIndex = 0;
             this.EditorMapLayoutsTabControl.Size = new System.Drawing.Size(660, 520);
             this.EditorMapLayoutsTabControl.TabIndex = 39;
+            this.EditorMapLayoutsTabControl.SelectedIndexChanged += new System.EventHandler(this.EditorDrawCurrentMapLayout);
             // 
             // EditorTabLayoutPage0
             // 
@@ -1703,6 +1913,7 @@ namespace DigimonWorld2Tool
             this.EditorSaveLayoutToFileButton.TabIndex = 33;
             this.EditorSaveLayoutToFileButton.Text = "Save Layout";
             this.EditorSaveLayoutToFileButton.UseVisualStyleBackColor = true;
+            this.EditorSaveLayoutToFileButton.Click += new System.EventHandler(this.EditorSaveLayoutToFileButton_Click);
             // 
             // EditorShowGridCheckbox
             // 
@@ -1717,60 +1928,35 @@ namespace DigimonWorld2Tool
             this.EditorShowGridCheckbox.UseVisualStyleBackColor = true;
             this.EditorShowGridCheckbox.CheckedChanged += new System.EventHandler(this.EditorShowGridCheckbox_CheckedChanged);
             // 
-            // EditMousePositionOnGridLabel
+            // EditorMousePositionOnGridLabel
             // 
-            this.EditMousePositionOnGridLabel.AutoSize = true;
-            this.EditMousePositionOnGridLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EditMousePositionOnGridLabel.ForeColor = System.Drawing.Color.White;
-            this.EditMousePositionOnGridLabel.Location = new System.Drawing.Point(12, 809);
-            this.EditMousePositionOnGridLabel.Name = "EditMousePositionOnGridLabel";
-            this.EditMousePositionOnGridLabel.Size = new System.Drawing.Size(74, 21);
-            this.EditMousePositionOnGridLabel.TabIndex = 31;
-            this.EditMousePositionOnGridLabel.Text = "X:00 Y:00";
+            this.EditorMousePositionOnGridLabel.AutoSize = true;
+            this.EditorMousePositionOnGridLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditorMousePositionOnGridLabel.ForeColor = System.Drawing.Color.White;
+            this.EditorMousePositionOnGridLabel.Location = new System.Drawing.Point(12, 809);
+            this.EditorMousePositionOnGridLabel.Name = "EditorMousePositionOnGridLabel";
+            this.EditorMousePositionOnGridLabel.Size = new System.Drawing.Size(74, 21);
+            this.EditorMousePositionOnGridLabel.TabIndex = 31;
+            this.EditorMousePositionOnGridLabel.Text = "X:00 Y:00";
             // 
-            // EditorResizeGridButton
+            // EditorSelectedTileTypePicturebox
             // 
-            this.EditorResizeGridButton.Location = new System.Drawing.Point(371, 250);
-            this.EditorResizeGridButton.Name = "EditorResizeGridButton";
-            this.EditorResizeGridButton.Size = new System.Drawing.Size(75, 23);
-            this.EditorResizeGridButton.TabIndex = 40;
-            this.EditorResizeGridButton.Text = "Resize grid";
-            this.EditorResizeGridButton.UseVisualStyleBackColor = true;
-            this.EditorResizeGridButton.Click += new System.EventHandler(this.EditorResizeGridButton_Click);
+            this.EditorSelectedTileTypePicturebox.BackColor = System.Drawing.Color.White;
+            this.EditorSelectedTileTypePicturebox.Location = new System.Drawing.Point(567, 7);
+            this.EditorSelectedTileTypePicturebox.Name = "EditorSelectedTileTypePicturebox";
+            this.EditorSelectedTileTypePicturebox.Size = new System.Drawing.Size(70, 70);
+            this.EditorSelectedTileTypePicturebox.TabIndex = 54;
+            this.EditorSelectedTileTypePicturebox.TabStop = false;
             // 
-            // EditorTileSizeInput
+            // EditorLoadLayoutButton
             // 
-            this.EditorTileSizeInput.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EditorTileSizeInput.Location = new System.Drawing.Point(321, 250);
-            this.EditorTileSizeInput.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.EditorTileSizeInput.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.EditorTileSizeInput.Name = "EditorTileSizeInput";
-            this.EditorTileSizeInput.Size = new System.Drawing.Size(44, 23);
-            this.EditorTileSizeInput.TabIndex = 41;
-            this.EditorTileSizeInput.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // EditorTileSizeLabel
-            // 
-            this.EditorTileSizeLabel.AutoSize = true;
-            this.EditorTileSizeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EditorTileSizeLabel.ForeColor = System.Drawing.Color.White;
-            this.EditorTileSizeLabel.Location = new System.Drawing.Point(248, 250);
-            this.EditorTileSizeLabel.Name = "EditorTileSizeLabel";
-            this.EditorTileSizeLabel.Size = new System.Drawing.Size(67, 21);
-            this.EditorTileSizeLabel.TabIndex = 42;
-            this.EditorTileSizeLabel.Text = "Tile size:";
+            this.EditorLoadLayoutButton.Location = new System.Drawing.Point(131, 248);
+            this.EditorLoadLayoutButton.Name = "EditorLoadLayoutButton";
+            this.EditorLoadLayoutButton.Size = new System.Drawing.Size(103, 23);
+            this.EditorLoadLayoutButton.TabIndex = 56;
+            this.EditorLoadLayoutButton.Text = "Load Layout";
+            this.EditorLoadLayoutButton.UseVisualStyleBackColor = true;
+            this.EditorLoadLayoutButton.Click += new System.EventHandler(this.EditorLoadLayoutButton_Click);
             // 
             // DigimonWorld2ToolForm
             // 
@@ -1820,6 +2006,15 @@ namespace DigimonWorld2Tool
             this.DialogueOuputGroupbox.ResumeLayout(false);
             this.MapEditorTab.ResumeLayout(false);
             this.MapEditorTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EmptyTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NatureTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WaterTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MachineTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FireTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DarkTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).EndInit();
             this.EditorMapLayoutsTabControl.ResumeLayout(false);
             this.EditorTabLayoutPage0.ResumeLayout(false);
             this.EditorTabLayoutPage1.ResumeLayout(false);
@@ -1829,14 +2024,12 @@ namespace DigimonWorld2Tool
             this.EditorTabLayoutPage5.ResumeLayout(false);
             this.EditorTabLayoutPage6.ResumeLayout(false);
             this.EditorTabLayoutPage7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.EditorTileSizeInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl MainTabControl;
         private System.Windows.Forms.TabPage MapVisualizerTab;
         private System.Windows.Forms.ComboBox DungeonFilesComboBox;
         private System.Windows.Forms.Label DomainNameLabel;
@@ -1951,7 +2144,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.CheckBox EditorGridPosHexCheckbox;
         private System.Windows.Forms.Button EditorSaveLayoutToFileButton;
         public System.Windows.Forms.CheckBox EditorShowGridCheckbox;
-        private System.Windows.Forms.Label EditMousePositionOnGridLabel;
+        private System.Windows.Forms.Label EditorMousePositionOnGridLabel;
         private System.Windows.Forms.TabControl EditorMapLayoutsTabControl;
         private System.Windows.Forms.TabPage EditorTabLayoutPage0;
         private System.Windows.Forms.TabPage EditorTabLayoutPage1;
@@ -1972,6 +2165,21 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Button EditorResizeGridButton;
         private System.Windows.Forms.NumericUpDown EditorTileSizeInput;
         private System.Windows.Forms.Label EditorTileSizeLabel;
+        private System.Windows.Forms.Button EditorReloadLayout;
+        private UserControls.RenderLayoutTab renderLayoutTab9;
+        private UserControls.RenderLayoutTab renderLayoutTab8;
+        internal System.Windows.Forms.TabControl MainTabControl;
+        internal System.Windows.Forms.CheckBox PlaceModeCheckbox;
+        private System.Windows.Forms.PictureBox CorridorTileTypePictureBox;
+        private System.Windows.Forms.PictureBox RoomTileTypePictureBox;
+        private System.Windows.Forms.PictureBox NatureTileTypePictureBox;
+        private System.Windows.Forms.PictureBox WaterTileTypePictureBox;
+        private System.Windows.Forms.PictureBox MachineTileTypePictureBox;
+        private System.Windows.Forms.PictureBox FireTileTypePictureBox;
+        private System.Windows.Forms.PictureBox DarkTileTypePictureBox;
+        private System.Windows.Forms.PictureBox EditorSelectedTileTypePicturebox;
+        private System.Windows.Forms.PictureBox EmptyTileTypePictureBox;
+        private System.Windows.Forms.Button EditorLoadLayoutButton;
     }
 }
 

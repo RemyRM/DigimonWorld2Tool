@@ -30,21 +30,21 @@ namespace DigimonWorld2Tool.UserControls
         private void InitializeComponent()
         {
             this.RenderLayoutPanel = new System.Windows.Forms.Panel();
+            this.CursorLayer = new System.Windows.Forms.PictureBox();
             this.DigimonRenderLayer = new System.Windows.Forms.PictureBox();
             this.ChestsRenderLayer = new System.Windows.Forms.PictureBox();
             this.TrapsRenderLayer = new System.Windows.Forms.PictureBox();
             this.WarpsRenderLayer = new System.Windows.Forms.PictureBox();
             this.GridRenderLayer = new System.Windows.Forms.PictureBox();
             this.MapRenderLayer = new System.Windows.Forms.PictureBox();
-            this.CursorLayer = new System.Windows.Forms.PictureBox();
             this.RenderLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChestsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpsRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridRenderLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MapRenderLayer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).BeginInit();
             this.SuspendLayout();
             // 
             // RenderLayoutPanel
@@ -61,6 +61,17 @@ namespace DigimonWorld2Tool.UserControls
             this.RenderLayoutPanel.Name = "RenderLayoutPanel";
             this.RenderLayoutPanel.Size = new System.Drawing.Size(645, 485);
             this.RenderLayoutPanel.TabIndex = 0;
+            // 
+            // CursorLayer
+            // 
+            this.CursorLayer.BackColor = System.Drawing.Color.Transparent;
+            this.CursorLayer.Location = new System.Drawing.Point(0, 0);
+            this.CursorLayer.Name = "CursorLayer";
+            this.CursorLayer.Size = new System.Drawing.Size(645, 485);
+            this.CursorLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.CursorLayer.TabIndex = 6;
+            this.CursorLayer.TabStop = false;
+            this.CursorLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CursorLayer_MouseClick);
             // 
             // DigimonRenderLayer
             // 
@@ -122,17 +133,6 @@ namespace DigimonWorld2Tool.UserControls
             this.MapRenderLayer.TabIndex = 0;
             this.MapRenderLayer.TabStop = false;
             // 
-            // CursorLayer
-            // 
-            this.CursorLayer.BackColor = System.Drawing.Color.Transparent;
-            this.CursorLayer.Location = new System.Drawing.Point(0, 0);
-            this.CursorLayer.Name = "CursorLayer";
-            this.CursorLayer.Size = new System.Drawing.Size(645, 485);
-            this.CursorLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.CursorLayer.TabIndex = 6;
-            this.CursorLayer.TabStop = false;
-            this.CursorLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CursorLayer_MouseClick);
-            // 
             // RenderLayoutTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -144,13 +144,13 @@ namespace DigimonWorld2Tool.UserControls
             this.Size = new System.Drawing.Size(645, 485);
             this.RenderLayoutPanel.ResumeLayout(false);
             this.RenderLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DigimonRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChestsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpsRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridRenderLayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MapRenderLayer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CursorLayer)).EndInit();
             this.ResumeLayout(false);
 
         }

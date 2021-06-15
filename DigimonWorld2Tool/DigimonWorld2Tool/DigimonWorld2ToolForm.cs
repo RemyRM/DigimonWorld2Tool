@@ -387,13 +387,9 @@ namespace DigimonWorld2Tool
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
             if (GridPosHexCheckBox.Checked)
-            {
                 MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:X2}";
-            }
             else
-            {
                 MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
-            }
         }
 
         /// <summary>
@@ -822,14 +818,10 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void EditorDisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
-            if (GridPosHexCheckBox.Checked)
-            {
+            if (EditorGridPosHexCheckbox.Checked)
                 EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:X2}";
-            }
             else
-            {
                 EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:00}";
-            }
         }
 
         /// <summary>
@@ -920,6 +912,11 @@ namespace DigimonWorld2Tool
                 fs.Dispose();
             }
 
+        }
+
+        private void EditorGridPosHexCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["EditorShowGridPosAsHex"] = EditorGridPosHexCheckbox.Checked;
         }
         #endregion
     }

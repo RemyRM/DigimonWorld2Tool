@@ -76,8 +76,6 @@ namespace DigimonWorld2Tool
             this.SelectFloorLabel = new System.Windows.Forms.Label();
             this.MapLayoutsTabControl = new System.Windows.Forms.TabControl();
             this.TabLayoutPage0 = new System.Windows.Forms.TabPage();
-            this.renderLayoutTab9 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
-            this.renderLayoutTab8 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.renderLayoutTab0 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
             this.TabLayoutPage1 = new System.Windows.Forms.TabPage();
             this.renderLayoutTab1 = new DigimonWorld2Tool.UserControls.RenderLayoutTab();
@@ -799,8 +797,6 @@ namespace DigimonWorld2Tool
             // TabLayoutPage0
             // 
             this.TabLayoutPage0.BackColor = System.Drawing.Color.Black;
-            this.TabLayoutPage0.Controls.Add(this.renderLayoutTab9);
-            this.TabLayoutPage0.Controls.Add(this.renderLayoutTab8);
             this.TabLayoutPage0.Controls.Add(this.renderLayoutTab0);
             this.TabLayoutPage0.Location = new System.Drawing.Point(4, 4);
             this.TabLayoutPage0.Name = "TabLayoutPage0";
@@ -808,24 +804,6 @@ namespace DigimonWorld2Tool
             this.TabLayoutPage0.Size = new System.Drawing.Size(652, 492);
             this.TabLayoutPage0.TabIndex = 4;
             this.TabLayoutPage0.Text = "Layout 0";
-            // 
-            // renderLayoutTab9
-            // 
-            this.renderLayoutTab9.AutoScroll = true;
-            this.renderLayoutTab9.BackColor = System.Drawing.Color.Black;
-            this.renderLayoutTab9.Location = new System.Drawing.Point(400, 0);
-            this.renderLayoutTab9.Name = "renderLayoutTab9";
-            this.renderLayoutTab9.Size = new System.Drawing.Size(645, 485);
-            this.renderLayoutTab9.TabIndex = 2;
-            // 
-            // renderLayoutTab8
-            // 
-            this.renderLayoutTab8.AutoScroll = true;
-            this.renderLayoutTab8.BackColor = System.Drawing.Color.Black;
-            this.renderLayoutTab8.Location = new System.Drawing.Point(0, 0);
-            this.renderLayoutTab8.Name = "renderLayoutTab8";
-            this.renderLayoutTab8.Size = new System.Drawing.Size(645, 485);
-            this.renderLayoutTab8.TabIndex = 1;
             // 
             // renderLayoutTab0
             // 
@@ -1913,6 +1891,7 @@ namespace DigimonWorld2Tool
             this.EditorGridPosHexCheckbox.TabIndex = 34;
             this.EditorGridPosHexCheckbox.Text = "Hex";
             this.EditorGridPosHexCheckbox.UseVisualStyleBackColor = true;
+            this.EditorGridPosHexCheckbox.CheckedChanged += new System.EventHandler(this.EditorGridPosHexCheckbox_CheckedChanged);
             // 
             // EditorSaveLayoutToFileButton
             // 
@@ -2166,8 +2145,6 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.NumericUpDown EditorTileSizeInput;
         private System.Windows.Forms.Label EditorTileSizeLabel;
         private System.Windows.Forms.Button EditorReloadLayout;
-        private UserControls.RenderLayoutTab renderLayoutTab9;
-        private UserControls.RenderLayoutTab renderLayoutTab8;
         internal System.Windows.Forms.TabControl MainTabControl;
         internal System.Windows.Forms.CheckBox PlaceModeCheckbox;
         private System.Windows.Forms.PictureBox CorridorTileTypePictureBox;

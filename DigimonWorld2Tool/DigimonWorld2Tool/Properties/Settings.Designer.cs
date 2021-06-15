@@ -226,5 +226,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["EditorGridTileSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EditorShowGridPosAsHex {
+            get {
+                return ((bool)(this["EditorShowGridPosAsHex"]));
+            }
+            set {
+                this["EditorShowGridPosAsHex"] = value;
+            }
+        }
     }
 }

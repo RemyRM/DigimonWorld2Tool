@@ -835,6 +835,7 @@ namespace DigimonWorld2Tool
 
         private void EditorReloadLayout_Click(object sender, EventArgs e)
         {
+            EditorLayoutRenderer.tiles = null;
             EditorLayoutRenderer.SetupFloorLayerBitmap();
         }
 

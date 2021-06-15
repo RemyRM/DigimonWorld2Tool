@@ -138,6 +138,7 @@ namespace DigimonWorld2Tool
             this.SelectDialogueFileButton = new System.Windows.Forms.Button();
             this.SelectDialogueFileLabel = new System.Windows.Forms.Label();
             this.MapEditorTab = new System.Windows.Forms.TabPage();
+            this.EditorLoadLayoutButton = new System.Windows.Forms.Button();
             this.EmptyTileTypePictureBox = new System.Windows.Forms.PictureBox();
             this.NatureTileTypePictureBox = new System.Windows.Forms.PictureBox();
             this.WaterTileTypePictureBox = new System.Windows.Forms.PictureBox();
@@ -177,7 +178,6 @@ namespace DigimonWorld2Tool
             this.EditorShowGridCheckbox = new System.Windows.Forms.CheckBox();
             this.EditorMousePositionOnGridLabel = new System.Windows.Forms.Label();
             this.EditorSelectedTileTypePicturebox = new System.Windows.Forms.PictureBox();
-            this.EditorLoadLayoutButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -813,7 +813,7 @@ namespace DigimonWorld2Tool
             // 
             this.renderLayoutTab9.AutoScroll = true;
             this.renderLayoutTab9.BackColor = System.Drawing.Color.Black;
-            this.renderLayoutTab9.Location = new System.Drawing.Point(0, 0);
+            this.renderLayoutTab9.Location = new System.Drawing.Point(400, 0);
             this.renderLayoutTab9.Name = "renderLayoutTab9";
             this.renderLayoutTab9.Size = new System.Drawing.Size(645, 485);
             this.renderLayoutTab9.TabIndex = 2;
@@ -1503,6 +1503,16 @@ namespace DigimonWorld2Tool
             this.MapEditorTab.TabIndex = 3;
             this.MapEditorTab.Text = "Map Editor";
             // 
+            // EditorLoadLayoutButton
+            // 
+            this.EditorLoadLayoutButton.Location = new System.Drawing.Point(131, 248);
+            this.EditorLoadLayoutButton.Name = "EditorLoadLayoutButton";
+            this.EditorLoadLayoutButton.Size = new System.Drawing.Size(103, 23);
+            this.EditorLoadLayoutButton.TabIndex = 56;
+            this.EditorLoadLayoutButton.Text = "Load Layout";
+            this.EditorLoadLayoutButton.UseVisualStyleBackColor = true;
+            this.EditorLoadLayoutButton.Click += new System.EventHandler(this.EditorLoadLayoutButton_Click);
+            // 
             // EmptyTileTypePictureBox
             // 
             this.EmptyTileTypePictureBox.BackColor = System.Drawing.Color.Black;
@@ -1947,16 +1957,6 @@ namespace DigimonWorld2Tool
             this.EditorSelectedTileTypePicturebox.Size = new System.Drawing.Size(70, 70);
             this.EditorSelectedTileTypePicturebox.TabIndex = 54;
             this.EditorSelectedTileTypePicturebox.TabStop = false;
-            // 
-            // EditorLoadLayoutButton
-            // 
-            this.EditorLoadLayoutButton.Location = new System.Drawing.Point(131, 248);
-            this.EditorLoadLayoutButton.Name = "EditorLoadLayoutButton";
-            this.EditorLoadLayoutButton.Size = new System.Drawing.Size(103, 23);
-            this.EditorLoadLayoutButton.TabIndex = 56;
-            this.EditorLoadLayoutButton.Text = "Load Layout";
-            this.EditorLoadLayoutButton.UseVisualStyleBackColor = true;
-            this.EditorLoadLayoutButton.Click += new System.EventHandler(this.EditorLoadLayoutButton_Click);
             // 
             // DigimonWorld2ToolForm
             // 

@@ -84,12 +84,12 @@ namespace DigimonWorld2Tool.Rendering
             if (selectedTile.Position.x % 2 == 0)
             {
                 //we've got the left tile, meaning we need to set the right nibblet
-                currentByteValue = (byte)((currentByteValue & 0x0F) | ((byte)selectedTile.GetTileTypeBasedOnColour(tileColour) << 0x04));
+                currentByteValue = (byte)((currentByteValue & 0xF0) | (byte)selectedTile.GetTileTypeBasedOnColour(tileColour));
             }
             else
             {
+                currentByteValue = (byte)((currentByteValue & 0x0F) | ((byte)selectedTile.GetTileTypeBasedOnColour(tileColour) << 0x04));
                 //With the right tile we need to edit the right nibblet
-                currentByteValue = (byte)((currentByteValue & 0xF0) | (byte)selectedTile.GetTileTypeBasedOnColour(tileColour));
             }
             selectedCombo.TileValueDec = currentByteValue;
             selectedCombo.TileValueHex = currentByteValue.ToString("X2");

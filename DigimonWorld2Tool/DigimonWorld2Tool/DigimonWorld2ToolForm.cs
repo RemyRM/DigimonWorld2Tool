@@ -907,11 +907,11 @@ namespace DigimonWorld2Tool
                     pos.x *= 2;
 
                     Tile.DomainTileType tileType = Tile.DomainTileType.Empty;
-                    tileType = (Tile.DomainTileType)data[i].GetLeftHalfByte();
+                    tileType = (Tile.DomainTileType)data[i].GetRightHalfByte();
                     EditorLayoutRenderer.UpdateTile(pos, tileType);
 
                     pos += Vector2.Right;
-                    tileType = (Tile.DomainTileType)data[i].GetRightHalfByte();
+                    tileType = (Tile.DomainTileType)data[i].GetLeftHalfByte();
                     EditorLayoutRenderer.UpdateTile(pos, tileType);
 
                 }

@@ -553,9 +553,9 @@ namespace DigimonWorld2Tool
             this.UnknownData2Label.AutoSize = true;
             this.UnknownData2Label.Location = new System.Drawing.Point(213, 125);
             this.UnknownData2Label.Name = "UnknownData2Label";
-            this.UnknownData2Label.Size = new System.Drawing.Size(101, 21);
+            this.UnknownData2Label.Size = new System.Drawing.Size(114, 21);
             this.UnknownData2Label.TabIndex = 5;
-            this.UnknownData2Label.Text = "Unknown 2:  ";
+            this.UnknownData2Label.Text = "Wall texture ID:";
             // 
             // FloorHeaderAddressLabel
             // 
@@ -589,9 +589,9 @@ namespace DigimonWorld2Tool
             this.UnknownData1Label.AutoSize = true;
             this.UnknownData1Label.Location = new System.Drawing.Point(6, 125);
             this.UnknownData1Label.Name = "UnknownData1Label";
-            this.UnknownData1Label.Size = new System.Drawing.Size(101, 21);
+            this.UnknownData1Label.Size = new System.Drawing.Size(79, 21);
             this.UnknownData1Label.TabIndex = 1;
-            this.UnknownData1Label.Text = "Unknown 1:  ";
+            this.UnknownData1Label.Text = "Script ID?:";
             // 
             // FloorNameLabel
             // 

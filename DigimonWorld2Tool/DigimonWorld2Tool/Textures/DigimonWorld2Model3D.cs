@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using DigimonWorld2Tool.Textures.Headers;
-using DigimonWorld2Tool.Model3D;
 using System.Threading;
 
 namespace DigimonWorld2Tool.Textures

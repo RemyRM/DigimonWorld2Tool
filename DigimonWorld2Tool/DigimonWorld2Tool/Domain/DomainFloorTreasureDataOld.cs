@@ -1,13 +1,13 @@
 ﻿namespace DigimonWorld2MapTool.Domains
 {
-    public class DomainFloorTreasureData
+    public class DomainFloorTreasureDataOld
     {
         public readonly byte ItemID;
         public readonly byte TrapLevel;
         public readonly byte Unknown1;
         public readonly byte Unknown2;
 
-        public DomainFloorTreasureData(byte[] data)
+        public DomainFloorTreasureDataOld(byte[] data)
         {
             ItemID = data[0];
             TrapLevel = data[1];

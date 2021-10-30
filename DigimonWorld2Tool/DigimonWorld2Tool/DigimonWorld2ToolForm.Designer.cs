@@ -29,6 +29,7 @@ namespace DigimonWorld2Tool
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DigimonWorld2ToolForm));
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.MapVisualizerTab = new System.Windows.Forms.TabPage();
             this.ShowDigimonCheckbox = new System.Windows.Forms.CheckBox();
@@ -176,6 +177,15 @@ namespace DigimonWorld2Tool
             this.EditorShowGridCheckbox = new System.Windows.Forms.CheckBox();
             this.EditorMousePositionOnGridLabel = new System.Windows.Forms.Label();
             this.EditorSelectedTileTypePicturebox = new System.Windows.Forms.PictureBox();
+            this.TextureInjectorTabPage = new System.Windows.Forms.TabPage();
+            this.BmpInjectPreviewPictureBox = new System.Windows.Forms.PictureBox();
+            this.PreviewBmpInjectLabel = new System.Windows.Forms.Label();
+            this.SelectBmpInjectButton = new System.Windows.Forms.Button();
+            this.SelectBmpToInjectLabel = new System.Windows.Forms.Label();
+            this.InjectTimPreviewPictureBox = new System.Windows.Forms.PictureBox();
+            this.InjectTimPreviewLabel = new System.Windows.Forms.Label();
+            this.InjectorSelectTimButton = new System.Windows.Forms.Button();
+            this.SelectInjectTimLabel = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -224,6 +234,9 @@ namespace DigimonWorld2Tool
             this.EditorTabLayoutPage6.SuspendLayout();
             this.EditorTabLayoutPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).BeginInit();
+            this.TextureInjectorTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BmpInjectPreviewPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InjectTimPreviewPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -235,6 +248,7 @@ namespace DigimonWorld2Tool
             this.MainTabControl.Controls.Add(this.TextureVisualizerTab);
             this.MainTabControl.Controls.Add(this.DigiTextTranslator);
             this.MainTabControl.Controls.Add(this.MapEditorTab);
+            this.MainTabControl.Controls.Add(this.TextureInjectorTabPage);
             this.MainTabControl.Location = new System.Drawing.Point(-5, 0);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
@@ -981,6 +995,7 @@ namespace DigimonWorld2Tool
             // 
             // TextureVisualizerTab
             // 
+            this.TextureVisualizerTab.AutoScroll = true;
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.TextureVisualizerTab.Controls.Add(this.TextureTypeComboBox);
             this.TextureVisualizerTab.Controls.Add(this.ReloadTextureButton);
@@ -1379,6 +1394,7 @@ namespace DigimonWorld2Tool
             // 
             // DigiTextTranslator
             // 
+            this.DigiTextTranslator.AutoScroll = true;
             this.DigiTextTranslator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.DigiTextTranslator.Controls.Add(this.ExportAllMessFilesButton);
             this.DigiTextTranslator.Controls.Add(this.DialogueOuputGroupbox);
@@ -1449,6 +1465,7 @@ namespace DigimonWorld2Tool
             // 
             // MapEditorTab
             // 
+            this.MapEditorTab.AutoScroll = true;
             this.MapEditorTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.MapEditorTab.Controls.Add(this.EditorLoadLayoutButton);
             this.MapEditorTab.Controls.Add(this.EmptyTileTypePictureBox);
@@ -1937,6 +1954,108 @@ namespace DigimonWorld2Tool
             this.EditorSelectedTileTypePicturebox.TabIndex = 54;
             this.EditorSelectedTileTypePicturebox.TabStop = false;
             // 
+            // TextureInjectorTabPage
+            // 
+            this.TextureInjectorTabPage.AutoScroll = true;
+            this.TextureInjectorTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureInjectorTabPage.Controls.Add(this.BmpInjectPreviewPictureBox);
+            this.TextureInjectorTabPage.Controls.Add(this.PreviewBmpInjectLabel);
+            this.TextureInjectorTabPage.Controls.Add(this.SelectBmpInjectButton);
+            this.TextureInjectorTabPage.Controls.Add(this.SelectBmpToInjectLabel);
+            this.TextureInjectorTabPage.Controls.Add(this.InjectTimPreviewPictureBox);
+            this.TextureInjectorTabPage.Controls.Add(this.InjectTimPreviewLabel);
+            this.TextureInjectorTabPage.Controls.Add(this.InjectorSelectTimButton);
+            this.TextureInjectorTabPage.Controls.Add(this.SelectInjectTimLabel);
+            this.TextureInjectorTabPage.Location = new System.Drawing.Point(4, 24);
+            this.TextureInjectorTabPage.Name = "TextureInjectorTabPage";
+            this.TextureInjectorTabPage.Size = new System.Drawing.Size(1571, 839);
+            this.TextureInjectorTabPage.TabIndex = 4;
+            this.TextureInjectorTabPage.Text = "TIM Injector";
+            // 
+            // BmpInjectPreviewPictureBox
+            // 
+            this.BmpInjectPreviewPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.BmpInjectPreviewPictureBox.Location = new System.Drawing.Point(333, 223);
+            this.BmpInjectPreviewPictureBox.Name = "BmpInjectPreviewPictureBox";
+            this.BmpInjectPreviewPictureBox.Size = new System.Drawing.Size(128, 256);
+            this.BmpInjectPreviewPictureBox.TabIndex = 7;
+            this.BmpInjectPreviewPictureBox.TabStop = false;
+            // 
+            // PreviewBmpInjectLabel
+            // 
+            this.PreviewBmpInjectLabel.AutoSize = true;
+            this.PreviewBmpInjectLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PreviewBmpInjectLabel.ForeColor = System.Drawing.Color.White;
+            this.PreviewBmpInjectLabel.Location = new System.Drawing.Point(322, 189);
+            this.PreviewBmpInjectLabel.Name = "PreviewBmpInjectLabel";
+            this.PreviewBmpInjectLabel.Size = new System.Drawing.Size(60, 20);
+            this.PreviewBmpInjectLabel.TabIndex = 6;
+            this.PreviewBmpInjectLabel.Text = "Preview";
+            // 
+            // SelectBmpInjectButton
+            // 
+            this.SelectBmpInjectButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SelectBmpInjectButton.Location = new System.Drawing.Point(333, 79);
+            this.SelectBmpInjectButton.Name = "SelectBmpInjectButton";
+            this.SelectBmpInjectButton.Size = new System.Drawing.Size(155, 45);
+            this.SelectBmpInjectButton.TabIndex = 5;
+            this.SelectBmpInjectButton.Text = "button1";
+            this.SelectBmpInjectButton.UseVisualStyleBackColor = true;
+            this.SelectBmpInjectButton.Click += new System.EventHandler(this.SelectBmpInjectButton_Click);
+            // 
+            // SelectBmpToInjectLabel
+            // 
+            this.SelectBmpToInjectLabel.AutoSize = true;
+            this.SelectBmpToInjectLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SelectBmpToInjectLabel.ForeColor = System.Drawing.Color.White;
+            this.SelectBmpToInjectLabel.Location = new System.Drawing.Point(322, 47);
+            this.SelectBmpToInjectLabel.Name = "SelectBmpToInjectLabel";
+            this.SelectBmpToInjectLabel.Size = new System.Drawing.Size(142, 20);
+            this.SelectBmpToInjectLabel.TabIndex = 4;
+            this.SelectBmpToInjectLabel.Text = "Select Bmp to inject";
+            // 
+            // InjectTimPreviewPictureBox
+            // 
+            this.InjectTimPreviewPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.InjectTimPreviewPictureBox.Location = new System.Drawing.Point(52, 223);
+            this.InjectTimPreviewPictureBox.Name = "InjectTimPreviewPictureBox";
+            this.InjectTimPreviewPictureBox.Size = new System.Drawing.Size(125, 256);
+            this.InjectTimPreviewPictureBox.TabIndex = 3;
+            this.InjectTimPreviewPictureBox.TabStop = false;
+            // 
+            // InjectTimPreviewLabel
+            // 
+            this.InjectTimPreviewLabel.AutoSize = true;
+            this.InjectTimPreviewLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.InjectTimPreviewLabel.ForeColor = System.Drawing.Color.White;
+            this.InjectTimPreviewLabel.Location = new System.Drawing.Point(42, 189);
+            this.InjectTimPreviewLabel.Name = "InjectTimPreviewLabel";
+            this.InjectTimPreviewLabel.Size = new System.Drawing.Size(60, 20);
+            this.InjectTimPreviewLabel.TabIndex = 2;
+            this.InjectTimPreviewLabel.Text = "Preview";
+            // 
+            // InjectorSelectTimButton
+            // 
+            this.InjectorSelectTimButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.InjectorSelectTimButton.Location = new System.Drawing.Point(52, 79);
+            this.InjectorSelectTimButton.Name = "InjectorSelectTimButton";
+            this.InjectorSelectTimButton.Size = new System.Drawing.Size(155, 45);
+            this.InjectorSelectTimButton.TabIndex = 1;
+            this.InjectorSelectTimButton.Text = "Select TIM";
+            this.InjectorSelectTimButton.UseVisualStyleBackColor = true;
+            this.InjectorSelectTimButton.Click += new System.EventHandler(this.InjectorSelectTimButton_Click);
+            // 
+            // SelectInjectTimLabel
+            // 
+            this.SelectInjectTimLabel.AutoSize = true;
+            this.SelectInjectTimLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SelectInjectTimLabel.ForeColor = System.Drawing.Color.White;
+            this.SelectInjectTimLabel.Location = new System.Drawing.Point(42, 47);
+            this.SelectInjectTimLabel.Name = "SelectInjectTimLabel";
+            this.SelectInjectTimLabel.Size = new System.Drawing.Size(179, 20);
+            this.SelectInjectTimLabel.TabIndex = 0;
+            this.SelectInjectTimLabel.Text = "Select TIM file to inject to";
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1944,9 +2063,10 @@ namespace DigimonWorld2Tool
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1570, 863);
             this.Controls.Add(this.MainTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DigimonWorld2ToolForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
-            this.Text = "Form1";
+            this.Text = "Digimon World 2 Tool";
             this.Load += new System.EventHandler(this.DigimonWorld2ToolForm_Load);
             this.MainTabControl.ResumeLayout(false);
             this.MapVisualizerTab.ResumeLayout(false);
@@ -2004,6 +2124,10 @@ namespace DigimonWorld2Tool
             this.EditorTabLayoutPage6.ResumeLayout(false);
             this.EditorTabLayoutPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).EndInit();
+            this.TextureInjectorTabPage.ResumeLayout(false);
+            this.TextureInjectorTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BmpInjectPreviewPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InjectTimPreviewPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2157,6 +2281,15 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.PictureBox EditorSelectedTileTypePicturebox;
         private System.Windows.Forms.PictureBox EmptyTileTypePictureBox;
         private System.Windows.Forms.Button EditorLoadLayoutButton;
+        private System.Windows.Forms.TabPage TextureInjectorTabPage;
+        private System.Windows.Forms.PictureBox InjectTimPreviewPictureBox;
+        private System.Windows.Forms.Label InjectTimPreviewLabel;
+        private System.Windows.Forms.Button InjectorSelectTimButton;
+        private System.Windows.Forms.Label SelectInjectTimLabel;
+        private System.Windows.Forms.Button SelectBmpInjectButton;
+        private System.Windows.Forms.Label SelectBmpToInjectLabel;
+        private System.Windows.Forms.PictureBox BmpInjectPreviewPictureBox;
+        private System.Windows.Forms.Label PreviewBmpInjectLabel;
     }
 }
 

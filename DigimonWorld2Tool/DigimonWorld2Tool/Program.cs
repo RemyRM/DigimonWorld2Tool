@@ -19,7 +19,8 @@ namespace DigimonWorld2Tool
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += new EventHandler(ApplicationApplicationExit);
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomainProcessExit);
-            Application.Run(new DigimonWorld2ToolForm());
+            //Application.Run(new DigimonWorld2ToolForm());
+            Application.Run(new Views.MainWindow());
         }
 
         private static void CurrentDomainProcessExit(object sender, EventArgs e)

@@ -24,6 +24,7 @@ namespace DigimonWorld2Tool.Textures
         }
 
         public static DigimonWorld2Texture CurrentTexture;
+        public static Bitmap CurrentBitmap;
         private static Color[] palette;
         private static int TextureScaleSize = 1;
 
@@ -224,6 +225,7 @@ namespace DigimonWorld2Tool.Textures
                     break;
             }
             DigimonWorld2ToolForm.Main.SelectedTextureRenderLayer.Image = imageBmp;
+            CurrentBitmap = imageBmp;
         }
 
         /// <summary>
@@ -300,6 +302,7 @@ namespace DigimonWorld2Tool.Textures
                     break;
             }
             DigimonWorld2ToolForm.Main.SelectedTextureRenderLayer.Image = imageBmp;
+            CurrentBitmap = imageBmp;
         }
 
         /// <summary>
@@ -314,6 +317,9 @@ namespace DigimonWorld2Tool.Textures
 
             var width = segmentLayer.Width;
             var height = segmentLayer.Height;
+
+            if(height == 0)
+             height = 255;
 
             // A texture file is always 64 bytes wide, multiply this by the Y offset to get the start ID in the data array
             // We need to add half the offsetX because 1 byte is 2 pixels

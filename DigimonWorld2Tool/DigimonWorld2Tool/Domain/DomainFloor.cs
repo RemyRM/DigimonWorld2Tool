@@ -8,7 +8,7 @@ namespace DigimonWorld2MapTool.Domains
 {
     public class DomainFloor
     {
-        private enum DomainDataHeaderOffset
+        private enum DomainDataHeaderOffsetOld
         {
             FileName = 0,
             UnknownValue = 4,
@@ -38,7 +38,7 @@ namespace DigimonWorld2MapTool.Domains
         internal readonly byte FloorTypeOverride;
         internal readonly byte[] TrapLevel;
         internal readonly byte[] DigimonPacks = new byte[4];
-        internal readonly DomainFloorTreasureData[] PossibleTreasure = new DomainFloorTreasureData[8];
+        internal readonly DomainFloorTreasureDataOld[] PossibleTreasure = new DomainFloorTreasureDataOld[8];
 
         public readonly List<DomainMapLayout> UniqueDomainMapLayouts = new List<DomainMapLayout>();
         private readonly Dictionary<int, int> MapPlanOccuranceRates = new Dictionary<int, int>();
@@ -86,8 +86,8 @@ namespace DigimonWorld2MapTool.Domains
         {
             for (int i = 0; i < MapPlansPerFloor; i++)
             {
-                DomainDataHeaderOffset floorPointerAddressOffset = (DomainDataHeaderOffset)Enum.Parse(typeof(DomainDataHeaderOffset), $"FloorLayout{i}");
-                int domainMapPlanPointerAddressDecimal = GetPointer(FloorBasePointerAddressDecimal + (int)floorPointerAddressOffset);
+                DomainDataHeaderOffsetOld floorPointerAddressOffset = (DomainDataHeaderOffsetOld)Enum.Parse(typeof(DomainDataHeaderOffsetOld), $"FloorLayout{i}");
+                int domainMapPlanPointerAddressDecimal = GetPointerOld(FloorBasePointerAddressDecimal + (int)floorPointerAddressOffset);
                 if (MapPlanOccuranceRates.ContainsKey(domainMapPlanPointerAddressDecimal))
                 {
                     MapPlanOccuranceRates[domainMapPlanPointerAddressDecimal]++;
@@ -106,7 +106,7 @@ namespace DigimonWorld2MapTool.Domains
         /// <returns>The domain name and floor</returns>
         private string ReadDomainName()
         {
-            int domainNamePointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.FileName);
+            int domainNamePointerDecimalAddress = GetPointerOld(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.FileName);
             byte[] domainNameBytes = GetDomainNameBytes(domainNamePointerDecimalAddress);
             return TextConversion.DigiStringToASCII(domainNameBytes);
         }
@@ -130,7 +130,7 @@ namespace DigimonWorld2MapTool.Domains
         /// <returns>4 bytes Unknown data</returns>
         private int ReadUnknownData()
         {
-            int unknownDataPointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.UnknownValue);
+            int unknownDataPointerDecimalAddress = GetPointerOld(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.UnknownValue);
             return unknownDataPointerDecimalAddress;
         }
 
@@ -140,13 +140,13 @@ namespace DigimonWorld2MapTool.Domains
         /// <returns>4 bytes of unkown data</returns>
         private int ReadUnknownData2()
         {
-            int unknownData2PointerDecimalAddress = GetPointer(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.UnknownValue2);
+            int unknownData2PointerDecimalAddress = GetPointerOld(FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.UnknownValue2);
             return unknownData2PointerDecimalAddress;
         }
 
         private byte ReadFloorOverride()
         {
-            return Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.FloorTypeOverride];
+            return Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.FloorTypeOverride];
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace DigimonWorld2MapTool.Domains
             byte[] trapLevel = new byte[3];
             for (int i = 0; i < trapLevel.Length; i++)
             {
-                trapLevel[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TrapLevel + i];
+                trapLevel[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.TrapLevel + i];
             }
             return trapLevel;
         }
@@ -168,13 +168,13 @@ namespace DigimonWorld2MapTool.Domains
         /// Chests use their last 4 half bytes as an ID for this array.
         /// </summary>
         /// <returns></returns>
-        private DomainFloorTreasureData[] ReadTreasure()
+        private DomainFloorTreasureDataOld[] ReadTreasure()
         {
-            DomainFloorTreasureData[] treasureData = new DomainFloorTreasureData[8];
+            DomainFloorTreasureDataOld[] treasureData = new DomainFloorTreasureDataOld[8];
             for (int i = 0; i < 8; i++)
             {
-                var treasureItemAddress = FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
-                treasureData[i] = new DomainFloorTreasureData(Domain.DomainData[treasureItemAddress..(treasureItemAddress+4)]);
+                var treasureItemAddress = FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.TreasureTable + (i * 4);
+                treasureData[i] = new DomainFloorTreasureDataOld(Domain.DomainData[treasureItemAddress..(treasureItemAddress+4)]);
             }
             return treasureData;
         }
@@ -189,7 +189,7 @@ namespace DigimonWorld2MapTool.Domains
             byte[] digimonPack = new byte[4];
             for (int i = 0; i < digimonPack.Length; i++)
             {
-                digimonPack[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffset.DigimonTable + i];
+                digimonPack[i] = Domain.DomainData[FloorBasePointerAddressDecimal + (int)DomainDataHeaderOffsetOld.DigimonTable + i];
             }
             return digimonPack;
         }

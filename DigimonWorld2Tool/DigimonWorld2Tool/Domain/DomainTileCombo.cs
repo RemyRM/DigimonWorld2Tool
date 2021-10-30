@@ -211,8 +211,8 @@ namespace DigimonWorld2MapTool.Domains
             this.TileValueHex = tileValue.ToString("X2");
             this.Position = position;
 
-            var leftTileType = (Tile.DomainTileType)tileValue.GetRightHalfByte();
-            var rightTileType = (Tile.DomainTileType)tileValue.GetLeftHalfByte();
+            var leftTileType = (Tile.DomainTileTypeOld)tileValue.GetRightHalfByte();
+            var rightTileType = (Tile.DomainTileTypeOld)tileValue.GetLeftHalfByte();
 
             leftTile = new Tile(position, leftTileType, TileValueDec.GetRightHalfByte().ToString());
             rightTile = new Tile(position + Vector2.Right, rightTileType, TileValueDec.GetLeftHalfByte().ToString()); //We add 1 to the x position to get the true position of the right tile
@@ -222,7 +222,7 @@ namespace DigimonWorld2MapTool.Domains
     public class Tile
     {
 
-        public enum DomainTileType : byte
+        public enum DomainTileTypeOld : byte
         {
             Room,
             Corridor,
@@ -235,25 +235,25 @@ namespace DigimonWorld2MapTool.Domains
             Empty,
         }
 
-        public static readonly Dictionary<DomainTileType, Color> TileTypeColour = new Dictionary<DomainTileType, Color>
+        public static readonly Dictionary<DomainTileTypeOld, Color> TileTypeColourOld = new Dictionary<DomainTileTypeOld, Color>
         {
-            {DomainTileType.Empty, Color.Black},
-            {DomainTileType.Room, Color.Gray},
-            {DomainTileType.Corridor, Color.DarkGray},
-            {DomainTileType.Water, Color.DarkBlue},
-            {DomainTileType.Fire, Color.DarkRed},
-            {DomainTileType.Nature, Color.DarkGreen},
-            {DomainTileType.Machine, Color.FromArgb(255, 184, 165, 24)},
-            {DomainTileType.Dark, Color.DarkMagenta},
+            {DomainTileTypeOld.Empty, Color.Black},
+            {DomainTileTypeOld.Room, Color.Gray},
+            {DomainTileTypeOld.Corridor, Color.DarkGray},
+            {DomainTileTypeOld.Water, Color.DarkBlue},
+            {DomainTileTypeOld.Fire, Color.DarkRed},
+            {DomainTileTypeOld.Nature, Color.DarkGreen},
+            {DomainTileTypeOld.Machine, Color.FromArgb(255, 184, 165, 24)},
+            {DomainTileTypeOld.Dark, Color.DarkMagenta},
         };
 
         public readonly Vector2 Position;
         public readonly string TileText;
 
-        public DomainTileType TileType { get; private set; }
+        public DomainTileTypeOld TileType { get; private set; }
         public Color TileColour { get; private set; }
 
-        public Tile(Vector2 position, DomainTileType tileType, string tileText)
+        public Tile(Vector2 position, DomainTileTypeOld tileType, string tileText)
         {
             this.Position = position;
             this.TileType = tileType;
@@ -261,22 +261,22 @@ namespace DigimonWorld2MapTool.Domains
             this.TileText = tileText;
         }
 
-        public Color GetColourBasedOnTileType(DomainTileType type)
+        public Color GetColourBasedOnTileType(DomainTileTypeOld type)
         {
-            if (type != DomainTileType.Override)
+            if (type != DomainTileTypeOld.Override)
             {
-                return TileTypeColour.GetValueOrDefault(type);
+                return TileTypeColourOld.GetValueOrDefault(type);
             }
             else
             {
-                var tileType = (DomainTileType)((DomainFloor.CurrentDomainFloor.FloorTypeOverride + 2) % 7);
-                return TileTypeColour.GetValueOrDefault(tileType);
+                var tileType = (DomainTileTypeOld)((DomainFloor.CurrentDomainFloor.FloorTypeOverride + 2) % 7);
+                return TileTypeColourOld.GetValueOrDefault(tileType);
             }
         }
 
-        public DomainTileType GetTileTypeBasedOnColour(Color colour)
+        public DomainTileTypeOld GetTileTypeBasedOnColour(Color colour)
         {
-            return TileTypeColour.FirstOrDefault(o => o.Value == colour).Key;
+            return TileTypeColourOld.FirstOrDefault(o => o.Value == colour).Key;
         }
 
         public void SetTileColour(Color colour)
@@ -284,7 +284,7 @@ namespace DigimonWorld2MapTool.Domains
             TileColour = colour;
         }
 
-        public void SetTileType(DomainTileType type)
+        public void SetTileType(DomainTileTypeOld type)
         {
             TileType = type;
         }

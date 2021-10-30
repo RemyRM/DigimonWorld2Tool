@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
+
 using DigimonWorld2MapTool.Files;
 using DigimonWorld2MapTool.Domains;
 using DigimonWorld2MapTool.Utility;
@@ -14,6 +15,9 @@ using DigimonWorld2MapTool.MapObjects;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using DigimonWorld2Tool.Textures;
+using DigimonWorld2Tool.Files;
+
+using DigimonWorld2Tool.FileFormats;
 
 namespace DigimonWorld2Tool
 {
@@ -34,7 +38,7 @@ namespace DigimonWorld2Tool
         public static RenderLayoutTab[] EditorFloorLayoutRenderTabs { get; private set; } = new RenderLayoutTab[8];
         public static RenderLayoutTab EditorLayoutRenderTab { get; private set; }
 
-        public static Tile.DomainTileType EditorSelectedTileType { get; private set; }
+        public static Tile.DomainTileTypeOld EditorSelectedTileType { get; private set; }
 
         private RichTextBox CurrentLogTextBox;
 
@@ -53,10 +57,12 @@ namespace DigimonWorld2Tool
 
         public DigimonWorld2ToolForm()
         {
+            //new DUNG("");
+            //return;
             InitializeComponent();
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(10, 0);
-            //this.Location = new Point(0, 0);
+
             this.AllowTransparency = true;
             Main = this;
         }
@@ -835,6 +841,10 @@ namespace DigimonWorld2Tool
 
         private void EditorReloadLayout_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to delete the current layout?\nThis action can not be reversed.", "Confirm deletion",
+                                MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                return;
+
             EditorLayoutRenderer.tiles = null;
             EditorLayoutRenderer.SetupFloorLayerBitmap();
         }
@@ -843,7 +853,7 @@ namespace DigimonWorld2Tool
         {
             PictureBox pictureBox = (PictureBox)sender;
             string tileName = pictureBox.Name.Replace("TileTypePictureBox", "");
-            EditorSelectedTileType = (Tile.DomainTileType)Enum.Parse(typeof(Tile.DomainTileType), tileName);
+            EditorSelectedTileType = (Tile.DomainTileTypeOld)Enum.Parse(typeof(Tile.DomainTileTypeOld), tileName);
             PlaceModeCheckbox.Checked = true;
 
             EditorSelectedTileTypePicturebox.Location = new Point(pictureBox.Location.X - 3, pictureBox.Location.Y - 3);
@@ -899,12 +909,12 @@ namespace DigimonWorld2Tool
                     Vector2 pos = new Vector2(i % 32, (int)Math.Floor((double)i / 32)); //32 is the width of the grid
                     pos.x *= 2;
 
-                    Tile.DomainTileType tileType = Tile.DomainTileType.Empty;
-                    tileType = (Tile.DomainTileType)data[i].GetRightHalfByte();
+                    Tile.DomainTileTypeOld tileType = Tile.DomainTileTypeOld.Empty;
+                    tileType = (Tile.DomainTileTypeOld)data[i].GetRightHalfByte();
                     EditorLayoutRenderer.UpdateTile(pos, tileType);
 
                     pos += Vector2.Right;
-                    tileType = (Tile.DomainTileType)data[i].GetLeftHalfByte();
+                    tileType = (Tile.DomainTileTypeOld)data[i].GetLeftHalfByte();
                     EditorLayoutRenderer.UpdateTile(pos, tileType);
 
                 }
@@ -918,6 +928,80 @@ namespace DigimonWorld2Tool
         private void EditorGridPosHexCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default["EditorShowGridPosAsHex"] = EditorGridPosHexCheckbox.Checked;
+        }
+        #endregion
+
+        #region TIM Injector
+
+        private void InjectorSelectTimButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.RestoreDirectory = true;
+            fileDialog.Filter = "(bin)|*.bin";
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Debug.WriteLine($"opening {fileDialog.FileName}");
+
+                TextureParser.CheckForTIMHeader(fileDialog.FileName);
+                var selectedBmp = TextureParser.CurrentBitmap;
+                InjectTimPreviewPictureBox.Image = selectedBmp;
+            }
+        }
+
+
+        private void SelectBmpInjectButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.RestoreDirectory = true;
+            fileDialog.Filter = "(bmp)|*.bmp";
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = fileDialog.FileName;
+                byte[] data = File.ReadAllBytes(filePath);
+
+                BmpFile bmpFile = new BmpFile(data);
+
+                InitPictureBox(bmpFile);
+                DrawBmp(bmpFile);
+            }
+        }
+
+        private void InitPictureBox(BmpFile bmpFile)
+        {
+            BmpInjectPreviewPictureBox.Image?.Dispose();
+            BmpInjectPreviewPictureBox.Width = bmpFile.DetailInfoHeader.bV4Width;
+            BmpInjectPreviewPictureBox.Height = bmpFile.DetailInfoHeader.bV4Height;
+        }
+
+        private void DrawBmp(BmpFile bmpFile)
+        {
+            Bitmap bmp = new Bitmap(bmpFile.DetailInfoHeader.bV4Width, bmpFile.DetailInfoHeader.bV4Height);
+
+            //Because a single byte defines two pixel colours l/r the actual width of a data row is half the image width
+            int actualWidth = bmpFile.DetailInfoHeader.bV4Width / 2;
+
+            for (int y = 0; y < bmpFile.DetailInfoHeader.bV4Height; y++)
+            {
+                for (int x = 0; x < actualWidth - 1; x++)
+                {
+                    var index = x + y * actualWidth;
+                    var pixelValue = bmpFile.PixelData[index];
+
+                    var rightByte = pixelValue.GetRightHalfByte();
+                    var leftByte = pixelValue.GetLeftHalfByte();
+
+                    var rightPixelCol = bmpFile.Clut[rightByte];
+                    var leftPixelCol = bmpFile.Clut[leftByte];
+
+                    var actualX = x * 2;
+                    var actualY = (bmpFile.DetailInfoHeader.bV4Height - 1) - y;
+                    bmp.SetPixel(actualX, actualY, leftPixelCol);
+                    bmp.SetPixel(actualX + 1, actualY, rightPixelCol);
+                }
+            }
+            BmpInjectPreviewPictureBox.Image = bmp;
         }
         #endregion
     }

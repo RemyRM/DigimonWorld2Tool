@@ -64,9 +64,9 @@ namespace DigimonWorld2Tool.Rendering
             //AddToCombinedLayer(floorLayoutLayer);
         }
 
-        public static void UpdateTile(Vector2 position, Tile.DomainTileType tileType)
+        public static void UpdateTile(Vector2 position, Tile.DomainTileTypeOld tileType)
         {
-            Color tileColour = Tile.TileTypeColour[tileType];
+            Color tileColour = Tile.TileTypeColourOld[tileType];
             //TODO: This needs to update the actual tile too, not just the displayed pixel
             DomainTileCombo selectedCombo = tiles.FirstOrDefault(o => o.leftTile.Position == position);
             Tile selectedTile = null;

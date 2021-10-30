@@ -23,7 +23,7 @@ namespace DigimonWorld2MapTool.Domains
             bool searchingDomainFloors = true;
             do
             {
-                var floorHeaderBasePointerDecimalAddress = GetPointer(floorsInThisDomain.Count * 4);
+                var floorHeaderBasePointerDecimalAddress = GetPointerOld(floorsInThisDomain.Count * 4);
 
                 if (floorHeaderBasePointerDecimalAddress == 0)
                 {

@@ -13,7 +13,7 @@ namespace DigimonWorld2MapTool.Domains
 {
     public class DomainMapLayout
     {
-        private enum FloorLayoutHeaderOffset : byte
+        private enum FloorLayoutHeaderOffsetOld : byte
         {
             FloorPlan = 0,
             Warps = 4,
@@ -21,7 +21,7 @@ namespace DigimonWorld2MapTool.Domains
             Traps = 12,
             Digimon = 16,
         }
-        private enum MapObjectDataLength : byte
+        private enum MapObjectDataLengthOld : byte
         {
             Warps = 3,
             Chests = 4,
@@ -50,17 +50,17 @@ namespace DigimonWorld2MapTool.Domains
             byte[] mapLayoutData = ReadMapPlanLayoutData();
             CreateDomainFloorTiles(ref mapLayoutData);
 
-            BaseMapWarpsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Warps);
-            CreateDomainLayoutObjects(BaseMapWarpsPointerAddressDecimal, MapObjectDataLength.Warps, IFloorLayoutObject.MapObjectType.Warp);
+            BaseMapWarpsPointerAddressDecimal = GetPointerOld(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffsetOld.Warps);
+            CreateDomainLayoutObjects(BaseMapWarpsPointerAddressDecimal, MapObjectDataLengthOld.Warps, IFloorLayoutObject.MapObjectType.Warp);
 
-            BaseMapChestsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Chests);
-            CreateDomainLayoutObjects(BaseMapChestsPointerAddressDecimal, MapObjectDataLength.Chests, IFloorLayoutObject.MapObjectType.Chest);
+            BaseMapChestsPointerAddressDecimal = GetPointerOld(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffsetOld.Chests);
+            CreateDomainLayoutObjects(BaseMapChestsPointerAddressDecimal, MapObjectDataLengthOld.Chests, IFloorLayoutObject.MapObjectType.Chest);
 
-            BaseMapTrapsPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Traps);
-            CreateDomainLayoutObjects(BaseMapTrapsPointerAddressDecimal, MapObjectDataLength.Traps, IFloorLayoutObject.MapObjectType.Trap);
+            BaseMapTrapsPointerAddressDecimal = GetPointerOld(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffsetOld.Traps);
+            CreateDomainLayoutObjects(BaseMapTrapsPointerAddressDecimal, MapObjectDataLengthOld.Traps, IFloorLayoutObject.MapObjectType.Trap);
 
-            BaseMapDigimonPointerAddressDecimal = GetPointer(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.Digimon);
-            CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLength.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
+            BaseMapDigimonPointerAddressDecimal = GetPointerOld(baseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffsetOld.Digimon);
+            CreateDomainLayoutObjects(BaseMapDigimonPointerAddressDecimal, MapObjectDataLengthOld.Digimon, IFloorLayoutObject.MapObjectType.Digimon);
 
             //AddFloorLayoutObjectsToTiles();
         }
@@ -80,7 +80,7 @@ namespace DigimonWorld2MapTool.Domains
         /// <returns>List of bytes that makes up the map layout data</returns>
         private byte[] ReadMapPlanLayoutData()
         {
-            var floorPlanStartingAddressDecimal = GetPointer(BaseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffset.FloorPlan);
+            var floorPlanStartingAddressDecimal = GetPointerOld(BaseMapPlanPointerAddressDecimal + (int)FloorLayoutHeaderOffsetOld.FloorPlan);
             return Domain.DomainData[floorPlanStartingAddressDecimal..(MapLayoutDataLength + floorPlanStartingAddressDecimal)];
         }
 
@@ -103,9 +103,9 @@ namespace DigimonWorld2MapTool.Domains
         /// <param name="baseStartOfObjectListPointerAddressDecimal">The decimal starting value of the objects list</param>
         /// <param name="dataLength">The length of a single object entry in bytes</param>
         /// <param name="objectType">The type of the object we are creating</param>
-        private void CreateDomainLayoutObjects(int baseStartOfObjectListPointerAddressDecimal, MapObjectDataLength dataLength, IFloorLayoutObject.MapObjectType objectType)
+        private void CreateDomainLayoutObjects(int baseStartOfObjectListPointerAddressDecimal, MapObjectDataLengthOld dataLength, IFloorLayoutObject.MapObjectType objectType)
         {
-            List<byte[]> layoutObject = ReadBytesToDelimiter(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
+            List<byte[]> layoutObject = ReadBytesToDelimiterOld(baseStartOfObjectListPointerAddressDecimal, (int)dataLength);
 
             foreach (var data in layoutObject)
             {

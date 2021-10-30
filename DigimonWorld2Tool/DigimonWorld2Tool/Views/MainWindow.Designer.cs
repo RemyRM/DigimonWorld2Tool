@@ -37,9 +37,12 @@ namespace DigimonWorld2Tool.Views
             // 
             // MainWindowHostPanel
             // 
-            this.MainWindowHostPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.MainWindowHostPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MainWindowHostPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.MainWindowHostPanel.Location = new System.Drawing.Point(150, 10);
+            this.MainWindowHostPanel.MinimumSize = new System.Drawing.Size(1100, 660);
             this.MainWindowHostPanel.Name = "MainWindowHostPanel";
             this.MainWindowHostPanel.Size = new System.Drawing.Size(1100, 660);
             this.MainWindowHostPanel.TabIndex = 0;
@@ -65,7 +68,7 @@ namespace DigimonWorld2Tool.Views
             this.OpenTexturesWindowButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.OpenTexturesWindowButton.FlatAppearance.BorderSize = 5;
             this.OpenTexturesWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenTexturesWindowButton.Location = new System.Drawing.Point(10, 95);
+            this.OpenTexturesWindowButton.Location = new System.Drawing.Point(10, 107);
             this.OpenTexturesWindowButton.Name = "OpenTexturesWindowButton";
             this.OpenTexturesWindowButton.Size = new System.Drawing.Size(130, 75);
             this.OpenTexturesWindowButton.TabIndex = 2;
@@ -77,6 +80,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.OpenTexturesWindowButton);
@@ -84,8 +88,10 @@ namespace DigimonWorld2Tool.Views
             this.Controls.Add(this.MainWindowHostPanel);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "MainWindow";
             this.Text = "Digimon World 2 Tool";
+            this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.ResumeLayout(false);
 
         }

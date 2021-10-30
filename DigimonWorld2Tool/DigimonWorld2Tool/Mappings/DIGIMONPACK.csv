@@ -1,0 +1,108 @@
+Overworld Model ID, Digimon name, Digimon pack level
+0x2C, Candlemon, Rookie
+0x2D, Patamon, Rookie
+0x2E, Gabumon, Rookie
+0x2F, Crabmon, Rookie
+0x30, Tankmon, Champion
+0x31, Yanmamon, Champion
+0x32, Kokatorimon, Champion
+0x33, Centaurmon, Champion
+0x34, Drimogemon, Champion
+0x35, Tyrannomon, Champion
+0x36, Seadramon, Champion
+0x37, SkullMeramon, Ultimate
+0x38, Pumpkinmon, Ultimate
+0x39, Piximon, Ultimate
+0x3A, Mamemon, Ultimate
+0x3b, Triceramon, Ultimate
+0x3c, MegaSeadramon, Ultimate
+0x3d, Boltmon, Mega
+0x3e, PrinceMamemon, Mega
+0x3f, MetalSeadramon, Mega
+0x40, Biyomon, Rookie
+0x41, Toyagumon, Rookie
+0x42, Tapirmon, Rookie
+0x43, Penguinmon, Rookie
+0x44, Airdramon, Champion
+0x45, Birdramon, Champion
+0x46, Leomon, Champion
+0x47, Angemon, Champion
+0x48, Unimon, Champion
+0x49, Frigimon, Champion
+0x4A, Greymon, Champion
+0x4b, MegaKabuterimon, Ultimate
+0x4C, Mammothmon, Ultimate
+0x4d, Giromon, Ultimate
+0x4e, Andromon, Ultimate
+0x4F, Metalgreymon, Ultimate
+0x50, Zudomon, Ultimate
+0x51, SkullMammothmon, Mega
+0x52, Wargreymon, Mega
+0x53, MarineAngemon, Mega
+0x54, Hagurumon, Rookie
+0x55, Gazimon, Rookie
+0x56, SnowGoburimon, Rookie
+0x57, Betamon, Rookie
+0x58, Numemon, Champion
+0x59, Kuwagamon, Champion
+0x5A, Woodmon, Champion
+0x5b, Bakemon, Champion
+0x5C, Devimon, Champion
+0x5D, Deltamon, Champion
+0x5E, Gekomon, Champion
+0x5f, Vademon, Ultimate
+0x60, Okuwamon, Ultimate
+0x61, Cherrymon, Ultimate
+0x62, Phantomon, Ultimate
+0x63, Skullgreymon, Ultimate
+0x64, MarineDevimon, Ultimate
+0x65, Puppetmon, Mega
+0x66, Piedmon, Mega
+0x67, Pukumon, Mega
+0x68, HerculesKabuterimon, Mega
+0x69, Overlord, Special
+0x6a, VaccineGuardian, Special
+0x6b, DataGuardian, Special
+0x6c, VirusGuardian, Special
+0x6D, Patamon, Special
+0x6e, Chaoslord, Special
+0x6f, NeoCrimson, Special
+0x70, ChaosWargreymon, Special
+0x71, ChaosMetalSeadramon, Special
+0x72, ChaosPiedmon, Special
+0x73, Omnimon, Mega
+0x74, Diaboromon, Mega
+0x75, Baihumon, Mega
+0x76, MasterTyrannomon, Ultimate
+0x77, Jijimon, Mega
+0xFF, Custom, Special
+0x62, "Kim", Special
+0x65, "Bertran", Special
+0x75, "Bertran", Special
+0xCA, "Bertran", Special
+0x66, "Damien", Special
+0x6B, "Damien", Special
+0x82, "Damien", Special
+0x8C, "Damien", Special
+0x6C, "Crimson", Special
+0x81, "Crimson", Special
+0x76, "Jojo", Special
+0xCB, "Jojo", Special
+0x77, "Mark Shultz", Special
+0x78, "Debbie", Special
+0x79, "Chris Connor", Special
+0x90, "NeoCrimson", Special
+0x9c, "Centarumon", Special
+0x63, "Blood knight", Special
+0x64, "Blood knight", Special
+0x67, "Blood knight", Special
+0x68, "Blood knight", Special
+0x69, "Blood knight", Special
+0x6A, "Blood knight", Special
+0x71, "Blood knight", Special
+0x72, "Blood knight", Special
+0x73, "Blood knight", Special
+0x74, "Blood knight", Special
+0x83, "Blood knight", Special
+0x8A, "Blood knight", Special
+0x89, "Blood knight", Special

@@ -4,6 +4,7 @@ using DigimonWorld2Tool.Views;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 
@@ -112,6 +113,22 @@ namespace DigimonWorld2Tool.Rendering
                     for (int y = 0; y < TileSizeHeight; y++)
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(warp.X * TileSizeWidth + x, warp.Y * TileSizeHeight + y, Color.Cyan);
+                        string warpTypeChar = "w";
+                        switch (warp.Type)
+                        {
+                            case DungFloorWarp.WarpType.Entrance:
+                                warpTypeChar = "E";
+                                break;
+                            case DungFloorWarp.WarpType.Next:
+                                warpTypeChar = "N";
+                                break;
+                            case DungFloorWarp.WarpType.Exit:
+                                warpTypeChar = "X";
+                                break;
+                            default:
+                                break;
+                        }
+                        AddText(new Vector2(warp.X, warp.Y), warpTypeChar);
                     }
                 }
             }
@@ -126,6 +143,7 @@ namespace DigimonWorld2Tool.Rendering
                     for (int y = 0; y < TileSizeHeight; y++)
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(chest.X * TileSizeWidth + x, chest.Y * TileSizeHeight + y, Color.FromArgb(255, 0, 255, 0));
+                        AddText(new Vector2(chest.X, chest.Y), "T");
                     }
                 }
             }
@@ -140,6 +158,7 @@ namespace DigimonWorld2Tool.Rendering
                     for (int y = 0; y < TileSizeHeight; y++)
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(trap.X * TileSizeWidth + x, trap.Y * TileSizeHeight + y, Color.Yellow);
+                        
                     }
                 }
             }
@@ -183,6 +202,21 @@ namespace DigimonWorld2Tool.Rendering
                 }
             }
             ApplyFloorBitmapToPictureBox();
+        }
+
+        private void AddText(Vector2 pos, string text)
+        {
+            pos.x *= TileSizeWidth;
+            pos.y *= TileSizeHeight;
+            RectangleF rectf = new RectangleF(pos.x + (TileSizeWidth / 10), pos.y + (TileSizeHeight / 10), TileSizeWidth, TileSizeHeight + TileSizeHeight / 10);
+
+            Graphics g = Graphics.FromImage(CurrentDrawnMapLayoutBitmap);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.DrawString(text, new Font("Tahoma", TileSizeHeight / 1.6f), Brushes.Black, rectf);
+
+            g.Flush();
         }
 
         private void ApplyFloorBitmapToPictureBox()

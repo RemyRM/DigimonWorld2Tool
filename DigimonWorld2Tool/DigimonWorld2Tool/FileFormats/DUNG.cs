@@ -263,7 +263,7 @@ namespace DigimonWorld2Tool.FileFormats
 
         private int DungFloorLayoutHeaderBasePointer { get; set; }
 
-        public int FloorLayoutPointer { get; private    set; }
+        public int FloorLayoutPointer { get; private set; }
         public byte[] FloorLayoutData { get; private set; } = new byte[1536]; //All the layout data for a given map is 1536 bytes long (32x48)
 
         private int FloorLayoutWarpsPointer { get; set; }
@@ -476,17 +476,53 @@ namespace DigimonWorld2Tool.FileFormats
 
     public class DungFloorTrap : IDungLayoutObject
     {
-        public byte[] TypeAndLevel { get; private set; } = new byte[4];
+        public enum TrapType : byte
+        {
+            None = 0,
+            Swamp = 1,
+            Spore = 2,
+            Rock = 3,
+            Mine = 4,
+            Bit_Bug = 5,
+            Energy_Bug = 6,
+            Return_Bug = 7,
+            Memory_bug = 8,
+        }
+        public enum TrapLevel : byte
+        {
+            Zero = 0,
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5
+        }
+
+        private byte[] TypeAndLevelData { get; set; } = new byte[4];
+        public TrapTypeAndLevel[] TypeAndLevel { get; private set; } = new TrapTypeAndLevel[4];
 
         public DungFloorTrap(byte[] data)
         {
             X = data[0];
             Y = data[1];
 
-            //Start at 2 to offset X and Y
-            for (int i = 2; i < TypeAndLevel.Length; i++)
+            for (int i = 0; i < TypeAndLevelData.Length; i++)
             {
-                TypeAndLevel[0] = data[i];
+                //Start at 2 to offset X and Y
+                TypeAndLevelData[i] = data[i + 2];
+                TypeAndLevel[i] = new TrapTypeAndLevel(data[i + 2]);
+            }
+        }
+
+        public class TrapTypeAndLevel
+        {
+            public TrapType Type { get; private set; }
+            public TrapLevel Level { get; private set; }
+
+            public TrapTypeAndLevel(byte data)
+            {
+                Type = (TrapType)data.GetRightHalfByte();
+                Level = (TrapLevel)data.GetLeftHalfByte();
             }
         }
     }

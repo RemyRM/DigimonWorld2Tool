@@ -78,9 +78,12 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutPictureBox
             // 
-            this.FloorLayoutPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.FloorLayoutPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutPictureBox.BackColor = System.Drawing.Color.Black;
             this.FloorLayoutPictureBox.Location = new System.Drawing.Point(10, 100);
+            this.FloorLayoutPictureBox.MinimumSize = new System.Drawing.Size(640, 480);
             this.FloorLayoutPictureBox.Name = "FloorLayoutPictureBox";
             this.FloorLayoutPictureBox.Size = new System.Drawing.Size(733, 550);
             this.FloorLayoutPictureBox.TabIndex = 3;
@@ -131,6 +134,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton1
             // 
+            this.FloorLayoutButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton1.FlatAppearance.BorderSize = 3;
@@ -146,6 +150,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton2
             // 
+            this.FloorLayoutButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton2.FlatAppearance.BorderSize = 3;
@@ -161,6 +166,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton3
             // 
+            this.FloorLayoutButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton3.FlatAppearance.BorderSize = 3;
@@ -176,6 +182,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton4
             // 
+            this.FloorLayoutButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton4.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton4.FlatAppearance.BorderSize = 3;
@@ -191,6 +198,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton5
             // 
+            this.FloorLayoutButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton5.FlatAppearance.BorderSize = 3;
@@ -206,6 +214,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton6
             // 
+            this.FloorLayoutButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton6.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton6.FlatAppearance.BorderSize = 3;
@@ -221,6 +230,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton7
             // 
+            this.FloorLayoutButton7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton7.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton7.FlatAppearance.BorderSize = 3;
@@ -236,6 +246,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorLayoutButton8
             // 
+            this.FloorLayoutButton8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.FloorLayoutButton8.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.FloorLayoutButton8.FlatAppearance.BorderSize = 3;
@@ -295,6 +306,7 @@ namespace DigimonWorld2Tool.Views
             this.Controls.Add(this.FloorLayoutPictureBox);
             this.Controls.Add(this.DungDirLabel);
             this.Controls.Add(this.SelectDungDirButton);
+            this.MinimumSize = new System.Drawing.Size(1100, 660);
             this.Name = "DungWindow";
             this.Size = new System.Drawing.Size(1100, 660);
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).EndInit();

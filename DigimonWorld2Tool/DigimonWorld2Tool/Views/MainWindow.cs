@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using DigimonWorld2Tool.Utility;
+using DigimonWorld2Tool.Interfaces;
 
 namespace DigimonWorld2Tool.Views
 {
     public partial class MainWindow : Form
     {
+        private const AnchorStyles AnchorAll = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
+
         public static Control CurrentControl { get; private set; }
 
         public MainWindow()
@@ -25,17 +29,31 @@ namespace DigimonWorld2Tool.Views
             if (CurrentControl != null)
                 MainWindowHostPanel.Controls.Remove(CurrentControl);
 
-            CurrentControl = new DungWindow();
+            CurrentControl = new DungWindow
+            {
+                Anchor = AnchorAll,
+                MinimumSize = new Size(1100, 660)
+            };
             MainWindowHostPanel.Controls.Add(CurrentControl);
         }
 
         private void OpenTexturesWindowButton_Click(object sender, EventArgs e)
         {
-            if(CurrentControl != null)
+            if (CurrentControl != null)
                 MainWindowHostPanel.Controls.Remove(CurrentControl);
 
-            CurrentControl = new TextureWindow();
+            CurrentControl = new TextureWindow
+            {
+                Anchor = AnchorAll,
+                MinimumSize = new Size(1100, 660)
+            };
+
             MainWindowHostPanel.Controls.Add(CurrentControl);
-        }       
+        }
+
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+            ((IHostWindow)CurrentControl).OnWindowResizeEnded();
+        }
     }
 }

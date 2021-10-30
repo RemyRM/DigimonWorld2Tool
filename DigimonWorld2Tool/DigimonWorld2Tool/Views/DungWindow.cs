@@ -3,17 +3,18 @@ using System.IO;
 using System.Linq;
 using System.Data;
 using System.Drawing;
-using System.Windows.Forms;
-using DigimonWorld2Tool.Utility;
-using DigimonWorld2Tool.FileFormats;
 using System.Diagnostics;
+using System.Windows.Forms;
 using System.Collections.Generic;
-using DigimonWorld2MapTool.Utility;
+
+using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Rendering;
+using DigimonWorld2Tool.Interfaces;
+using DigimonWorld2Tool.FileFormats;
 
 namespace DigimonWorld2Tool.Views
 {
-    public partial class DungWindow : UserControl
+    public partial class DungWindow : UserControl, IHostWindow
     {
         public static DungWindow Instance { get; private set; }
 
@@ -64,7 +65,7 @@ namespace DigimonWorld2Tool.Views
         private Button LastPressedFloorLayoutButton { get; set; }
 
         private Dictionary<int, int> DistinctFloorLayoutPointersOccurance { get; set; } = new Dictionary<int, int>();
-        
+
 
         public DungWindow()
         {
@@ -72,7 +73,6 @@ namespace DigimonWorld2Tool.Views
             InitializeComponent();
             this.BackColor = (Color)Settings.Settings.BackgroundColour;
             this.ForeColor = (Color)Settings.Settings.TextColour;
-            Colours.SetColourScheme(this.Controls);
 
             FloorLayoutButtons[0] = FloorLayoutButton1;
             FloorLayoutButtons[1] = FloorLayoutButton2;
@@ -86,17 +86,23 @@ namespace DigimonWorld2Tool.Views
             new DUNGLayoutRenderer(FloorLayoutPictureBox);
 
             LoadUserSettings();
+            Colours.SetColourScheme(this.Controls);
 
             PostInit();
         }
 
-        private void PostInit()
+        public void PostInit()
         {
             if (DungFileDir != "")
             {
                 DungFileNames = GetFileNamesInDungDirectory();
                 PopulateDomainNamesComboBox(SelectDungComboBox);
             }
+        }
+
+        void IHostWindow.OnWindowResizeEnded()
+        {
+            FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
         }
 
         private void LoadUserSettings()

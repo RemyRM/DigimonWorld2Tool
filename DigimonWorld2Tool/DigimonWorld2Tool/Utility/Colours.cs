@@ -12,7 +12,6 @@ namespace DigimonWorld2Tool.Utility
         {
             foreach (Control component in controls)
             {
-                
                 if(component.Parent is Form)
                 {
                     component.BackColor = (Color)Settings.Settings.BackgroundColour;

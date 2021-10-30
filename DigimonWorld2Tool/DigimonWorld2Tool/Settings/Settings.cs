@@ -54,7 +54,7 @@ namespace DigimonWorld2Tool.Settings
             get
             {
                 if (buttonBackgroundColour == null)
-                    buttonBackgroundColour = IsUsingDarkMode ? Color.FromArgb(24, 24, 24) : Color.FromArgb(240, 240, 240);
+                    buttonBackgroundColour = IsUsingDarkMode ? Color.FromArgb(24, 24, 24) : Color.FromArgb(210, 210, 210);
 
                 return buttonBackgroundColour;
             }

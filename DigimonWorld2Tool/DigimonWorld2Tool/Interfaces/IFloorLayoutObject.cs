@@ -1,7 +1,7 @@
-﻿using DigimonWorld2MapTool.Utility;
+﻿using DigimonWorld2Tool.Utility;
 using System.Drawing;
 
-namespace DigimonWorld2MapTool.Interfaces
+namespace DigimonWorld2Tool.Interfaces
 {
     public interface IFloorLayoutObject
     {

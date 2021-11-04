@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Utility;
 
 namespace DigimonWorld2Tool.Textures.Headers
 {

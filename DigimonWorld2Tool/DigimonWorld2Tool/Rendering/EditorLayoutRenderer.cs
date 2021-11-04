@@ -1,5 +1,5 @@
-﻿using DigimonWorld2MapTool.Domains;
-using DigimonWorld2MapTool.Utility;
+﻿using DigimonWorld2Tool.Domains;
+using DigimonWorld2Tool.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

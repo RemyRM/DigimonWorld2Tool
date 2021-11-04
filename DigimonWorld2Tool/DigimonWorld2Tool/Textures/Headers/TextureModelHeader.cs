@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Utility;
 
 namespace DigimonWorld2Tool.Textures.Headers
 {

@@ -1,4 +1,4 @@
-﻿using DigimonWorld2MapTool.Utility;
+﻿using DigimonWorld2Tool.Utility;
 using System.IO;
 
 namespace DigimonWorld2Tool.Textures.Headers

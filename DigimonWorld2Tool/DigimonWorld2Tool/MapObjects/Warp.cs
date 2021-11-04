@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
-using DigimonWorld2MapTool.Interfaces;
-using DigimonWorld2MapTool.Utility;
-using static DigimonWorld2MapTool.BinReader;
+using DigimonWorld2Tool.Interfaces;
+using DigimonWorld2Tool.Utility;
+using static DigimonWorld2Tool.BinReader;
 
-namespace DigimonWorld2MapTool.MapObjects
+namespace DigimonWorld2Tool.MapObjects
 {
     public class Warp : IFloorLayoutObject
     {

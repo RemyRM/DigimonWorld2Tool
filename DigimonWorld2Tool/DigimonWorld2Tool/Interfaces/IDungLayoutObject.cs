@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Utility;
 
 namespace DigimonWorld2Tool.Interfaces
 {

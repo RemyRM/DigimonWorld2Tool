@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DigimonWorld2MapTool.Utility
+namespace DigimonWorld2Tool.Utility
 {
     public class TextConversion
     {
@@ -299,6 +299,8 @@ namespace DigimonWorld2MapTool.Utility
 
         public static string DigiStringToASCII(byte[] input)
         {
+            if (input == null)
+                return "No input data given";
             string converted = "";
             foreach (var item in input)
                 converted += GetReplacementChar(item, CharacterLookupTable, "");

@@ -1,10 +1,11 @@
-﻿using DigimonWorld2MapTool.Utility;
+﻿using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.FileFormats;
 using DigimonWorld2Tool.Views;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -51,6 +52,7 @@ namespace DigimonWorld2Tool.Rendering
             {TileType.Nature, Color.DarkGreen},
             {TileType.Machine, Color.FromArgb(255, 184, 165, 24)},
             {TileType.Dark, Color.DarkMagenta},
+            {TileType.Override, Color.Magenta }
         };
 
         public DUNGLayoutRenderer(PictureBox floorLayoutPictureBox)
@@ -114,15 +116,15 @@ namespace DigimonWorld2Tool.Rendering
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(warp.X * TileSizeWidth + x, warp.Y * TileSizeHeight + y, Color.Cyan);
                         string warpTypeChar = "w";
-                        switch (warp.Type)
+                        switch ((WarpType)warp.Type)
                         {
-                            case DungFloorWarp.WarpType.Entrance:
+                            case WarpType.Entrance:
                                 warpTypeChar = "E";
                                 break;
-                            case DungFloorWarp.WarpType.Next:
+                            case WarpType.Next:
                                 warpTypeChar = "N";
                                 break;
-                            case DungFloorWarp.WarpType.Exit:
+                            case WarpType.Exit:
                                 warpTypeChar = "X";
                                 break;
                             default:
@@ -158,7 +160,39 @@ namespace DigimonWorld2Tool.Rendering
                     for (int y = 0; y < TileSizeHeight; y++)
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(trap.X * TileSizeWidth + x, trap.Y * TileSizeHeight + y, Color.Yellow);
-                        
+                        string trapTypeChar;
+
+                        DungFloorTrap.TrapTypeAndLevel notNullTrap = trap.TypeAndLevel.FirstOrDefault(o => (TrapLevel)o.Level != TrapLevel.Zero);
+
+                        switch ((TrapType)notNullTrap.Type)
+                        {
+                            case TrapType.None:
+                                trapTypeChar = "-";
+                                break;
+                            case TrapType.Swamp:
+                                trapTypeChar = "A";
+                                break;
+                            case TrapType.Spore:
+                                trapTypeChar = "S";
+                                break;
+                            case TrapType.Rock:
+                                trapTypeChar = "R";
+                                break;
+                            case TrapType.Mine:
+                                trapTypeChar = "M";
+                                break;
+                            case TrapType.Bit_Bug:
+                            case TrapType.Energy_Bug:
+                            case TrapType.Return_Bug:
+                            case TrapType.Memory_bug:
+                                trapTypeChar = "B";
+                                break;
+                            default:
+                                trapTypeChar = "T";
+                                break;
+                        }
+
+                        AddText(new Vector2(trap.X, trap.Y), trapTypeChar);
                     }
                 }
             }

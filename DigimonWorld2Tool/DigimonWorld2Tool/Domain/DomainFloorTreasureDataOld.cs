@@ -1,4 +1,4 @@
-﻿namespace DigimonWorld2MapTool.Domains
+﻿namespace DigimonWorld2Tool.Domains
 {
     public class DomainFloorTreasureDataOld
     {

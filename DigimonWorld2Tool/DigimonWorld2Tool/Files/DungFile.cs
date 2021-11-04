@@ -1,4 +1,4 @@
-﻿namespace DigimonWorld2MapTool.Files
+﻿namespace DigimonWorld2Tool.Files
 {
     public class DungFile
     {

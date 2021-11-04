@@ -46,7 +46,16 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton8 = new System.Windows.Forms.Button();
             this.DrawGridCheckBox = new System.Windows.Forms.CheckBox();
             this.MousePositionLabel = new System.Windows.Forms.Label();
+            this.ObjectInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.SlotFourLabel = new System.Windows.Forms.Label();
+            this.SlotThreeLabel = new System.Windows.Forms.Label();
+            this.SlotTwoLabel = new System.Windows.Forms.Label();
+            this.SlotOneLabel = new System.Windows.Forms.Label();
+            this.PositionLabel = new System.Windows.Forms.Label();
+            this.SubTypeLabel = new System.Windows.Forms.Label();
+            this.TypeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).BeginInit();
+            this.ObjectInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SelectDungDirButton
@@ -88,6 +97,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutPictureBox.Size = new System.Drawing.Size(733, 550);
             this.FloorLayoutPictureBox.TabIndex = 3;
             this.FloorLayoutPictureBox.TabStop = false;
+            this.FloorLayoutPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FloorLayoutPictureBox_MouseClick);
             this.FloorLayoutPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DisplayMousePositionOnGrid);
             // 
             // SelectDungLabel
@@ -284,11 +294,94 @@ namespace DigimonWorld2Tool.Views
             this.MousePositionLabel.TabIndex = 17;
             this.MousePositionLabel.Text = "X:00 Y:00";
             // 
+            // ObjectInfoGroupBox
+            // 
+            this.ObjectInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotFourLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotThreeLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotTwoLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotOneLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.PositionLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.SubTypeLabel);
+            this.ObjectInfoGroupBox.Controls.Add(this.TypeLabel);
+            this.ObjectInfoGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ObjectInfoGroupBox.ForeColor = System.Drawing.Color.White;
+            this.ObjectInfoGroupBox.Location = new System.Drawing.Point(793, 401);
+            this.ObjectInfoGroupBox.Name = "ObjectInfoGroupBox";
+            this.ObjectInfoGroupBox.Size = new System.Drawing.Size(293, 249);
+            this.ObjectInfoGroupBox.TabIndex = 18;
+            this.ObjectInfoGroupBox.TabStop = false;
+            this.ObjectInfoGroupBox.Text = "Object info";
+            // 
+            // SlotFourLabel
+            // 
+            this.SlotFourLabel.AutoSize = true;
+            this.SlotFourLabel.Location = new System.Drawing.Point(6, 213);
+            this.SlotFourLabel.Name = "SlotFourLabel";
+            this.SlotFourLabel.Size = new System.Drawing.Size(44, 19);
+            this.SlotFourLabel.TabIndex = 6;
+            this.SlotFourLabel.Text = "Slot 4";
+            // 
+            // SlotThreeLabel
+            // 
+            this.SlotThreeLabel.AutoSize = true;
+            this.SlotThreeLabel.Location = new System.Drawing.Point(6, 176);
+            this.SlotThreeLabel.Name = "SlotThreeLabel";
+            this.SlotThreeLabel.Size = new System.Drawing.Size(44, 19);
+            this.SlotThreeLabel.TabIndex = 5;
+            this.SlotThreeLabel.Text = "Slot 3";
+            // 
+            // SlotTwoLabel
+            // 
+            this.SlotTwoLabel.AutoSize = true;
+            this.SlotTwoLabel.Location = new System.Drawing.Point(6, 139);
+            this.SlotTwoLabel.Name = "SlotTwoLabel";
+            this.SlotTwoLabel.Size = new System.Drawing.Size(44, 19);
+            this.SlotTwoLabel.TabIndex = 4;
+            this.SlotTwoLabel.Text = "Slot 2";
+            // 
+            // SlotOneLabel
+            // 
+            this.SlotOneLabel.AutoSize = true;
+            this.SlotOneLabel.Location = new System.Drawing.Point(7, 99);
+            this.SlotOneLabel.Name = "SlotOneLabel";
+            this.SlotOneLabel.Size = new System.Drawing.Size(44, 19);
+            this.SlotOneLabel.TabIndex = 3;
+            this.SlotOneLabel.Text = "Slot 1";
+            // 
+            // PositionLabel
+            // 
+            this.PositionLabel.AutoSize = true;
+            this.PositionLabel.Location = new System.Drawing.Point(6, 64);
+            this.PositionLabel.Name = "PositionLabel";
+            this.PositionLabel.Size = new System.Drawing.Size(57, 19);
+            this.PositionLabel.TabIndex = 2;
+            this.PositionLabel.Text = "Position";
+            // 
+            // SubTypeLabel
+            // 
+            this.SubTypeLabel.AutoSize = true;
+            this.SubTypeLabel.Location = new System.Drawing.Point(147, 33);
+            this.SubTypeLabel.Name = "SubTypeLabel";
+            this.SubTypeLabel.Size = new System.Drawing.Size(63, 19);
+            this.SubTypeLabel.TabIndex = 1;
+            this.SubTypeLabel.Text = "Sub type";
+            // 
+            // TypeLabel
+            // 
+            this.TypeLabel.AutoSize = true;
+            this.TypeLabel.Location = new System.Drawing.Point(6, 30);
+            this.TypeLabel.Name = "TypeLabel";
+            this.TypeLabel.Size = new System.Drawing.Size(37, 19);
+            this.TypeLabel.TabIndex = 0;
+            this.TypeLabel.Text = "Type";
+            // 
             // DungWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.Controls.Add(this.ObjectInfoGroupBox);
             this.Controls.Add(this.MousePositionLabel);
             this.Controls.Add(this.DrawGridCheckBox);
             this.Controls.Add(this.FloorLayoutButton8);
@@ -310,6 +403,8 @@ namespace DigimonWorld2Tool.Views
             this.Name = "DungWindow";
             this.Size = new System.Drawing.Size(1100, 660);
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).EndInit();
+            this.ObjectInfoGroupBox.ResumeLayout(false);
+            this.ObjectInfoGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,5 +428,13 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.Button FloorLayoutButton8;
         internal System.Windows.Forms.CheckBox DrawGridCheckBox;
         private System.Windows.Forms.Label MousePositionLabel;
+        private System.Windows.Forms.GroupBox ObjectInfoGroupBox;
+        private System.Windows.Forms.Label SlotFourLabel;
+        private System.Windows.Forms.Label SlotThreeLabel;
+        private System.Windows.Forms.Label SlotTwoLabel;
+        private System.Windows.Forms.Label SlotOneLabel;
+        private System.Windows.Forms.Label PositionLabel;
+        private System.Windows.Forms.Label SubTypeLabel;
+        private System.Windows.Forms.Label TypeLabel;
     }
 }

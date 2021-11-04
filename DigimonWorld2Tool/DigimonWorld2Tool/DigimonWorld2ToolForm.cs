@@ -7,11 +7,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
 
-using DigimonWorld2MapTool.Files;
-using DigimonWorld2MapTool.Domains;
-using DigimonWorld2MapTool.Utility;
-using DigimonWorld2MapTool.Interfaces;
-using DigimonWorld2MapTool.MapObjects;
+using DigimonWorld2Tool.Files;
+using DigimonWorld2Tool.Domains;
+using DigimonWorld2Tool.Utility;
+using DigimonWorld2Tool.Interfaces;
+using DigimonWorld2Tool.MapObjects;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.UserControls;
 using DigimonWorld2Tool.Textures;

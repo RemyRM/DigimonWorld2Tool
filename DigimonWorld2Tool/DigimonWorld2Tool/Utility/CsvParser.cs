@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace DigimonWorld2Tool.Utility
@@ -9,6 +10,9 @@ namespace DigimonWorld2Tool.Utility
     {
         public static List<string[]> Parse(string fileName)
         {
+            if (!File.Exists(fileName))
+                return null;
+
             using (TextFieldParser parser = new TextFieldParser(fileName))
             {
                 parser.SetDelimiters(",");

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DigimonWorld2MapTool;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool;
+using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Interfaces;
 
 namespace DigimonWorld2Tool.FileFormats
@@ -81,7 +81,7 @@ namespace DigimonWorld2Tool.FileFormats
         private int DomainFloorBasePointer { get; set; }
         private int DomainFloorNamePointer { get; set; }
 
-        public string FloorName { get; private set; }
+        public byte[] FloorNameData { get; private set; }
         public int ScriptID { get; private set; }
 
         public DungFloorLayoutHeader[] DungFloorLayoutHeaders { get; private set; } = new DungFloorLayoutHeader[8];
@@ -100,10 +100,8 @@ namespace DigimonWorld2Tool.FileFormats
 
             DomainFloorBasePointer = startFloorDataPointer;
             DomainFloorNamePointer = BinReader.GetPointer(RawFileData, startFloorDataPointer);
-            FloorName = GetFloorName();
+            FloorNameData = GetFloorNameData();
             ScriptID = GetScriptID();
-
-            DungFloorLayoutHeaders = GetFloorLayoutPointers();
 
             WallTextureID = GetWallTextureID();
             FloorTypeOverride = GetFloorTypeOverride();
@@ -111,6 +109,8 @@ namespace DigimonWorld2Tool.FileFormats
 
             DigimonEncounterTable = GetDigimonEncounterTable();
             FloorTreasureTable = GetFloorTreasureTable();
+
+            DungFloorLayoutHeaders = GetFloorLayoutPointers();
         }
 
         /// <summary>
@@ -118,12 +118,10 @@ namespace DigimonWorld2Tool.FileFormats
         /// Gets parsed by <see cref="TextConversion.DigiStringToASCII(byte[])"/> to be translated to english.
         /// </summary>
         /// <returns>ASCII string containing the name of the floor</returns>
-        private string GetFloorName()
+        private byte[] GetFloorNameData()
         {
             int delimiterIndex = Array.IndexOf(RawFileData, (byte)0xFF, DomainFloorNamePointer);
-            byte[] nameData = RawFileData[DomainFloorNamePointer..delimiterIndex];
-
-            return TextConversion.DigiStringToASCII(nameData);
+            return RawFileData[DomainFloorNamePointer..delimiterIndex];
         }
 
         /// <summary>
@@ -181,13 +179,6 @@ namespace DigimonWorld2Tool.FileFormats
         /// <returns>A byte array with lenght of 3, containing the trap level(s)</returns>
         private short GetTrapLevel()
         {
-            //byte[] results = new byte[3];
-            //int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TrapLevel;
-
-            //for (int i = 0; i < results.Length; i++)
-            //    results[i] = RawFileData[startAddress + i];
-
-            //return results;
             int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TrapLevel;
             return BitConverter.ToInt16(RawFileData[startAddress..(startAddress + 2)]);
         }
@@ -441,20 +432,13 @@ namespace DigimonWorld2Tool.FileFormats
 
     public class DungFloorWarp : IDungLayoutObject
     {
-        public enum WarpType
-        {
-            Entrance = 0,
-            Next = 1,
-            Exit = 2,
-        }
-
-        public WarpType Type { get; private set; }
+        public byte Type { get; private set; }
 
         public DungFloorWarp(byte[] data)
         {
             X = data[0];
             Y = data[1];
-            Type = (WarpType)data[2];
+            Type = data[2];
         }
     }
 
@@ -476,28 +460,6 @@ namespace DigimonWorld2Tool.FileFormats
 
     public class DungFloorTrap : IDungLayoutObject
     {
-        public enum TrapType : byte
-        {
-            None = 0,
-            Swamp = 1,
-            Spore = 2,
-            Rock = 3,
-            Mine = 4,
-            Bit_Bug = 5,
-            Energy_Bug = 6,
-            Return_Bug = 7,
-            Memory_bug = 8,
-        }
-        public enum TrapLevel : byte
-        {
-            Zero = 0,
-            One = 1,
-            Two = 2,
-            Three = 3,
-            Four = 4,
-            Five = 5
-        }
-
         private byte[] TypeAndLevelData { get; set; } = new byte[4];
         public TrapTypeAndLevel[] TypeAndLevel { get; private set; } = new TrapTypeAndLevel[4];
 
@@ -516,29 +478,35 @@ namespace DigimonWorld2Tool.FileFormats
 
         public class TrapTypeAndLevel
         {
-            public TrapType Type { get; private set; }
-            public TrapLevel Level { get; private set; }
+            public byte Type { get; private set; }
+            public byte Level { get; private set; }
 
             public TrapTypeAndLevel(byte data)
             {
-                Type = (TrapType)data.GetRightHalfByte();
-                Level = (TrapLevel)data.GetLeftHalfByte();
+                Type = data.GetRightHalfByte();
+                Level = data.GetLeftHalfByte();
             }
         }
     }
 
+    /// <summary>
+    /// The way digimons on a floor are picked is as follows:
+    /// The information on a layout has an ID that is look up against <see cref="DungFloorHeader.DigimonEncounterTable"/>
+    /// This table got a list of ID's that is the "pack Id". This ID is mapped to a modelID in AN UNKNOWN FILE (currently using a csv mapping)
+    /// The ModelID found in there corresponds to an entry in DIGIMONSET.BIN which contains all the information for that enemy set
+    /// </summary>
     public class DungFloorDigimon : IDungLayoutObject
     {
-        public byte[] DigimonPackID { get; private set; } = new byte[4];
+        public byte[] DigimonPackIndex { get; private set; } = new byte[4];
 
         public DungFloorDigimon(byte[] data)
         {
             X = data[0];
             Y = data[1];
-            DigimonPackID[0] = data[2].GetLeftHalfByte();
-            DigimonPackID[1] = data[2].GetRightHalfByte();
-            DigimonPackID[2] = data[3].GetLeftHalfByte();
-            DigimonPackID[3] = data[3].GetRightHalfByte();
+            DigimonPackIndex[0] = data[2].GetLeftHalfByte();
+            DigimonPackIndex[1] = data[2].GetRightHalfByte();
+            DigimonPackIndex[2] = data[3].GetLeftHalfByte();
+            DigimonPackIndex[3] = data[3].GetRightHalfByte();
         }
     }
 }

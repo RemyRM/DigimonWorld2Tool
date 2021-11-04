@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DigimonWorld2MapTool.Utility
+namespace DigimonWorld2Tool.Utility
 {
     public struct Vector2
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DigimonWorld2MapTool.Domains;
+using DigimonWorld2Tool.Domains;
 using DigimonWorld2Tool;
 
-namespace DigimonWorld2MapTool
+namespace DigimonWorld2Tool
 {
     public static class BinReader
     {
@@ -62,7 +62,6 @@ namespace DigimonWorld2MapTool
         /// each segment is of length <see cref="dataSegmentLength"/>.
         /// </summary>
         /// <param name="pointerStartIndex">The index at which the list starts</param>
-        /// <param name="dataSegmentLength">The data length of each entry in the list</param>
         /// <param name="delimiter">The delimiter to which we read. (Standard 0xFF)</param>
         /// <returns>A list containing all entries found</returns>
         public static List<byte[]> ReadBytesToDelimiter(byte[] inputData, int pointerStartIndex, int segmentLength, byte[] delimiter)

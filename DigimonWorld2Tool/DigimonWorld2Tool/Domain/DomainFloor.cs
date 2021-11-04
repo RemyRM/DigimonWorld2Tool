@@ -1,10 +1,10 @@
-﻿using DigimonWorld2MapTool.Utility;
+﻿using DigimonWorld2Tool.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static DigimonWorld2MapTool.BinReader;
+using static DigimonWorld2Tool.BinReader;
 
-namespace DigimonWorld2MapTool.Domains
+namespace DigimonWorld2Tool.Domains
 {
     public class DomainFloor
     {

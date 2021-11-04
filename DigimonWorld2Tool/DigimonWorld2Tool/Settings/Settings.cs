@@ -1,4 +1,5 @@
-﻿using DigimonWorld2Tool.Utility;
+﻿using DigimonWorld2Tool.FileFormats;
+using DigimonWorld2Tool.Utility;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,45 @@ namespace DigimonWorld2Tool.Settings
                 //Trim the first 6 characters off the start of the path to remove "file://"
                 return dllLocation[6..];
             }
+        }
 
+        public static string DIGIMNDTFilePath{ get => $"{BaseDllDirectory}/Resources/DataFiles/DIGIMNDT.BIN"; }
+        private static DIGIMNDT _DIGIMNDTFile;
+        public static DIGIMNDT DIGIMNDTFile
+        {
+            get
+            {
+                if (_DIGIMNDTFile == null)
+                    _DIGIMNDTFile = new DIGIMNDT();
+
+                return _DIGIMNDTFile;
+            }
+        }
+
+        public static string ENEMYSETFilePath { get => $"{BaseDllDirectory}/Resources/DataFiles/ENEMYSET.BIN"; }
+        private static ENEMYSET _ENEMYSETFile;
+        public static ENEMYSET ENEMYSETFile
+        {
+            get
+            {
+                if (_ENEMYSETFile == null)
+                    _ENEMYSETFile = new ENEMYSET();
+
+                return _ENEMYSETFile;
+            }
+        }
+
+        public static string MODELDT0FilePath { get => $"{BaseDllDirectory}/Resources/DataFiles/MODELDT0.BIN"; }
+        private static MODELDT0 _MODELDT0File;
+        public static MODELDT0 MODELDT0File
+        {
+            get
+            {
+                if (_MODELDT0File == null)
+                    _MODELDT0File = new MODELDT0();
+
+                return _MODELDT0File;
+            }
         }
 
         private static bool isUsingDarkModeIsSet;
@@ -26,7 +65,7 @@ namespace DigimonWorld2Tool.Settings
         {
             get
             {
-                if(!isUsingDarkModeIsSet)
+                if (!isUsingDarkModeIsSet)
                 {
                     isUsingDarkMode = (int)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", 1) == 0;
                     isUsingDarkModeIsSet = true;
@@ -41,8 +80,8 @@ namespace DigimonWorld2Tool.Settings
         {
             get
             {
-                if(backgroundColour == null)
-                    backgroundColour = IsUsingDarkMode ? Color.FromArgb(18,18,18) : Color.FromArgb(230,230,230); 
+                if (backgroundColour == null)
+                    backgroundColour = IsUsingDarkMode ? Color.FromArgb(18, 18, 18) : Color.FromArgb(230, 230, 230);
 
                 return backgroundColour;
             }
@@ -65,7 +104,7 @@ namespace DigimonWorld2Tool.Settings
         {
             get
             {
-                if(buttonSelectedBackgroundColour== null)
+                if (buttonSelectedBackgroundColour == null)
                     buttonSelectedBackgroundColour = IsUsingDarkMode ? Color.FromArgb(50, 50, 50) : Color.FromArgb(190, 240, 240);
 
                 return buttonSelectedBackgroundColour;
@@ -78,7 +117,7 @@ namespace DigimonWorld2Tool.Settings
             get
             {
                 if (panelBackgroundColour == null)
-                    panelBackgroundColour = IsUsingDarkMode ? Color.FromArgb(24,24,24) : Color.FromArgb(255,255,255);
+                    panelBackgroundColour = IsUsingDarkMode ? Color.FromArgb(24, 24, 24) : Color.FromArgb(255, 255, 255);
 
                 return panelBackgroundColour;
             }
@@ -90,7 +129,7 @@ namespace DigimonWorld2Tool.Settings
             get
             {
                 if (textColour == null)
-                    textColour = IsUsingDarkMode ? Color.FromArgb(255,255,255) : Color.FromArgb(0,0,0);
+                    textColour = IsUsingDarkMode ? Color.FromArgb(255, 255, 255) : Color.FromArgb(0, 0, 0);
 
                 return textColour;
             }

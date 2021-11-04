@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DigimonWorld2MapTool.Interfaces;
-using DigimonWorld2MapTool.MapObjects;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Interfaces;
+using DigimonWorld2Tool.MapObjects;
+using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool;
-using static DigimonWorld2MapTool.BinReader;
+using static DigimonWorld2Tool.BinReader;
 using System.Drawing;
 
-namespace DigimonWorld2MapTool.Domains
+namespace DigimonWorld2Tool.Domains
 {
     public class DomainMapLayout
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using DigimonWorld2MapTool.Utility;
+using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool;
 using System.Linq;
 
-namespace DigimonWorld2MapTool.Domains
+namespace DigimonWorld2Tool.Domains
 {
     public class DomainTileCombo
     {

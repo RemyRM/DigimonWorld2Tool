@@ -61,6 +61,20 @@ namespace DigimonWorld2Tool.Views
             private set => loadedDungFloorHeader = value;
         }
 
+        private DungFloorLayoutHeader loadedDungFloorLayout;
+        public DungFloorLayoutHeader LoadedDungFloorLayout
+        {
+            get => loadedDungFloorLayout;
+            private set => loadedDungFloorLayout = value;
+        }
+
+        private DUNGInterpreter dungInterpreter;
+        public DUNGInterpreter DungInterpreter
+        {
+            get => dungInterpreter;
+            private set => dungInterpreter = value;
+        }
+
         private Button[] FloorLayoutButtons { get; set; } = new Button[8];
         private Button LastPressedFloorLayoutButton { get; set; }
 
@@ -83,7 +97,12 @@ namespace DigimonWorld2Tool.Views
             FloorLayoutButtons[6] = FloorLayoutButton7;
             FloorLayoutButtons[7] = FloorLayoutButton8;
 
-            new DUNGLayoutRenderer(FloorLayoutPictureBox);
+
+            //Warm up some settings files
+            _ = new DUNGLayoutRenderer(FloorLayoutPictureBox);
+            _ = Settings.Settings.DIGIMNDTFile;
+            _ = Settings.Settings.ENEMYSETFile;
+            _ = Settings.Settings.MODELDT0File;
 
             LoadUserSettings();
             Colours.SetColourScheme(this.Controls);
@@ -100,7 +119,7 @@ namespace DigimonWorld2Tool.Views
             }
         }
 
-        void IHostWindow.OnWindowResizeEnded()
+        public void OnWindowResizeEnded()
         {
             FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
         }
@@ -155,8 +174,7 @@ namespace DigimonWorld2Tool.Views
             string[] mappedFileNames = new string[fileNames.Length];
             for (int i = 0; i < mappedFileNames.Length; i++)
             {
-                var a = Settings.Settings.DungMapping;
-                var result = a.FirstOrDefault(o => o.Filename == fileNames[i]);
+                var result = Settings.Settings.DungMapping.FirstOrDefault(o => o.Filename == fileNames[i]);
                 if (result == null)
                     mappedFileNames[i] = fileNames[i];
                 else
@@ -200,17 +218,19 @@ namespace DigimonWorld2Tool.Views
         private void SerializeDungFile(byte[] data)
         {
             LoadedDungFile = new DUNG(data);
+            DungInterpreter = new DUNGInterpreter(LoadedDungFile, LoadedDungFloorHeader);
         }
 
         private void PopulateSelectDungFloorComboBox()
         {
-            SelectDungFloorComboBox.DataSource = LoadedDungFile.DungFloorHeaders.Select(floorHeader => floorHeader.FloorName).ToList();
+            SelectDungFloorComboBox.DataSource = LoadedDungFile.DungFloorHeaders.Select(floorHeader => DUNGInterpreter.GetFloorName(floorHeader.FloorNameData)).ToList();
         }
 
         private void SelectDungFloorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cBox = (ComboBox)sender;
             LoadSelectedFloorData((string)cBox.SelectedItem);
+            DungInterpreter.UpdateDungFloor(LoadedDungFloorHeader);
 
             FloorLayoutButton_Click(FloorLayoutButton1, null);
         }
@@ -218,7 +238,7 @@ namespace DigimonWorld2Tool.Views
         private void LoadSelectedFloorData(string floorName)
         {
             DistinctFloorLayoutPointersOccurance = new Dictionary<int, int>();
-            LoadedDungFloorHeader = loadedDungFile.DungFloorHeaders.FirstOrDefault(o => o.FloorName == floorName);
+            LoadedDungFloorHeader = loadedDungFile.DungFloorHeaders.FirstOrDefault(floorHeader => DUNGInterpreter.GetFloorName(floorHeader.FloorNameData) == floorName);
             if (LoadedDungFloorHeader == null)
                 return;
 
@@ -250,11 +270,11 @@ namespace DigimonWorld2Tool.Views
 
             var buttonId = FloorLayoutButtons.ToList().IndexOf(button);
             int distinctHeaderPointer = DistinctFloorLayoutPointersOccurance.ElementAt(buttonId).Key;
-            var selectedFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders.FirstOrDefault(o => o.FloorLayoutPointer == distinctHeaderPointer);
-            if (selectedFloorLayout == null)
+            LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders.FirstOrDefault(o => o.FloorLayoutPointer == distinctHeaderPointer);
+            if (LoadedDungFloorLayout == null)
                 throw new NullReferenceException();
 
-            DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(selectedFloorLayout);
+            DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
             DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
         }
 
@@ -266,6 +286,73 @@ namespace DigimonWorld2Tool.Views
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
             MousePositionLabel.Text = $"X: {(int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth:D2} Y: {(int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight:D2}";
+        }
+
+        private void FloorLayoutPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            var clickX = (int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
+            var clickY = (int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
+
+            foreach (var trap in LoadedDungFloorLayout.FloorLayoutTraps)
+            {
+                if (trap.X == clickX && trap.Y == clickY)
+                    Debug.WriteLine($"Selected trap at {trap.X}, {trap.Y}");
+            }
+
+            foreach (var warp in LoadedDungFloorLayout.FloorLayoutWarps)
+            {
+                DungFloorWarp selectedWarp = null;
+                if (warp.X == clickX && warp.Y == clickY)
+                    selectedWarp = warp;
+
+                if (selectedWarp == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Warp";
+                SubTypeLabel.Text = $"Sub type: {DUNGInterpreter.GetWarpType(warp.Type)}";
+                PositionLabel.Text = $"Position: {warp.X}, {warp.Y}";
+            }
+
+            foreach (var digimon in LoadedDungFloorLayout.FloorLayoutDigimons)
+            {
+                DungFloorDigimon selectedDigimon = null;
+                if (digimon.X == clickX && digimon.Y == clickY)
+                    selectedDigimon = digimon;
+
+                if (selectedDigimon == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Digimon";
+                PositionLabel.Text = $"Position: {digimon.X}, {digimon.Y}";
+
+                EnemySetHeader[] possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
+
+                if (possibleDigimonSets[0] == null)
+                    SlotOneLabel.Text = "No spawn";
+                else
+                    SlotOneLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[0].DigimonInSet[0].DigimonID].NameData);
+
+                if (possibleDigimonSets[1] == null)
+                    SlotTwoLabel.Text = "No spawn";
+                else
+                    SlotTwoLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[1].DigimonInSet[0].DigimonID].NameData);
+
+                if (possibleDigimonSets[2] == null)
+                    SlotThreeLabel.Text = "No spawn";
+                else
+                    SlotThreeLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[2].DigimonInSet[0].DigimonID].NameData);
+
+                if (possibleDigimonSets[3] == null)
+                    SlotFourLabel.Text = "No spawn";
+                else
+                    SlotFourLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[3].DigimonInSet[0].DigimonID].NameData);
+            }
+
+            foreach (var treasure in LoadedDungFloorLayout.FloorLayoutChests)
+            {
+                if (treasure.X == clickX && treasure.Y == clickY)
+                    Debug.WriteLine($"Selected treasure at {treasure.X}, {treasure.Y}");
+            }
         }
     }
 }

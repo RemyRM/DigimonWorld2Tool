@@ -1,23 +1,25 @@
-# DigimonWorld2Visualizer
+# DigimonWorld2 Tool
 
-Work in progress visualizer for the map data of the game "Digimon World 2".
+Work in progress tool to inspect and mod Digimon World 2 files.
+
+# Current functionality
+The tool can currently read in the following data files to use in visualization:
+- MODELDT0
+- DIGIMNDT
+- ENEMYSET
+- ITEMDATA
+
+The tool will try to visualize any file found in the set directory, the standard dungeon layout files can be found in `\AAA\4.AAA\DUNG\DUNG` and are named DUNGxxxx.BIN.
+Digimon, Warps, Treasures and Traps are all visualized and can be clicked for detailed information. Digimon sets can be further inspected to see their stats.
 
 # Roadmap
 
 Functionality I may or may not add at some point in the future, in semi order of relevance (subject to change and my motivation):
-- Map layout randomizer
-- Map object editor
-- Map object randomizer
-- A*/Dijkstra algorithm to find best routes
+- Texture visualizer
+- Map editor
 - 3D model extractor/viewer
 - 3D model injector (add your own digimon!)
-- Sprite/texture editor/injector
-
-# Build steps
-
-- Create a directory called "Maps" in your `AppDomain.CurrentDomain.BaseDirectory` directory (e.g. DigimonWorld2MapVisualizer\DigimonWorld2MapVisualizer\bin\Debug\netcoreapp3.1\Maps`)
-- Add the binary files for the maps you want to be able to view to the \Maps\ directory (e.g. "DUNG4000.BIN")
-- Launch the application from your IDE or build the application
+- Texture editor/injector
 
 # Resources
 
@@ -37,8 +39,3 @@ These people have helped immensely in helping to figure out the data format, pro
 # Feedback
 
 Found a bug, got a suggestion, or any other kind of feedback? Please create an issue or hit me up on discord @RemyRm#8070
-
-# Screenshots
-
-![Map visualized 1](https://i.gyazo.com/c8848c73bed57198a5e2175a4f049555.png)
-![Map visualized 2](https://i.gyazo.com/4a0b560f5f48a73b89eeba36c6924c1c.png)

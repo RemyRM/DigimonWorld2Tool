@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace DigimonWorld2Tool.FileFormats
 {
@@ -16,6 +17,11 @@ namespace DigimonWorld2Tool.FileFormats
             {
                 EnemySets[i / EnemySetDataEntryLength] = new EnemySetHeader(RawFileData[i..(i + EnemySetDataEntryLength)]);
             }
+        }
+
+        public EnemySetHeader GetSetHeaderByCenterDigiID(byte digID)
+        {
+            return EnemySets.FirstOrDefault(o => o.ID == digID);
         }
     }
 

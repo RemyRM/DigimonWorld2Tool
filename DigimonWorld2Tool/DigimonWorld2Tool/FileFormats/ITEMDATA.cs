@@ -7,7 +7,7 @@ namespace DigimonWorld2Tool.FileFormats
         private const int ItemDataEntryLength = 16;
         private int ItemEntriesPointer { get; set; }
         private byte[] RawFileData { get; set; }
-        public ITEMDATAEntry[] ItemData;
+        public ITEMDATAEntry[] ItemData { get; private set; }
 
         public ITEMDATA()
         {
@@ -22,14 +22,14 @@ namespace DigimonWorld2Tool.FileFormats
                 item.DescriptionData = item.GetDescriptionData(RawFileData);
             }
 
-            System.Diagnostics.Debug.WriteLine("ItemDATA:");
-            foreach (var item in ItemData)
-            {
-                var name = Utility.TextConversion.DigiStringToASCII(item.NameData);
-                var description = Utility.TextConversion.DigiStringToASCII(item.DescriptionData);
-                System.Diagnostics.Debug.WriteLine($"{name}, {description}");
-                System.Diagnostics.Debug.WriteLine($"{item}");
-            }
+            //System.Diagnostics.Debug.WriteLine("ItemDATA:");
+            //foreach (var item in ItemData)
+            //{
+            //    var name = Utility.TextConversion.DigiStringToASCII(item.NameData);
+            //    var description = Utility.TextConversion.DigiStringToASCII(item.DescriptionData);
+            //    System.Diagnostics.Debug.WriteLine($"{name}, {description}");
+            //    System.Diagnostics.Debug.WriteLine($"{item}");
+            //}
         }
 
         private void GetItems(byte[] data)
@@ -88,7 +88,6 @@ namespace DigimonWorld2Tool.FileFormats
 
         public override string ToString()
         {
-            //return $"{ID:X2} {Unknown:X2} {Price:X4} {Unknown3:X2} {NamePointer:X4} {Unknown4:X4}";
             return $"{ID:X4} {ItemType:X2} {ItemLevel:X2} {Price:X6} {Unknown2:X2} {NamePointer:X8} {DescriptionPointer:X8}";
         }
     }

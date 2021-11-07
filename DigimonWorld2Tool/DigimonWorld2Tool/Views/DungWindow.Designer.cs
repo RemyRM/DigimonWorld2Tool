@@ -47,6 +47,10 @@ namespace DigimonWorld2Tool.Views
             this.DrawGridCheckBox = new System.Windows.Forms.CheckBox();
             this.MousePositionLabel = new System.Windows.Forms.Label();
             this.ObjectInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.SlotFourInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.SlotThreeInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.SlotTwoInfoPictureBox = new System.Windows.Forms.PictureBox();
+            this.SlotOneInfoPictureBox = new System.Windows.Forms.PictureBox();
             this.SlotFourLabel = new System.Windows.Forms.Label();
             this.SlotThreeLabel = new System.Windows.Forms.Label();
             this.SlotTwoLabel = new System.Windows.Forms.Label();
@@ -56,6 +60,10 @@ namespace DigimonWorld2Tool.Views
             this.TypeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).BeginInit();
             this.ObjectInfoGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotFourInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotThreeInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotTwoInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotOneInfoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SelectDungDirButton
@@ -297,6 +305,10 @@ namespace DigimonWorld2Tool.Views
             // ObjectInfoGroupBox
             // 
             this.ObjectInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotFourInfoPictureBox);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotThreeInfoPictureBox);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotTwoInfoPictureBox);
+            this.ObjectInfoGroupBox.Controls.Add(this.SlotOneInfoPictureBox);
             this.ObjectInfoGroupBox.Controls.Add(this.SlotFourLabel);
             this.ObjectInfoGroupBox.Controls.Add(this.SlotThreeLabel);
             this.ObjectInfoGroupBox.Controls.Add(this.SlotTwoLabel);
@@ -306,17 +318,66 @@ namespace DigimonWorld2Tool.Views
             this.ObjectInfoGroupBox.Controls.Add(this.TypeLabel);
             this.ObjectInfoGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ObjectInfoGroupBox.ForeColor = System.Drawing.Color.White;
-            this.ObjectInfoGroupBox.Location = new System.Drawing.Point(793, 401);
+            this.ObjectInfoGroupBox.Location = new System.Drawing.Point(791, 429);
             this.ObjectInfoGroupBox.Name = "ObjectInfoGroupBox";
-            this.ObjectInfoGroupBox.Size = new System.Drawing.Size(293, 249);
+            this.ObjectInfoGroupBox.Size = new System.Drawing.Size(293, 221);
             this.ObjectInfoGroupBox.TabIndex = 18;
             this.ObjectInfoGroupBox.TabStop = false;
             this.ObjectInfoGroupBox.Text = "Object info";
             // 
+            // SlotFourInfoPictureBox
+            // 
+            this.SlotFourInfoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotFourInfoPictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.InfoIcon;
+            this.SlotFourInfoPictureBox.Location = new System.Drawing.Point(267, 194);
+            this.SlotFourInfoPictureBox.Name = "SlotFourInfoPictureBox";
+            this.SlotFourInfoPictureBox.Size = new System.Drawing.Size(15, 15);
+            this.SlotFourInfoPictureBox.TabIndex = 10;
+            this.SlotFourInfoPictureBox.TabStop = false;
+            this.SlotFourInfoPictureBox.Visible = false;
+            this.SlotFourInfoPictureBox.Click += new System.EventHandler(this.SlotFourInfoPictureBox_Click);
+            // 
+            // SlotThreeInfoPictureBox
+            // 
+            this.SlotThreeInfoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotThreeInfoPictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.InfoIcon;
+            this.SlotThreeInfoPictureBox.Location = new System.Drawing.Point(267, 164);
+            this.SlotThreeInfoPictureBox.Name = "SlotThreeInfoPictureBox";
+            this.SlotThreeInfoPictureBox.Size = new System.Drawing.Size(15, 15);
+            this.SlotThreeInfoPictureBox.TabIndex = 9;
+            this.SlotThreeInfoPictureBox.TabStop = false;
+            this.SlotThreeInfoPictureBox.Visible = false;
+            this.SlotThreeInfoPictureBox.Click += new System.EventHandler(this.SlotThreeInfoPictureBox_Click);
+            // 
+            // SlotTwoInfoPictureBox
+            // 
+            this.SlotTwoInfoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotTwoInfoPictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.InfoIcon;
+            this.SlotTwoInfoPictureBox.Location = new System.Drawing.Point(267, 134);
+            this.SlotTwoInfoPictureBox.Name = "SlotTwoInfoPictureBox";
+            this.SlotTwoInfoPictureBox.Size = new System.Drawing.Size(15, 15);
+            this.SlotTwoInfoPictureBox.TabIndex = 8;
+            this.SlotTwoInfoPictureBox.TabStop = false;
+            this.SlotTwoInfoPictureBox.Visible = false;
+            this.SlotTwoInfoPictureBox.Click += new System.EventHandler(this.SlotTwoInfoPictureBox_Click);
+            // 
+            // SlotOneInfoPictureBox
+            // 
+            this.SlotOneInfoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotOneInfoPictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.InfoIcon;
+            this.SlotOneInfoPictureBox.Location = new System.Drawing.Point(267, 100);
+            this.SlotOneInfoPictureBox.Name = "SlotOneInfoPictureBox";
+            this.SlotOneInfoPictureBox.Size = new System.Drawing.Size(15, 15);
+            this.SlotOneInfoPictureBox.TabIndex = 7;
+            this.SlotOneInfoPictureBox.TabStop = false;
+            this.SlotOneInfoPictureBox.Visible = false;
+            this.SlotOneInfoPictureBox.Click += new System.EventHandler(this.SlotOneInfoPictureBox_Click);
+            // 
             // SlotFourLabel
             // 
             this.SlotFourLabel.AutoSize = true;
-            this.SlotFourLabel.Location = new System.Drawing.Point(6, 213);
+            this.SlotFourLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotFourLabel.Location = new System.Drawing.Point(6, 190);
             this.SlotFourLabel.Name = "SlotFourLabel";
             this.SlotFourLabel.Size = new System.Drawing.Size(44, 19);
             this.SlotFourLabel.TabIndex = 6;
@@ -325,7 +386,8 @@ namespace DigimonWorld2Tool.Views
             // SlotThreeLabel
             // 
             this.SlotThreeLabel.AutoSize = true;
-            this.SlotThreeLabel.Location = new System.Drawing.Point(6, 176);
+            this.SlotThreeLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotThreeLabel.Location = new System.Drawing.Point(6, 160);
             this.SlotThreeLabel.Name = "SlotThreeLabel";
             this.SlotThreeLabel.Size = new System.Drawing.Size(44, 19);
             this.SlotThreeLabel.TabIndex = 5;
@@ -334,7 +396,8 @@ namespace DigimonWorld2Tool.Views
             // SlotTwoLabel
             // 
             this.SlotTwoLabel.AutoSize = true;
-            this.SlotTwoLabel.Location = new System.Drawing.Point(6, 139);
+            this.SlotTwoLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotTwoLabel.Location = new System.Drawing.Point(6, 130);
             this.SlotTwoLabel.Name = "SlotTwoLabel";
             this.SlotTwoLabel.Size = new System.Drawing.Size(44, 19);
             this.SlotTwoLabel.TabIndex = 4;
@@ -343,7 +406,8 @@ namespace DigimonWorld2Tool.Views
             // SlotOneLabel
             // 
             this.SlotOneLabel.AutoSize = true;
-            this.SlotOneLabel.Location = new System.Drawing.Point(7, 99);
+            this.SlotOneLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SlotOneLabel.Location = new System.Drawing.Point(7, 100);
             this.SlotOneLabel.Name = "SlotOneLabel";
             this.SlotOneLabel.Size = new System.Drawing.Size(44, 19);
             this.SlotOneLabel.TabIndex = 3;
@@ -405,6 +469,10 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).EndInit();
             this.ObjectInfoGroupBox.ResumeLayout(false);
             this.ObjectInfoGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotFourInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotThreeInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotTwoInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SlotOneInfoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -436,5 +504,9 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.Label PositionLabel;
         private System.Windows.Forms.Label SubTypeLabel;
         private System.Windows.Forms.Label TypeLabel;
+        private System.Windows.Forms.PictureBox SlotOneInfoPictureBox;
+        private System.Windows.Forms.PictureBox SlotFourInfoPictureBox;
+        private System.Windows.Forms.PictureBox SlotThreeInfoPictureBox;
+        private System.Windows.Forms.PictureBox SlotTwoInfoPictureBox;
     }
 }

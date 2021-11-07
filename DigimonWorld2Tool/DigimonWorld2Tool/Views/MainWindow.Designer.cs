@@ -74,6 +74,7 @@ namespace DigimonWorld2Tool.Views
             this.OpenTexturesWindowButton.TabIndex = 2;
             this.OpenTexturesWindowButton.Text = "Textures";
             this.OpenTexturesWindowButton.UseVisualStyleBackColor = false;
+            this.OpenTexturesWindowButton.Visible = false;
             this.OpenTexturesWindowButton.Click += new System.EventHandler(this.OpenTexturesWindowButton_Click);
             // 
             // MainWindow

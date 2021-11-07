@@ -70,6 +70,7 @@ namespace DigimonWorld2Tool.Utility
             {0x3C, "y"},
             {0x3D, "z"},
             {0x41, "<SQUARE>"},
+            {0x42, "&"},
             {0x44, "?"},
             {0x45, "!"},
             {0x46, "/"},

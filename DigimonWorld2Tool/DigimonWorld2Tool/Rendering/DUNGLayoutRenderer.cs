@@ -95,6 +95,12 @@ namespace DigimonWorld2Tool.Rendering
                 var rightTileType = (TileType)leftNiblet;
                 var leftTileType = (TileType)rightNiblet;
 
+                if(rightTileType == TileType.Override)
+                    rightTileType = (TileType)DungWindow.Instance.LoadedDungFloorHeader.FloorTypeOverride;
+
+                if(leftTileType == TileType.Override)
+                    leftTileType = (TileType)DungWindow.Instance.LoadedDungFloorHeader.FloorTypeOverride; 
+
                 for (int x = 0; x < TileSizeWidth; x++)
                 {
                     for (int y = 0; y < TileSizeHeight; y++)
@@ -208,6 +214,7 @@ namespace DigimonWorld2Tool.Rendering
                     {
                         CurrentDrawnMapLayoutBitmap.SetPixel(digimon.X * TileSizeWidth + x, digimon.Y * TileSizeHeight + y, Color.FromArgb(255, 255, 100, 100));
                     }
+                    AddText(new Vector2(digimon.X, digimon.Y), "D");
                 }
             }
         }

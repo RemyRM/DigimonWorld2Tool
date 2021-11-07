@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace DigimonWorld2Tool.FileFormats
 {
@@ -49,6 +50,11 @@ namespace DigimonWorld2Tool.FileFormats
             {
                 DigimonModelMappings[i / DigimonModelFilesMappingDataLength] = new DigimonModelFilesMapping(data[i..(i + DigimonModelFilesMappingDataLength)]);
             }
+        }
+
+        public DigimonModelFilesMapping GetDigimonByDigimonID(short digiID)
+        {
+            return DigimonModelMappings.FirstOrDefault(o => o.DigimonID / 2 == digiID);
         }
     }
 

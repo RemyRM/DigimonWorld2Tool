@@ -79,8 +79,7 @@ namespace DigimonWorld2Tool.Views
         private Button LastPressedFloorLayoutButton { get; set; }
 
         private Dictionary<int, int> DistinctFloorLayoutPointersOccurance { get; set; } = new Dictionary<int, int>();
-
-
+        private EnemySetHeader[] possibleDigimonSets; 
         public DungWindow()
         {
             Instance = this;
@@ -311,6 +310,8 @@ namespace DigimonWorld2Tool.Views
                 SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[1].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[1].Level)}";
                 SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[2].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[2].Level)}";
                 SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[3].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[3].Level)}";
+
+                ShoowHideDigiInfoButtons(false);
             }
 
             foreach (var warp in LoadedDungFloorLayout.FloorLayoutWarps)
@@ -329,6 +330,8 @@ namespace DigimonWorld2Tool.Views
                 SlotTwoLabel.Text = "";
                 SlotThreeLabel.Text = "";
                 SlotFourLabel.Text = "";
+
+                ShoowHideDigiInfoButtons(false);
             }
 
             foreach (var digimon in LoadedDungFloorLayout.FloorLayoutDigimons)
@@ -344,7 +347,7 @@ namespace DigimonWorld2Tool.Views
                 SubTypeLabel.Text = "";
                 PositionLabel.Text = $"Position: {digimon.X}, {digimon.Y}";
 
-                EnemySetHeader[] possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
+                possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
                 string[] digimonNames = new string[4];
                 for (int i = 0; i < digimonNames.Length; i++)
                 {
@@ -353,7 +356,7 @@ namespace DigimonWorld2Tool.Views
                     else
                     {
                         var digiID = possibleDigimonSets[i].DigimonInSet[0].DigimonID;
-                        var digi = Settings.Settings.MODELDT0File.DigimonModelMappings.FirstOrDefault(o => o.DigimonID / 2 == digiID);
+                        var digi = Settings.Settings.MODELDT0File.GetDigimonByDigimonID(digiID);
                         var nameData = digi.NameData;
                         digimonNames[i] = TextConversion.DigiStringToASCII(nameData);
                     }
@@ -363,13 +366,76 @@ namespace DigimonWorld2Tool.Views
                 SlotTwoLabel.Text = digimonNames[1];
                 SlotThreeLabel.Text = digimonNames[2];
                 SlotFourLabel.Text = digimonNames[3];
+
+                ShoowHideDigiInfoButtons(true);
             }
 
             foreach (var treasure in LoadedDungFloorLayout.FloorLayoutChests)
             {
+                DungFloorChest selectedChest = null;
                 if (treasure.X == clickX && treasure.Y == clickY)
-                    Debug.WriteLine($"Selected treasure at {treasure.X}, {treasure.Y}");
+                    selectedChest = treasure;
+
+                if (selectedChest == null)
+                    continue;
+
+                TypeLabel.Text = "Treasure";
+                SubTypeLabel.Text = "";
+                PositionLabel.Text = $"Position: {treasure.X}, {treasure.Y}";
+
+                string[] treasures = new string[4];
+                for (int i = 0; i < treasures.Length; i++)
+                {
+                    if (treasure.ItemSlots[i] == 0)
+                        treasures[i] = "No chest";
+                    else
+                    {
+                        var treasureIndex = treasure.ItemSlots[i];
+                        var treasureData = LoadedDungFloorHeader.FloorTreasureTable[treasureIndex - 1];
+
+                        var itemID = treasureData.ItemID;
+                        var trapLevel = treasureData.TrapLevel;
+
+                        if (itemID == 0x00)
+                        {
+                            treasures[i] = $"Trap lv: {trapLevel} - Empty";
+                            continue;
+                        }
+
+                        var itemData = Settings.Settings.ITEMDATAFile.ItemData.FirstOrDefault(o => o.ID == itemID);
+                        treasures[i] = $"Trap lv: {trapLevel} - {TextConversion.DigiStringToASCII(itemData.NameData)}";
+                    }
+                }
+
+                SlotOneLabel.Text = treasures[0];
+                SlotTwoLabel.Text = treasures[1];
+                SlotThreeLabel.Text = treasures[2];
+                SlotFourLabel.Text = treasures[3];
+
+                ShoowHideDigiInfoButtons(false);
             }
+        }
+
+        private void ShoowHideDigiInfoButtons(bool show)
+        {
+            SlotOneInfoPictureBox.Visible = show;
+            SlotTwoInfoPictureBox.Visible = show;
+            SlotThreeInfoPictureBox.Visible = show;
+            SlotFourInfoPictureBox.Visible = show;
+        }
+
+        private void SlotOneInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(0);
+        private void SlotTwoInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(1);
+        private void SlotThreeInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(2);
+        private void SlotFourInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(3);
+        private void ShowExtendedDigimonPackInfo(int SlotID)
+        {
+            if (possibleDigimonSets[SlotID] == null)
+                return;
+
+            byte digimonSetIndex = possibleDigimonSets[SlotID].ID;
+            ExtendedEnemySetInfoWindow ext = new ExtendedEnemySetInfoWindow(digimonSetIndex);
+            ext.Show();
         }
     }
 }

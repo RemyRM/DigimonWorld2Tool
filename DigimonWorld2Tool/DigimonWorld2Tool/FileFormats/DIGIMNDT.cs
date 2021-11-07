@@ -19,7 +19,6 @@ namespace DigimonWorld2Tool.FileFormats
             for (int i = 0; i < RawFileData.Length; i += DigiDataEntryLength)
             {
                 DigimonDataArr[i / DigiDataEntryLength] = new DigimonData(RawFileData[i..(i + DigiDataEntryLength)]);
-                System.Diagnostics.Debug.WriteLine(DigimonDataArr[i / DigiDataEntryLength].ToString());
             }
         }
     }

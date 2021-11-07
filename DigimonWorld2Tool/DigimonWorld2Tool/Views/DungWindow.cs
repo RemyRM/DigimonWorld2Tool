@@ -103,6 +103,7 @@ namespace DigimonWorld2Tool.Views
             _ = Settings.Settings.DIGIMNDTFile;
             _ = Settings.Settings.ENEMYSETFile;
             _ = Settings.Settings.MODELDT0File;
+            _ = Settings.Settings.ITEMDATAFile;
 
             LoadUserSettings();
             Colours.SetColourScheme(this.Controls);
@@ -295,8 +296,21 @@ namespace DigimonWorld2Tool.Views
 
             foreach (var trap in LoadedDungFloorLayout.FloorLayoutTraps)
             {
+                DungFloorTrap selectredTrap = null;
                 if (trap.X == clickX && trap.Y == clickY)
-                    Debug.WriteLine($"Selected trap at {trap.X}, {trap.Y}");
+                    selectredTrap = trap;
+
+                if (selectredTrap == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Trap";
+                SubTypeLabel.Text = "";
+                PositionLabel.Text = $"Position: {trap.X}, {trap.Y}";
+
+                SlotOneLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[0].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[0].Level)}";
+                SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[1].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[1].Level)}";
+                SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[2].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[2].Level)}";
+                SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[3].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[3].Level)}";
             }
 
             foreach (var warp in LoadedDungFloorLayout.FloorLayoutWarps)
@@ -311,6 +325,10 @@ namespace DigimonWorld2Tool.Views
                 TypeLabel.Text = $"Type: Warp";
                 SubTypeLabel.Text = $"Sub type: {DUNGInterpreter.GetWarpType(warp.Type)}";
                 PositionLabel.Text = $"Position: {warp.X}, {warp.Y}";
+                SlotOneLabel.Text = "";
+                SlotTwoLabel.Text = "";
+                SlotThreeLabel.Text = "";
+                SlotFourLabel.Text = "";
             }
 
             foreach (var digimon in LoadedDungFloorLayout.FloorLayoutDigimons)
@@ -323,29 +341,28 @@ namespace DigimonWorld2Tool.Views
                     continue;
 
                 TypeLabel.Text = $"Type: Digimon";
+                SubTypeLabel.Text = "";
                 PositionLabel.Text = $"Position: {digimon.X}, {digimon.Y}";
 
                 EnemySetHeader[] possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
+                string[] digimonNames = new string[4];
+                for (int i = 0; i < digimonNames.Length; i++)
+                {
+                    if (possibleDigimonSets[i] == null)
+                        digimonNames[i] = "No spawn";
+                    else
+                    {
+                        var digiID = possibleDigimonSets[i].DigimonInSet[0].DigimonID;
+                        var digi = Settings.Settings.MODELDT0File.DigimonModelMappings.FirstOrDefault(o => o.DigimonID / 2 == digiID);
+                        var nameData = digi.NameData;
+                        digimonNames[i] = TextConversion.DigiStringToASCII(nameData);
+                    }
+                }
 
-                if (possibleDigimonSets[0] == null)
-                    SlotOneLabel.Text = "No spawn";
-                else
-                    SlotOneLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[0].DigimonInSet[0].DigimonID].NameData);
-
-                if (possibleDigimonSets[1] == null)
-                    SlotTwoLabel.Text = "No spawn";
-                else
-                    SlotTwoLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[1].DigimonInSet[0].DigimonID].NameData);
-
-                if (possibleDigimonSets[2] == null)
-                    SlotThreeLabel.Text = "No spawn";
-                else
-                    SlotThreeLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[2].DigimonInSet[0].DigimonID].NameData);
-
-                if (possibleDigimonSets[3] == null)
-                    SlotFourLabel.Text = "No spawn";
-                else
-                    SlotFourLabel.Text = TextConversion.DigiStringToASCII(Settings.Settings.MODELDT0File.DigimonModelMappings[possibleDigimonSets[3].DigimonInSet[0].DigimonID].NameData);
+                SlotOneLabel.Text = digimonNames[0];
+                SlotTwoLabel.Text = digimonNames[1];
+                SlotThreeLabel.Text = digimonNames[2];
+                SlotFourLabel.Text = digimonNames[3];
             }
 
             foreach (var treasure in LoadedDungFloorLayout.FloorLayoutChests)

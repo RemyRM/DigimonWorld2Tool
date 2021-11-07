@@ -60,13 +60,18 @@
     <None Update="Resources\DataFiles\MODELDT0.BIN">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\DataFiles\MODELDT1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DataFiles\MODELDT2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Mappings\" />
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Icons\" />
-    <Folder Include="Resources\DataFiles\" />
   </ItemGroup>
 
 </Project>

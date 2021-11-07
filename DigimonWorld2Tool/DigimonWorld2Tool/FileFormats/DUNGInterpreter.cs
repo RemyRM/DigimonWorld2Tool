@@ -77,7 +77,6 @@ namespace DigimonWorld2Tool.FileFormats
                 }
 
                 var enemySetID = DungFloorToInterpret.DigimonEncounterTable[id];
-                //EnemySetHeaders[i] = Settings.Settings.ENEMYSETFile.EnemySets[enemySetID - 1];
                 EnemySetHeaders[i] = Settings.Settings.ENEMYSETFile.EnemySets.FirstOrDefault(o => o.ID == enemySetID);
                 if(EnemySetHeaders[i] == null)
                     System.Diagnostics.Debug.WriteLine("Enemyset was somehow null");

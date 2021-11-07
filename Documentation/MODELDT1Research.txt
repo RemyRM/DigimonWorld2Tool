@@ -1,0 +1,1150 @@
+// Layout seems to be the exact same as the MODELDT0 file
+
+//First 8 bytes are 2 pointers
+[40 03 00 00]  [34 03 00 00]
+
+// 0x0340 points to the objects in the list, this seems to contain DUNG objects such as the players tank (possibly enemy tanks too), chests, traps, warps etc.
+// 0x0334 points to currently unknown data, just as is the case in MODELDT0, however the amount of data here is way less (only 12 bytes)
+
+//Then comes a long list of the names for each data entry found at 0x0340, these are bytes that need to be encoded by the games conversion table
+FF 00 00 00               // Empty -> Candlemon
+FF 00 00 00               // Empty -> Patamon
+FF 00 00 00               // Empty -> Gabumon
+FF 00 00 00               // Empty -> Crabmon
+FF 00 00 00               // Empty -> Tankmon
+FF 00 00 00               // Empty -> Yanmamon
+FF 00 00 00               // Empty -> Kokatorimon
+FF 00 00 00               // Empty -> Centaurmon
+FF 00 00 00               // Empty -> Drimogemon
+FF 00 00 00               // Empty -> Tyrannomon
+FF 00 00 00               // Empty -> Seadramon
+FF 00 00 00               // Empty -> SkullMeramon
+FF 00 00 00               // Empty -> Pumpkinmon-
+FF 00 00 00               // Empty -> Piximon-
+FF 00 00 00               // Empty -> Mamemon-
+FF 00 00 00               // Empty -> Triceramon-
+FF 00 00 00               // Empty -> MegaSeadramon-
+FF 00 00 00               // Empty -> Boltmon
+FF 00 00 00               // Empty -> PrinceMamemon
+FF 00 00 00               // Empty -> MetalSeadramon
+FF 00 00 00               // Empty -> Biyomon
+FF 00 00 00               // Empty -> Toyagumon
+FF 00 00 00               // Empty -> Tapirmon
+FF 00 00 00               // Empty -> Penguinmon
+FF 00 00 00               // Empty -> Airdramon
+FF 00 00 00               // Empty -> Birdramon
+FF 00 00 00               // Empty -> Leomon
+FF 00 00 00               // Empty -> Angemon
+FF 00 00 00               // Empty -> Unimon
+FF 00 00 00               // Empty -> Frigimon 
+FF 00 00 00               // Empty -> Greymon
+FF 00 00 00               // Empty -> MegaKabuterimon-
+FF 00 00 00               // Empty -> Mammothmon-
+FF 00 00 00               // Empty -> Giromon-
+FF 00 00 00               // Empty -> Andromon-
+FF 00 00 00               // Empty -> Metalgreymon-
+FF 00 00 00               // Empty -> Zudomon-
+FF 00 00 00               // Empty -> SkullMammothmon
+FF 00 00 00               // Empty -> Wargreymon
+FF 00 00 00               // Empty -> MarineAngemon
+FF 00 00 00               // Empty -> Hagurumon
+FF 00 00 00               // Empty -> Gazimon
+FF 00 00 00               // Empty -> SnowGoburimon
+FF 00 00 00               // Empty -> Betamon
+FF 00 00 00               // Empty -> Numemon
+FF 00 00 00               // Empty -> Kuwagamon
+FF 00 00 00               // Empty -> Woodmon
+FF 00 00 00               // Empty -> Bakemon
+FF 00 00 00               // Empty -> Devimon
+FF 00 00 00               // Empty -> Deltamon
+FF 00 00 00               // Empty -> Gekomon
+FF 00 00 00               // Empty -> Vademon-
+FF 00 00 00               // Empty -> Okuwamon-
+FF 00 00 00               // Empty -> Cherrymon-
+FF 00 00 00               // Empty -> Phantomon
+FF 00 00 00               // Empty -> Skullgreymon-
+FF 00 00 00               // Empty -> MarineDevimon-
+FF 00 00 00               // Empty -> Puppetmon
+FF 00 00 00               // Empty -> Piedmon
+FF 00 00 00               // Empty -> Pukumon
+FF 00 00 00               // Empty -> Hercules-Kabuterimon
+FF 00 00 00               // Empty -> Overlord
+FF 00 00 00               // Empty -> VaccineGuardian
+FF 00 00 00               // Empty -> DataGuardian
+FF 00 00 00               // Empty -> VirusGuardian
+FF 00 00 00               // Empty -> Patamon
+FF 00 00 00               // Empty -> Chaoslord
+FF 00 00 00               // Empty -> NeoCrimson
+FF 00 00 00               // Empty -> ChaosWargreymon
+FF 00 00 00               // Empty -> ChaosMetalSeadramon
+FF 00 00 00               // Empty -> ChaosPiedmon
+FF 00 00 00               // Empty -> Omnimon
+FF 00 00 00               // Empty -> Diaboromon
+FF 00 00 00               // Empty -> Baihumon
+FF 00 00 00               // Empty -> MasterTyrannomon
+FF 00 00 00               // Empty -> Jijimon
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel Blue Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium Green Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium Red Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel White Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium White Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium White Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel Yellow Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium Yellow Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium Yellow Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel Green Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium Green Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium Blue Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium Blue Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel Purple Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium Purple Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Adamantium Purple Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Steel Red Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Player Titanium Red Wheels
+1D 24 31 2E  FF 00 00 00  // Tank -> Blood Knights unused Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Blood Knights Grunt Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Light Blue Tamer Titanium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Light Blue Tamer Adamantium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Brown Tamer Titanium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Brown Tamer Adamantium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Dark/Grey Tamer Titanium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Dark/Grey Tamer Adamantium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Red Tamer Steel Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Purple Tamer Titanium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Pink Tamer Titanium Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Blood Knights Commander Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Damien's fake Commander Beetle
+1D 24 31 2E  FF 00 00 00  // Tank -> Crimson Beetle
+10 24 37 28  FF 00 00 00  // Gate -> Next warp
+10 24 37 28  FF 00 00 00  // Gate -> Exit warp
+FF 00 00 00               // Empty -> Empty (probably entrance)
+0B 24 35 35  2C 28 35 FF  // Barrier -> Yellow spore
+0B 24 35 35  2C 28 35 FF  // Barrier -> Green spore
+0B 24 35 35  2C 28 35 FF  // Barrier -> Blue spore
+0B 24 35 35  2C 28 35 FF  // Barrier -> Purple spore
+0B 24 35 35  2C 28 35 FF  // Barrier -> Red spore
+0B 2F 32 26  2E FF 00 00  // Block -> Yellow Rock
+0B 2F 32 26  2E FF 00 00  // Block -> Green Rock
+0B 2F 32 26  2E FF 00 00  // Block -> Blue Rock
+0B 2F 32 26  2E FF 00 00  // Block -> Purple Rock
+0B 2F 32 26  2E FF 00 00  // Block -> Red Rock
+0B 38 2A FF               // Bug -> Yellow big bug
+0B 38 2A FF               // Bug -> Blue bit bug
+0B 38 2A FF               // Bug -> Red bit bug
+0B 38 2A FF               // Bug -> Yellow energy bug
+0B 38 2A FF               // Bug -> Blue energy bug
+0B 38 2A FF               // Bug -> Red energy bug
+0B 38 2A FF               // Bug -> Yellow ret bug
+0B 38 2A FF               // Bug -> Blue ret bug
+0B 38 2A FF               // Bug -> Red ret bug
+0B 38 2A FF               // Bug -> Yellow mem bug
+0B 38 2A FF               // Bug -> Blue mem bug
+0B 38 2A FF               // Bug -> Red mem bug
+16 2C 31 28  FF 00 00 00  // Mine -> Yellow mine
+16 2C 31 28  FF 00 00 00  // Mine -> Green mine
+16 2C 31 28  FF 00 00 00  // Mine -> Blue mine
+16 2C 31 28  FF 00 00 00  // Mine -> Purple mine
+16 2C 31 28  FF 00 00 00  // Mine -> Red mine
+0B 32 3B FF               // Box  -> Yellow chest
+0B 32 3B FF               // Box  -> Green chest
+0B 32 3B FF               // Box  -> White chest
+0B 32 3B FF               // Box  -> Purple chest
+0B 32 3B FF               // Box  -> Red chest
+FF 00 00 00               // Empty -> Big heart
+FF 00 00 00               // Empty -> Med heart
+FF 00 00 00               // Empty -> Small heart
+FF 00 00 00               // Empty -> Animation
+FF 00 00 00               // Empty -> Exit warp anim
+FF 00 00 00               // Empty -> Mine/chest trap explosion rings
+FF 00 00 00               // Empty -> Green explosion
+FF 00 00 00               // Empty -> blue explosion
+FF 00 00 00               // Empty -> purple explosion
+FF 00 00 00               // Empty -> red explosion
+FF 00 00 00               // Empty -> Purple collumn
+
+// Then we get the data of the object itself, this is seperated into segments of 40 bytes each:
+// The layout for this seems to be:
+// [offset + 00] 4 bytes pointer to name
+// [offset + 04] ID, this is the ID in other files * 2
+// [offset + 06] ID of the main model
+// [offset + 08] <Unknown> Seems to be animation, used by all digimon in a dungeon, but doesnt crash/visually change when changed to FF FF
+// [offset + 10] <Unknown>
+// [offset + 12] <Unknown>
+// [offset + 14] <Unknown> Seems to be animation, used by all digimon in a dungeon, but doesnt crash/visually change when changed to FF FF
+// [offset + 16] Walking animation for digi, interaction animation for objects?
+// [offset + 18] Probably unused
+// [offset + 20] Probably unused
+// [offset + 22] Probably unused
+// [offset + 24] Probably unused
+// [offset + 26] Probably unused
+// [offset + 28] Unused
+// [offset + 30] Unused
+// [offset + 32] Unused
+// [offset + 34] Unused
+// [offset + 36] Unused
+
+08 00 00 00  58 02 17 0D   16 0D 00 00  00 00 16 0D  // Candlemon
+16 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+0C 00 00 00  5A 02 F7 07   FE 07 00 00  00 00 FE 07  // Patamon
+FE 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+10 00 00 00  5C 02 FB 07   FD 07 00 00  00 00 FD 07  // Gabumon
+FD 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00     
+
+14 00 00 00  5E 02 46 04   45 04 45 04  45 04 45 04  // Crabmon
+45 04 45 04  45 04 45 04   45 04 45 04  45 04 00 00   
+00 00 00 00  00 00 00 00 
+
+18 00 00 00  60 02 63 0D   64 0D 00 00  00 00 64 0D  // Tankmon
+64 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+1C 00 00 00  62 02 2E 0C   2F 0C 00 00  00 00 2F 0C  // Yanmamon
+2F 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+20 00 00 00  64 02 7B 0D   79 0D 00 00  00 00 79 0D  // Kokatorimon
+79 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+24 00 00 00  66 02 5A 02   59 02 59 02  59 02 59 02  // Centaurmon
+59 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+28 00 00 00  68 02 F9 07   F8 07 00 00  00 00 F8 07  // Drimogemon
+F8 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+2C 00 00 00  6A 02 E4 06   E5 06 00 00  00 00 E5 06  // Tyrannomon
+E5 06 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+30 00 00 00  6C 02 84 0D   83 0D 00 00  00 00 83 0D  // Seadramon
+83 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+34 00 00 00  6E 02 5E 09   5F 09 00 00  00 00 5F 09  // SkullMeramon 
+5F 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+38 00 00 00  70 02 25 0C   24 0C 00 00  00 00 24 0C  // Pumpkinmon-
+24 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+3C 00 00 00  72 02 65 09   61 09 00 00  00 00 61 09  // Piximon-
+61 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+40 00 00 00  74 02 57 0A   4F 0A 00 00  00 00 4F 0A  // Mamemon-
+4F 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+44 00 00 00  76 02 57 0D   56 0D 00 00  00 00 56 0D  // Triceramon-
+56 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+48 00 00 00  78 02 02 01   01 01 01 01  01 01 01 01  // MegaSeadramon-
+01 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+4C 00 00 00  7A 02 9B 0D   9C 0D 00 00  00 00 9C 0D  // Boltmon
+9C 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+50 00 00 00  7C 02 62 09   60 09 00 00  00 00 60 09  // PrinceMamemon
+60 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+54 00 00 00  7E 02 7B 0A   7A 0A 00 00  00 00 7A 0A  // MetalSeadramon
+7A 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+58 00 00 00  80 02 5E 0D   5D 0D 00 00  00 00 5D 0D  // Biyomon
+5D 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+5C 00 00 00  82 02 34 09   33 09 00 00  00 00 33 09  // Toyagumon
+33 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+60 00 00 00  84 02 70 0C   71 0C 00 00  00 00 71 0C  // Tapirmon
+71 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+64 00 00 00  86 02 15 0D   13 0D 00 00  00 00 13 0D  // Penguinmon
+13 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+68 00 00 00  88 02 77 0A   78 0A 00 00  00 00 78 0A  // Airdramon
+78 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+6C 00 00 00  8A 02 43 04   44 04 44 04  44 04 44 04  // Birdramon
+44 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+70 00 00 00  8C 02 9C 00   9D 00 9D 00  9D 00 9D 00  // Leomon
+9D 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+74 00 00 00  8E 02 7C 0A   79 0A 00 00  00 00 79 0A  // Angemon
+79 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+78 00 00 00  90 02 04 0B   03 0B 00 00  00 00 03 0B  // Unimon
+03 0B 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+7C 00 00 00  92 02 1B 0B   03 0D 00 00  00 00 03 0D  // Frigimon  
+03 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+80 00 00 00  94 02 FC 07   FA 07 00 00  00 00 FA 07  // Greymon
+FA 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+84 00 00 00  96 02 2D 0C   27 05 00 00  00 00 27 05  // MegaKabuterimon-
+27 05 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+88 00 00 00  98 02 A6 0D   A7 0D 00 00  00 00 A7 0D  // Mammothmon-
+A7 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+8C 00 00 00  9A 02 7A 0D   7C 0D 00 00  00 00 7C 0D  // Giromon-
+7C 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+90 00 00 00  9C 02 6D 0C   6E 0C 00 00  00 00 6E 0C  // Andromon-
+6E 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+94 00 00 00  9E 02 FF 07   00 08 00 00  00 00 00 08  // Metalgreymon-
+00 08 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+98 00 00 00  A0 02 4A 0A   4B 0A 00 00  00 00 4B 0A  // Zudomon-
+4B 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+9C 00 00 00  A2 02 95 0D   94 0D 00 00  00 00 94 0D  // SkullMammothmon 
+94 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+A0 00 00 00  A4 02 58 02   57 02 57 02  57 02 57 02  // Wargreymon
+57 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+A4 00 00 00  A6 02 02 0D   01 0D 00 00  00 00 01 0D  // MarineAngemon  
+01 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+A8 00 00 00  A8 02 9A 0C   9B 0C 00 00  00 00 9B 0C  // Hagurumon
+9B 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+AC 00 00 00  AA 02 DC 02   DB 02 00 00  00 00 DB 02  // Gazimon 
+DB 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+B0 00 00 00  AC 02 5D 09   5B 09 00 00  00 00 5B 09  // SnowGoburimon
+5B 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+B4 00 00 00  AE 02 C6 0C   C7 0C 00 00  00 00 C7 0C  // Betamon
+C7 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+B8 00 00 00  B0 02 DA 0C   DB 0C 00 00  00 00 DB 0C  // Numemon
+DB 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+BC 00 00 00  B2 02 95 0C   96 0C 00 00  00 00 96 0C  // Kuwagamon
+96 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+C0 00 00 00  B4 02 7E 0D   7D 0D 00 00  00 00 7D 0D  // Woodmon
+7D 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+C4 00 00 00  B6 02 99 0C   98 0C 00 00  00 00 98 0C  // Bakemon 
+98 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+C8 00 00 00  B8 02 DD 0C   DC 0C 00 00  00 00 DC 0C  // Devimon
+DC 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+CC 00 00 00  BA 02 9D 0D   9F 0D 00 00  00 00 9F 0D  // Deltamon 
+9F 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+D0 00 00 00  BC 02 64 09   63 09 00 00  00 00 63 09  // Gekomon
+63 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+D4 00 00 00  BE 02 80 0D   7F 0D 00 00  00 00 7F 0D  // Vademon-
+7F 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+D8 00 00 00  C0 02 59 0D   58 0D 00 00  00 00 58 0D  // Okuwamon-
+58 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+DC 00 00 00  C2 02 96 0D   97 0D 00 00  00 00 97 0D  // Cherrymon-
+97 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+E0 00 00 00  C4 02 7E 0A   7D 0A 00 00  00 00 7D 0A  // Phantomon
+7D 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+E4 00 00 00  C6 02 49 0A   48 0A 00 00  00 00 48 0A  // Skullgreymon-
+48 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+E8 00 00 00  C8 02 62 0D   65 0D 00 00  00 00 65 0D  // MarineDevimon-
+65 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+EC 00 00 00  CA 02 94 0C   97 0C 00 00  00 00 97 0C  // Puppetmon
+97 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+F0 00 00 00  CC 02 5C 09   5A 09 00 00  00 00 5A 09  // Piedmon
+5A 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+F4 00 00 00  CE 02 23 0C   22 0C 00 00  00 00 22 0C  // Pukumon
+22 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+F8 00 00 00  D0 02 04 01   03 01 03 01  03 01 03 01  // Hercules-Kabuterimon
+03 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+FC 00 00 00  D2 02 08 03   07 03 07 03  07 03 07 03  // Overlord
+07 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+00 01 00 00  D4 02 0C 03   0D 03 0D 03  0D 03 0D 03  // VaccineGuardian
+0D 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+04 01 00 00  D6 02 E2 03   E3 03 E3 03  E3 03 E3 03  // DataGuardian
+E3 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+08 01 00 00  D8 02 FF 06   00 07 00 00  00 00 00 07  // VirusGuardian
+00 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+0C 01 00 00  DA 02 F7 07   FE 07 00 00  00 00 FE 07  // Patamon
+FE 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+10 01 00 00  DC 02 19 05   16 05 00 00  00 00 16 05  // Chaoslord
+16 05 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00  
+
+14 01 00 00  DE 02 29 0B   2D 0B 00 00  00 00 2D 0B  // NeoCrimson
+2D 0B 00 00  00 00 00 00   00 00 00 00  00 00 00 00  
+00 00 00 00  00 00 00 00 
+
+18 01 00 00  E0 02 AD 0D   AC 0D 00 00  00 00 AC 0D  // ChaosWargreymon
+AC 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+1C 01 00 00  E2 02 AB 0D   AA 0D 00 00  00 00 AA 0D   
+AA 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00  // ChaosMetalSeadramon
+00 00 00 00  00 00 00 00 
+20 01 00 00  E4 02 A9 0D   A8 0D 00 00  00 00 A8 0D  // ChaosPiedmon
+A8 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+24 01 00 00  E6 02 08 0E   07 0E 00 00  00 00 07 0E  // Omnimon
+07 0E 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+28 01 00 00  E8 02 28 0B   27 0B 00 00  00 00 27 0B  // Diaboromon
+27 0B 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+2C 01 00 00  EA 02 06 0E   05 0E 00 00  00 00 05 0E  // Baihumon  
+05 0E 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+30 01 00 00  EC 02 CC 03   CB 03 00 00  00 00 CB 03  // MasterTyrannomon
+CB 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+34 01 00 00  EE 02 D3 0C   D7 03 00 00  00 00 D7 03  // Jijimon 
+D7 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+38 01 00 00  EA 03 11 01   05 01 05 01  05 01 05 01 // Player Steel Blue Wheels
+05 01 00 00  00 00 00 00   00 00 00 00  00 00 00 08 
+00 00 01 00  00 00 00 00     
+
+40 01 00 00  EC 03 9D 01   8F 01 8F 01  8F 01 8F 01 // Player Titanium Green Wheels
+8F 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+48 01 00 00  EE 03 1E 02   1D 02 1D 02  1D 02 1D 02 // Player Adamantium Red Wheels
+1D 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+50 01 00 00  F0 03 65 01   64 01 64 01  64 01 64 01 // Player Steel White Wheels <- default? 
+64 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+58 01 00 00  F2 03 60 01   63 01 63 01  63 01 63 01 // Player Titanium White Wheels
+63 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+60 01 00 00  F4 03 5F 01   61 01 61 01  61 01 61 01 // Player Adamantium White Wheels
+61 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+68 01 00 00  F6 03 62 01   5D 01 5D 01  5D 01 5D 01 // Player Steel Yellow Wheels
+5D 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+70 01 00 00  F8 03 77 01   78 01 78 01  78 01 78 01 // Player Titanium Yellow Wheels
+78 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+78 01 00 00  FA 03 79 01   76 01 76 01  76 01 76 01 // Player Adamantium Yellow Wheels
+76 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+80 01 00 00  FC 03 6B 01   71 01 71 01  71 01 71 01 // Player Steel Green Wheels
+71 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+88 01 00 00  FE 03 6C 01   75 01 75 01  75 01 75 01 // Player Adamantium Green Wheels
+75 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+90 01 00 00  00 04 6E 01   69 01 69 01  69 01 69 01 // Player Titanium Blue Wheels
+69 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+98 01 00 00  02 04 72 01   73 01 73 01  73 01 73 01 // Player Adamantium Blue Wheels
+73 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+A0 01 00 00  04 04 74 01   70 01 70 01  70 01 70 01 // Player Steel Purple Wheels 
+70 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+A8 01 00 00  06 04 68 01   6D 01 6D 01  6D 01 6D 01 // Player Titanium Purple Wheels
+6D 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+B0 01 00 00  08 04 6A 01   6F 01 6F 01  6F 01 6F 01 // Player Adamantium Purple Wheels
+6F 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+B8 01 00 00  0A 04 E8 02   E7 02 E7 02  E7 02 E7 02 // Player Steel Red Wheels
+E7 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+C0 01 00 00  0C 04 67 01   66 01 66 01  66 01 66 01 // Player Titanium Red Wheels
+66 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+C8 01 00 00  0E 04 54 01   53 01 53 01  53 01 53 01 // Blood Knights unused Beetle
+53 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+D0 01 00 00  10 04 6F 02   6E 02 6E 02  6E 02 6E 02 // Blood Knights Grunt Beetle
+6E 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+D8 01 00 00  12 04 41 03   42 03 42 03  42 03 42 03 // Light Blue Tamer Titanium Beetle
+42 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+E0 01 00 00  14 04 D3 03   D4 03 D4 03  D4 03 D4 03 // Light Blue Tamer Adamantium Beetle
+D4 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+E8 01 00 00  16 04 40 03   3F 03 3F 03  3F 03 3F 03 // Brown Tamer Titanium Beetle
+3F 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+F0 01 00 00  18 04 DB 03   DA 03 DA 03  DA 03 DA 03 // Brown Tamer Adamantium Beetle
+DA 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+F8 01 00 00  1A 04 53 03   54 03 54 03  54 03 54 03 // Dark/Grey Tamer Titanium Beetle
+54 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+00 02 00 00  1C 04 17 04   18 04 18 04  18 04 18 04 // Dark/Grey Tamer Adamantium Beetle 
+18 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+08 02 00 00  1E 04 35 04   36 04 36 04  36 04 36 04 // Red Tamer Steel Beetle
+36 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+10 02 00 00  20 04 57 03   58 03 58 03  58 03 58 03 // Purple Tamer Titanium Beetle
+58 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+18 02 00 00  22 04 6B 03   6C 03 6C 03  6C 03 6C 03 // Pink Tamer Titanium Beetle
+6C 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+20 02 00 00  24 04 85 0D   86 0D 00 00  00 00 86 0D // Blood Knights Commander Beetle  
+86 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+28 02 00 00  26 04 4F 04   4E 04 4E 04  4E 04 4E 04 // Damien's fake Commander Beetle
+4E 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+
+30 02 00 00  28 04 81 0D   82 0D 00 00  00 00 82 0D // Crimson Beetle
+82 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+
+38 02 00 00  B0 04 17 05   18 05 18 05  18 05 18 05 // Next warp
+18 05 18 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+40 02 00 00  B2 04 23 05   22 05 22 05  22 05 22 05 // Exit warp  
+22 05 22 05  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+48 02 00 00  B4 04 00 00   00 00 00 00  00 00 00 00 // Empty (probably entrance)
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00     
+4C 02 00 00  B6 04 68 03   67 03 67 03  67 03 67 03 // Yellow spore
+67 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+54 02 00 00  B8 04 66 03   64 03 64 03  64 03 64 03 // Green spore
+64 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+5C 02 00 00  BA 04 5F 03   65 03 65 03  65 03 65 03 // Blue spore  
+65 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+64 02 00 00  BC 04 5D 03   5B 03 5B 03  5B 03 5B 03 // Purple spore
+5B 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+6C 02 00 00  BE 04 59 03   61 03 61 03  61 03 61 03 // Red spore  
+61 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+74 02 00 00  C0 04 1A 05   1B 05 1B 05  1B 05 1B 05 // Yellow Rock
+1B 05 1B 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+7C 02 00 00  C2 04 25 05   24 05 24 05  24 05 24 05 // Green Rock
+24 05 24 05  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+84 02 00 00  C4 04 1E 05   1F 05 1F 05  1F 05 1F 05 // Blue Rock
+1F 05 1F 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+8C 02 00 00  C6 04 1C 05   1D 05 1D 05  1D 05 1D 05 // Purple Rock
+1D 05 1D 05  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+94 02 00 00  C8 04 21 05   20 05 20 05  20 05 20 05 // Red Rock
+20 05 20 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+9C 02 00 00  CA 04 6F 03   70 03 70 03  70 03 70 03 // Yellow big bug
+70 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+A0 02 00 00  CC 04 6E 03   6D 03 6D 03  6D 03 6D 03 // Blue bit bug
+6D 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+A4 02 00 00  CE 04 71 03   72 03 72 03  72 03 72 03 // Red bit bug  
+72 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+A8 02 00 00  D0 04 78 03   74 03 74 03  74 03 74 03 // Yellow energy bug
+74 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+AC 02 00 00  D2 04 77 03   75 03 75 03  75 03 75 03 // Blue energy bug  
+75 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+B0 02 00 00  D4 04 76 03   73 03 73 03  73 03 73 03 // Red energy bug
+73 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+B4 02 00 00  D6 04 5A 03   60 03 60 03  60 03 60 03 // Yellow ret bug  
+60 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+B8 02 00 00  D8 04 5C 03   63 03 63 03  63 03 63 03 // Blue ret bug
+63 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+BC 02 00 00  DA 04 5E 03   62 03 62 03  62 03 62 03 // Red ret bug
+62 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+C0 02 00 00  DC 04 7E 03   79 03 79 03  79 03 79 03 // Yellow mem bug
+79 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+C4 02 00 00  DE 04 7D 03   7C 03 7C 03  7C 03 7C 03 // Blue mem bug
+7C 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+C8 02 00 00  E0 04 7B 03   7A 03 7A 03  7A 03 7A 03 // Red mem bug
+7A 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+CC 02 00 00  E2 04 4A 03   49 03 49 03  49 03 49 03 // Yellow mine
+49 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+D4 02 00 00  E4 04 52 03   51 03 51 03  51 03 51 03 // Green mine
+51 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+DC 02 00 00  E6 04 4F 03   50 03 50 03  50 03 50 03 // Blue mine
+50 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+E4 02 00 00  E8 04 4D 03   4E 03 4E 03  4E 03 4E 03 // Purple mine
+4E 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+EC 02 00 00  EA 04 4C 03   4B 03 4B 03  4B 03 4B 03 // Red mine
+4B 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+F4 02 00 00  EC 04 09 05   0C 05 0C 05  0C 05 0C 05 // Yellow chest
+0C 05 0C 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+F8 02 00 00  EE 04 0F 05   07 05 07 05  07 05 07 05 // Green chest
+07 05 07 05  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+FC 02 00 00  F0 04 0B 05   0D 05 0D 05  0D 05 0D 05 // White chest
+0D 05 0D 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+00 03 00 00  F2 04 0A 05   0E 05 0E 05  0E 05 0E 05 // Purple chest
+0E 05 0E 05  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+04 03 00 00  F4 04 08 05   06 05 06 05  06 05 06 05 // Red chest
+06 05 06 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+08 03 00 00  F6 04 5C 0D   61 0D 00 00  00 00 61 0D // Big heart
+61 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+0C 03 00 00  F8 04 5F 0D   60 0D 00 00  00 00 60 0D // Med heart
+60 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+10 03 00 00  FA 04 5A 0D   5B 0D 00 00  00 00 5B 0D // Small heart
+5B 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+14 03 00 00  FC 04 F0 0D   F1 0D 00 00  00 00 F1 0D // blue/pink animation
+F1 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+18 03 00 00  FE 04 F2 0D   F3 0D 00 00  00 00 F3 0D // Exit portal animation
+F3 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+1C 03 00 00  00 05 E3 0D   E2 0D 00 00  00 00 E2 0D // yellow explosion 
+E2 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+20 03 00 00  02 05 E1 0D   DE 0D 00 00  00 00 DE 0D // Green explosion
+DE 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+24 03 00 00  04 05 DF 0D   E0 0D 00 00  00 00 E0 0D // Blue explosion
+E0 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+28 03 00 00  06 05 E4 0D   E5 0D 00 00  00 00 E5 0D // Purple explosion
+E5 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+2C 03 00 00  08 05 DC 0D   DD 0D 00 00  00 00 DD 0D // Red explosion 
+DD 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   
+30 03 00 00  0A 05 30 0E   31 0E 00 00  00 00 31 0E // Purple teleport
+31 0E 00 00  00 00 00 00   00 00 00 00  00 00 00 00   
+00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 // Unused
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00
+
+// Raw file data
+40 03 00 00  34 03 00 00   FF 00 00 00  FF 00 00 00
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   1D 24 31 2E  FF 00 00 00 
+1D 24 31 2E  FF 00 00 00   10 24 37 28  FF 00 00 00 
+10 24 37 28  FF 00 00 00   FF 00 00 00  0B 24 35 35 
+2C 28 35 FF  0B 24 35 35   2C 28 35 FF  0B 24 35 35 
+2C 28 35 FF  0B 24 35 35   2C 28 35 FF  0B 24 35 35 
+2C 28 35 FF  0B 2F 32 26   2E FF 00 00  0B 2F 32 26 
+2E FF 00 00  0B 2F 32 26   2E FF 00 00  0B 2F 32 26 
+2E FF 00 00  0B 2F 32 26   2E FF 00 00  0B 38 2A FF 
+0B 38 2A FF  0B 38 2A FF   0B 38 2A FF  0B 38 2A FF 
+0B 38 2A FF  0B 38 2A FF   0B 38 2A FF  0B 38 2A FF 
+0B 38 2A FF  0B 38 2A FF   0B 38 2A FF  16 2C 31 28 
+FF 00 00 00  16 2C 31 28   FF 00 00 00  16 2C 31 28 
+FF 00 00 00  16 2C 31 28   FF 00 00 00  16 2C 31 28 
+FF 00 00 00  0B 32 3B FF   0B 32 3B FF  0B 32 3B FF 
+0B 32 3B FF  0B 32 3B FF   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  FF 00 00 00   FF 00 00 00  FF 00 00 00 
+FF 00 00 00  00 00 00 00   00 00 00 00  00 06 80 04 
+08 00 00 00  58 02 17 0D   16 0D 00 00  00 00 16 0D 
+16 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   0C 00 00 00  5A 02 F7 07 
+FE 07 00 00  00 00 FE 07   FE 07 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+10 00 00 00  5C 02 FB 07   FD 07 00 00  00 00 FD 07 
+FD 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   14 00 00 00  5E 02 46 04 
+45 04 45 04  45 04 45 04   45 04 45 04  45 04 45 04 
+45 04 45 04  45 04 00 00   00 00 00 00  00 00 00 00 
+18 00 00 00  60 02 63 0D   64 0D 00 00  00 00 64 0D 
+64 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   1C 00 00 00  62 02 2E 0C 
+2F 0C 00 00  00 00 2F 0C   2F 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+20 00 00 00  64 02 7B 0D   79 0D 00 00  00 00 79 0D 
+79 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   24 00 00 00  66 02 5A 02 
+59 02 59 02  59 02 59 02   59 02 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+28 00 00 00  68 02 F9 07   F8 07 00 00  00 00 F8 07 
+F8 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   2C 00 00 00  6A 02 E4 06 
+E5 06 00 00  00 00 E5 06   E5 06 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+30 00 00 00  6C 02 84 0D   83 0D 00 00  00 00 83 0D 
+83 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   34 00 00 00  6E 02 5E 09 
+5F 09 00 00  00 00 5F 09   5F 09 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+38 00 00 00  70 02 25 0C   24 0C 00 00  00 00 24 0C 
+24 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   3C 00 00 00  72 02 65 09 
+61 09 00 00  00 00 61 09   61 09 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+40 00 00 00  74 02 57 0A   4F 0A 00 00  00 00 4F 0A 
+4F 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   44 00 00 00  76 02 57 0D 
+56 0D 00 00  00 00 56 0D   56 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+48 00 00 00  78 02 02 01   01 01 01 01  01 01 01 01 
+01 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   4C 00 00 00  7A 02 9B 0D 
+9C 0D 00 00  00 00 9C 0D   9C 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+50 00 00 00  7C 02 62 09   60 09 00 00  00 00 60 09 
+60 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   54 00 00 00  7E 02 7B 0A 
+7A 0A 00 00  00 00 7A 0A   7A 0A 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+58 00 00 00  80 02 5E 0D   5D 0D 00 00  00 00 5D 0D 
+5D 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   5C 00 00 00  82 02 34 09 
+33 09 00 00  00 00 33 09   33 09 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+60 00 00 00  84 02 70 0C   71 0C 00 00  00 00 71 0C 
+71 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   64 00 00 00  86 02 15 0D 
+13 0D 00 00  00 00 13 0D   13 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+68 00 00 00  88 02 77 0A   78 0A 00 00  00 00 78 0A 
+78 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   6C 00 00 00  8A 02 43 04 
+44 04 44 04  44 04 44 04   44 04 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+70 00 00 00  8C 02 9C 00   9D 00 9D 00  9D 00 9D 00 
+9D 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   74 00 00 00  8E 02 7C 0A 
+79 0A 00 00  00 00 79 0A   79 0A 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+78 00 00 00  90 02 04 0B   03 0B 00 00  00 00 03 0B 
+03 0B 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   7C 00 00 00  92 02 1B 0B 
+03 0D 00 00  00 00 03 0D   03 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+80 00 00 00  94 02 FC 07   FA 07 00 00  00 00 FA 07 
+FA 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   84 00 00 00  96 02 2D 0C 
+27 05 00 00  00 00 27 05   27 05 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+88 00 00 00  98 02 A6 0D   A7 0D 00 00  00 00 A7 0D 
+A7 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   8C 00 00 00  9A 02 7A 0D 
+7C 0D 00 00  00 00 7C 0D   7C 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+90 00 00 00  9C 02 6D 0C   6E 0C 00 00  00 00 6E 0C 
+6E 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   94 00 00 00  9E 02 FF 07 
+00 08 00 00  00 00 00 08   00 08 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+98 00 00 00  A0 02 4A 0A   4B 0A 00 00  00 00 4B 0A 
+4B 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   9C 00 00 00  A2 02 95 0D 
+94 0D 00 00  00 00 94 0D   94 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+A0 00 00 00  A4 02 58 02   57 02 57 02  57 02 57 02 
+57 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   A4 00 00 00  A6 02 02 0D 
+01 0D 00 00  00 00 01 0D   01 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+A8 00 00 00  A8 02 9A 0C   9B 0C 00 00  00 00 9B 0C 
+9B 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   AC 00 00 00  AA 02 DC 02 
+DB 02 00 00  00 00 DB 02   DB 02 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+B0 00 00 00  AC 02 5D 09   5B 09 00 00  00 00 5B 09 
+5B 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   B4 00 00 00  AE 02 C6 0C 
+C7 0C 00 00  00 00 C7 0C   C7 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+B8 00 00 00  B0 02 DA 0C   DB 0C 00 00  00 00 DB 0C 
+DB 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   BC 00 00 00  B2 02 95 0C 
+96 0C 00 00  00 00 96 0C   96 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+C0 00 00 00  B4 02 7E 0D   7D 0D 00 00  00 00 7D 0D 
+7D 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   C4 00 00 00  B6 02 99 0C 
+98 0C 00 00  00 00 98 0C   98 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+C8 00 00 00  B8 02 DD 0C   DC 0C 00 00  00 00 DC 0C 
+DC 0C 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   CC 00 00 00  BA 02 9D 0D 
+9F 0D 00 00  00 00 9F 0D   9F 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+D0 00 00 00  BC 02 64 09   63 09 00 00  00 00 63 09 
+63 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   D4 00 00 00  BE 02 80 0D 
+7F 0D 00 00  00 00 7F 0D   7F 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+D8 00 00 00  C0 02 59 0D   58 0D 00 00  00 00 58 0D 
+58 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   DC 00 00 00  C2 02 96 0D 
+97 0D 00 00  00 00 97 0D   97 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+E0 00 00 00  C4 02 7E 0A   7D 0A 00 00  00 00 7D 0A 
+7D 0A 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   E4 00 00 00  C6 02 49 0A 
+48 0A 00 00  00 00 48 0A   48 0A 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+E8 00 00 00  C8 02 62 0D   65 0D 00 00  00 00 65 0D 
+65 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   EC 00 00 00  CA 02 94 0C 
+97 0C 00 00  00 00 97 0C   97 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+F0 00 00 00  CC 02 5C 09   5A 09 00 00  00 00 5A 09 
+5A 09 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   F4 00 00 00  CE 02 23 0C 
+22 0C 00 00  00 00 22 0C   22 0C 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+F8 00 00 00  D0 02 04 01   03 01 03 01  03 01 03 01 
+03 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   FC 00 00 00  D2 02 08 03 
+07 03 07 03  07 03 07 03   07 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 01 00 00  D4 02 0C 03   0D 03 0D 03  0D 03 0D 03 
+0D 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   04 01 00 00  D6 02 E2 03 
+E3 03 E3 03  E3 03 E3 03   E3 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+08 01 00 00  D8 02 FF 06   00 07 00 00  00 00 00 07 
+00 07 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   0C 01 00 00  DA 02 F7 07 
+FE 07 00 00  00 00 FE 07   FE 07 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+10 01 00 00  DC 02 19 05   16 05 00 00  00 00 16 05 
+16 05 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   14 01 00 00  DE 02 29 0B 
+2D 0B 00 00  00 00 2D 0B   2D 0B 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+18 01 00 00  E0 02 AD 0D   AC 0D 00 00  00 00 AC 0D 
+AC 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   1C 01 00 00  E2 02 AB 0D 
+AA 0D 00 00  00 00 AA 0D   AA 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+20 01 00 00  E4 02 A9 0D   A8 0D 00 00  00 00 A8 0D 
+A8 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   24 01 00 00  E6 02 08 0E 
+07 0E 00 00  00 00 07 0E   07 0E 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+28 01 00 00  E8 02 28 0B   27 0B 00 00  00 00 27 0B 
+27 0B 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   2C 01 00 00  EA 02 06 0E 
+05 0E 00 00  00 00 05 0E   05 0E 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+30 01 00 00  EC 02 CC 03   CB 03 00 00  00 00 CB 03 
+CB 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   34 01 00 00  EE 02 D3 0C 
+D7 03 00 00  00 00 D7 03   D7 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+38 01 00 00  EA 03 11 01   05 01 05 01  05 01 05 01 
+05 01 00 00  00 00 00 00   00 00 00 00  00 00 00 08 
+00 00 01 00  00 00 00 00   40 01 00 00  EC 03 9D 01 
+8F 01 8F 01  8F 01 8F 01   8F 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+48 01 00 00  EE 03 1E 02   1D 02 1D 02  1D 02 1D 02 
+1D 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   50 01 00 00  F0 03 65 01 
+64 01 64 01  64 01 64 01   64 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+58 01 00 00  F2 03 60 01   63 01 63 01  63 01 63 01 
+63 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   60 01 00 00  F4 03 5F 01 
+61 01 61 01  61 01 61 01   61 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+68 01 00 00  F6 03 62 01   5D 01 5D 01  5D 01 5D 01 
+5D 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   70 01 00 00  F8 03 77 01 
+78 01 78 01  78 01 78 01   78 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+78 01 00 00  FA 03 79 01   76 01 76 01  76 01 76 01 
+76 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   80 01 00 00  FC 03 6B 01 
+71 01 71 01  71 01 71 01   71 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+88 01 00 00  FE 03 6C 01   75 01 75 01  75 01 75 01 
+75 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   90 01 00 00  00 04 6E 01 
+69 01 69 01  69 01 69 01   69 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+98 01 00 00  02 04 72 01   73 01 73 01  73 01 73 01 
+73 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   A0 01 00 00  04 04 74 01 
+70 01 70 01  70 01 70 01   70 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+A8 01 00 00  06 04 68 01   6D 01 6D 01  6D 01 6D 01 
+6D 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   B0 01 00 00  08 04 6A 01 
+6F 01 6F 01  6F 01 6F 01   6F 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+B8 01 00 00  0A 04 E8 02   E7 02 E7 02  E7 02 E7 02 
+E7 02 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   C0 01 00 00  0C 04 67 01 
+66 01 66 01  66 01 66 01   66 01 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+C8 01 00 00  0E 04 54 01   53 01 53 01  53 01 53 01 
+53 01 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   D0 01 00 00  10 04 6F 02 
+6E 02 6E 02  6E 02 6E 02   6E 02 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+D8 01 00 00  12 04 41 03   42 03 42 03  42 03 42 03 
+42 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   E0 01 00 00  14 04 D3 03 
+D4 03 D4 03  D4 03 D4 03   D4 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+E8 01 00 00  16 04 40 03   3F 03 3F 03  3F 03 3F 03 
+3F 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   F0 01 00 00  18 04 DB 03 
+DA 03 DA 03  DA 03 DA 03   DA 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+F8 01 00 00  1A 04 53 03   54 03 54 03  54 03 54 03 
+54 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 02 00 00  1C 04 17 04 
+18 04 18 04  18 04 18 04   18 04 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+08 02 00 00  1E 04 35 04   36 04 36 04  36 04 36 04 
+36 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   10 02 00 00  20 04 57 03 
+58 03 58 03  58 03 58 03   58 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+18 02 00 00  22 04 6B 03   6C 03 6C 03  6C 03 6C 03 
+6C 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   20 02 00 00  24 04 85 0D 
+86 0D 00 00  00 00 86 0D   86 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+28 02 00 00  26 04 4F 04   4E 04 4E 04  4E 04 4E 04 
+4E 04 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   30 02 00 00  28 04 81 0D 
+82 0D 00 00  00 00 82 0D   82 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+38 02 00 00  B0 04 17 05   18 05 18 05  18 05 18 05 
+18 05 18 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   40 02 00 00  B2 04 23 05 
+22 05 22 05  22 05 22 05   22 05 22 05  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+48 02 00 00  B4 04 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   4C 02 00 00  B6 04 68 03 
+67 03 67 03  67 03 67 03   67 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+54 02 00 00  B8 04 66 03   64 03 64 03  64 03 64 03 
+64 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   5C 02 00 00  BA 04 5F 03 
+65 03 65 03  65 03 65 03   65 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+64 02 00 00  BC 04 5D 03   5B 03 5B 03  5B 03 5B 03 
+5B 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   6C 02 00 00  BE 04 59 03 
+61 03 61 03  61 03 61 03   61 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+74 02 00 00  C0 04 1A 05   1B 05 1B 05  1B 05 1B 05 
+1B 05 1B 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   7C 02 00 00  C2 04 25 05 
+24 05 24 05  24 05 24 05   24 05 24 05  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+84 02 00 00  C4 04 1E 05   1F 05 1F 05  1F 05 1F 05 
+1F 05 1F 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   8C 02 00 00  C6 04 1C 05 
+1D 05 1D 05  1D 05 1D 05   1D 05 1D 05  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+94 02 00 00  C8 04 21 05   20 05 20 05  20 05 20 05 
+20 05 20 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   9C 02 00 00  CA 04 6F 03 
+70 03 70 03  70 03 70 03   70 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+A0 02 00 00  CC 04 6E 03   6D 03 6D 03  6D 03 6D 03 
+6D 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   A4 02 00 00  CE 04 71 03 
+72 03 72 03  72 03 72 03   72 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+A8 02 00 00  D0 04 78 03   74 03 74 03  74 03 74 03 
+74 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   AC 02 00 00  D2 04 77 03 
+75 03 75 03  75 03 75 03   75 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+B0 02 00 00  D4 04 76 03   73 03 73 03  73 03 73 03 
+73 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   B4 02 00 00  D6 04 5A 03 
+60 03 60 03  60 03 60 03   60 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+B8 02 00 00  D8 04 5C 03   63 03 63 03  63 03 63 03 
+63 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   BC 02 00 00  DA 04 5E 03 
+62 03 62 03  62 03 62 03   62 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+C0 02 00 00  DC 04 7E 03   79 03 79 03  79 03 79 03 
+79 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   C4 02 00 00  DE 04 7D 03 
+7C 03 7C 03  7C 03 7C 03   7C 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+C8 02 00 00  E0 04 7B 03   7A 03 7A 03  7A 03 7A 03 
+7A 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   CC 02 00 00  E2 04 4A 03 
+49 03 49 03  49 03 49 03   49 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+D4 02 00 00  E4 04 52 03   51 03 51 03  51 03 51 03 
+51 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   DC 02 00 00  E6 04 4F 03 
+50 03 50 03  50 03 50 03   50 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+E4 02 00 00  E8 04 4D 03   4E 03 4E 03  4E 03 4E 03 
+4E 03 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   EC 02 00 00  EA 04 4C 03 
+4B 03 4B 03  4B 03 4B 03   4B 03 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+F4 02 00 00  EC 04 09 05   0C 05 0C 05  0C 05 0C 05 
+0C 05 0C 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   F8 02 00 00  EE 04 0F 05 
+07 05 07 05  07 05 07 05   07 05 07 05  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+FC 02 00 00  F0 04 0B 05   0D 05 0D 05  0D 05 0D 05 
+0D 05 0D 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 03 00 00  F2 04 0A 05 
+0E 05 0E 05  0E 05 0E 05   0E 05 0E 05  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+04 03 00 00  F4 04 08 05   06 05 06 05  06 05 06 05 
+06 05 06 05  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   08 03 00 00  F6 04 5C 0D 
+61 0D 00 00  00 00 61 0D   61 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+0C 03 00 00  F8 04 5F 0D   60 0D 00 00  00 00 60 0D 
+60 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   10 03 00 00  FA 04 5A 0D 
+5B 0D 00 00  00 00 5B 0D   5B 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+14 03 00 00  FC 04 F0 0D   F1 0D 00 00  00 00 F1 0D 
+F1 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   18 03 00 00  FE 04 F2 0D 
+F3 0D 00 00  00 00 F3 0D   F3 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+1C 03 00 00  00 05 E3 0D   E2 0D 00 00  00 00 E2 0D 
+E2 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   20 03 00 00  02 05 E1 0D 
+DE 0D 00 00  00 00 DE 0D   DE 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+24 03 00 00  04 05 DF 0D   E0 0D 00 00  00 00 E0 0D 
+E0 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   28 03 00 00  06 05 E4 0D 
+E5 0D 00 00  00 00 E5 0D   E5 0D 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+2C 03 00 00  08 05 DC 0D   DD 0D 00 00  00 00 DD 0D 
+DD 0D 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   30 03 00 00  0A 05 30 0E 
+31 0E 00 00  00 00 31 0E   31 0E 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00   00 00 00 00  00 00 00 00 
+00 00 00 00  00 00 00 00

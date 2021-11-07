@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace DigimonWorld2Tool.FileFormats
 {
@@ -23,10 +22,18 @@ namespace DigimonWorld2Tool.FileFormats
 
             foreach (var item in DigimonModelMappings)
             {
-                if (item == null)
-                    continue;
                 item.NameData = item.GetNameData(RawFileData);
             }
+
+            //System.Diagnostics.Debug.WriteLine($"MODELDT0:");
+            //int i = 0;
+            //foreach (var item in DigimonModelMappings)
+            //{
+            //    var name = Utility.TextConversion.DigiStringToASCII(item.NameData);
+            //    System.Diagnostics.Debug.WriteLine($"{i}: {name}");
+            //    System.Diagnostics.Debug.WriteLine($"{item.ToString()}");
+            //    i++;
+            //}
         }
 
         /// <summary>
@@ -37,85 +44,10 @@ namespace DigimonWorld2Tool.FileFormats
         /// </summary>
         private void GetDigimonModelMappings(byte[] data)
         {
-            //we add 3 because Agumon starts at 0x03 in DIGIMNDT
-            //DigimonModelMappings = new DigimonModelFilesMapping[(data.Length / DigimonModelFilesMappingDataLength) + 3];
-            //for (int i = 0; i < data.Length; i += DigimonModelFilesMappingDataLength)
-            //{
-            //    DigimonModelMappings[i / DigimonModelFilesMappingDataLength + 3] = new DigimonModelFilesMapping(data[i..(i + DigimonModelFilesMappingDataLength)]);
-            //}
-
-            DigimonModelMappings = new DigimonModelFilesMapping[255];
-            int digimonMappingEntryBaseAddress = 0;
-            for (int j = 0; j < DigimonModelMappings.Length; j++)
+            DigimonModelMappings = new DigimonModelFilesMapping[(data.Length / DigimonModelFilesMappingDataLength)];
+            for (int i = 0; i < data.Length; i += DigimonModelFilesMappingDataLength)
             {
-                switch (j)
-                {
-                    case 0x00:
-                    case 0x01:
-                    case 0x02:
-                    case 0x0F:
-                    case 0x10:
-                    case 0x1D:
-                    case 0x1E:
-                    case 0x2B:
-                    case 0x2C:
-                    case 0x3E:
-                    //case 0x52: //There is a model for this, but no DIGIMNDT
-                    //case 0x53: //There is a model for this, but no DIGIMNDT
-                    //case 0x56: //There is a model for this, but no DIGIMNDT
-                    //case 0x57: //There is a model for this, but no DIGIMNDT
-                    //case 0x59: //There is a model for this, but no DIGIMNDT
-                    //case 0x5D: //There is a model for this, but no DIGIMNDT
-                    //case 0x61: //There is a model for this, but no DIGIMNDT
-                    //case 0x63: //There is a model for this, but no DIGIMNDT
-                    case 0x6C:
-                    case 0x72:
-                    case 0x74:
-                    case 0x76:
-                    case 0x78:
-                    case 0x7D:
-                    case 0x7E:
-                    case 0x7F:
-                    case 0x81:
-                    case 0x82:
-                    case 0x98:
-                    case 0x99:
-                    case 0x9A:
-                    case 0x9B:
-                    case 0x9C:
-                    case 0x9D:
-                    case 0x9E:
-                    case 0x9F:
-                    case 0xA0:
-                    case 0xA1:
-                    case 0xA2:
-                    case 0xA3:
-                    case 0xA4:
-                    case 0xA5:
-                    case 0xA6:
-                    case 0xA7:
-                    case 0xA8:
-                    case 0xA9:
-                    case 0xAA:
-                    case 0xAB:
-                    case 0xAC:
-                    case 0xAD:
-                    case 0xAE:
-                    case 0xAF:
-                    case 0xB0:
-                    case 0xB1:
-                    case 0xB2:
-                    case 0xB3:
-                    case 0XEF:
-                    case 0XF1:
-                    case 0XF2:
-                    case 0XF3:
-                        DigimonModelMappings[j] = null;
-                        continue;
-                }
-
-                DigimonModelMappings[j] = new DigimonModelFilesMapping(data[digimonMappingEntryBaseAddress..(digimonMappingEntryBaseAddress + DigimonModelFilesMappingDataLength)]);
-                digimonMappingEntryBaseAddress += DigimonModelFilesMappingDataLength;
+                DigimonModelMappings[i / DigimonModelFilesMappingDataLength] = new DigimonModelFilesMapping(data[i..(i + DigimonModelFilesMappingDataLength)]);
             }
         }
     }
@@ -123,7 +55,7 @@ namespace DigimonWorld2Tool.FileFormats
     public class DigimonModelFilesMapping
     {
         public int NamePointer { get; set; }
-        public short Unknown1 { get; set; }
+        public short DigimonID { get; set; } //This is actually the DigimonID * 2
         public short MainModel { get; set; }
         public short IdleAnim { get; set; }
         public short GuardingDamageAnim { get; set; }
@@ -147,7 +79,7 @@ namespace DigimonWorld2Tool.FileFormats
         public DigimonModelFilesMapping(byte[] data)
         {
             NamePointer = BitConverter.ToInt32(data[0..4]);
-            Unknown1 = BitConverter.ToInt16(data[4..6]);
+            DigimonID = BitConverter.ToInt16(data[4..6]);
             MainModel = BitConverter.ToInt16(data[6..8]);
             IdleAnim = BitConverter.ToInt16(data[8..10]);
             GuardingDamageAnim = BitConverter.ToInt16(data[10..12]);
@@ -175,6 +107,29 @@ namespace DigimonWorld2Tool.FileFormats
                 nameBytesArray[i] = nameBytes[i][0];
 
             return nameBytesArray;
+        }
+
+        public override string ToString()
+        {;
+            //return $"{NamePointer:X8}, {DigimonID:X2}, {MainModel:X2}, {IdleAnim:X2}, {GuardingDamageAnim:X2}, {DamageAnim:X2}, {CityModel:X2}, {Unknown2:X2}, {Attack1Anim:X2}, {Attack2Anim:X2}, {Attack3Anim:X2}, {VictoryAnim:X2}, {GettingUpAnim:X2}, {DeadAnim:X2}, {Unknown3:X2}, {Unknown4:X2}, {Unknown5:X2}, {Unknown6:X2}, {Unknown7:X2}";
+            return $"{NamePointer:X8}, {(byte)(DigimonID & 0xff):X2}, {(byte)(DigimonID >> 8):X2}, " +
+                $"{(byte)(MainModel & 0xff):X2}, {(byte)(MainModel >> 8):X2}, " +
+                $"{(byte)(IdleAnim & 0xff):X2}, {(byte)(IdleAnim >> 8):X2}, " +
+                $"{(byte)(GuardingDamageAnim & 0xff):X2}, {(byte)(GuardingDamageAnim >> 8):X2}, " +
+                $"{(byte)(DamageAnim & 0xff):X2}, {(byte)(DamageAnim >> 8):X2}, " +
+                $"{(byte)(CityModel & 0xff):X2}, {(byte)(CityModel >> 8):X2}, " +
+                $"{(byte)(Unknown2 & 0xff):X2}, {(byte)(Unknown2 >> 8):X2}, " +
+                $"{(byte)(Attack1Anim & 0xff):X2}, {(byte)(Attack1Anim >> 8):X2}, " +
+                $"{(byte)(Attack2Anim & 0xff):X2}, {(byte)(Attack2Anim >> 8):X2}, " +
+                $"{(byte)(Attack3Anim & 0xff):X2}, {(byte)(Attack3Anim >> 8):X2}, " +
+                $"{(byte)(VictoryAnim & 0xff):X2}, {(byte)(VictoryAnim >> 8):X2}, " +
+                $"{(byte)(GettingUpAnim & 0xff):X2}, {(byte)(GettingUpAnim >> 8):X2}, " +
+                $"{(byte)(DeadAnim & 0xff):X2}, {(byte)(DeadAnim >> 8):X2}, " +
+                $"{(byte)(Unknown3 & 0xff):X2}, {(byte)(Unknown3 >> 8):X2}, " +
+                $"{(byte)(Unknown4 & 0xff):X2}, {(byte)(Unknown4 >> 8):X2}, " +
+                $"{(byte)(Unknown5 & 0xff):X2}, {(byte)(Unknown5 >> 8):X2}, " +
+                $"{(byte)(Unknown6 & 0xff):X2}, {(byte)(Unknown6 >> 8):X2}, " +
+                $"{(byte)(Unknown7 & 0xff):X2}, {(byte)(Unknown7 >> 8):X2}";
         }
     }
 }

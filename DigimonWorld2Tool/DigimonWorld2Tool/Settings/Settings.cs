@@ -59,6 +59,19 @@ namespace DigimonWorld2Tool.Settings
             }
         }
 
+        public static string ITEMDATAFilePath { get => $"{BaseDllDirectory}/Resources/DataFiles/ITEMDATA.BIN"; }
+        private static ITEMDATA _ITEMDATAFile;
+        public static ITEMDATA ITEMDATAFile
+        {
+            get
+            {
+                if (_ITEMDATAFile == null)
+                    _ITEMDATAFile = new ITEMDATA();
+
+                return _ITEMDATAFile;
+            }
+        }
+
         private static bool isUsingDarkModeIsSet;
         private static bool isUsingDarkMode;
         public static bool IsUsingDarkMode

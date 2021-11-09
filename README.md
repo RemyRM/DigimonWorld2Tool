@@ -31,7 +31,7 @@ Functionality I may or may not add at some point in the future, in semi order of
 These people have helped immensely in helping to figure out the data format, providing additional insights, and sharing a lot of information (in no particulair order):
 - Luminaires
 - [Gledson999](https://www.youtube.com/channel/UCeHINpXaGB9B4WaAK1P091Q)
-- [Grensuingo](https://www.youtube.com/channel/UCcIDnhNq-dwQSVTSw8GUmhw)
+- Grensuingo
 - [Rhymu8354](https://github.com/rhymu8354/)
 - [nDoorn](https://github.com/nd00rn) 
 

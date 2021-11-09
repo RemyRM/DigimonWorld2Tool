@@ -73,9 +73,9 @@ namespace DigimonWorld2Tool.Rendering
             TileSizeHeight = CurrentDrawnMapLayoutBitmap.Height / 48;
 
             DrawFloorLayoutToBitmap();
+            DrawFloorTrapsToBitmap();
             DrawFloorWarpsToBitmap();
             DrawFloorChestsToBitmap();
-            DrawFloorTrapsToBitmap();
             DrawGridLayout();
             DrawFloorDigimonToBitmap();
 
@@ -105,8 +105,11 @@ namespace DigimonWorld2Tool.Rendering
                 {
                     for (int y = 0; y < TileSizeHeight; y++)
                     {
-                        CurrentDrawnMapLayoutBitmap.SetPixel(xId * 2 * TileSizeWidth + x, yId * TileSizeHeight + y, TileTypeColour[leftTileType]);
-                        CurrentDrawnMapLayoutBitmap.SetPixel((xId * 2 + 1) * TileSizeWidth + x, yId * TileSizeHeight + y, TileTypeColour[rightTileType]);
+                        var leftColour = TileTypeColour.ContainsKey(leftTileType) ? TileTypeColour[leftTileType] : Color.Magenta;
+                        var rightColour = TileTypeColour.ContainsKey(rightTileType) ? TileTypeColour[rightTileType] : Color.Magenta;
+
+                        CurrentDrawnMapLayoutBitmap.SetPixel(xId * 2 * TileSizeWidth + x, yId * TileSizeHeight + y, leftColour);
+                        CurrentDrawnMapLayoutBitmap.SetPixel((xId * 2 + 1) * TileSizeWidth + x, yId * TileSizeHeight + y, rightColour);
                     }
                 }
             }
@@ -168,9 +171,11 @@ namespace DigimonWorld2Tool.Rendering
                         CurrentDrawnMapLayoutBitmap.SetPixel(trap.X * TileSizeWidth + x, trap.Y * TileSizeHeight + y, Color.Yellow);
                         string trapTypeChar;
 
-                        DungFloorTrap.TrapTypeAndLevel notNullTrap = trap.TypeAndLevel.FirstOrDefault(o => (TrapLevel)o.Level != TrapLevel.Zero);
+                        DungFloorTrap.TrapTypeAndLevel selectedTrap = trap.TypeAndLevel.FirstOrDefault(o => (TrapLevel)o.Level != TrapLevel.Zero);
+                        if (selectedTrap == null)
+                            continue;
 
-                        switch ((TrapType)notNullTrap.Type)
+                        switch ((TrapType)selectedTrap.Type)
                         {
                             case TrapType.None:
                                 trapTypeChar = "-";

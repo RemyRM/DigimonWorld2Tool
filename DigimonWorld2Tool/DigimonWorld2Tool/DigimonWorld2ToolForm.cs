@@ -85,7 +85,7 @@ namespace DigimonWorld2Tool
 
             // We select anything non-start index here so the indexChanged gets fired on rendering the first layout
             MapLayoutsTabControl.SelectedIndex = MapLayoutsTabControl.TabCount;
-            EditorLayoutRenderer.SetupFloorLayerBitmap();
+            EditorLayoutRendererOld.SetupFloorLayerBitmap();
         }
 
         private void PopulateComboBoxes()
@@ -383,7 +383,7 @@ namespace DigimonWorld2Tool
         /// <param name="mapLayoutIndex"></param>
         private void DrawCurrentMapLayout()
         {
-            LayoutRenderer.SetupFloorLayerBitmap();
+            LayoutRendererOld.SetupFloorLayerBitmap();
             CurrentMapLayout.DrawLayout();
         }
 
@@ -393,9 +393,9 @@ namespace DigimonWorld2Tool
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
             if (GridPosHexCheckBox.Checked)
-                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:X2}";
+                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRendererOld.tileSize:X2} Y: {(int)e.Location.Y / LayoutRendererOld.tileSize:X2}";
             else
-                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / LayoutRenderer.tileSize:00}";
+                MousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / LayoutRendererOld.tileSize:00} Y: {(int)e.Location.Y / LayoutRendererOld.tileSize:00}";
         }
 
         /// <summary>
@@ -404,19 +404,19 @@ namespace DigimonWorld2Tool
         private void ResizeGridButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default["GridTileSize"] = (int)TileSizeInput.Value;
-            LayoutRenderer.tileSize = (int)TileSizeInput.Value;
+            LayoutRendererOld.tileSize = (int)TileSizeInput.Value;
             DrawCurrentMapLayout();
             if (ShowGridCheckbox.Checked)
-                LayoutRenderer.DrawGrid();
+                LayoutRendererOld.DrawGrid();
         }
 
         private void ShowGridCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default["ShowGridLines"] = ShowGridCheckbox.Checked;
             if (ShowGridCheckbox.Checked)
-                LayoutRenderer.DrawGrid();
+                LayoutRendererOld.DrawGrid();
             else
-                LayoutRenderer.HideGrid();
+                LayoutRendererOld.HideGrid();
         }
 
         /// <summary>
@@ -442,11 +442,11 @@ namespace DigimonWorld2Tool
                     switch (saveFileDialog1.FilterIndex)
                     {
                         case 1:
-                            LayoutRenderer.combinedLayer.Save(fs, ImageFormat.Png);
+                            LayoutRendererOld.combinedLayer.Save(fs, ImageFormat.Png);
                             break;
 
                         case 2:
-                            LayoutRenderer.combinedLayer.Save(fs, ImageFormat.Bmp);
+                            LayoutRendererOld.combinedLayer.Save(fs, ImageFormat.Bmp);
                             break;
                     }
 
@@ -559,7 +559,7 @@ namespace DigimonWorld2Tool
 
         private void ShowWarpsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            Bitmap bmp = ShowWarpsCheckbox.Checked ? LayoutRenderer.warpsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            Bitmap bmp = ShowWarpsCheckbox.Checked ? LayoutRendererOld.warpsLayer : new Bitmap(LayoutRendererOld.GetGridSizeScaled().x, LayoutRendererOld.GetGridSizeScaled().y);
             foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
                 tab.WarpsRenderLayer.Image = bmp;
 
@@ -568,7 +568,7 @@ namespace DigimonWorld2Tool
 
         private void ShowTrapsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            Bitmap bmp = ShowTrapsCheckbox.Checked ? LayoutRenderer.trapsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            Bitmap bmp = ShowTrapsCheckbox.Checked ? LayoutRendererOld.trapsLayer : new Bitmap(LayoutRendererOld.GetGridSizeScaled().x, LayoutRendererOld.GetGridSizeScaled().y);
             foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
                 tab.TrapsRenderLayer.Image = bmp;
 
@@ -577,7 +577,7 @@ namespace DigimonWorld2Tool
 
         private void ShowChestsCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            Bitmap bmp = ShowChestsCheckbox.Checked ? LayoutRenderer.chestsLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            Bitmap bmp = ShowChestsCheckbox.Checked ? LayoutRendererOld.chestsLayer : new Bitmap(LayoutRendererOld.GetGridSizeScaled().x, LayoutRendererOld.GetGridSizeScaled().y);
             foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
                 tab.ChestsRenderLayer.Image = bmp;
 
@@ -586,7 +586,7 @@ namespace DigimonWorld2Tool
 
         private void ShowDigimonCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            Bitmap bmp = ShowDigimonCheckbox.Checked ? LayoutRenderer.digimonLayer : new Bitmap(LayoutRenderer.GetGridSizeScaled().x, LayoutRenderer.GetGridSizeScaled().y);
+            Bitmap bmp = ShowDigimonCheckbox.Checked ? LayoutRendererOld.digimonLayer : new Bitmap(LayoutRendererOld.GetGridSizeScaled().x, LayoutRendererOld.GetGridSizeScaled().y);
             foreach (RenderLayoutTab tab in FloorLayoutRenderTabs)
                 tab.DigimonRenderLayer.Image = bmp;
 
@@ -805,18 +805,18 @@ namespace DigimonWorld2Tool
         {
             Properties.Settings.Default["EditorShowGridLines"] = EditorShowGridCheckbox.Checked;
             if (EditorShowGridCheckbox.Checked)
-                EditorLayoutRenderer.DrawGrid();
+                EditorLayoutRendererOld.DrawGrid();
             else
-                EditorLayoutRenderer.HideGrid();
+                EditorLayoutRendererOld.HideGrid();
         }
 
         private void EditorResizeGridButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default["EditorGridTileSize"] = (int)EditorTileSizeInput.Value;
-            EditorLayoutRenderer.tileSize = (int)EditorTileSizeInput.Value;
+            EditorLayoutRendererOld.tileSize = (int)EditorTileSizeInput.Value;
             //DrawCurrentMapLayout();
             if (EditorShowGridCheckbox.Checked)
-                EditorLayoutRenderer.DrawGrid();
+                EditorLayoutRendererOld.DrawGrid();
         }
 
         /// <summary>
@@ -825,9 +825,9 @@ namespace DigimonWorld2Tool
         private void EditorDisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
             if (EditorGridPosHexCheckbox.Checked)
-                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:X2} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:X2}";
+                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRendererOld.tileSize:X2} Y: {(int)e.Location.Y / EditorLayoutRendererOld.tileSize:X2}";
             else
-                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRenderer.tileSize:00} Y: {(int)e.Location.Y / EditorLayoutRenderer.tileSize:00}";
+                EditorMousePositionOnGridLabel.Text = $"X: {(int)e.Location.X / EditorLayoutRendererOld.tileSize:00} Y: {(int)e.Location.Y / EditorLayoutRendererOld.tileSize:00}";
         }
 
         /// <summary>
@@ -836,7 +836,7 @@ namespace DigimonWorld2Tool
         /// <param name="mapLayoutIndex"></param>
         private void EditorDrawCurrentMapLayout(object sender, EventArgs e)
         {
-            EditorLayoutRenderer.SetupFloorLayerBitmap();
+            EditorLayoutRendererOld.SetupFloorLayerBitmap();
         }
 
         private void EditorReloadLayout_Click(object sender, EventArgs e)
@@ -845,8 +845,8 @@ namespace DigimonWorld2Tool
                                 MessageBoxButtons.OKCancel) == DialogResult.Cancel)
                 return;
 
-            EditorLayoutRenderer.tiles = null;
-            EditorLayoutRenderer.SetupFloorLayerBitmap();
+            EditorLayoutRendererOld.tiles = null;
+            EditorLayoutRendererOld.SetupFloorLayerBitmap();
         }
 
         private void EditorTileTypeButton_Click(object sender, EventArgs e)
@@ -876,10 +876,10 @@ namespace DigimonWorld2Tool
                 {
                     FileStream fs = (FileStream)saveFileDialog.OpenFile();
 
-                    byte[] bytes = new byte[EditorLayoutRenderer.tiles.Length];
+                    byte[] bytes = new byte[EditorLayoutRendererOld.tiles.Length];
                     for (int i = 0; i < bytes.Length; i++)
                     {
-                        bytes[i] = EditorLayoutRenderer.tiles[i].TileValueDec;
+                        bytes[i] = EditorLayoutRendererOld.tiles[i].TileValueDec;
                     }
                     fs.Write(bytes, 0, bytes.Length);
 
@@ -911,11 +911,11 @@ namespace DigimonWorld2Tool
 
                     Tile.DomainTileTypeOld tileType = Tile.DomainTileTypeOld.Empty;
                     tileType = (Tile.DomainTileTypeOld)data[i].GetRightHalfByte();
-                    EditorLayoutRenderer.UpdateTile(pos, tileType);
+                    EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                     pos += Vector2.Right;
                     tileType = (Tile.DomainTileTypeOld)data[i].GetLeftHalfByte();
-                    EditorLayoutRenderer.UpdateTile(pos, tileType);
+                    EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                 }
 

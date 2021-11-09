@@ -13,9 +13,9 @@ namespace DigimonWorld2Tool.Views
 
             this.BackColor = (Color)Settings.Settings.BackgroundColour;
             this.ForeColor = (Color)Settings.Settings.TextColour;
+            ColourTheme.SetColourScheme(this.Controls);
 
             var enemySet = Settings.Settings.ENEMYSETFile.GetSetHeaderByCenterDigiID(setID);
-            //var enemySet = Settings.Settings.ENEMYSETFile.EnemySets[setID];
             SetCenterDigimonData(enemySet.DigimonInSet[0]);
             SetLeftDigimonData(enemySet.DigimonInSet[1]);
             SetRightDigimonData(enemySet.DigimonInSet[2]);

@@ -10,7 +10,7 @@ using static DigimonWorld2Tool.Interfaces.IFloorLayoutObject;
 
 namespace DigimonWorld2Tool.Rendering
 {
-    class LayoutRenderer
+    class LayoutRendererOld
     {
         private static readonly Vector2 GridSize = new Vector2(32, 48);
         public static int tileSize = 10;

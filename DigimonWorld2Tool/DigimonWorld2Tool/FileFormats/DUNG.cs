@@ -326,6 +326,9 @@ namespace DigimonWorld2Tool.FileFormats
         {
             List<byte[]> data = BinReader.ReadBytesToDelimiter(RawFileData, FloorLayoutWarpsPointer, (int)MapObjectDataLength.Warps, new byte[] { 0xFF });
 
+            if (data == null)
+                return new DungFloorWarp[0];
+
             DungFloorWarp[] results = new DungFloorWarp[data.Count];
             for (int i = 0; i < results.Length; i++)
             {
@@ -356,6 +359,9 @@ namespace DigimonWorld2Tool.FileFormats
         {
             List<byte[]> data = BinReader.ReadBytesToDelimiter(RawFileData, FloorLayoutChestsPointer, (int)MapObjectDataLength.Chests, new byte[] { 0xFF });
 
+            if (data == null)
+                return new DungFloorChest[0];
+
             DungFloorChest[] results = new DungFloorChest[data.Count];
             for (int i = 0; i < results.Length; i++)
             {
@@ -382,6 +388,8 @@ namespace DigimonWorld2Tool.FileFormats
         private DungFloorTrap[] GetFloorLayoutTraps()
         {
             List<byte[]> data = BinReader.ReadBytesToDelimiter(RawFileData, FloorLayoutTrapsPointer, (int)MapObjectDataLength.Traps, new byte[] { 0xFF });
+            if (data == null)
+                return new DungFloorTrap[0];
 
             DungFloorTrap[] results = new DungFloorTrap[data.Count];
             for (int i = 0; i < results.Length; i++)
@@ -414,6 +422,9 @@ namespace DigimonWorld2Tool.FileFormats
         private DungFloorDigimon[] GetFloorLayoutDigimons()
         {
             List<byte[]> data = BinReader.ReadBytesToDelimiter(RawFileData, FloorLayoutDigimonsPointer, (int)MapObjectDataLength.Digimon, new byte[] { 0xFF });
+
+            if (data == null)
+                return new DungFloorDigimon[0];
 
             DungFloorDigimon[] results = new DungFloorDigimon[data.Count];
             for (int i = 0; i < results.Length; i++)

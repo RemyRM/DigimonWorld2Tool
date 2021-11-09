@@ -105,7 +105,8 @@ namespace DigimonWorld2Tool.Views
             _ = Settings.Settings.ITEMDATAFile;
 
             LoadUserSettings();
-            Colours.SetColourScheme(this.Controls);
+            ColourTheme.SetColourScheme(this.Controls);
+            ColourTheme.SetColourScheme(ObjectInfoGroupBox.Controls);
 
             PostInit();
         }
@@ -196,6 +197,8 @@ namespace DigimonWorld2Tool.Views
         {
             string selectedDomainName = (string)comboBox.SelectedItem;
             string selectedFileName = Settings.Settings.DungMapping.FirstOrDefault(o => o.DomainName == selectedDomainName)?.Filename;
+            selectedFileName ??= selectedDomainName;
+
 
             LoadDungFileRawData(selectedFileName);
         }
@@ -208,7 +211,7 @@ namespace DigimonWorld2Tool.Views
         {
             string filePath = $"{DungFileDir}\\{filename}";
             if (!File.Exists(filePath))
-                throw new FileNotFoundException();
+                return; 
 
             LoadedDungFileRawData = File.ReadAllBytes(filePath);
             SerializeDungFile(LoadedDungFileRawData);
@@ -285,6 +288,9 @@ namespace DigimonWorld2Tool.Views
 
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
+            if(loadedDungFile == null)
+                return;
+
             MousePositionLabel.Text = $"X: {(int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth:D2} Y: {(int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight:D2}";
         }
 

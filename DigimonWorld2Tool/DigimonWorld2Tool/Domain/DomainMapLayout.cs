@@ -173,43 +173,43 @@ namespace DigimonWorld2Tool.Domains
         /// </summary>
         internal void DrawLayout()
         {
-            LayoutRenderer.DrawTiles(FloorLayoutTiles);
+            LayoutRendererOld.DrawTiles(FloorLayoutTiles);
 
-            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+            LayoutRendererOld.DrawMapObjects(FloorLayoutObjects,
                                           IFloorLayoutObject.MapObjectType.Warp,
                                           bitmap =>
                                           {
-                                              LayoutRenderer.warpsLayer = bitmap;
+                                              LayoutRendererOld.warpsLayer = bitmap;
 
                                               if (DigimonWorld2ToolForm.Main.ShowWarpsCheckbox.Checked)
-                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.WarpsRenderLayer.Image = LayoutRenderer.warpsLayer = bitmap;
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.WarpsRenderLayer.Image = LayoutRendererOld.warpsLayer = bitmap;
                                           });
 
-            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+            LayoutRendererOld.DrawMapObjects(FloorLayoutObjects,
                                           IFloorLayoutObject.MapObjectType.Trap,
                                           bitmap =>
                                           {
-                                              LayoutRenderer.trapsLayer = bitmap;
+                                              LayoutRendererOld.trapsLayer = bitmap;
                                               if (DigimonWorld2ToolForm.Main.ShowTrapsCheckbox.Checked)
-                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.TrapsRenderLayer.Image = LayoutRenderer.trapsLayer = bitmap;
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.TrapsRenderLayer.Image = LayoutRendererOld.trapsLayer = bitmap;
                                           });
 
-            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+            LayoutRendererOld.DrawMapObjects(FloorLayoutObjects,
                                           IFloorLayoutObject.MapObjectType.Chest,
                                           bitmap =>
                                           {
-                                              LayoutRenderer.chestsLayer = bitmap;
+                                              LayoutRendererOld.chestsLayer = bitmap;
                                               if (DigimonWorld2ToolForm.Main.ShowChestsCheckbox.Checked)
-                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.ChestsRenderLayer.Image = LayoutRenderer.chestsLayer = bitmap;
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.ChestsRenderLayer.Image = LayoutRendererOld.chestsLayer = bitmap;
                                           });
 
-            LayoutRenderer.DrawMapObjects(FloorLayoutObjects,
+            LayoutRendererOld.DrawMapObjects(FloorLayoutObjects,
                                           IFloorLayoutObject.MapObjectType.Digimon,
                                           bitmap =>
                                           {
-                                              LayoutRenderer.digimonLayer = bitmap;
+                                              LayoutRendererOld.digimonLayer = bitmap;
                                               if (DigimonWorld2ToolForm.Main.ShowDigimonCheckbox.Checked)
-                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.DigimonRenderLayer.Image = LayoutRenderer.digimonLayer = bitmap;
+                                                  DigimonWorld2ToolForm.CurrentLayoutRenderTab.DigimonRenderLayer.Image = LayoutRendererOld.digimonLayer = bitmap;
                                           });
         }
     }

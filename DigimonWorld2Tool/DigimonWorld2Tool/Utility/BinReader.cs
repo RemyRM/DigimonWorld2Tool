@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using DigimonWorld2Tool.Domains;
 using DigimonWorld2Tool;
+using System.Windows.Forms;
 
 namespace DigimonWorld2Tool
 {
@@ -52,7 +53,8 @@ namespace DigimonWorld2Tool
             }
             else
             {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Error; File {filePath} was not found\nPlease check if the file folder exists.");
+                //DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"Error; File {filePath} was not found\nPlease check if the file folder exists.");
+                Views.DebugWindow.DebugLogMessages.Add($"Error; File {filePath} was not found\nPlease check if the file folder exists.");
                 return null;
             }
         }
@@ -96,9 +98,17 @@ namespace DigimonWorld2Tool
 
                 return results;
             }
+            catch (ArgumentOutOfRangeException)
+            {
+                //MessageBox.Show($"Error: The data you are trying to read is out bounds for the current file length. \nPointer: {pointerStartIndex:X8}\nInput length:{inputData.Length:X8}", "Data out of bounds", MessageBoxButtons.OK);
+                Views.DebugWindow.DebugLogMessages.Add($"Error: The data you are trying to read is out bounds for the current file length. Pointer: 0x{pointerStartIndex:X8} Input length: 0x{inputData.Length:X8}");
+
+                return null;
+            }
             catch (Exception e)
             {
-                DigimonWorld2ToolForm.Main.AddErrorToLogWindow($"An unexpected error occurred: {e}");
+                //MessageBox.Show($"Unhandled exception: {e}", "Error", MessageBoxButtons.OK);
+                Views.DebugWindow.DebugLogMessages.Add($"Unhandled exception: {e}");
                 return null;
             }
         }

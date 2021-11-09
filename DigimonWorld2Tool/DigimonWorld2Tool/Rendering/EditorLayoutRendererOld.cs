@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DigimonWorld2Tool.Rendering
 {
-    class EditorLayoutRenderer
+    class EditorLayoutRendererOld
     {
         private static readonly Vector2 GridSize = new Vector2(32, 48);
         public static int tileSize = 10;

@@ -12,16 +12,24 @@ namespace DigimonWorld2Tool.Views
         private const AnchorStyles AnchorAll = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
 
         public static Control CurrentControl { get; private set; }
+        public static DebugWindow DebugWin { get; private set; } 
 
         public MainWindow()
         {
             InitializeComponent();
-            new CsvParser();
+
+            SetupClasses();
 
             OpenMapWindowButton_Click(null, null);
             this.BackColor = (Color)Settings.Settings.PanelBackgroundColour;
             this.ForeColor = (Color)Settings.Settings.TextColour;
-            Colours.SetColourScheme(this.Controls);
+            ColourTheme.SetColourScheme(this.Controls);
+        }
+
+        private void SetupClasses()
+        {
+            new CsvParser();
+            DebugWin = new DebugWindow();
         }
 
         private void OpenMapWindowButton_Click(object sender, EventArgs e)
@@ -54,6 +62,11 @@ namespace DigimonWorld2Tool.Views
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             ((IHostWindow)CurrentControl).OnWindowResizeEnded();
+        }
+
+        private void MainToolStripOpenLogWindow_Click(object sender, EventArgs e)
+        {
+            DebugWin.Show();
         }
     }
 }

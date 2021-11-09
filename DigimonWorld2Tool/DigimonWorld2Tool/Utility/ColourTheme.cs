@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace DigimonWorld2Tool.Utility
 {
-    class Colours
+    class ColourTheme
     {
         public static void SetColourScheme(Control.ControlCollection controls)
         {
@@ -38,6 +35,15 @@ namespace DigimonWorld2Tool.Utility
                 }
                 else if (component is CheckBox)
                 {
+                    component.ForeColor = (Color)Settings.Settings.TextColour;
+                }
+                else if(component is GroupBox)
+                {
+                    component.ForeColor = (Color)Settings.Settings.TextColour;
+                }
+                else if(component is ListBox)
+                {
+                    component.BackColor = (Color)Settings.Settings.ButtonBackgroundColour;
                     component.ForeColor = (Color)Settings.Settings.TextColour;
                 }
             }

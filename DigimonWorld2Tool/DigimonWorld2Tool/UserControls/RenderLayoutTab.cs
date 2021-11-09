@@ -25,8 +25,8 @@ namespace DigimonWorld2Tool.UserControls
 
         private void CursorLayer_MouseClick(object sender, MouseEventArgs e)
         {
-            Vector2 mouseGridPos = new Vector2((int)Math.Floor((double)e.Location.X / LayoutRenderer.tileSize),
-                                               (int)Math.Floor((double)e.Location.Y / LayoutRenderer.tileSize));
+            Vector2 mouseGridPos = new Vector2((int)Math.Floor((double)e.Location.X / LayoutRendererOld.tileSize),
+                                               (int)Math.Floor((double)e.Location.Y / LayoutRendererOld.tileSize));
 
             if (DigimonWorld2ToolForm.Main.MainTabControl.SelectedTab.Name == "MapEditorTab" && DigimonWorld2ToolForm.Main.PlaceModeCheckbox.Checked)
                 PlaceTileOrObjectAtGridPosition(mouseGridPos);
@@ -44,7 +44,7 @@ namespace DigimonWorld2Tool.UserControls
 
         private void PlaceTileOrObjectAtGridPosition(Vector2 gridPos)
         {
-            EditorLayoutRenderer.UpdateTile(gridPos, DigimonWorld2ToolForm.EditorSelectedTileType);
+            EditorLayoutRendererOld.UpdateTile(gridPos, DigimonWorld2ToolForm.EditorSelectedTileType);
         }
     }
 }

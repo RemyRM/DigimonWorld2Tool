@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DigimonWorld2Tool.FileFormats
+namespace DigimonWorld2Tool.FileFormat
 {
     public class ITEMDATA
     {

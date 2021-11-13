@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DigimonWorld2Tool.FileFormats
+namespace DigimonWorld2Tool.FileFormat
 {
     public class MODELDT0
     {

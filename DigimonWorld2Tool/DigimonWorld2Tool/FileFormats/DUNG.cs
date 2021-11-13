@@ -5,7 +5,7 @@ using DigimonWorld2Tool;
 using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Interfaces;
 
-namespace DigimonWorld2Tool.FileFormats
+namespace DigimonWorld2Tool.FileFormat
 {
     public class DUNG
     {
@@ -255,7 +255,7 @@ namespace DigimonWorld2Tool.FileFormats
         private int DungFloorLayoutHeaderBasePointer { get; set; }
 
         public int FloorLayoutPointer { get; private set; }
-        public byte[] FloorLayoutData { get; private set; } = new byte[1536]; //All the layout data for a given map is 1536 bytes long (32x48)
+        public byte[] FloorLayoutData { get; set; } = new byte[1536]; //All the layout data for a given map is 1536 bytes long (32x48)
 
         private int FloorLayoutWarpsPointer { get; set; }
         public DungFloorWarp[] FloorLayoutWarps { get; private set; }
@@ -462,10 +462,10 @@ namespace DigimonWorld2Tool.FileFormats
             X = data[0];
             Y = data[1];
 
-            ItemSlots[0] = data[2].GetLeftHalfByte();
-            ItemSlots[1] = data[2].GetRightHalfByte();
-            ItemSlots[2] = data[3].GetLeftHalfByte();
-            ItemSlots[3] = data[3].GetRightHalfByte();
+            ItemSlots[0] = data[2].GetLefNiblet();
+            ItemSlots[1] = data[2].GetRightNiblet();
+            ItemSlots[2] = data[3].GetLefNiblet();
+            ItemSlots[3] = data[3].GetRightNiblet();
         }
     }
 
@@ -494,8 +494,8 @@ namespace DigimonWorld2Tool.FileFormats
 
             public TrapTypeAndLevel(byte data)
             {
-                Type = data.GetRightHalfByte();
-                Level = data.GetLeftHalfByte();
+                Type = data.GetRightNiblet();
+                Level = data.GetLefNiblet();
             }
         }
     }
@@ -514,10 +514,10 @@ namespace DigimonWorld2Tool.FileFormats
         {
             X = data[0];
             Y = data[1];
-            DigimonPackIndex[0] = data[2].GetLeftHalfByte();
-            DigimonPackIndex[1] = data[2].GetRightHalfByte();
-            DigimonPackIndex[2] = data[3].GetLeftHalfByte();
-            DigimonPackIndex[3] = data[3].GetRightHalfByte();
+            DigimonPackIndex[0] = data[2].GetLefNiblet();
+            DigimonPackIndex[1] = data[2].GetRightNiblet();
+            DigimonPackIndex[2] = data[3].GetLefNiblet();
+            DigimonPackIndex[3] = data[3].GetRightNiblet();
         }
     }
 }

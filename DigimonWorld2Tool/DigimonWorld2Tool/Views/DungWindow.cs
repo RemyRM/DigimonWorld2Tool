@@ -10,7 +10,9 @@ using System.Collections.Generic;
 using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.Interfaces;
-using DigimonWorld2Tool.FileFormats;
+using DigimonWorld2Tool.FileFormat;
+using DigimonWorld2Tool.FileEditor;
+using DigimonWorld2Tool.FileInterpreter;
 
 namespace DigimonWorld2Tool.Views
 {
@@ -67,6 +69,7 @@ namespace DigimonWorld2Tool.Views
             get => loadedDungFloorLayout;
             private set => loadedDungFloorLayout = value;
         }
+        private int LoadedDungFloorLayoutIndex { get; set; }
 
         private DUNGInterpreter dungInterpreter;
         public DUNGInterpreter DungInterpreter
@@ -78,8 +81,14 @@ namespace DigimonWorld2Tool.Views
         private Button[] FloorLayoutButtons { get; set; } = new Button[8];
         private Button LastPressedFloorLayoutButton { get; set; }
 
-        private Dictionary<int, int> DistinctFloorLayoutPointersOccurance { get; set; } = new Dictionary<int, int>();
-        private EnemySetHeader[] possibleDigimonSets; 
+        //private Dictionary<int, int> DistinctFloorLayoutPointersOccurance { get; set; } = new Dictionary<int, int>();
+        private EnemySetHeader[] possibleDigimonSets;
+
+        private DUNGLayoutRenderer.TileType SelectedTileTypeToPaint { get; set; }
+        private DUNGEditor DungEditor { get; set; }
+
+        private string SelectedDungFilePath { get; set; }
+
         public DungWindow()
         {
             Instance = this;
@@ -109,14 +118,96 @@ namespace DigimonWorld2Tool.Views
             ColourTheme.SetColourScheme(ObjectInfoGroupBox.Controls);
 
             PostInit();
+            SetupEvents();
         }
 
-        public void PostInit()
+        private void PostInit()
         {
             if (DungFileDir != "")
             {
                 DungFileNames = GetFileNamesInDungDirectory();
                 PopulateDomainNamesComboBox(SelectDungComboBox);
+            }
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            if (Visible && !Disposing)
+                SetupEvents();
+            else if (!Visible)
+                CleanUpEvents();
+        }
+
+        private void SetupEvents()
+        {
+            MainWindow.EditModeChanged += OnEditModeChanged;
+            Debug.WriteLine("Added event listener for EnableEditMode");
+        }
+
+        private void CleanUpEvents()
+        {
+            MainWindow.EditModeChanged -= OnEditModeChanged;
+            Debug.WriteLine("Removed event listener for EnableEditMode");
+        }
+
+        private void OnEditModeChanged(bool enabled)
+        {
+            CorridorTileTypePictureBox.Visible = enabled;
+            RoomTileTypePictureBox.Visible = enabled;
+            FireTileTypePictureBox.Visible = enabled;
+            NatureTileTypePictureBox.Visible = enabled;
+            WaterTileTypePictureBox.Visible = enabled;
+            MachineTileTypePictureBox.Visible = enabled;
+            DarkTileTypePictureBox.Visible = enabled;
+            EmptyTileTypePictureBox.Visible = enabled;
+            EditorSelectedTileTypePicturebox.Visible = enabled;
+            SaveChangesButton.Visible = enabled;
+
+            if (enabled)
+            {
+                OnEditorTileTypeClick(EmptyTileTypePictureBox, null);
+                //DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, LoadedDungFloorHeader, LoadedDungFloorLayout);
+                DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
+
+                //DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDungFloorLayoutHeader);
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
+            }
+            else
+            {
+                if (DungEditor != null)
+                {
+                    // Pop-up if there is unsaved changed
+                }
+                else
+                {
+                    DungEditor = null;
+
+                }
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
+
+            }
+
+            DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
+            DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
+        }
+
+        private void OnEditorTileTypeClick(object sender, EventArgs e)
+        {
+            PictureBox clickedBox = (PictureBox)sender;
+            string tileName = clickedBox.Name.Replace("TileTypePictureBox", "");
+            var clickedTile = (DUNGLayoutRenderer.TileType)Enum.Parse(typeof(DUNGLayoutRenderer.TileType), tileName);
+            if (SelectedTileTypeToPaint == clickedTile)
+            {
+                SelectedTileTypeToPaint = DUNGLayoutRenderer.TileType.None;
+                EditorSelectedTileTypePicturebox.Visible = false;
+            }
+            else
+            {
+                SelectedTileTypeToPaint = clickedTile;
+                EditorSelectedTileTypePicturebox.Location = new Point(clickedBox.Location.X - 3, clickedBox.Location.Y - 3);
+                EditorSelectedTileTypePicturebox.Visible = true;
             }
         }
 
@@ -166,7 +257,8 @@ namespace DigimonWorld2Tool.Views
             if (DungFileDir == null || !Directory.Exists(DungFileDir))
                 return null;
 
-            string[] filePaths = Directory.GetFiles(DungFileDir);
+            //Filter out the generated backup files that end with ".bak"
+            string[] filePaths = Directory.GetFiles(DungFileDir).Where(o => !o.Contains(".bak")).ToArray();
             string[] fileNames = new string[filePaths.Length];
 
             for (int i = 0; i < fileNames.Length; i++)
@@ -191,6 +283,22 @@ namespace DigimonWorld2Tool.Views
         private void SelectDungComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateDomainNamesComboBox((ComboBox)sender);
+
+            if (MainWindow.EditModeEnabled)
+            {
+                if (DungEditor != null)
+                {
+                    //If there is unsaved data ask to save data first
+                    if (MessageBox.Show("There are unsaved changes, do you want to save before switching maps?", "Save changes?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        //Save 
+                    }
+                }
+                //DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, LoadedDungFloorHeader, LoadedDungFloorLayout);
+                DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
+            }
+            else
+                DungEditor = null;
         }
 
         private void PopulateDomainNamesComboBox(ComboBox comboBox)
@@ -198,7 +306,6 @@ namespace DigimonWorld2Tool.Views
             string selectedDomainName = (string)comboBox.SelectedItem;
             string selectedFileName = Settings.Settings.DungMapping.FirstOrDefault(o => o.DomainName == selectedDomainName)?.Filename;
             selectedFileName ??= selectedDomainName;
-
 
             LoadDungFileRawData(selectedFileName);
         }
@@ -209,11 +316,11 @@ namespace DigimonWorld2Tool.Views
         /// <param name="filename">The name of the file to load</param>
         private void LoadDungFileRawData(string filename)
         {
-            string filePath = $"{DungFileDir}\\{filename}";
-            if (!File.Exists(filePath))
-                return; 
+            SelectedDungFilePath = $"{DungFileDir}\\{filename}";
+            if (!File.Exists(SelectedDungFilePath))
+                return;
 
-            LoadedDungFileRawData = File.ReadAllBytes(filePath);
+            LoadedDungFileRawData = File.ReadAllBytes(SelectedDungFilePath);
             SerializeDungFile(LoadedDungFileRawData);
             PopulateSelectDungFloorComboBox();
         }
@@ -240,25 +347,28 @@ namespace DigimonWorld2Tool.Views
 
         private void LoadSelectedFloorData(string floorName)
         {
-            DistinctFloorLayoutPointersOccurance = new Dictionary<int, int>();
+            //DistinctFloorLayoutPointersOccurance = new Dictionary<int, int>();
             LoadedDungFloorHeader = loadedDungFile.DungFloorHeaders.FirstOrDefault(floorHeader => DUNGInterpreter.GetFloorName(floorHeader.FloorNameData) == floorName);
+            //LoadedDungFloorLayoutIndex = LoadedDungFloorHeader.DungFloorLayoutHeaders.ToList().IndexOf(LoadedDungFloorLayout);
+
             if (LoadedDungFloorHeader == null)
                 return;
 
-            foreach (var item in LoadedDungFloorHeader.DungFloorLayoutHeaders)
-            {
-                if (!DistinctFloorLayoutPointersOccurance.ContainsKey(item.FloorLayoutPointer))
-                    DistinctFloorLayoutPointersOccurance.Add(item.FloorLayoutPointer, 1);
-                else
-                    DistinctFloorLayoutPointersOccurance[item.FloorLayoutPointer]++;
-            }
-            DisableUnusedFloorLayoutButtons(DistinctFloorLayoutPointersOccurance.Count);
+            //foreach (var item in LoadedDungFloorHeader.DungFloorLayoutHeaders)
+            //{
+            //    if (!DistinctFloorLayoutPointersOccurance.ContainsKey(item.FloorLayoutPointer))
+            //        DistinctFloorLayoutPointersOccurance.Add(item.FloorLayoutPointer, 1);
+            //    else
+            //        DistinctFloorLayoutPointersOccurance[item.FloorLayoutPointer]++;
+            //}
+            //DisableUnusedFloorLayoutButtons(DistinctFloorLayoutPointersOccurance.Count);
         }
 
         private void DisableUnusedFloorLayoutButtons(int uniqueLayoutCount)
         {
             for (int i = 0; i < FloorLayoutButtons.Length; i++)
-                FloorLayoutButtons[i].Visible = i < uniqueLayoutCount;
+                FloorLayoutButtons[i].Enabled = i < uniqueLayoutCount;
+                //FloorLayoutButtons[i].Visible = i < uniqueLayoutCount;
         }
 
         private void FloorLayoutButton_Click(object sender, EventArgs e)
@@ -272,13 +382,22 @@ namespace DigimonWorld2Tool.Views
             LastPressedFloorLayoutButton = button;
 
             var buttonId = FloorLayoutButtons.ToList().IndexOf(button);
-            int distinctHeaderPointer = DistinctFloorLayoutPointersOccurance.ElementAt(buttonId).Key;
-            LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders.FirstOrDefault(o => o.FloorLayoutPointer == distinctHeaderPointer);
+            //int distinctHeaderPointer = DistinctFloorLayoutPointersOccurance.ElementAt(buttonId).Key;
+            //LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders.FirstOrDefault(o => o.FloorLayoutPointer == distinctHeaderPointer);
+            LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders[buttonId];
+            LoadedDungFloorLayoutIndex = buttonId;
+
             if (LoadedDungFloorLayout == null)
                 throw new NullReferenceException();
 
-            DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
+            if (MainWindow.EditModeEnabled)
+                //DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDungFloorLayoutHeader);
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
+            else
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
+
             DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
+            DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
         }
 
         private void DrawGridCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -288,7 +407,10 @@ namespace DigimonWorld2Tool.Views
 
         private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
         {
-            if(loadedDungFile == null)
+            if (e.Button == MouseButtons.Left)
+                PaintSelectedTileType(e.Location);
+
+            if (loadedDungFile == null)
                 return;
 
             MousePositionLabel.Text = $"X: {(int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth:D2} Y: {(int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight:D2}";
@@ -298,6 +420,12 @@ namespace DigimonWorld2Tool.Views
         {
             var clickX = (int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
             var clickY = (int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
+
+            if (MainWindow.EditModeEnabled && SelectedTileTypeToPaint != DUNGLayoutRenderer.TileType.None)
+            {
+                DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
+                return;
+            }
 
             foreach (var trap in LoadedDungFloorLayout.FloorLayoutTraps)
             {
@@ -422,6 +550,14 @@ namespace DigimonWorld2Tool.Views
             }
         }
 
+        private void PaintSelectedTileType(Point mousePos)
+        {
+            var clickX = (int)mousePos.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
+            var clickY = (int)mousePos.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
+
+            DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
+        }
+
         private void ShoowHideDigiInfoButtons(bool show)
         {
             SlotOneInfoPictureBox.Visible = show;
@@ -442,6 +578,11 @@ namespace DigimonWorld2Tool.Views
             byte digimonSetIndex = possibleDigimonSets[SlotID].ID;
             ExtendedEnemySetInfoWindow ext = new ExtendedEnemySetInfoWindow(digimonSetIndex);
             ext.Show();
+        }
+
+        private void SaveChangesButton_Click(object sender, EventArgs e)
+        {
+            DungEditor.SaveFileData();
         }
     }
 }

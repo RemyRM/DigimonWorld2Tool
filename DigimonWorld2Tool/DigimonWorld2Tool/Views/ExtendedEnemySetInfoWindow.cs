@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using DigimonWorld2Tool.Utility;
-using DigimonWorld2Tool.FileFormats;
+using DigimonWorld2Tool.FileFormat;
 
 namespace DigimonWorld2Tool.Views
 {

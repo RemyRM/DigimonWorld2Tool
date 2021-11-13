@@ -36,6 +36,8 @@ namespace DigimonWorld2Tool.Views
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.MainToolStripDebugItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripOpenLogWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainToolStripEditorItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EnableEditModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,13 +80,13 @@ namespace DigimonWorld2Tool.Views
             this.OpenTexturesWindowButton.TabIndex = 2;
             this.OpenTexturesWindowButton.Text = "Textures";
             this.OpenTexturesWindowButton.UseVisualStyleBackColor = false;
-            this.OpenTexturesWindowButton.Visible = false;
             this.OpenTexturesWindowButton.Click += new System.EventHandler(this.OpenTexturesWindowButton_Click);
             // 
             // MainMenuStrip
             // 
             this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainToolStripDebugItem});
+            this.MainToolStripDebugItem,
+            this.MainToolStripEditorItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
             this.MainMenuStrip.Size = new System.Drawing.Size(1264, 24);
@@ -102,9 +104,24 @@ namespace DigimonWorld2Tool.Views
             // MainToolStripOpenLogWindow
             // 
             this.MainToolStripOpenLogWindow.Name = "MainToolStripOpenLogWindow";
-            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(180, 22);
+            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(168, 22);
             this.MainToolStripOpenLogWindow.Text = "Open log window";
             this.MainToolStripOpenLogWindow.Click += new System.EventHandler(this.MainToolStripOpenLogWindow_Click);
+            // 
+            // MainToolStripEditorItem
+            // 
+            this.MainToolStripEditorItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.EnableEditModeToolStripMenuItem});
+            this.MainToolStripEditorItem.Name = "MainToolStripEditorItem";
+            this.MainToolStripEditorItem.Size = new System.Drawing.Size(50, 20);
+            this.MainToolStripEditorItem.Text = "Editor";
+            // 
+            // EnableEditModeToolStripMenuItem
+            // 
+            this.EnableEditModeToolStripMenuItem.Name = "EnableEditModeToolStripMenuItem";
+            this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.EnableEditModeToolStripMenuItem.Text = "Enable Edit Mode";
+            this.EnableEditModeToolStripMenuItem.Click += new System.EventHandler(this.EnableEditModeToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -119,7 +136,6 @@ namespace DigimonWorld2Tool.Views
             this.Controls.Add(this.MainMenuStrip);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenuStrip;
             this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "MainWindow";
             this.Text = "Digimon World 2 Tool";
@@ -139,5 +155,7 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.MenuStrip MainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem MainToolStripDebugItem;
         private System.Windows.Forms.ToolStripMenuItem MainToolStripOpenLogWindow;
+        private System.Windows.Forms.ToolStripMenuItem MainToolStripEditorItem;
+        private System.Windows.Forms.ToolStripMenuItem EnableEditModeToolStripMenuItem;
     }
 }

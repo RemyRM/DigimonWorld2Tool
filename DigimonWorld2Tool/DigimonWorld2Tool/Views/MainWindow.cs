@@ -12,7 +12,14 @@ namespace DigimonWorld2Tool.Views
         private const AnchorStyles AnchorAll = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
 
         public static Control CurrentControl { get; private set; }
-        public static DebugWindow DebugWin { get; private set; } 
+        public static DebugWindow DebugWin { get; private set; }
+
+        public static bool EditModeEnabled { get; private set; }
+        private const string EditModeEnabledText = "Disable Edit Mode";
+        private const string EditModeDisabledText = "Enable Edit Mode";
+        //public event EventHandler EditModeChangedEvent;
+        public delegate void EditModeChangedEventHandler(bool editModeEnabled);
+        public static event EditModeChangedEventHandler EditModeChanged;
 
         public MainWindow()
         {
@@ -35,20 +42,27 @@ namespace DigimonWorld2Tool.Views
         private void OpenMapWindowButton_Click(object sender, EventArgs e)
         {
             if (CurrentControl != null)
+            {
+                CurrentControl.Hide();
                 MainWindowHostPanel.Controls.Remove(CurrentControl);
+            }
 
             CurrentControl = new DungWindow
             {
                 Anchor = AnchorAll,
                 MinimumSize = new Size(1100, 660)
             };
+
             MainWindowHostPanel.Controls.Add(CurrentControl);
         }
 
         private void OpenTexturesWindowButton_Click(object sender, EventArgs e)
         {
             if (CurrentControl != null)
+            {
+                CurrentControl.Hide();
                 MainWindowHostPanel.Controls.Remove(CurrentControl);
+            }
 
             CurrentControl = new TextureWindow
             {
@@ -61,12 +75,22 @@ namespace DigimonWorld2Tool.Views
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
+            if (CurrentControl == null)
+                return;
+
             ((IHostWindow)CurrentControl).OnWindowResizeEnded();
         }
 
         private void MainToolStripOpenLogWindow_Click(object sender, EventArgs e)
         {
             DebugWin.Show();
+        }
+
+        private void EnableEditModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditModeEnabled = !EditModeEnabled;
+            EnableEditModeToolStripMenuItem.Text = EditModeEnabled ? EditModeEnabledText : EditModeDisabledText;
+            EditModeChanged.Invoke(EditModeEnabled);
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using DigimonWorld2Tool.Utility;
+using DigimonWorld2Tool.FileFormat;
 using System.Linq;
 
-namespace DigimonWorld2Tool.FileFormats
+namespace DigimonWorld2Tool.FileInterpreter
 {
     public enum WarpType : byte
     {

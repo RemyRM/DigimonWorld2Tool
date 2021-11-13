@@ -1,4 +1,4 @@
-﻿using DigimonWorld2Tool.FileFormats;
+﻿using DigimonWorld2Tool.FileFormat;
 using DigimonWorld2Tool.Utility;
 using Microsoft.Win32;
 using System;

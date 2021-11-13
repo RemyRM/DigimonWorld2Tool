@@ -17,7 +17,7 @@ using DigimonWorld2Tool.UserControls;
 using DigimonWorld2Tool.Textures;
 using DigimonWorld2Tool.Files;
 
-using DigimonWorld2Tool.FileFormats;
+using DigimonWorld2Tool.FileFormat;
 
 namespace DigimonWorld2Tool
 {
@@ -910,11 +910,11 @@ namespace DigimonWorld2Tool
                     pos.x *= 2;
 
                     Tile.DomainTileTypeOld tileType = Tile.DomainTileTypeOld.Empty;
-                    tileType = (Tile.DomainTileTypeOld)data[i].GetRightHalfByte();
+                    tileType = (Tile.DomainTileTypeOld)data[i].GetRightNiblet();
                     EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                     pos += Vector2.Right;
-                    tileType = (Tile.DomainTileTypeOld)data[i].GetLeftHalfByte();
+                    tileType = (Tile.DomainTileTypeOld)data[i].GetLefNiblet();
                     EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                 }
@@ -989,8 +989,8 @@ namespace DigimonWorld2Tool
                     var index = x + y * actualWidth;
                     var pixelValue = bmpFile.PixelData[index];
 
-                    var rightByte = pixelValue.GetRightHalfByte();
-                    var leftByte = pixelValue.GetLeftHalfByte();
+                    var rightByte = pixelValue.GetRightNiblet();
+                    var leftByte = pixelValue.GetLefNiblet();
 
                     var rightPixelCol = bmpFile.Clut[rightByte];
                     var leftPixelCol = bmpFile.Clut[leftByte];

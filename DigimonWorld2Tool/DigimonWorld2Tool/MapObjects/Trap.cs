@@ -98,8 +98,8 @@ namespace DigimonWorld2Tool.MapObjects
             {
                 if (data == 0) return;
 
-                Level = (TrapLevel)data.GetLeftHalfByte();
-                Type = (TrapType)data.GetRightHalfByte();
+                Level = (TrapLevel)data.GetLefNiblet();
+                Type = (TrapType)data.GetRightNiblet();
             }
 
             public override string ToString()

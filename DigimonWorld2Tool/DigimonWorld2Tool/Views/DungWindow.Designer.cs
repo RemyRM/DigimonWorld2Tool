@@ -58,12 +58,31 @@ namespace DigimonWorld2Tool.Views
             this.PositionLabel = new System.Windows.Forms.Label();
             this.SubTypeLabel = new System.Windows.Forms.Label();
             this.TypeLabel = new System.Windows.Forms.Label();
+            this.EmptyTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.NatureTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.WaterTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.MachineTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.FireTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.DarkTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.RoomTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.CorridorTileTypePictureBox = new System.Windows.Forms.PictureBox();
+            this.EditorSelectedTileTypePicturebox = new System.Windows.Forms.PictureBox();
+            this.SaveChangesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).BeginInit();
             this.ObjectInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SlotFourInfoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SlotThreeInfoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SlotTwoInfoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SlotOneInfoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EmptyTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NatureTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WaterTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MachineTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FireTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DarkTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).BeginInit();
             this.SuspendLayout();
             // 
             // SelectDungDirButton
@@ -440,11 +459,153 @@ namespace DigimonWorld2Tool.Views
             this.TypeLabel.TabIndex = 0;
             this.TypeLabel.Text = "Type";
             // 
+            // EmptyTileTypePictureBox
+            // 
+            this.EmptyTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EmptyTileTypePictureBox.BackColor = System.Drawing.Color.Black;
+            this.EmptyTileTypePictureBox.Location = new System.Drawing.Point(1010, 265);
+            this.EmptyTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.EmptyTileTypePictureBox.Name = "EmptyTileTypePictureBox";
+            this.EmptyTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.EmptyTileTypePictureBox.TabIndex = 63;
+            this.EmptyTileTypePictureBox.TabStop = false;
+            this.EmptyTileTypePictureBox.Visible = false;
+            this.EmptyTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // NatureTileTypePictureBox
+            // 
+            this.NatureTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NatureTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.NatureTile;
+            this.NatureTileTypePictureBox.Location = new System.Drawing.Point(930, 265);
+            this.NatureTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.NatureTileTypePictureBox.Name = "NatureTileTypePictureBox";
+            this.NatureTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.NatureTileTypePictureBox.TabIndex = 62;
+            this.NatureTileTypePictureBox.TabStop = false;
+            this.NatureTileTypePictureBox.Visible = false;
+            this.NatureTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // WaterTileTypePictureBox
+            // 
+            this.WaterTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.WaterTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.WaterTile;
+            this.WaterTileTypePictureBox.Location = new System.Drawing.Point(1010, 185);
+            this.WaterTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.WaterTileTypePictureBox.Name = "WaterTileTypePictureBox";
+            this.WaterTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.WaterTileTypePictureBox.TabIndex = 61;
+            this.WaterTileTypePictureBox.TabStop = false;
+            this.WaterTileTypePictureBox.Visible = false;
+            this.WaterTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // MachineTileTypePictureBox
+            // 
+            this.MachineTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MachineTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.MachineTile;
+            this.MachineTileTypePictureBox.Location = new System.Drawing.Point(930, 185);
+            this.MachineTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.MachineTileTypePictureBox.Name = "MachineTileTypePictureBox";
+            this.MachineTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.MachineTileTypePictureBox.TabIndex = 60;
+            this.MachineTileTypePictureBox.TabStop = false;
+            this.MachineTileTypePictureBox.Visible = false;
+            this.MachineTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // FireTileTypePictureBox
+            // 
+            this.FireTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FireTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.FireTile;
+            this.FireTileTypePictureBox.Location = new System.Drawing.Point(1010, 105);
+            this.FireTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.FireTileTypePictureBox.Name = "FireTileTypePictureBox";
+            this.FireTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.FireTileTypePictureBox.TabIndex = 59;
+            this.FireTileTypePictureBox.TabStop = false;
+            this.FireTileTypePictureBox.Visible = false;
+            this.FireTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // DarkTileTypePictureBox
+            // 
+            this.DarkTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DarkTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.DarkTile;
+            this.DarkTileTypePictureBox.Location = new System.Drawing.Point(930, 105);
+            this.DarkTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.DarkTileTypePictureBox.Name = "DarkTileTypePictureBox";
+            this.DarkTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.DarkTileTypePictureBox.TabIndex = 58;
+            this.DarkTileTypePictureBox.TabStop = false;
+            this.DarkTileTypePictureBox.Visible = false;
+            this.DarkTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // RoomTileTypePictureBox
+            // 
+            this.RoomTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RoomTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.RoomTile;
+            this.RoomTileTypePictureBox.Location = new System.Drawing.Point(1010, 25);
+            this.RoomTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.RoomTileTypePictureBox.Name = "RoomTileTypePictureBox";
+            this.RoomTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.RoomTileTypePictureBox.TabIndex = 57;
+            this.RoomTileTypePictureBox.TabStop = false;
+            this.RoomTileTypePictureBox.Visible = false;
+            this.RoomTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // CorridorTileTypePictureBox
+            // 
+            this.CorridorTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CorridorTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.CorridorTile;
+            this.CorridorTileTypePictureBox.Location = new System.Drawing.Point(930, 25);
+            this.CorridorTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.CorridorTileTypePictureBox.Name = "CorridorTileTypePictureBox";
+            this.CorridorTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.CorridorTileTypePictureBox.TabIndex = 56;
+            this.CorridorTileTypePictureBox.TabStop = false;
+            this.CorridorTileTypePictureBox.Visible = false;
+            this.CorridorTileTypePictureBox.Click += new System.EventHandler(this.OnEditorTileTypeClick);
+            // 
+            // EditorSelectedTileTypePicturebox
+            // 
+            this.EditorSelectedTileTypePicturebox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditorSelectedTileTypePicturebox.BackColor = System.Drawing.Color.White;
+            this.EditorSelectedTileTypePicturebox.Location = new System.Drawing.Point(1007, 262);
+            this.EditorSelectedTileTypePicturebox.Name = "EditorSelectedTileTypePicturebox";
+            this.EditorSelectedTileTypePicturebox.Size = new System.Drawing.Size(70, 70);
+            this.EditorSelectedTileTypePicturebox.TabIndex = 64;
+            this.EditorSelectedTileTypePicturebox.TabStop = false;
+            this.EditorSelectedTileTypePicturebox.Visible = false;
+            // 
+            // SaveChangesButton
+            // 
+            this.SaveChangesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveChangesButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.SaveChangesButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
+            this.SaveChangesButton.FlatAppearance.BorderSize = 3;
+            this.SaveChangesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveChangesButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SaveChangesButton.ForeColor = System.Drawing.Color.White;
+            this.SaveChangesButton.Location = new System.Drawing.Point(773, 25);
+            this.SaveChangesButton.Name = "SaveChangesButton";
+            this.SaveChangesButton.Size = new System.Drawing.Size(144, 40);
+            this.SaveChangesButton.TabIndex = 65;
+            this.SaveChangesButton.Text = "Save changes";
+            this.SaveChangesButton.UseVisualStyleBackColor = false;
+            this.SaveChangesButton.Visible = false;
+            this.SaveChangesButton.Click += new System.EventHandler(this.SaveChangesButton_Click);
+            // 
             // DungWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.Controls.Add(this.SaveChangesButton);
+            this.Controls.Add(this.EmptyTileTypePictureBox);
+            this.Controls.Add(this.NatureTileTypePictureBox);
+            this.Controls.Add(this.WaterTileTypePictureBox);
+            this.Controls.Add(this.MachineTileTypePictureBox);
+            this.Controls.Add(this.FireTileTypePictureBox);
+            this.Controls.Add(this.DarkTileTypePictureBox);
+            this.Controls.Add(this.RoomTileTypePictureBox);
+            this.Controls.Add(this.CorridorTileTypePictureBox);
             this.Controls.Add(this.ObjectInfoGroupBox);
             this.Controls.Add(this.MousePositionLabel);
             this.Controls.Add(this.DrawGridCheckBox);
@@ -463,6 +624,7 @@ namespace DigimonWorld2Tool.Views
             this.Controls.Add(this.FloorLayoutPictureBox);
             this.Controls.Add(this.DungDirLabel);
             this.Controls.Add(this.SelectDungDirButton);
+            this.Controls.Add(this.EditorSelectedTileTypePicturebox);
             this.MinimumSize = new System.Drawing.Size(1100, 660);
             this.Name = "DungWindow";
             this.Size = new System.Drawing.Size(1100, 660);
@@ -473,6 +635,15 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.SlotThreeInfoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SlotTwoInfoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SlotOneInfoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EmptyTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NatureTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WaterTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MachineTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FireTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DarkTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -508,5 +679,15 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.PictureBox SlotFourInfoPictureBox;
         private System.Windows.Forms.PictureBox SlotThreeInfoPictureBox;
         private System.Windows.Forms.PictureBox SlotTwoInfoPictureBox;
+        private System.Windows.Forms.PictureBox EmptyTileTypePictureBox;
+        private System.Windows.Forms.PictureBox NatureTileTypePictureBox;
+        private System.Windows.Forms.PictureBox WaterTileTypePictureBox;
+        private System.Windows.Forms.PictureBox MachineTileTypePictureBox;
+        private System.Windows.Forms.PictureBox FireTileTypePictureBox;
+        private System.Windows.Forms.PictureBox DarkTileTypePictureBox;
+        private System.Windows.Forms.PictureBox RoomTileTypePictureBox;
+        private System.Windows.Forms.PictureBox CorridorTileTypePictureBox;
+        private System.Windows.Forms.PictureBox EditorSelectedTileTypePicturebox;
+        private System.Windows.Forms.Button SaveChangesButton;
     }
 }

@@ -21,5 +21,14 @@ namespace DigimonWorld2Tool.Views
 
             DebugMessageListBox.DataSource = DebugLogMessages;
         }
+
+        /// <summary>
+        /// Prevent the DebugWindow from being disposed upon closing, but hide it instead
+        /// </summary>
+        private void DebugWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+        }
     }
 }

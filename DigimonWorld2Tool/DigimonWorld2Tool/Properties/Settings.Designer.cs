@@ -250,5 +250,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["DefaultMapDataDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowValuesAsHex {
+            get {
+                return ((bool)(this["ShowValuesAsHex"]));
+            }
+            set {
+                this["ShowValuesAsHex"] = value;
+            }
+        }
     }
 }

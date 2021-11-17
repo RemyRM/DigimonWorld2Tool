@@ -60,6 +60,7 @@ namespace DigimonWorld2Tool.Views
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DebugWindow";
             this.Text = "Debug Window";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugWindow_FormClosing);
             this.ResumeLayout(false);
 
         }

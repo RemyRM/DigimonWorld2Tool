@@ -36,6 +36,7 @@ namespace DigimonWorld2Tool.Views
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.MainToolStripDebugItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripOpenLogWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowValuesAsHexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripEditorItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EnableEditModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
@@ -96,7 +97,8 @@ namespace DigimonWorld2Tool.Views
             // MainToolStripDebugItem
             // 
             this.MainToolStripDebugItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainToolStripOpenLogWindow});
+            this.MainToolStripOpenLogWindow,
+            this.ShowValuesAsHexToolStripMenuItem});
             this.MainToolStripDebugItem.Name = "MainToolStripDebugItem";
             this.MainToolStripDebugItem.Size = new System.Drawing.Size(54, 20);
             this.MainToolStripDebugItem.Text = "Debug";
@@ -104,9 +106,17 @@ namespace DigimonWorld2Tool.Views
             // MainToolStripOpenLogWindow
             // 
             this.MainToolStripOpenLogWindow.Name = "MainToolStripOpenLogWindow";
-            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(168, 22);
+            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(180, 22);
             this.MainToolStripOpenLogWindow.Text = "Open log window";
             this.MainToolStripOpenLogWindow.Click += new System.EventHandler(this.MainToolStripOpenLogWindow_Click);
+            // 
+            // ShowValuesAsHexToolStripMenuItem
+            // 
+            this.ShowValuesAsHexToolStripMenuItem.CheckOnClick = true;
+            this.ShowValuesAsHexToolStripMenuItem.Name = "ShowValuesAsHexToolStripMenuItem";
+            this.ShowValuesAsHexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowValuesAsHexToolStripMenuItem.Text = "Show values as Hex";
+            this.ShowValuesAsHexToolStripMenuItem.Click += new System.EventHandler(this.ShowValuesAsHexToolStripMenuItem_Click);
             // 
             // MainToolStripEditorItem
             // 
@@ -157,5 +167,6 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.ToolStripMenuItem MainToolStripOpenLogWindow;
         private System.Windows.Forms.ToolStripMenuItem MainToolStripEditorItem;
         private System.Windows.Forms.ToolStripMenuItem EnableEditModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ShowValuesAsHexToolStripMenuItem;
     }
 }

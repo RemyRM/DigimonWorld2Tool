@@ -31,6 +31,8 @@ namespace DigimonWorld2Tool.Views
             this.BackColor = (Color)Settings.Settings.PanelBackgroundColour;
             this.ForeColor = (Color)Settings.Settings.TextColour;
             ColourTheme.SetColourScheme(this.Controls);
+
+            ShowValuesAsHexToolStripMenuItem.Checked = (bool)Properties.Settings.Default["ShowValuesAsHex"];
         }
 
         private void SetupClasses()
@@ -91,6 +93,13 @@ namespace DigimonWorld2Tool.Views
             EditModeEnabled = !EditModeEnabled;
             EnableEditModeToolStripMenuItem.Text = EditModeEnabled ? EditModeEnabledText : EditModeDisabledText;
             EditModeChanged.Invoke(EditModeEnabled);
+        }
+
+        private void ShowValuesAsHexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            Properties.Settings.Default["ShowValuesAsHex"] = menuItem.Checked;
+            Settings.Settings.ValueTextFormat = menuItem.Checked ? "X2" : "D2";
         }
     }
 }

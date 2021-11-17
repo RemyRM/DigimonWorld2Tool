@@ -18,6 +18,17 @@ namespace DigimonWorld2Tool.Views
 {
     public partial class DungWindow : UserControl, IHostWindow
     {
+        #region enums
+        public enum SelectedMapObjectType
+        {
+            Warp,
+            Chest,
+            Trap,
+            Digimon
+        }
+        #endregion
+
+        #region properties
         public static DungWindow Instance { get; private set; }
 
         private string dungFileDir;
@@ -27,6 +38,12 @@ namespace DigimonWorld2Tool.Views
             private set
             {
                 dungFileDir = value;
+                if (dungFileDir.Length > 80)
+                {
+                    int characterCountToCull = dungFileDir.Length - 80;
+                    dungFileDir = DungFileDir.Remove(10, characterCountToCull);
+                    dungFileDir = dungFileDir.Insert(10, @"\...\");
+                }
                 DungDirLabel.Text = dungFileDir;
             }
         }
@@ -53,21 +70,21 @@ namespace DigimonWorld2Tool.Views
         public DUNG LoadedDungFile
         {
             get => loadedDungFile;
-            private set => loadedDungFile = value;
+            set => loadedDungFile = value;
         }
 
         private DungFloorHeader loadedDungFloorHeader;
         public DungFloorHeader LoadedDungFloorHeader
         {
             get => loadedDungFloorHeader;
-            private set => loadedDungFloorHeader = value;
+            set => loadedDungFloorHeader = value;
         }
 
         private DungFloorLayoutHeader loadedDungFloorLayout;
         public DungFloorLayoutHeader LoadedDungFloorLayout
         {
             get => loadedDungFloorLayout;
-            private set => loadedDungFloorLayout = value;
+            set => loadedDungFloorLayout = value;
         }
         private int LoadedDungFloorLayoutIndex { get; set; }
 
@@ -81,14 +98,18 @@ namespace DigimonWorld2Tool.Views
         private Button[] FloorLayoutButtons { get; set; } = new Button[8];
         private Button LastPressedFloorLayoutButton { get; set; }
 
-        //private Dictionary<int, int> DistinctFloorLayoutPointersOccurance { get; set; } = new Dictionary<int, int>();
-        private EnemySetHeader[] possibleDigimonSets;
-
         private DUNGLayoutRenderer.TileType SelectedTileTypeToPaint { get; set; }
         private DUNGEditor DungEditor { get; set; }
 
-        private string SelectedDungFilePath { get; set; }
+        private EnemySetHeader[] possibleDigimonSets;
 
+        private Vector2 SelectedObjectPosition { get; set; }
+        private SelectedMapObjectType SelectedObjectType { get; set; }
+
+        private string SelectedDungFilePath { get; set; }
+        #endregion
+
+        #region initialization
         public DungWindow()
         {
             Instance = this;
@@ -130,6 +151,13 @@ namespace DigimonWorld2Tool.Views
             }
         }
 
+        private void LoadUserSettings()
+        {
+            DungFileDir = (string)Properties.Settings.Default["DefaultMapDataDirectory"];
+        }
+        #endregion
+
+        #region events
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
@@ -143,13 +171,16 @@ namespace DigimonWorld2Tool.Views
         private void SetupEvents()
         {
             MainWindow.EditModeChanged += OnEditModeChanged;
-            Debug.WriteLine("Added event listener for EnableEditMode");
         }
 
         private void CleanUpEvents()
         {
             MainWindow.EditModeChanged -= OnEditModeChanged;
-            Debug.WriteLine("Removed event listener for EnableEditMode");
+        }
+
+        public void OnWindowResizeEnded()
+        {
+            FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
         }
 
         private void OnEditModeChanged(bool enabled)
@@ -163,36 +194,24 @@ namespace DigimonWorld2Tool.Views
             DarkTileTypePictureBox.Visible = enabled;
             EmptyTileTypePictureBox.Visible = enabled;
             EditorSelectedTileTypePicturebox.Visible = enabled;
+            EditObjectInfoButton.Visible = enabled;
             SaveChangesButton.Visible = enabled;
 
             if (enabled)
             {
                 OnEditorTileTypeClick(EmptyTileTypePictureBox, null);
-                //DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, LoadedDungFloorHeader, LoadedDungFloorLayout);
                 DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
-
-                //DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDungFloorLayoutHeader);
                 DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
             }
             else
-            {
-                if (DungEditor != null)
-                {
-                    // Pop-up if there is unsaved changed
-                }
-                else
-                {
-                    DungEditor = null;
-
-                }
                 DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
-
-            }
 
             DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
             DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
         }
+        #endregion
 
+        #region UserInput
         private void OnEditorTileTypeClick(object sender, EventArgs e)
         {
             PictureBox clickedBox = (PictureBox)sender;
@@ -211,16 +230,6 @@ namespace DigimonWorld2Tool.Views
             }
         }
 
-        public void OnWindowResizeEnded()
-        {
-            FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
-        }
-
-        private void LoadUserSettings()
-        {
-            DungFileDir = (string)Properties.Settings.Default["DefaultMapDataDirectory"];
-        }
-
         /// <summary>
         /// Select the directory in which the dung files are stored
         /// </summary>
@@ -229,6 +238,261 @@ namespace DigimonWorld2Tool.Views
             DungFileDir = GetDungFilesDirectory();
             DungFileNames = GetFileNamesInDungDirectory();
         }
+
+        /// <summary>
+        /// Select the clicked entry in the combo box as file to load
+        /// </summary>
+        private void SelectDungComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateDomainNamesComboBox((ComboBox)sender);
+
+            if (MainWindow.EditModeEnabled)
+                DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
+            else
+                DungEditor = null;
+        }
+
+        private void SelectDungFloorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cBox = (ComboBox)sender;
+            LoadSelectedFloorData((string)cBox.SelectedItem);
+            DungInterpreter.UpdateDungFloor(LoadedDungFloorHeader);
+
+            FloorLayoutButton_Click(FloorLayoutButton1, null);
+        }
+
+        private void FloorLayoutButton_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+
+            if (LastPressedFloorLayoutButton != null)
+                LastPressedFloorLayoutButton.BackColor = (Color)Settings.Settings.ButtonBackgroundColour;
+
+            button.BackColor = (Color)Settings.Settings.ButtonSelectedBackgroundColour;
+            LastPressedFloorLayoutButton = button;
+
+            var buttonId = FloorLayoutButtons.ToList().IndexOf(button);
+            LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders[buttonId];
+            LoadedDungFloorLayoutIndex = buttonId;
+
+            if (LoadedDungFloorLayout == null)
+                throw new NullReferenceException();
+
+            if (MainWindow.EditModeEnabled)
+            {
+                DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
+            }
+            else
+                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
+
+            DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
+            DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
+        }
+
+        private void DrawGridCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
+        }
+
+        private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
+        {
+            if (MainWindow.EditModeEnabled && e.Button == MouseButtons.Left && SelectedTileTypeToPaint != DUNGLayoutRenderer.TileType.None)
+                PaintSelectedTileType(e.Location);
+
+            if (loadedDungFile == null)
+                return;
+
+            MousePositionLabel.Text = $"X: {(e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth).ToString(Settings.Settings.ValueTextFormat)} Y: {(e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight).ToString(Settings.Settings.ValueTextFormat)}";
+        }
+
+        private void FloorLayoutPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            var clickX = (int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
+            var clickY = (int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
+
+            if (MainWindow.EditModeEnabled && SelectedTileTypeToPaint != DUNGLayoutRenderer.TileType.None)
+            {
+                DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
+                return;
+            }
+
+            foreach (var trap in LoadedDungFloorLayout.FloorLayoutTraps)
+            {
+                DungFloorTrap selectredTrap = null;
+                if (trap.X == clickX && trap.Y == clickY)
+                    selectredTrap = trap;
+
+                if (selectredTrap == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Trap";
+                SubTypeLabel.Text = "";
+                PositionLabel.Text = $"Position: {trap.X.ToString(Settings.Settings.ValueTextFormat)}, {trap.Y.ToString(Settings.Settings.ValueTextFormat)}";
+
+                SlotOneLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[0].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[0].Level)}";
+                SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[1].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[1].Level)}";
+                SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[2].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[2].Level)}";
+                SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[3].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[3].Level)}";
+
+                SelectedObjectPosition = new Vector2(trap.X, trap.Y);
+                SelectedObjectType = SelectedMapObjectType.Trap;
+                ShoowHideDigiInfoButtons(false);
+            }
+
+            foreach (var warp in LoadedDungFloorLayout.FloorLayoutWarps)
+            {
+                DungFloorWarp selectedWarp = null;
+                if (warp.X == clickX && warp.Y == clickY)
+                    selectedWarp = warp;
+
+                if (selectedWarp == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Warp";
+                SubTypeLabel.Text = $"Sub type: {DUNGInterpreter.GetWarpType(warp.Type)}";
+                PositionLabel.Text = $"Position: {warp.X.ToString(Settings.Settings.ValueTextFormat)}, {warp.Y.ToString(Settings.Settings.ValueTextFormat)}";
+                SlotOneLabel.Text = "";
+                SlotTwoLabel.Text = "";
+                SlotThreeLabel.Text = "";
+                SlotFourLabel.Text = "";
+
+                SelectedObjectPosition = new Vector2(warp.X, warp.Y);
+                SelectedObjectType = SelectedMapObjectType.Warp;
+
+                ShoowHideDigiInfoButtons(false);
+            }
+
+            foreach (var digimon in LoadedDungFloorLayout.FloorLayoutDigimons)
+            {
+                DungFloorDigimon selectedDigimon = null;
+                if (digimon.X == clickX && digimon.Y == clickY)
+                    selectedDigimon = digimon;
+
+                if (selectedDigimon == null)
+                    continue;
+
+                TypeLabel.Text = $"Type: Digimon";
+                SubTypeLabel.Text = "";
+                PositionLabel.Text = $"Position: {digimon.X.ToString(Settings.Settings.ValueTextFormat)}, {digimon.Y.ToString(Settings.Settings.ValueTextFormat)}";
+
+                possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
+                string[] digimonNames = new string[4];
+                for (int i = 0; i < digimonNames.Length; i++)
+                {
+                    if (possibleDigimonSets[i] == null)
+                        digimonNames[i] = "No spawn";
+                    else
+                    {
+                        var digiID = possibleDigimonSets[i].DigimonInSet[0].DigimonID;
+                        var digi = Settings.Settings.MODELDT0File.GetDigimonByDigimonID(digiID);
+                        var nameData = digi.NameData;
+                        digimonNames[i] = TextConversion.DigiStringToASCII(nameData);
+                    }
+                }
+
+                SlotOneLabel.Text = digimonNames[0];
+                SlotTwoLabel.Text = digimonNames[1];
+                SlotThreeLabel.Text = digimonNames[2];
+                SlotFourLabel.Text = digimonNames[3];
+
+                SelectedObjectPosition = new Vector2(digimon.X, digimon.Y);
+                SelectedObjectType = SelectedMapObjectType.Digimon;
+                ShoowHideDigiInfoButtons(true);
+            }
+
+            foreach (var treasure in LoadedDungFloorLayout.FloorLayoutChests)
+            {
+                DungFloorChest selectedChest = null;
+                if (treasure.X == clickX && treasure.Y == clickY)
+                    selectedChest = treasure;
+
+                if (selectedChest == null)
+                    continue;
+
+                TypeLabel.Text = "Treasure";
+                SubTypeLabel.Text = "";
+                PositionLabel.Text = $"Position: {treasure.X.ToString(Settings.Settings.ValueTextFormat)}, {treasure.Y.ToString(Settings.Settings.ValueTextFormat)}";
+
+                string[] treasures = new string[4];
+                for (int i = 0; i < treasures.Length; i++)
+                {
+                    if (treasure.ItemSlots[i] == 0)
+                        treasures[i] = "No chest";
+                    else
+                    {
+                        var treasureIndex = treasure.ItemSlots[i];
+                        var treasureData = LoadedDungFloorHeader.FloorTreasureTable[treasureIndex - 1];
+
+                        var itemID = treasureData.ItemID;
+                        var trapLevel = treasureData.TrapLevel;
+
+                        if (itemID == 0x00)
+                        {
+                            treasures[i] = $"Trap lv: {trapLevel} - Empty";
+                            continue;
+                        }
+
+                        var itemData = Settings.Settings.ITEMDATAFile.ItemData.FirstOrDefault(o => o.ID == itemID);
+                        treasures[i] = $"Trap lv: {trapLevel} - {TextConversion.DigiStringToASCII(itemData.NameData)}";
+                    }
+                }
+
+                SlotOneLabel.Text = treasures[0];
+                SlotTwoLabel.Text = treasures[1];
+                SlotThreeLabel.Text = treasures[2];
+                SlotFourLabel.Text = treasures[3];
+
+                SelectedObjectPosition = new Vector2(treasure.X, treasure.Y);
+                SelectedObjectType = SelectedMapObjectType.Chest;
+
+                ShoowHideDigiInfoButtons(false);
+            }
+        }
+
+        private void FloorLayoutPictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            DUNGLayoutRenderer.Instance.DrawGridLayout();
+        }
+
+        private void SlotOneInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(0);
+        private void SlotTwoInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(1);
+        private void SlotThreeInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(2);
+        private void SlotFourInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(3);
+        private void ShowExtendedDigimonPackInfo(int SlotID)
+        {
+            if (possibleDigimonSets[SlotID] == null)
+                return;
+
+            byte digimonSetIndex = possibleDigimonSets[SlotID].ID;
+            ExtendedEnemySetInfoWindow ext = new ExtendedEnemySetInfoWindow(digimonSetIndex);
+            ext.Show();
+        }
+
+        private void SaveChangesButton_Click(object sender, EventArgs e)
+        {
+            DungEditor.SaveFileData();
+        }
+
+        private void EditObjectInfoButton_Click(object sender, EventArgs e)
+        {
+            if (MainWindow.EditModeEnabled)
+            {
+                DungEditor.ChangeObjectPosition(SelectedObjectPosition.x, SelectedObjectPosition.y, SelectedObjectType);
+            }
+        }
+        #endregion
+
+        #region RenderLayout
+        private void PaintSelectedTileType(Point mousePos)
+        {
+            var clickX = (int)mousePos.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
+            var clickY = (int)mousePos.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
+
+            DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
+        }
+        #endregion
+
 
         private string GetDungFilesDirectory()
         {
@@ -244,7 +508,7 @@ namespace DigimonWorld2Tool.Views
                 }
                 else
                 {
-                    return "";
+                    return (string)Properties.Settings.Default["DefaultMapDataDirectory"];
                 }
             }
         }
@@ -275,30 +539,6 @@ namespace DigimonWorld2Tool.Views
             }
 
             return mappedFileNames;
-        }
-
-        /// <summary>
-        /// Select the clicked entry in the combo box as file to load
-        /// </summary>
-        private void SelectDungComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateDomainNamesComboBox((ComboBox)sender);
-
-            if (MainWindow.EditModeEnabled)
-            {
-                if (DungEditor != null)
-                {
-                    //If there is unsaved data ask to save data first
-                    if (MessageBox.Show("There are unsaved changes, do you want to save before switching maps?", "Save changes?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        //Save 
-                    }
-                }
-                //DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, LoadedDungFloorHeader, LoadedDungFloorLayout);
-                DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
-            }
-            else
-                DungEditor = null;
         }
 
         private void PopulateDomainNamesComboBox(ComboBox comboBox)
@@ -336,226 +576,12 @@ namespace DigimonWorld2Tool.Views
             SelectDungFloorComboBox.DataSource = LoadedDungFile.DungFloorHeaders.Select(floorHeader => DUNGInterpreter.GetFloorName(floorHeader.FloorNameData)).ToList();
         }
 
-        private void SelectDungFloorComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cBox = (ComboBox)sender;
-            LoadSelectedFloorData((string)cBox.SelectedItem);
-            DungInterpreter.UpdateDungFloor(LoadedDungFloorHeader);
-
-            FloorLayoutButton_Click(FloorLayoutButton1, null);
-        }
-
         private void LoadSelectedFloorData(string floorName)
         {
-            //DistinctFloorLayoutPointersOccurance = new Dictionary<int, int>();
             LoadedDungFloorHeader = loadedDungFile.DungFloorHeaders.FirstOrDefault(floorHeader => DUNGInterpreter.GetFloorName(floorHeader.FloorNameData) == floorName);
-            //LoadedDungFloorLayoutIndex = LoadedDungFloorHeader.DungFloorLayoutHeaders.ToList().IndexOf(LoadedDungFloorLayout);
 
             if (LoadedDungFloorHeader == null)
                 return;
-
-            //foreach (var item in LoadedDungFloorHeader.DungFloorLayoutHeaders)
-            //{
-            //    if (!DistinctFloorLayoutPointersOccurance.ContainsKey(item.FloorLayoutPointer))
-            //        DistinctFloorLayoutPointersOccurance.Add(item.FloorLayoutPointer, 1);
-            //    else
-            //        DistinctFloorLayoutPointersOccurance[item.FloorLayoutPointer]++;
-            //}
-            //DisableUnusedFloorLayoutButtons(DistinctFloorLayoutPointersOccurance.Count);
-        }
-
-        private void DisableUnusedFloorLayoutButtons(int uniqueLayoutCount)
-        {
-            for (int i = 0; i < FloorLayoutButtons.Length; i++)
-                FloorLayoutButtons[i].Enabled = i < uniqueLayoutCount;
-                //FloorLayoutButtons[i].Visible = i < uniqueLayoutCount;
-        }
-
-        private void FloorLayoutButton_Click(object sender, EventArgs e)
-        {
-            Button button = (Button)sender;
-
-            if (LastPressedFloorLayoutButton != null)
-                LastPressedFloorLayoutButton.BackColor = (Color)Settings.Settings.ButtonBackgroundColour;
-
-            button.BackColor = (Color)Settings.Settings.ButtonSelectedBackgroundColour;
-            LastPressedFloorLayoutButton = button;
-
-            var buttonId = FloorLayoutButtons.ToList().IndexOf(button);
-            //int distinctHeaderPointer = DistinctFloorLayoutPointersOccurance.ElementAt(buttonId).Key;
-            //LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders.FirstOrDefault(o => o.FloorLayoutPointer == distinctHeaderPointer);
-            LoadedDungFloorLayout = LoadedDungFloorHeader.DungFloorLayoutHeaders[buttonId];
-            LoadedDungFloorLayoutIndex = buttonId;
-
-            if (LoadedDungFloorLayout == null)
-                throw new NullReferenceException();
-
-            if (MainWindow.EditModeEnabled)
-                //DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDungFloorLayoutHeader);
-                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
-            else
-                DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(LoadedDungFloorLayout);
-
-            DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
-            DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
-        }
-
-        private void DrawGridCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            FloorLayoutButton_Click(LastPressedFloorLayoutButton, null);
-        }
-
-        private void DisplayMousePositionOnGrid(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-                PaintSelectedTileType(e.Location);
-
-            if (loadedDungFile == null)
-                return;
-
-            MousePositionLabel.Text = $"X: {(int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth:D2} Y: {(int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight:D2}";
-        }
-
-        private void FloorLayoutPictureBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            var clickX = (int)e.Location.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
-            var clickY = (int)e.Location.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
-
-            if (MainWindow.EditModeEnabled && SelectedTileTypeToPaint != DUNGLayoutRenderer.TileType.None)
-            {
-                DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
-                return;
-            }
-
-            foreach (var trap in LoadedDungFloorLayout.FloorLayoutTraps)
-            {
-                DungFloorTrap selectredTrap = null;
-                if (trap.X == clickX && trap.Y == clickY)
-                    selectredTrap = trap;
-
-                if (selectredTrap == null)
-                    continue;
-
-                TypeLabel.Text = $"Type: Trap";
-                SubTypeLabel.Text = "";
-                PositionLabel.Text = $"Position: {trap.X}, {trap.Y}";
-
-                SlotOneLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[0].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[0].Level)}";
-                SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[1].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[1].Level)}";
-                SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[2].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[2].Level)}";
-                SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[3].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[3].Level)}";
-
-                ShoowHideDigiInfoButtons(false);
-            }
-
-            foreach (var warp in LoadedDungFloorLayout.FloorLayoutWarps)
-            {
-                DungFloorWarp selectedWarp = null;
-                if (warp.X == clickX && warp.Y == clickY)
-                    selectedWarp = warp;
-
-                if (selectedWarp == null)
-                    continue;
-
-                TypeLabel.Text = $"Type: Warp";
-                SubTypeLabel.Text = $"Sub type: {DUNGInterpreter.GetWarpType(warp.Type)}";
-                PositionLabel.Text = $"Position: {warp.X}, {warp.Y}";
-                SlotOneLabel.Text = "";
-                SlotTwoLabel.Text = "";
-                SlotThreeLabel.Text = "";
-                SlotFourLabel.Text = "";
-
-                ShoowHideDigiInfoButtons(false);
-            }
-
-            foreach (var digimon in LoadedDungFloorLayout.FloorLayoutDigimons)
-            {
-                DungFloorDigimon selectedDigimon = null;
-                if (digimon.X == clickX && digimon.Y == clickY)
-                    selectedDigimon = digimon;
-
-                if (selectedDigimon == null)
-                    continue;
-
-                TypeLabel.Text = $"Type: Digimon";
-                SubTypeLabel.Text = "";
-                PositionLabel.Text = $"Position: {digimon.X}, {digimon.Y}";
-
-                possibleDigimonSets = DUNGInterpreter.GetDigimonSetHeaders(digimon.DigimonPackIndex);
-                string[] digimonNames = new string[4];
-                for (int i = 0; i < digimonNames.Length; i++)
-                {
-                    if (possibleDigimonSets[i] == null)
-                        digimonNames[i] = "No spawn";
-                    else
-                    {
-                        var digiID = possibleDigimonSets[i].DigimonInSet[0].DigimonID;
-                        var digi = Settings.Settings.MODELDT0File.GetDigimonByDigimonID(digiID);
-                        var nameData = digi.NameData;
-                        digimonNames[i] = TextConversion.DigiStringToASCII(nameData);
-                    }
-                }
-
-                SlotOneLabel.Text = digimonNames[0];
-                SlotTwoLabel.Text = digimonNames[1];
-                SlotThreeLabel.Text = digimonNames[2];
-                SlotFourLabel.Text = digimonNames[3];
-
-                ShoowHideDigiInfoButtons(true);
-            }
-
-            foreach (var treasure in LoadedDungFloorLayout.FloorLayoutChests)
-            {
-                DungFloorChest selectedChest = null;
-                if (treasure.X == clickX && treasure.Y == clickY)
-                    selectedChest = treasure;
-
-                if (selectedChest == null)
-                    continue;
-
-                TypeLabel.Text = "Treasure";
-                SubTypeLabel.Text = "";
-                PositionLabel.Text = $"Position: {treasure.X}, {treasure.Y}";
-
-                string[] treasures = new string[4];
-                for (int i = 0; i < treasures.Length; i++)
-                {
-                    if (treasure.ItemSlots[i] == 0)
-                        treasures[i] = "No chest";
-                    else
-                    {
-                        var treasureIndex = treasure.ItemSlots[i];
-                        var treasureData = LoadedDungFloorHeader.FloorTreasureTable[treasureIndex - 1];
-
-                        var itemID = treasureData.ItemID;
-                        var trapLevel = treasureData.TrapLevel;
-
-                        if (itemID == 0x00)
-                        {
-                            treasures[i] = $"Trap lv: {trapLevel} - Empty";
-                            continue;
-                        }
-
-                        var itemData = Settings.Settings.ITEMDATAFile.ItemData.FirstOrDefault(o => o.ID == itemID);
-                        treasures[i] = $"Trap lv: {trapLevel} - {TextConversion.DigiStringToASCII(itemData.NameData)}";
-                    }
-                }
-
-                SlotOneLabel.Text = treasures[0];
-                SlotTwoLabel.Text = treasures[1];
-                SlotThreeLabel.Text = treasures[2];
-                SlotFourLabel.Text = treasures[3];
-
-                ShoowHideDigiInfoButtons(false);
-            }
-        }
-
-        private void PaintSelectedTileType(Point mousePos)
-        {
-            var clickX = (int)mousePos.X / DUNGLayoutRenderer.Instance.TileSizeWidth;
-            var clickY = (int)mousePos.Y / DUNGLayoutRenderer.Instance.TileSizeHeight;
-
-            DungEditor.ChangeTileTypeAtIndex(clickX, clickY, SelectedTileTypeToPaint);
         }
 
         private void ShoowHideDigiInfoButtons(bool show)
@@ -564,25 +590,6 @@ namespace DigimonWorld2Tool.Views
             SlotTwoInfoPictureBox.Visible = show;
             SlotThreeInfoPictureBox.Visible = show;
             SlotFourInfoPictureBox.Visible = show;
-        }
-
-        private void SlotOneInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(0);
-        private void SlotTwoInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(1);
-        private void SlotThreeInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(2);
-        private void SlotFourInfoPictureBox_Click(object sender, EventArgs e) => ShowExtendedDigimonPackInfo(3);
-        private void ShowExtendedDigimonPackInfo(int SlotID)
-        {
-            if (possibleDigimonSets[SlotID] == null)
-                return;
-
-            byte digimonSetIndex = possibleDigimonSets[SlotID].ID;
-            ExtendedEnemySetInfoWindow ext = new ExtendedEnemySetInfoWindow(digimonSetIndex);
-            ext.Show();
-        }
-
-        private void SaveChangesButton_Click(object sender, EventArgs e)
-        {
-            DungEditor.SaveFileData();
         }
     }
 }

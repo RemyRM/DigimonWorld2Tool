@@ -257,16 +257,16 @@ namespace DigimonWorld2Tool.FileFormat
         public int FloorLayoutPointer { get; private set; }
         public byte[] FloorLayoutData { get; set; } = new byte[1536]; //All the layout data for a given map is 1536 bytes long (32x48)
 
-        private int FloorLayoutWarpsPointer { get; set; }
+        public int FloorLayoutWarpsPointer { get; set; }
         public DungFloorWarp[] FloorLayoutWarps { get; private set; }
 
-        private int FloorLayoutChestsPointer { get; set; }
+        public int FloorLayoutChestsPointer { get; set; }
         public DungFloorChest[] FloorLayoutChests { get; private set; }
 
-        private int FloorLayoutTrapsPointer { get; set; }
+        public int FloorLayoutTrapsPointer { get; set; }
         public DungFloorTrap[] FloorLayoutTraps { get; private set; }
 
-        private int FloorLayoutDigimonsPointer { get; set; }
+        public int FloorLayoutDigimonsPointer { get; set; }
         public DungFloorDigimon[] FloorLayoutDigimons { get; private set; }
 
         public DungFloorLayoutHeader(byte[] fileData, int pointer)
@@ -443,13 +443,23 @@ namespace DigimonWorld2Tool.FileFormat
 
     public class DungFloorWarp : IDungLayoutObject
     {
-        public byte Type { get; private set; }
+        public byte Type { get; set; }
 
         public DungFloorWarp(byte[] data)
         {
             X = data[0];
             Y = data[1];
             Type = data[2];
+        }
+
+        public override byte[] ToBytes()
+        {
+            byte[] bytes = new byte[3];
+            bytes[0] = X;
+            bytes[1] = Y;
+            bytes[2] = Type;
+
+            return bytes;
         }
     }
 
@@ -466,6 +476,16 @@ namespace DigimonWorld2Tool.FileFormat
             ItemSlots[1] = data[2].GetRightNiblet();
             ItemSlots[2] = data[3].GetLefNiblet();
             ItemSlots[3] = data[3].GetRightNiblet();
+        }
+
+        public override byte[] ToBytes()
+        {
+            byte[] bytes = new byte[4];
+            bytes[0] = X;
+            bytes[1] = Y;
+            bytes[2] = (byte)((byte)(ItemSlots[0] << 4) | ItemSlots[1]);
+            bytes[3] = (byte)((byte)(ItemSlots[2] << 4) | ItemSlots[3]);
+            return bytes;
         }
     }
 
@@ -485,6 +505,20 @@ namespace DigimonWorld2Tool.FileFormat
                 TypeAndLevelData[i] = data[i + 2];
                 TypeAndLevel[i] = new TrapTypeAndLevel(data[i + 2]);
             }
+        }
+
+        public override byte[] ToBytes()
+        {
+            byte[] bytes = new byte[8];
+            bytes[0] = X;
+            bytes[1] = Y;
+            bytes[2] = TypeAndLevelData[0];
+            bytes[3] = TypeAndLevelData[1];
+            bytes[4] = TypeAndLevelData[2]; 
+            bytes[5] = TypeAndLevelData[3]; 
+            bytes[6] = 0;
+            bytes[7] = 0;
+            return bytes;
         }
 
         public class TrapTypeAndLevel
@@ -518,6 +552,16 @@ namespace DigimonWorld2Tool.FileFormat
             DigimonPackIndex[1] = data[2].GetRightNiblet();
             DigimonPackIndex[2] = data[3].GetLefNiblet();
             DigimonPackIndex[3] = data[3].GetRightNiblet();
+        }
+
+        public override byte[] ToBytes()
+        {
+            byte[] bytes = new byte[4];
+            bytes[0] = X;
+            bytes[1] = Y;
+            bytes[2] = (byte)((byte)(DigimonPackIndex[0] << 4) | DigimonPackIndex[1]);
+            bytes[3] = (byte)((byte)(DigimonPackIndex[2] << 4) | DigimonPackIndex[3]);
+            return bytes;
         }
     }
 }

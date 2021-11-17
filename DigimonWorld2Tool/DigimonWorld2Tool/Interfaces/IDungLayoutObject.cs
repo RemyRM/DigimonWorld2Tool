@@ -7,8 +7,8 @@ namespace DigimonWorld2Tool.Interfaces
 {
     public abstract class IDungLayoutObject
     {
-        public int X { get; protected set; }
-        public int Y { get; protected set; }
+        public byte X { get; set; }
+        public byte Y { get; set; }
 
         public Vector2 Position 
         {
@@ -17,5 +17,7 @@ namespace DigimonWorld2Tool.Interfaces
                 return new Vector2(X, Y);
             }
         }
+
+        public abstract byte[] ToBytes();
     }
 }

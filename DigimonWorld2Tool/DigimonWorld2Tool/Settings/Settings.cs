@@ -165,6 +165,19 @@ namespace DigimonWorld2Tool.Settings
                 return dungMapping;
             }
         }
+
+        public static string valueTextFormat = null;
+        public static string ValueTextFormat
+        {
+            get
+            {
+                if(valueTextFormat == null)
+                    valueTextFormat = (bool)Properties.Settings.Default["ShowValuesAsHex"] ? "X2" : "D2";
+
+                return valueTextFormat;
+            }
+            set => valueTextFormat = value;
+        }
     }
 
     public class DUNGMapping

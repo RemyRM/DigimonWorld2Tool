@@ -84,8 +84,8 @@ namespace DigimonWorld2Tool.Rendering
             DrawFloorTrapsToBitmap();
             DrawFloorWarpsToBitmap();
             DrawFloorChestsToBitmap();
-            DrawGridLayout();
             DrawFloorDigimonToBitmap();
+            DrawGridLayout();
 
             ApplyFloorBitmapToPictureBox();
         }
@@ -275,7 +275,7 @@ namespace DigimonWorld2Tool.Rendering
             }
         }
 
-        private void DrawGridLayout()
+        public void DrawGridLayout()
         {
             if (!DungWindow.Instance.DrawGridCheckBox.Checked)
                 return;

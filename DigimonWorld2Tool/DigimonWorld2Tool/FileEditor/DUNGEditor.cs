@@ -153,12 +153,44 @@ namespace DigimonWorld2Tool.FileEditor
                 //update warp data in raw data
                 Array.Copy(bytes, 0, LoadedDUNGData.RawFileData, chestsDataPointer + chestOffset, bytes.Length);
             }
-
+            editChestWindow.Dispose();
         }
 
         private void EditTrapData(int curPosX, int curPosY)
         {
+            var selectedTrap = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps.FirstOrDefault(o => o.X == curPosX && o.Y == curPosY);
+            var selectedTrapIndex = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps.ToList().IndexOf(selectedTrap);
 
+            if (selectedTrap == null)
+            {
+                DebugWindow.DebugLogMessages.Add($"No Trap found at position {curPosX.ToString(Settings.Settings.ValueTextFormat)},{curPosY.ToString(Settings.Settings.ValueTextFormat)}");
+                return;
+            }
+
+            EditTrapsWindow editTrapWindow = new EditTrapsWindow();
+            editTrapWindow.SetCurrentTrapData(selectedTrap.X, selectedTrap.Y, selectedTrap.TypeAndLevelData);
+            if (editTrapWindow.ShowDialog(DungWindow.Instance) == DialogResult.OK)
+            {
+                byte x = (byte)editTrapWindow.TrapPositionXNumericUpDown.Value;
+                byte y = (byte)editTrapWindow.TrapPositionYNumericUpDown.Value;
+                var trapAndTypeLevel = editTrapWindow.GetTrapTypeAndLevelData();
+
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].X = x;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].Y = y;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].TypeAndLevelData[0] = trapAndTypeLevel[0];
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].TypeAndLevelData[1] = trapAndTypeLevel[1];
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].TypeAndLevelData[2] = trapAndTypeLevel[2];
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].TypeAndLevelData[3] = trapAndTypeLevel[3];
+
+                var bytes = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps[selectedTrapIndex].ToBytes();
+                //trapentry is 8 bytes long
+                var trapOffset = selectedTrapIndex * 8;
+                var trapssDataPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTrapsPointer;
+
+                //update warp data in raw data
+                Array.Copy(bytes, 0, LoadedDUNGData.RawFileData, trapssDataPointer + trapOffset, bytes.Length);
+            }
+            editTrapWindow.Dispose();
         }
 
         private void EditDigimonData(int curPosX, int curPosY)
@@ -199,6 +231,7 @@ namespace DigimonWorld2Tool.FileEditor
                 //update warp data in raw data
                 Array.Copy(bytes, 0, LoadedDUNGData.RawFileData, digimonDataPointer + digimonOffset, bytes.Length);
             }
+            editDigimonWindow.Dispose();
         }
 
         public void SaveFileData()

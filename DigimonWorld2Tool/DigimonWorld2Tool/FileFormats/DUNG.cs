@@ -115,7 +115,7 @@ namespace DigimonWorld2Tool.FileFormat
 
         /// <summary>
         /// Get the bytes stored at the Floor name pointer. This is a list of bytes delimited by 0xFF.
-        /// Gets parsed by <see cref="TextConversion.DigiStringToASCII(byte[])"/> to be translated to english.
+        /// Needs to get parsed by <see cref="TextConversion.DigiStringToASCII(byte[])"/> to be translated to english.
         /// </summary>
         /// <returns>ASCII string containing the name of the floor</returns>
         private byte[] GetFloorNameData()
@@ -472,9 +472,9 @@ namespace DigimonWorld2Tool.FileFormat
             X = data[0];
             Y = data[1];
 
-            ItemSlots[0] = data[2].GetLefNiblet();
+            ItemSlots[0] = data[2].GetLeftNiblet();
             ItemSlots[1] = data[2].GetRightNiblet();
-            ItemSlots[2] = data[3].GetLefNiblet();
+            ItemSlots[2] = data[3].GetLeftNiblet();
             ItemSlots[3] = data[3].GetRightNiblet();
         }
 
@@ -491,8 +491,8 @@ namespace DigimonWorld2Tool.FileFormat
 
     public class DungFloorTrap : IDungLayoutObject
     {
-        private byte[] TypeAndLevelData { get; set; } = new byte[4];
-        public TrapTypeAndLevel[] TypeAndLevel { get; private set; } = new TrapTypeAndLevel[4];
+        public byte[] TypeAndLevelData { get; set; } = new byte[4];
+        //public TrapTypeAndLevel[] TypeAndLevel { get; private set; } = new TrapTypeAndLevel[4];
 
         public DungFloorTrap(byte[] data)
         {
@@ -503,7 +503,7 @@ namespace DigimonWorld2Tool.FileFormat
             {
                 //Start at 2 to offset X and Y
                 TypeAndLevelData[i] = data[i + 2];
-                TypeAndLevel[i] = new TrapTypeAndLevel(data[i + 2]);
+                //TypeAndLevel[i] = new TrapTypeAndLevel(data[i + 2]);
             }
         }
 
@@ -519,18 +519,6 @@ namespace DigimonWorld2Tool.FileFormat
             bytes[6] = 0;
             bytes[7] = 0;
             return bytes;
-        }
-
-        public class TrapTypeAndLevel
-        {
-            public byte Type { get; private set; }
-            public byte Level { get; private set; }
-
-            public TrapTypeAndLevel(byte data)
-            {
-                Type = data.GetRightNiblet();
-                Level = data.GetLefNiblet();
-            }
         }
     }
 
@@ -548,9 +536,9 @@ namespace DigimonWorld2Tool.FileFormat
         {
             X = data[0];
             Y = data[1];
-            DigimonPackIndex[0] = data[2].GetLefNiblet();
+            DigimonPackIndex[0] = data[2].GetLeftNiblet();
             DigimonPackIndex[1] = data[2].GetRightNiblet();
-            DigimonPackIndex[2] = data[3].GetLefNiblet();
+            DigimonPackIndex[2] = data[3].GetLeftNiblet();
             DigimonPackIndex[3] = data[3].GetRightNiblet();
         }
 

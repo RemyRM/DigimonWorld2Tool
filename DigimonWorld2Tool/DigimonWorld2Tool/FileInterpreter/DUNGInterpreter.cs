@@ -86,6 +86,11 @@ namespace DigimonWorld2Tool.FileInterpreter
             return EnemySetHeaders;
         }
 
+        public static TrapTypeAndLevel GetTrapTypeAndLevelFromData(byte data)
+        {
+            return new TrapTypeAndLevel(data);
+        }
+
         public static WarpType GetWarpType(byte data)
         {
             return (WarpType)data;
@@ -99,6 +104,18 @@ namespace DigimonWorld2Tool.FileInterpreter
         public static TrapLevel GetTrapLevel(byte data)
         {
             return (TrapLevel)data;
+        }
+    }
+
+    public class TrapTypeAndLevel
+    {
+        public byte Type { get; private set; }
+        public byte Level { get; private set; }
+
+        public TrapTypeAndLevel(byte data)
+        {
+            Type = data.GetRightNiblet();
+            Level = data.GetLeftNiblet();
         }
     }
 }

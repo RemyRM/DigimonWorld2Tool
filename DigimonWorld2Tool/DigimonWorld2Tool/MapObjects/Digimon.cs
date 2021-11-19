@@ -24,9 +24,9 @@ namespace DigimonWorld2Tool.MapObjects
             this.Position = new Vector2(data[0], data[1]);
             ObjectText = "";
 
-            DigimonPacks[0] = new DigimonPack(data[2].GetLefNiblet(), Position);
+            DigimonPacks[0] = new DigimonPack(data[2].GetLeftNiblet(), Position);
             DigimonPacks[1] = new DigimonPack(data[2].GetRightNiblet(), Position);
-            DigimonPacks[2] = new DigimonPack(data[3].GetLefNiblet(), Position);
+            DigimonPacks[2] = new DigimonPack(data[3].GetLeftNiblet(), Position);
             DigimonPacks[3] = new DigimonPack(data[3].GetRightNiblet(), Position);
 
             switch (DigimonPacks.FirstOrDefault(o => o.Level != DigimonPack.DigimonPackLevel.None).Level)

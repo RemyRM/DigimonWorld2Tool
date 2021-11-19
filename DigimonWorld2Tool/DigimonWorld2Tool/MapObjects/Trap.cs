@@ -98,7 +98,7 @@ namespace DigimonWorld2Tool.MapObjects
             {
                 if (data == 0) return;
 
-                Level = (TrapLevel)data.GetLefNiblet();
+                Level = (TrapLevel)data.GetLeftNiblet();
                 Type = (TrapType)data.GetRightNiblet();
             }
 

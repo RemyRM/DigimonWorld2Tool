@@ -38,13 +38,15 @@ namespace DigimonWorld2Tool.Views
             private set
             {
                 dungFileDir = value;
-                if (dungFileDir.Length > 80)
+
+                string labelText = value;
+                if (labelText.Length > 80)
                 {
-                    int characterCountToCull = dungFileDir.Length - 80;
-                    dungFileDir = DungFileDir.Remove(10, characterCountToCull);
-                    dungFileDir = dungFileDir.Insert(10, @"\...\");
+                    int characterCountToCull = labelText.Length - 80;
+                    labelText = labelText.Remove(10, characterCountToCull);
+                    labelText = labelText.Insert(10, @"\...\");
                 }
-                DungDirLabel.Text = dungFileDir;
+                DungDirLabel.Text = labelText;
             }
         }
 
@@ -330,10 +332,10 @@ namespace DigimonWorld2Tool.Views
                 SubTypeLabel.Text = "";
                 PositionLabel.Text = $"Position: {trap.X.ToString(Settings.Settings.ValueTextFormat)}, {trap.Y.ToString(Settings.Settings.ValueTextFormat)}";
 
-                SlotOneLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[0].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[0].Level)}";
-                SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[1].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[1].Level)}";
-                SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[2].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[2].Level)}";
-                SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(trap.TypeAndLevel[3].Type)}, Level: {DUNGInterpreter.GetTrapLevel(trap.TypeAndLevel[3].Level)}";
+                SlotOneLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[0]).Type)}, Level: {DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[0]).Level}";
+                SlotTwoLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[1]).Type)}, Level: {DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[1]).Level}";
+                SlotThreeLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[2]).Type)}, Level: {DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[2]).Level}";
+                SlotFourLabel.Text = $"Type: {DUNGInterpreter.GetTrapType(DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[3]).Type)}, Level: {DUNGInterpreter.GetTrapTypeAndLevelFromData(trap.TypeAndLevelData[3]).Level}";
 
                 SelectedObjectPosition = new Vector2(trap.X, trap.Y);
                 SelectedObjectType = SelectedMapObjectType.Trap;
@@ -567,8 +569,17 @@ namespace DigimonWorld2Tool.Views
 
         private void SerializeDungFile(byte[] data)
         {
-            LoadedDungFile = new DUNG(data);
-            DungInterpreter = new DUNGInterpreter(LoadedDungFile, LoadedDungFloorHeader);
+            //Dirty try-catch the entire block. The issue is that there is no identifiable header for DUNG files we could use instead...
+            //Should be done properly later (never said that before)
+            try
+            {
+                LoadedDungFile = new DUNG(data);
+                DungInterpreter = new DUNGInterpreter(LoadedDungFile, LoadedDungFloorHeader);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private void PopulateSelectDungFloorComboBox()

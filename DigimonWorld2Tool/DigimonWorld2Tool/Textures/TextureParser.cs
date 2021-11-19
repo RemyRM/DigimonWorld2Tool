@@ -191,7 +191,7 @@ namespace DigimonWorld2Tool.Textures
                                         byte rightPixelValue = colourValue.GetRightNiblet();
                                         imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[CLUTOffset + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                        byte leftPixelValue = colourValue.GetLefNiblet();
+                                        byte leftPixelValue = colourValue.GetLeftNiblet();
                                         imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[CLUTOffset + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
                                     }
                                     else
@@ -199,7 +199,7 @@ namespace DigimonWorld2Tool.Textures
                                         byte rightPixelValue = colourValue.GetRightNiblet();
                                         imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                        byte leftPixelValue = colourValue.GetLefNiblet();
+                                        byte leftPixelValue = colourValue.GetLeftNiblet();
                                         imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
                                     }
                                 }
@@ -265,7 +265,7 @@ namespace DigimonWorld2Tool.Textures
                                             byte rightPixelValue = colourValue.GetRightNiblet();
                                             imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[CLUTOffset + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                            byte leftPixelValue = colourValue.GetLefNiblet();
+                                            byte leftPixelValue = colourValue.GetLeftNiblet();
                                             imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[CLUTOffset + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
                                         }
                                         else
@@ -273,7 +273,7 @@ namespace DigimonWorld2Tool.Textures
                                             byte rightPixelValue = colourValue.GetRightNiblet();
                                             imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                            byte leftPixelValue = colourValue.GetLefNiblet();
+                                            byte leftPixelValue = colourValue.GetLeftNiblet();
                                             imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
                                         }
                                     }
@@ -357,7 +357,7 @@ namespace DigimonWorld2Tool.Textures
                                 byte rightPixelValue = colourValue.GetRightNiblet();
                                 imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[CLUTOffset + rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                byte leftPixelValue = colourValue.GetLefNiblet();
+                                byte leftPixelValue = colourValue.GetLeftNiblet();
                                 imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[CLUTOffset + leftPixelValue]); //+ 1 to the x to render the right pixel                                     
                             }
                             else
@@ -365,7 +365,7 @@ namespace DigimonWorld2Tool.Textures
                                 byte rightPixelValue = colourValue.GetRightNiblet();
                                 imageBmp.SetPixel((x * TextureScaleSize) + i, (y * TextureScaleSize) + j, palette[rightPixelValue]); // The left pixel is the right half byte due to endianess
 
-                                byte leftPixelValue = colourValue.GetLefNiblet();
+                                byte leftPixelValue = colourValue.GetLeftNiblet();
                                 imageBmp.SetPixel((x * TextureScaleSize) + TextureScaleSize + i, (y * TextureScaleSize) + j, palette[leftPixelValue]); //+ 1 to the x to render the right pixel
                             }
                         }

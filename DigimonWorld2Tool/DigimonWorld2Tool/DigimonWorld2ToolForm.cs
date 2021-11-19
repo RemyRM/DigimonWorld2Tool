@@ -914,7 +914,7 @@ namespace DigimonWorld2Tool
                     EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                     pos += Vector2.Right;
-                    tileType = (Tile.DomainTileTypeOld)data[i].GetLefNiblet();
+                    tileType = (Tile.DomainTileTypeOld)data[i].GetLeftNiblet();
                     EditorLayoutRendererOld.UpdateTile(pos, tileType);
 
                 }
@@ -990,7 +990,7 @@ namespace DigimonWorld2Tool
                     var pixelValue = bmpFile.PixelData[index];
 
                     var rightByte = pixelValue.GetRightNiblet();
-                    var leftByte = pixelValue.GetLefNiblet();
+                    var leftByte = pixelValue.GetLeftNiblet();
 
                     var rightPixelCol = bmpFile.Clut[rightByte];
                     var leftPixelCol = bmpFile.Clut[leftByte];

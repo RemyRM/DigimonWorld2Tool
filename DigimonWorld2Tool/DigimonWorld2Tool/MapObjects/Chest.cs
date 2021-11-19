@@ -280,9 +280,9 @@ namespace DigimonWorld2Tool.MapObjects
         {
             this.Position = new Vector2(data[0], data[1]);
 
-            chestSlots[0] = new ChestSlot(data[2].GetLefNiblet());
+            chestSlots[0] = new ChestSlot(data[2].GetLeftNiblet());
             chestSlots[1] = new ChestSlot(data[2].GetRightNiblet());
-            chestSlots[2] = new ChestSlot(data[3].GetLefNiblet());
+            chestSlots[2] = new ChestSlot(data[3].GetLeftNiblet());
             chestSlots[3] = new ChestSlot(data[3].GetRightNiblet());
         }
 

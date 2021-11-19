@@ -212,10 +212,10 @@ namespace DigimonWorld2Tool.Domains
             this.Position = position;
 
             var leftTileType = (Tile.DomainTileTypeOld)tileValue.GetRightNiblet();
-            var rightTileType = (Tile.DomainTileTypeOld)tileValue.GetLefNiblet();
+            var rightTileType = (Tile.DomainTileTypeOld)tileValue.GetLeftNiblet();
 
             leftTile = new Tile(position, leftTileType, TileValueDec.GetRightNiblet().ToString());
-            rightTile = new Tile(position + Vector2.Right, rightTileType, TileValueDec.GetLefNiblet().ToString()); //We add 1 to the x position to get the true position of the right tile
+            rightTile = new Tile(position + Vector2.Right, rightTileType, TileValueDec.GetLeftNiblet().ToString()); //We add 1 to the x position to get the true position of the right tile
         }
     }
 

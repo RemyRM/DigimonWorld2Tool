@@ -97,7 +97,7 @@ namespace DigimonWorld2Tool.Rendering
                 var xId = i % (MAP_WIDTH / 2);
                 var yId = (int)Math.Floor(i / (MAP_WIDTH / 2d));
 
-                var rightTileType = (TileType)FloorLayoutToDraw.FloorLayoutData[i].GetLefNiblet();
+                var rightTileType = (TileType)FloorLayoutToDraw.FloorLayoutData[i].GetLeftNiblet();
                 var leftTileType = (TileType)FloorLayoutToDraw.FloorLayoutData[i].GetRightNiblet();
 
                 if (rightTileType == TileType.Override)
@@ -124,7 +124,7 @@ namespace DigimonWorld2Tool.Rendering
         {
             xPos /= 2;
 
-            var rightTileType = (TileType)tileToDraw.GetLefNiblet();
+            var rightTileType = (TileType)tileToDraw.GetLeftNiblet();
             var leftTileType = (TileType)tileToDraw.GetRightNiblet();
 
             if (rightTileType == TileType.Override)
@@ -222,11 +222,11 @@ namespace DigimonWorld2Tool.Rendering
                         CurrentDrawnMapLayoutBitmap.SetPixel(trap.X * TileSizeWidth + x, trap.Y * TileSizeHeight + y, Color.Yellow);
                         string trapTypeChar;
 
-                        DungFloorTrap.TrapTypeAndLevel selectedTrap = trap.TypeAndLevel.FirstOrDefault(o => (TrapLevel)o.Level != TrapLevel.Zero);
-                        if (selectedTrap == null)
+                        byte selectedTrap = trap.TypeAndLevelData.FirstOrDefault(o => o.GetLeftNiblet() != 0);
+                        if (selectedTrap == 0)
                             continue;
 
-                        switch ((TrapType)selectedTrap.Type)
+                        switch ((TrapType)selectedTrap.GetLeftNiblet())
                         {
                             case TrapType.None:
                                 trapTypeChar = "-";

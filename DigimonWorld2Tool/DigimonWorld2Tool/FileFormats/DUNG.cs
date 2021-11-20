@@ -79,7 +79,7 @@ namespace DigimonWorld2Tool.FileFormat
         private readonly byte[] RawFileData;
 
         public int DomainFloorBasePointer { get; set; }
-        private int DomainFloorNamePointer { get; set; }
+        public int DomainFloorNamePointer { get; set; }
 
         public byte[] FloorNameData { get; private set; }
         public int ScriptID { get; private set; }
@@ -91,7 +91,6 @@ namespace DigimonWorld2Tool.FileFormat
 
         public short TrapLevel { get; private set; }
         public byte[] DigimonEncounterTable { get; private set; } = new byte[4];
-        //public DungFloorTreasureContents[] FloorTreasureTable { get; private set; } = new DungFloorTreasureContents[8];
         public List<byte[]> FloorTreasureTable { get; private set; }
 
         internal DungFloorHeader(byte[] rawData, int startFloorDataPointer)
@@ -212,27 +211,7 @@ namespace DigimonWorld2Tool.FileFormat
             }
             return results;
         }
-
-        /// <summary>
-        /// Every floor has a table with IDs containing the possible obtainable treasures for this floor, and the level of the trap on the chest.
-        /// This ID is looked up against the ITEMDATA.BIN file in \AAA\4.AAA\DATAFILE
-        /// </summary>
-        /// <returns><see cref="DungFloorTreasureContents"/> array of length 8 containing all the possible treasure for the floor</returns>
-        //private DungFloorTreasureContents[] GetFloorTreasureTable()
-        //{
-        //    DungFloorTreasureContents[] results = new DungFloorTreasureContents[8];
-        //    for (int i = 0; i < results.Length; i++)
-        //    {
-        //        byte[] data = new byte[4];
-        //        int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
-        //        for (int j = 0; j < data.Length; j++)
-        //            data[j] = RawFileData[startAddress + j];
-        //        results[i] = new DungFloorTreasureContents(data);
-        //    }
-        //    return results;
-        //}
     }
-
 
     public class DungFloorLayoutHeader
     {

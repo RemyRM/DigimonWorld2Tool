@@ -24,7 +24,7 @@ namespace DigimonWorld2Tool.Views
             Utility.ColourTheme.SetColourScheme(this.Controls);
             Utility.ColourTheme.SetColourScheme(DigimonPacksGroupbox.Controls);
             Utility.ColourTheme.SetColourScheme(ChestDataGroupbox.Controls);
-
+            Utility.ColourTheme.SetColourScheme(GeneralDataGroupbox.Controls);
 
             DigimonNameLabels.Add(Pack0CenterNameLabel);
             DigimonNameLabels.Add(Pack0LeftNameLabel);
@@ -48,7 +48,7 @@ namespace DigimonWorld2Tool.Views
             ItemNameLabels.Add(Treasure6ItemNameLabel);
             ItemNameLabels.Add(Treasure7ItemNameLabel);
         }
-
+        #region DigimonPack
         public void SetFloorHeaderDigimonPackData(byte[] digimonIds)
         {
             Pack0IDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
@@ -112,7 +112,9 @@ namespace DigimonWorld2Tool.Views
                 DigimonNameLabels[labelIndex].Text = $"{TextConversion.DigiStringToASCII(nameData)}";
             }
         }
+        #endregion
 
+        #region TreasureData
         public void SetFloorHeaderChestData(List<byte[]> chestData)
         {
             Treasure0ItemIDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
@@ -203,6 +205,36 @@ namespace DigimonWorld2Tool.Views
         {
             NumericUpDown send = (NumericUpDown)sender;
             SetTreasureName((byte)send.Value, 7);
+        }
+        #endregion
+
+        public void SetFloorName(byte[] nameData)
+        {
+            FloorNameTextBox.Text = TextConversion.DigiStringToASCII(nameData);
+        }
+
+        public void SetFloorScriptBytes(int data)
+        {
+            ScriptIDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptIDNumericUpDown.Value = data;
+        }
+
+        public void SetFloorWallTextureID(int data)
+        {
+            WallTextureIDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            WallTextureIDNumericUpDown.Value = data;
+        }
+
+        public void SetFloorTypeOverride(short data)
+        {
+            FloorTypeOverrideNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            FloorTypeOverrideNumericUpDown.Value = data;
+        }
+
+        public void SetFloorTrapLevel(short data)
+        {
+            TrapLevelNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            TrapLevelNumericUpDown.Value = data;
         }
     }
 }

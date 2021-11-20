@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DigimonWorld2Tool.Utility
 {
@@ -299,16 +300,6 @@ namespace DigimonWorld2Tool.Utility
             {0x01, "[Close text]\n" },
         };
 
-        public static string DigiStringToASCII(byte[] input)
-        {
-            if (input == null)
-                return "No input data given";
-            string converted = "";
-            foreach (var item in input)
-                converted += GetReplacementChar(item, CharacterLookupTable, "");
-            return converted;
-        }
-
         /// <summary>
         /// Convert the hex value of DW2 text and events found in the MESS files to their ASCII representation 
         /// </summary>
@@ -405,6 +396,26 @@ namespace DigimonWorld2Tool.Utility
                 result += $"{item:X2}{seperator}";
             }
             return result;
+        }
+
+        public static string DigiStringToASCII(byte[] input)
+        {
+            if (input == null)
+                return "No input data given";
+            string converted = "";
+            foreach (var item in input)
+                converted += GetReplacementChar(item, CharacterLookupTable, "");
+            return converted;
+        }
+
+        public static byte[] ASCIIToDigiString(string input)
+        {
+            byte[] data = new byte[input.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = CharacterLookupTable.FirstOrDefault(o => o.Value == input[i].ToString()).Key;
+            }
+            return data;
         }
     }
 }

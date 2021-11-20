@@ -233,33 +233,20 @@ namespace DigimonWorld2Tool.FileEditor
             editDigimonWindow.Dispose();
         }
 
-        public void SaveFileData()
-        {
-            if (LoadedDUNGData == null)
-            {
-                DebugWindow.DebugLogMessages.Add($"No DUNG was loaded in edit mode to save data for.");
-                return;
-            }
-
-            UpdateRawDDUNGData();
-
-            File.WriteAllBytes(FilePath, LoadedDUNGData.RawFileData);
-        }
-
-        private void UpdateRawDDUNGData()
-        {
-            int editedFloorLayoutPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutPointer;
-            var floorData = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutData;
-            Array.Copy(floorData, 0, LoadedDUNGData.RawFileData, editedFloorLayoutPointer, floorData.Length);
-        }
-
         internal void EditFloorHeaderData()
         {
             EditFloorHeaderWindow floorHeaderWindow = new EditFloorHeaderWindow();
             floorHeaderWindow.SetFloorHeaderDigimonPackData(LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable);
             floorHeaderWindow.SetFloorHeaderChestData(LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable);
+            floorHeaderWindow.SetFloorName(LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorNameData);
+            floorHeaderWindow.SetFloorScriptBytes(LoadedDUNGData.DungFloorHeaders[FloorIndex].ScriptID);
+            floorHeaderWindow.SetFloorWallTextureID(LoadedDUNGData.DungFloorHeaders[FloorIndex].WallTextureID);
+            floorHeaderWindow.SetFloorTypeOverride(LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTypeOverride);
+            floorHeaderWindow.SetFloorTrapLevel(LoadedDUNGData.DungFloorHeaders[FloorIndex].TrapLevel);
+
             if (floorHeaderWindow.ShowDialog(DungWindow.Instance) == DialogResult.OK)
             {
+                #region DigimonData
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[0] = (byte)floorHeaderWindow.Pack0IDNumericUpDown.Value;
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[1] = (byte)floorHeaderWindow.Pack1IDNumericUpDown.Value;
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[2] = (byte)floorHeaderWindow.Pack2IDNumericUpDown.Value;
@@ -268,7 +255,9 @@ namespace DigimonWorld2Tool.FileEditor
                 byte[] digimonPackBytes = LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable;
                 int digimonPackPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.DigimonTable;
                 Array.Copy(digimonPackBytes, 0, LoadedDUNGData.RawFileData, digimonPackPointer, digimonPackBytes.Length);
+                #endregion
 
+                #region TreasureData
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[0][0] = (byte)floorHeaderWindow.Treasure0ItemIDNumericUpDown.Value;
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[0][1] = (byte)floorHeaderWindow.Treasure0TrapLevelNumericUpDown.Value;
                 LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[1][0] = (byte)floorHeaderWindow.Treasure1ItemIDNumericUpDown.Value;
@@ -297,8 +286,66 @@ namespace DigimonWorld2Tool.FileEditor
                     }
                 }
                 Array.Copy(treasureDataBytes.ToArray(), 0, LoadedDUNGData.RawFileData, treasureDataPointer, treasureDataBytes.ToArray().Length);
+                #endregion
+
+                #region NameData
+                string floorNameCharacters = floorHeaderWindow.FloorNameTextBox.Text;
+                List<byte> floorNameData = Utility.TextConversion.ASCIIToDigiString(floorNameCharacters).ToList();
+                floorNameData.Add(0xFF);
+                int floorNamePointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorNamePointer;
+                Array.Copy(floorNameData.ToArray(), 0, LoadedDUNGData.RawFileData, floorNamePointer, floorNameData.Count);
+                #endregion
+
+                #region ScriptID
+                int scriptIDValue = (int)floorHeaderWindow.ScriptIDNumericUpDown.Value;
+                byte[] scriptIDData = BitConverter.GetBytes(scriptIDValue);
+                int scriptIDPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.ScriptID;
+                Array.Copy(scriptIDData, 0, LoadedDUNGData.RawFileData, scriptIDPointer, scriptIDData.Length);
+                #endregion
+
+                #region WallTextureID
+                int wallTextureIDValue = (int)floorHeaderWindow.WallTextureIDNumericUpDown.Value;
+                byte[] wallTextureIDData = BitConverter.GetBytes(wallTextureIDValue);
+                int wallTextureIDPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.WallTextureID;
+                Array.Copy(wallTextureIDData, 0, LoadedDUNGData.RawFileData, wallTextureIDPointer, wallTextureIDData.Length);
+                #endregion
+
+                #region FloorTypeOverride
+                short floorTypeOverride = (short)floorHeaderWindow.FloorTypeOverrideNumericUpDown.Value;
+                byte[] floorTypeOverrideData = BitConverter.GetBytes(floorTypeOverride);
+                int floorTypeOverridePointer= LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.FloorTypeOverride;
+                Array.Copy(floorTypeOverrideData, 0, LoadedDUNGData.RawFileData, floorTypeOverridePointer, floorTypeOverrideData.Length);
+                #endregion
+
+                #region TrapLevel
+                short trapLevel = (short)floorHeaderWindow.TrapLevelNumericUpDown.Value;
+                byte[] trapLevelData = BitConverter.GetBytes(trapLevel);
+                int trapLevelPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.TrapLevel;
+                Array.Copy(trapLevelData, 0, LoadedDUNGData.RawFileData, trapLevelPointer, trapLevelData.Length);
+                #endregion
+
             }
             floorHeaderWindow.Dispose();
+        }
+
+        public void SaveFileData()
+        {
+            if (LoadedDUNGData == null)
+            {
+                DebugWindow.DebugLogMessages.Add($"No DUNG was loaded in edit mode to save data for.");
+                return;
+            }
+
+            UpdateRawDDUNGData();
+
+            File.WriteAllBytes(FilePath, LoadedDUNGData.RawFileData);
+        }
+
+        private void UpdateRawDDUNGData()
+        {
+            int editedFloorLayoutPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutPointer;
+            var floorData = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutData;
+            Array.Copy(floorData, 0, LoadedDUNGData.RawFileData, editedFloorLayoutPointer, floorData.Length);
         }
     }
 }

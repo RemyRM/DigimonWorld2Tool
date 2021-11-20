@@ -262,5 +262,17 @@ namespace DigimonWorld2Tool.Properties {
                 this["ShowValuesAsHex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RemoveIDCap {
+            get {
+                return ((bool)(this["RemoveIDCap"]));
+            }
+            set {
+                this["RemoveIDCap"] = value;
+            }
+        }
     }
 }

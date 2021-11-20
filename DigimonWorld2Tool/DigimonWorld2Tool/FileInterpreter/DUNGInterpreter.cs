@@ -91,6 +91,11 @@ namespace DigimonWorld2Tool.FileInterpreter
             return new TrapTypeAndLevel(data);
         }
 
+        public static DungFloorTreasureContents GetTreasureAndTrapLevelFromData(byte[] data)
+        {
+            return new DungFloorTreasureContents(data);
+        }
+
         public static WarpType GetWarpType(byte data)
         {
             return (WarpType)data;
@@ -116,6 +121,18 @@ namespace DigimonWorld2Tool.FileInterpreter
         {
             Type = data.GetRightNiblet();
             Level = data.GetLeftNiblet();
+        }
+    }
+
+    public class DungFloorTreasureContents
+    {
+        public byte ItemID { get; private set; }
+        public byte TrapLevel { get; private set; }
+
+        public DungFloorTreasureContents(byte[] data)
+        {
+            ItemID = data[0];
+            TrapLevel = data[1];
         }
     }
 }

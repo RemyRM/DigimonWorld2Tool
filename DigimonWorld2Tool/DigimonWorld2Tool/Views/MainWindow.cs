@@ -33,6 +33,7 @@ namespace DigimonWorld2Tool.Views
             ColourTheme.SetColourScheme(this.Controls);
 
             ShowValuesAsHexToolStripMenuItem.Checked = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            removeIDCapToolStripMenuItem.Checked = (bool)Properties.Settings.Default["RemoveIDCap"];
         }
 
         private void SetupClasses()
@@ -100,6 +101,13 @@ namespace DigimonWorld2Tool.Views
             ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
             Properties.Settings.Default["ShowValuesAsHex"] = menuItem.Checked;
             Settings.Settings.ValueTextFormat = menuItem.Checked ? "X2" : "D2";
+        }
+
+        private void removeIDCapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            Properties.Settings.Default["RemoveIDCap"] = menuItem.Checked;
+            Settings.Settings.RemoveIDCap = menuItem.Checked;
         }
     }
 }

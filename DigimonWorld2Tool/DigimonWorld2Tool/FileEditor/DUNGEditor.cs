@@ -8,6 +8,7 @@ using DigimonWorld2Tool.Rendering;
 using DigimonWorld2Tool.Utility;
 using DigimonWorld2Tool.Interfaces;
 using DigimonWorld2Tool.Views;
+using System.Collections.Generic;
 
 namespace DigimonWorld2Tool.FileEditor
 {
@@ -53,15 +54,13 @@ namespace DigimonWorld2Tool.FileEditor
         /// <param name="curPosX"></param>
         /// <param name="curPosY"></param>
         /// <param name="type">0 = warps, 1 = chests, 2 = traps, 3 = digimons</param>
-        public void ChangeObjectPosition(int curPosX, int curPosY, DungWindow.SelectedMapObjectType type)
+        public void EditObjectData(int curPosX, int curPosY, DungWindow.SelectedMapObjectType type)
         {
             switch (type)
             {
                 case DungWindow.SelectedMapObjectType.Warp:
                     EditWarpData(curPosX, curPosY);
                     break;
-
-
                 case DungWindow.SelectedMapObjectType.Chest:
                     EditChestData(curPosX, curPosY);
                     break;
@@ -252,6 +251,54 @@ namespace DigimonWorld2Tool.FileEditor
             int editedFloorLayoutPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutPointer;
             var floorData = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutData;
             Array.Copy(floorData, 0, LoadedDUNGData.RawFileData, editedFloorLayoutPointer, floorData.Length);
+        }
+
+        internal void EditFloorHeaderData()
+        {
+            EditFloorHeaderWindow floorHeaderWindow = new EditFloorHeaderWindow();
+            floorHeaderWindow.SetFloorHeaderDigimonPackData(LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable);
+            floorHeaderWindow.SetFloorHeaderChestData(LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable);
+            if (floorHeaderWindow.ShowDialog(DungWindow.Instance) == DialogResult.OK)
+            {
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[0] = (byte)floorHeaderWindow.Pack0IDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[1] = (byte)floorHeaderWindow.Pack1IDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[2] = (byte)floorHeaderWindow.Pack2IDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable[3] = (byte)floorHeaderWindow.Pack3IDNumericUpDown.Value;
+
+                byte[] digimonPackBytes = LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable;
+                int digimonPackPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.DigimonTable;
+                Array.Copy(digimonPackBytes, 0, LoadedDUNGData.RawFileData, digimonPackPointer, digimonPackBytes.Length);
+
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[0][0] = (byte)floorHeaderWindow.Treasure0ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[0][1] = (byte)floorHeaderWindow.Treasure0TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[1][0] = (byte)floorHeaderWindow.Treasure1ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[1][1] = (byte)floorHeaderWindow.Treasure1TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[2][0] = (byte)floorHeaderWindow.Treasure2ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[2][1] = (byte)floorHeaderWindow.Treasure2TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[3][0] = (byte)floorHeaderWindow.Treasure3ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[3][1] = (byte)floorHeaderWindow.Treasure3TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[4][0] = (byte)floorHeaderWindow.Treasure4ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[4][1] = (byte)floorHeaderWindow.Treasure4TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[5][0] = (byte)floorHeaderWindow.Treasure5ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[5][1] = (byte)floorHeaderWindow.Treasure5TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[6][0] = (byte)floorHeaderWindow.Treasure6ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[6][1] = (byte)floorHeaderWindow.Treasure6TrapLevelNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[7][0] = (byte)floorHeaderWindow.Treasure7ItemIDNumericUpDown.Value;
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable[7][1] = (byte)floorHeaderWindow.Treasure7TrapLevelNumericUpDown.Value;
+
+                List<byte[]> treasureData = LoadedDUNGData.DungFloorHeaders[FloorIndex].FloorTreasureTable;
+                int treasureDataPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.TreasureTable;
+                byte[] treasureDataBytes = new byte[treasureData.Count * 4];
+                for (int i = 0; i < treasureData.Count; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        treasureDataBytes[i * 4 + j] = treasureData[i][j];
+                    }
+                }
+                Array.Copy(treasureDataBytes.ToArray(), 0, LoadedDUNGData.RawFileData, treasureDataPointer, treasureDataBytes.ToArray().Length);
+            }
+            floorHeaderWindow.Dispose();
         }
     }
 }

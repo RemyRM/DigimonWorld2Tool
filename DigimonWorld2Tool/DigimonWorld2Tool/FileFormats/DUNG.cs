@@ -57,7 +57,7 @@ namespace DigimonWorld2Tool.FileFormat
     public class DungFloorHeader
     {
         //These are pre-determined offsets in the header to certain data entries
-        private enum DomainDataHeaderOffset
+        public enum DomainDataHeaderOffset
         {
             FileName = 0,
             ScriptID = 4,
@@ -78,7 +78,7 @@ namespace DigimonWorld2Tool.FileFormat
 
         private readonly byte[] RawFileData;
 
-        private int DomainFloorBasePointer { get; set; }
+        public int DomainFloorBasePointer { get; set; }
         private int DomainFloorNamePointer { get; set; }
 
         public byte[] FloorNameData { get; private set; }
@@ -91,8 +91,8 @@ namespace DigimonWorld2Tool.FileFormat
 
         public short TrapLevel { get; private set; }
         public byte[] DigimonEncounterTable { get; private set; } = new byte[4];
-        public DungFloorTreasureContents[] FloorTreasureTable { get; private set; } = new DungFloorTreasureContents[8];
-
+        //public DungFloorTreasureContents[] FloorTreasureTable { get; private set; } = new DungFloorTreasureContents[8];
+        public List<byte[]> FloorTreasureTable { get; private set; }
 
         internal DungFloorHeader(byte[] rawData, int startFloorDataPointer)
         {
@@ -199,37 +199,40 @@ namespace DigimonWorld2Tool.FileFormat
             return results;
         }
 
-        /// <summary>
-        /// Every floor has a table with IDs containing the possible obtainable treasures for this floor, and the level of the trap on the chest.
-        /// This ID is looked up against the ITEMDATA.BIN file in \AAA\4.AAA\DATAFILE
-        /// </summary>
-        /// <returns><see cref="DungFloorTreasureContents"/> array of length 8 containing all the possible treasure for the floor</returns>
-        private DungFloorTreasureContents[] GetFloorTreasureTable()
+        private List<byte[]> GetFloorTreasureTable()
         {
-            DungFloorTreasureContents[] results = new DungFloorTreasureContents[8];
-            for (int i = 0; i < results.Length; i++)
+            List<byte[]> results = new List<byte[]>();
+            for (int i = 0; i < 8; i++)
             {
                 byte[] data = new byte[4];
                 int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
                 for (int j = 0; j < data.Length; j++)
                     data[j] = RawFileData[startAddress + j];
-                results[i] = new DungFloorTreasureContents(data);
+                results.Add(data);
             }
             return results;
         }
+
+        /// <summary>
+        /// Every floor has a table with IDs containing the possible obtainable treasures for this floor, and the level of the trap on the chest.
+        /// This ID is looked up against the ITEMDATA.BIN file in \AAA\4.AAA\DATAFILE
+        /// </summary>
+        /// <returns><see cref="DungFloorTreasureContents"/> array of length 8 containing all the possible treasure for the floor</returns>
+        //private DungFloorTreasureContents[] GetFloorTreasureTable()
+        //{
+        //    DungFloorTreasureContents[] results = new DungFloorTreasureContents[8];
+        //    for (int i = 0; i < results.Length; i++)
+        //    {
+        //        byte[] data = new byte[4];
+        //        int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
+        //        for (int j = 0; j < data.Length; j++)
+        //            data[j] = RawFileData[startAddress + j];
+        //        results[i] = new DungFloorTreasureContents(data);
+        //    }
+        //    return results;
+        //}
     }
 
-    public class DungFloorTreasureContents
-    {
-        public byte ItemID { get; private set; }
-        public byte TrapLevel { get; private set; }
-
-        public DungFloorTreasureContents(byte[] data)
-        {
-            ItemID = data[0];
-            TrapLevel = data[1];
-        }
-    }
 
     public class DungFloorLayoutHeader
     {
@@ -492,7 +495,6 @@ namespace DigimonWorld2Tool.FileFormat
     public class DungFloorTrap : IDungLayoutObject
     {
         public byte[] TypeAndLevelData { get; set; } = new byte[4];
-        //public TrapTypeAndLevel[] TypeAndLevel { get; private set; } = new TrapTypeAndLevel[4];
 
         public DungFloorTrap(byte[] data)
         {
@@ -500,11 +502,7 @@ namespace DigimonWorld2Tool.FileFormat
             Y = data[1];
 
             for (int i = 0; i < TypeAndLevelData.Length; i++)
-            {
-                //Start at 2 to offset X and Y
                 TypeAndLevelData[i] = data[i + 2];
-                //TypeAndLevel[i] = new TrapTypeAndLevel(data[i + 2]);
-            }
         }
 
         public override byte[] ToBytes()
@@ -514,8 +512,8 @@ namespace DigimonWorld2Tool.FileFormat
             bytes[1] = Y;
             bytes[2] = TypeAndLevelData[0];
             bytes[3] = TypeAndLevelData[1];
-            bytes[4] = TypeAndLevelData[2]; 
-            bytes[5] = TypeAndLevelData[3]; 
+            bytes[4] = TypeAndLevelData[2];
+            bytes[5] = TypeAndLevelData[3];
             bytes[6] = 0;
             bytes[7] = 0;
             return bytes;

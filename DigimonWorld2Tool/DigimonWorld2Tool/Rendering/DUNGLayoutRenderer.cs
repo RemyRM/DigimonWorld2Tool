@@ -226,7 +226,7 @@ namespace DigimonWorld2Tool.Rendering
                         if (selectedTrap == 0)
                             continue;
 
-                        switch ((TrapType)selectedTrap.GetLeftNiblet())
+                        switch ((TrapType)selectedTrap.GetRightNiblet())
                         {
                             case TrapType.None:
                                 trapTypeChar = "-";

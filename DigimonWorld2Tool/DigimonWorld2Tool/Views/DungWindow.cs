@@ -139,6 +139,7 @@ namespace DigimonWorld2Tool.Views
             LoadUserSettings();
             ColourTheme.SetColourScheme(this.Controls);
             ColourTheme.SetColourScheme(ObjectInfoGroupBox.Controls);
+            ColourTheme.SetColourScheme(FloorHeaderInfoGroupBox.Controls);
 
             PostInit();
             SetupEvents();
@@ -198,6 +199,7 @@ namespace DigimonWorld2Tool.Views
             EditorSelectedTileTypePicturebox.Visible = enabled;
             EditObjectInfoButton.Visible = enabled;
             SaveChangesButton.Visible = enabled;
+            FloorHeaderInfoGroupBox.Visible = enabled;
 
             if (enabled)
             {
@@ -259,6 +261,7 @@ namespace DigimonWorld2Tool.Views
             ComboBox cBox = (ComboBox)sender;
             LoadSelectedFloorData((string)cBox.SelectedItem);
             DungInterpreter.UpdateDungFloor(LoadedDungFloorHeader);
+            SetFloorHeaderData();
 
             FloorLayoutButton_Click(FloorLayoutButton1, null);
         }
@@ -426,8 +429,10 @@ namespace DigimonWorld2Tool.Views
                         var treasureIndex = treasure.ItemSlots[i];
                         var treasureData = LoadedDungFloorHeader.FloorTreasureTable[treasureIndex - 1];
 
-                        var itemID = treasureData.ItemID;
-                        var trapLevel = treasureData.TrapLevel;
+                        var itemID = treasureData[0];
+                        var trapLevel = treasureData[1];
+                        //var itemID = treasureData.ItemID;
+                        //var trapLevel = treasureData.TrapLevel;
 
                         if (itemID == 0x00)
                         {
@@ -479,9 +484,13 @@ namespace DigimonWorld2Tool.Views
         private void EditObjectInfoButton_Click(object sender, EventArgs e)
         {
             if (MainWindow.EditModeEnabled)
-            {
-                DungEditor.ChangeObjectPosition(SelectedObjectPosition.x, SelectedObjectPosition.y, SelectedObjectType);
-            }
+                DungEditor.EditObjectData(SelectedObjectPosition.x, SelectedObjectPosition.y, SelectedObjectType);
+        }
+
+        private void EditFloorHeaderButton_Click(object sender, EventArgs e)
+        {
+            if (MainWindow.EditModeEnabled)
+                DungEditor.EditFloorHeaderData();
         }
         #endregion
 
@@ -550,6 +559,24 @@ namespace DigimonWorld2Tool.Views
             selectedFileName ??= selectedDomainName;
 
             LoadDungFileRawData(selectedFileName);
+        }
+
+
+        public void SetFloorHeaderData()
+        {
+            DigimonPack0Label.Text = $"0) {LoadedDungFloorHeader.DigimonEncounterTable[0].ToString(Settings.Settings.ValueTextFormat)}";
+            DigimonPack1Label.Text = $"1) {LoadedDungFloorHeader.DigimonEncounterTable[1].ToString(Settings.Settings.ValueTextFormat)}";
+            DigimonPack2Label.Text = $"2) {LoadedDungFloorHeader.DigimonEncounterTable[2].ToString(Settings.Settings.ValueTextFormat)}";
+            DigimonPack3Label.Text = $"3) {LoadedDungFloorHeader.DigimonEncounterTable[3].ToString(Settings.Settings.ValueTextFormat)}";
+
+            ChestContentData0Label.Text = $"0) {LoadedDungFloorHeader.FloorTreasureTable[0][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[0][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData1Label.Text = $"1) {LoadedDungFloorHeader.FloorTreasureTable[1][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[1][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData2Label.Text = $"2) {LoadedDungFloorHeader.FloorTreasureTable[2][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[2][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData3Label.Text = $"3) {LoadedDungFloorHeader.FloorTreasureTable[3][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[3][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData4Label.Text = $"4) {LoadedDungFloorHeader.FloorTreasureTable[4][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[4][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData5Label.Text = $"5) {LoadedDungFloorHeader.FloorTreasureTable[5][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[5][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData6Label.Text = $"6) {LoadedDungFloorHeader.FloorTreasureTable[6][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[6][1].ToString(Settings.Settings.ValueTextFormat)}";
+            ChestContentData7Label.Text = $"7) {LoadedDungFloorHeader.FloorTreasureTable[7][0].ToString(Settings.Settings.ValueTextFormat)}, {LoadedDungFloorHeader.FloorTreasureTable[7][1].ToString(Settings.Settings.ValueTextFormat)}";
         }
 
         /// <summary>

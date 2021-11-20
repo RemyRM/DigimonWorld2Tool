@@ -39,6 +39,7 @@ namespace DigimonWorld2Tool.Views
             this.ShowValuesAsHexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripEditorItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EnableEditModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeIDCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,10 +99,11 @@ namespace DigimonWorld2Tool.Views
             // 
             this.MainToolStripDebugItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainToolStripOpenLogWindow,
-            this.ShowValuesAsHexToolStripMenuItem});
+            this.ShowValuesAsHexToolStripMenuItem,
+            this.removeIDCapToolStripMenuItem});
             this.MainToolStripDebugItem.Name = "MainToolStripDebugItem";
-            this.MainToolStripDebugItem.Size = new System.Drawing.Size(54, 20);
-            this.MainToolStripDebugItem.Text = "Debug";
+            this.MainToolStripDebugItem.Size = new System.Drawing.Size(61, 20);
+            this.MainToolStripDebugItem.Text = "Settings";
             // 
             // MainToolStripOpenLogWindow
             // 
@@ -132,6 +134,14 @@ namespace DigimonWorld2Tool.Views
             this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.EnableEditModeToolStripMenuItem.Text = "Enable Edit Mode";
             this.EnableEditModeToolStripMenuItem.Click += new System.EventHandler(this.EnableEditModeToolStripMenuItem_Click);
+            // 
+            // removeIDCapToolStripMenuItem
+            // 
+            this.removeIDCapToolStripMenuItem.CheckOnClick = true;
+            this.removeIDCapToolStripMenuItem.Name = "removeIDCapToolStripMenuItem";
+            this.removeIDCapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.removeIDCapToolStripMenuItem.Text = "Remove ID cap";
+            this.removeIDCapToolStripMenuItem.Click += new System.EventHandler(this.removeIDCapToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -168,5 +178,6 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.ToolStripMenuItem MainToolStripEditorItem;
         private System.Windows.Forms.ToolStripMenuItem EnableEditModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowValuesAsHexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeIDCapToolStripMenuItem;
     }
 }

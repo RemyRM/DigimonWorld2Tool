@@ -179,7 +179,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot1ItemIndexNumericUpDown.Location = new System.Drawing.Point(94, 31);
             this.Slot1ItemIndexNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            8,
             0,
             0,
             0});
@@ -228,7 +228,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot2ItemIndexNumericUpDown.Location = new System.Drawing.Point(94, 31);
             this.Slot2ItemIndexNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            8,
             0,
             0,
             0});
@@ -286,7 +286,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot4ItemIndexNumericUpDown.Location = new System.Drawing.Point(94, 31);
             this.Slot4ItemIndexNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            8,
             0,
             0,
             0});
@@ -344,7 +344,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot3ItemIndexNumericUpDown.Location = new System.Drawing.Point(94, 31);
             this.Slot3ItemIndexNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            8,
             0,
             0,
             0});

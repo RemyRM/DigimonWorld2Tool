@@ -69,6 +69,23 @@ namespace DigimonWorld2Tool.Views
             this.CorridorTileTypePictureBox = new System.Windows.Forms.PictureBox();
             this.EditorSelectedTileTypePicturebox = new System.Windows.Forms.PictureBox();
             this.SaveChangesButton = new System.Windows.Forms.Button();
+            this.FloorHeaderInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.EditFloorHeaderButton = new System.Windows.Forms.Button();
+            this.ChestContentData7Label = new System.Windows.Forms.Label();
+            this.ChestContentData6Label = new System.Windows.Forms.Label();
+            this.ChestContentData5Label = new System.Windows.Forms.Label();
+            this.ChestContentData4Label = new System.Windows.Forms.Label();
+            this.ChestContentData3Label = new System.Windows.Forms.Label();
+            this.ChestContentData2Label = new System.Windows.Forms.Label();
+            this.ChestContentData1Label = new System.Windows.Forms.Label();
+            this.ChestContentData0Label = new System.Windows.Forms.Label();
+            this.ChestContentsAndTrapLevelLabel = new System.Windows.Forms.Label();
+            this.DigimonPack3Label = new System.Windows.Forms.Label();
+            this.DigimonPack2Label = new System.Windows.Forms.Label();
+            this.DigimonPack1Label = new System.Windows.Forms.Label();
+            this.DigimonPack0Label = new System.Windows.Forms.Label();
+            this.DigiPackIdsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).BeginInit();
             this.ObjectInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SlotFourInfoPictureBox)).BeginInit();
@@ -84,6 +101,8 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).BeginInit();
+            this.FloorHeaderInfoGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // SelectDungDirButton
@@ -613,11 +632,195 @@ namespace DigimonWorld2Tool.Views
             this.SaveChangesButton.Visible = false;
             this.SaveChangesButton.Click += new System.EventHandler(this.SaveChangesButton_Click);
             // 
+            // FloorHeaderInfoGroupBox
+            // 
+            this.FloorHeaderInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.pictureBox1);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.EditFloorHeaderButton);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData7Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData6Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData5Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData4Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData3Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData2Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData1Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData0Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentsAndTrapLevelLabel);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.DigimonPack3Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.DigimonPack2Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.DigimonPack1Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.DigimonPack0Label);
+            this.FloorHeaderInfoGroupBox.Controls.Add(this.DigiPackIdsLabel);
+            this.FloorHeaderInfoGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FloorHeaderInfoGroupBox.ForeColor = System.Drawing.Color.White;
+            this.FloorHeaderInfoGroupBox.Location = new System.Drawing.Point(791, 168);
+            this.FloorHeaderInfoGroupBox.Name = "FloorHeaderInfoGroupBox";
+            this.FloorHeaderInfoGroupBox.Size = new System.Drawing.Size(292, 250);
+            this.FloorHeaderInfoGroupBox.TabIndex = 66;
+            this.FloorHeaderInfoGroupBox.TabStop = false;
+            this.FloorHeaderInfoGroupBox.Text = "Floor header";
+            this.FloorHeaderInfoGroupBox.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(105, 123);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1, 120);
+            this.pictureBox1.TabIndex = 68;
+            this.pictureBox1.TabStop = false;
+            // 
+            // EditFloorHeaderButton
+            // 
+            this.EditFloorHeaderButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditFloorHeaderButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.EditFloorHeaderButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
+            this.EditFloorHeaderButton.FlatAppearance.BorderSize = 3;
+            this.EditFloorHeaderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditFloorHeaderButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EditFloorHeaderButton.ForeColor = System.Drawing.Color.White;
+            this.EditFloorHeaderButton.Location = new System.Drawing.Point(193, 20);
+            this.EditFloorHeaderButton.Name = "EditFloorHeaderButton";
+            this.EditFloorHeaderButton.Size = new System.Drawing.Size(89, 31);
+            this.EditFloorHeaderButton.TabIndex = 67;
+            this.EditFloorHeaderButton.Text = "Edit";
+            this.EditFloorHeaderButton.UseVisualStyleBackColor = false;
+            this.EditFloorHeaderButton.Click += new System.EventHandler(this.EditFloorHeaderButton_Click);
+            // 
+            // ChestContentData7Label
+            // 
+            this.ChestContentData7Label.AutoSize = true;
+            this.ChestContentData7Label.Location = new System.Drawing.Point(115, 220);
+            this.ChestContentData7Label.Name = "ChestContentData7Label";
+            this.ChestContentData7Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData7Label.TabIndex = 13;
+            this.ChestContentData7Label.Text = "7) 0x00 0x00";
+            // 
+            // ChestContentData6Label
+            // 
+            this.ChestContentData6Label.AutoSize = true;
+            this.ChestContentData6Label.Location = new System.Drawing.Point(115, 190);
+            this.ChestContentData6Label.Name = "ChestContentData6Label";
+            this.ChestContentData6Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData6Label.TabIndex = 12;
+            this.ChestContentData6Label.Text = "6) 0x00 0x00";
+            // 
+            // ChestContentData5Label
+            // 
+            this.ChestContentData5Label.AutoSize = true;
+            this.ChestContentData5Label.Location = new System.Drawing.Point(115, 160);
+            this.ChestContentData5Label.Name = "ChestContentData5Label";
+            this.ChestContentData5Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData5Label.TabIndex = 11;
+            this.ChestContentData5Label.Text = "5) 0x00 0x00";
+            // 
+            // ChestContentData4Label
+            // 
+            this.ChestContentData4Label.AutoSize = true;
+            this.ChestContentData4Label.Location = new System.Drawing.Point(115, 130);
+            this.ChestContentData4Label.Name = "ChestContentData4Label";
+            this.ChestContentData4Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData4Label.TabIndex = 10;
+            this.ChestContentData4Label.Text = "4) 0x00 0x00";
+            // 
+            // ChestContentData3Label
+            // 
+            this.ChestContentData3Label.AutoSize = true;
+            this.ChestContentData3Label.Location = new System.Drawing.Point(7, 220);
+            this.ChestContentData3Label.Name = "ChestContentData3Label";
+            this.ChestContentData3Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData3Label.TabIndex = 9;
+            this.ChestContentData3Label.Text = "3) 0x00 0x00";
+            // 
+            // ChestContentData2Label
+            // 
+            this.ChestContentData2Label.AutoSize = true;
+            this.ChestContentData2Label.Location = new System.Drawing.Point(7, 190);
+            this.ChestContentData2Label.Name = "ChestContentData2Label";
+            this.ChestContentData2Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData2Label.TabIndex = 8;
+            this.ChestContentData2Label.Text = "2) 0x00 0x00";
+            // 
+            // ChestContentData1Label
+            // 
+            this.ChestContentData1Label.AutoSize = true;
+            this.ChestContentData1Label.Location = new System.Drawing.Point(7, 160);
+            this.ChestContentData1Label.Name = "ChestContentData1Label";
+            this.ChestContentData1Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData1Label.TabIndex = 7;
+            this.ChestContentData1Label.Text = "1) 0x00 0x00";
+            // 
+            // ChestContentData0Label
+            // 
+            this.ChestContentData0Label.AutoSize = true;
+            this.ChestContentData0Label.Location = new System.Drawing.Point(7, 130);
+            this.ChestContentData0Label.Name = "ChestContentData0Label";
+            this.ChestContentData0Label.Size = new System.Drawing.Size(89, 19);
+            this.ChestContentData0Label.TabIndex = 6;
+            this.ChestContentData0Label.Text = "0) 0x00 0x00";
+            // 
+            // ChestContentsAndTrapLevelLabel
+            // 
+            this.ChestContentsAndTrapLevelLabel.AutoSize = true;
+            this.ChestContentsAndTrapLevelLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ChestContentsAndTrapLevelLabel.Location = new System.Drawing.Point(7, 100);
+            this.ChestContentsAndTrapLevelLabel.Name = "ChestContentsAndTrapLevelLabel";
+            this.ChestContentsAndTrapLevelLabel.Size = new System.Drawing.Size(216, 20);
+            this.ChestContentsAndTrapLevelLabel.TabIndex = 5;
+            this.ChestContentsAndTrapLevelLabel.Text = "Chest content ID and trap level:";
+            // 
+            // DigimonPack3Label
+            // 
+            this.DigimonPack3Label.AutoSize = true;
+            this.DigimonPack3Label.Location = new System.Drawing.Point(187, 65);
+            this.DigimonPack3Label.Name = "DigimonPack3Label";
+            this.DigimonPack3Label.Size = new System.Drawing.Size(58, 19);
+            this.DigimonPack3Label.TabIndex = 4;
+            this.DigimonPack3Label.Text = "3): 0x00";
+            // 
+            // DigimonPack2Label
+            // 
+            this.DigimonPack2Label.AutoSize = true;
+            this.DigimonPack2Label.Location = new System.Drawing.Point(127, 65);
+            this.DigimonPack2Label.Name = "DigimonPack2Label";
+            this.DigimonPack2Label.Size = new System.Drawing.Size(55, 19);
+            this.DigimonPack2Label.TabIndex = 3;
+            this.DigimonPack2Label.Text = "2) 0x00";
+            // 
+            // DigimonPack1Label
+            // 
+            this.DigimonPack1Label.AutoSize = true;
+            this.DigimonPack1Label.Location = new System.Drawing.Point(67, 65);
+            this.DigimonPack1Label.Name = "DigimonPack1Label";
+            this.DigimonPack1Label.Size = new System.Drawing.Size(55, 19);
+            this.DigimonPack1Label.TabIndex = 2;
+            this.DigimonPack1Label.Text = "1) 0x00";
+            // 
+            // DigimonPack0Label
+            // 
+            this.DigimonPack0Label.AutoSize = true;
+            this.DigimonPack0Label.Location = new System.Drawing.Point(7, 65);
+            this.DigimonPack0Label.Name = "DigimonPack0Label";
+            this.DigimonPack0Label.Size = new System.Drawing.Size(55, 19);
+            this.DigimonPack0Label.TabIndex = 1;
+            this.DigimonPack0Label.Text = "0) 0x00";
+            // 
+            // DigiPackIdsLabel
+            // 
+            this.DigiPackIdsLabel.AutoSize = true;
+            this.DigiPackIdsLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DigiPackIdsLabel.Location = new System.Drawing.Point(7, 35);
+            this.DigiPackIdsLabel.Name = "DigiPackIdsLabel";
+            this.DigiPackIdsLabel.Size = new System.Drawing.Size(130, 20);
+            this.DigiPackIdsLabel.TabIndex = 0;
+            this.DigiPackIdsLabel.Text = "Digimon pack IDs:";
+            // 
             // DungWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.Controls.Add(this.FloorHeaderInfoGroupBox);
             this.Controls.Add(this.SaveChangesButton);
             this.Controls.Add(this.EmptyTileTypePictureBox);
             this.Controls.Add(this.NatureTileTypePictureBox);
@@ -665,6 +868,9 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.RoomTileTypePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CorridorTileTypePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).EndInit();
+            this.FloorHeaderInfoGroupBox.ResumeLayout(false);
+            this.FloorHeaderInfoGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -711,5 +917,22 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.PictureBox EditorSelectedTileTypePicturebox;
         private System.Windows.Forms.Button SaveChangesButton;
         private System.Windows.Forms.Button EditObjectInfoButton;
+        private System.Windows.Forms.GroupBox FloorHeaderInfoGroupBox;
+        private System.Windows.Forms.Label DigimonPack3Label;
+        private System.Windows.Forms.Label DigimonPack2Label;
+        private System.Windows.Forms.Label DigimonPack1Label;
+        private System.Windows.Forms.Label DigimonPack0Label;
+        private System.Windows.Forms.Label DigiPackIdsLabel;
+        private System.Windows.Forms.Label ChestContentData0Label;
+        private System.Windows.Forms.Label ChestContentsAndTrapLevelLabel;
+        private System.Windows.Forms.Label ChestContentData7Label;
+        private System.Windows.Forms.Label ChestContentData6Label;
+        private System.Windows.Forms.Label ChestContentData5Label;
+        private System.Windows.Forms.Label ChestContentData4Label;
+        private System.Windows.Forms.Label ChestContentData3Label;
+        private System.Windows.Forms.Label ChestContentData2Label;
+        private System.Windows.Forms.Label ChestContentData1Label;
+        private System.Windows.Forms.Button EditFloorHeaderButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

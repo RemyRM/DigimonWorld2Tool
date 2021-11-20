@@ -166,7 +166,7 @@ namespace DigimonWorld2Tool.Settings
             }
         }
 
-        public static string valueTextFormat = null;
+        private static string valueTextFormat = null;
         public static string ValueTextFormat
         {
             get
@@ -177,6 +177,13 @@ namespace DigimonWorld2Tool.Settings
                 return valueTextFormat;
             }
             set => valueTextFormat = value;
+        }
+
+        private static bool removeIDCap = false;
+        public static bool RemoveIDCap
+        {
+            get => removeIDCap;
+            set => removeIDCap = value;
         }
     }
 

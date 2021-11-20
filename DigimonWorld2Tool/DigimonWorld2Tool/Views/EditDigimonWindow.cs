@@ -16,6 +16,11 @@ namespace DigimonWorld2Tool.Views
             this.BackColor = (Color)Settings.Settings.BackgroundColour;
             this.ForeColor = (Color)Settings.Settings.TextColour;
             Utility.ColourTheme.SetColourScheme(this.Controls);
+
+            Slot1DigimonIndexNumericUpDown.Maximum = Settings.Settings.RemoveIDCap ? 255 : 4;
+            Slot2DigimonIndexNumericUpDown.Maximum = Settings.Settings.RemoveIDCap ? 255 : 4;
+            Slot3DigimonIndexNumericUpDown.Maximum = Settings.Settings.RemoveIDCap ? 255 : 4;
+            Slot4DigimonIndexNumericUpDown.Maximum = Settings.Settings.RemoveIDCap ? 255 : 4;
         }
 
         public void SetCurrentDigimonData(int posX, int posY, byte[] digimonSlots)

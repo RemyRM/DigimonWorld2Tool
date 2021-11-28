@@ -1004,5 +1004,21 @@ namespace DigimonWorld2Tool
             BmpInjectPreviewPictureBox.Image = bmp;
         }
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var filePath = SelectedTextureLabel.Text;
+            var lastSlash = filePath.LastIndexOf('\\');
+            var fileNAme = filePath.Substring(lastSlash + 1, filePath.Length - lastSlash -1);
+            fileNAme = fileNAme.Replace(".BIN", ".png");
+            var targetDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase) + "\\textures\\";
+            targetDir = targetDir[6..];
+            if (!Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
+
+            var finalDest = $"{targetDir}{fileNAme}";
+            Debug.WriteLine("Output:" + finalDest);
+            SelectedTextureRenderLayer.Image.Save(finalDest, ImageFormat.Png);
+        }
     }
 }

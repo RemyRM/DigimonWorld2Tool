@@ -254,6 +254,7 @@ namespace DigimonWorld2Tool.FileEditor
 
                 byte[] digimonPackBytes = LoadedDUNGData.DungFloorHeaders[FloorIndex].DigimonEncounterTable;
                 int digimonPackPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.DigimonTable;
+                //Write the digimon pack data to the raw BIN file
                 Array.Copy(digimonPackBytes, 0, LoadedDUNGData.RawFileData, digimonPackPointer, digimonPackBytes.Length);
                 #endregion
 
@@ -285,6 +286,7 @@ namespace DigimonWorld2Tool.FileEditor
                         treasureDataBytes[i * 4 + j] = treasureData[i][j];
                     }
                 }
+                //Write the treasure data to the raw BIN file
                 Array.Copy(treasureDataBytes.ToArray(), 0, LoadedDUNGData.RawFileData, treasureDataPointer, treasureDataBytes.ToArray().Length);
                 #endregion
 
@@ -297,7 +299,7 @@ namespace DigimonWorld2Tool.FileEditor
                 #endregion
 
                 #region ScriptID
-                int scriptIDValue = (int)floorHeaderWindow.ScriptIDNumericUpDown.Value;
+                int scriptIDValue = (int)floorHeaderWindow.ScriptID0NumericUpDown.Value;
                 byte[] scriptIDData = BitConverter.GetBytes(scriptIDValue);
                 int scriptIDPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.ScriptID;
                 Array.Copy(scriptIDData, 0, LoadedDUNGData.RawFileData, scriptIDPointer, scriptIDData.Length);

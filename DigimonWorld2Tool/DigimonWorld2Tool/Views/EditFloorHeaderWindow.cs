@@ -48,6 +48,7 @@ namespace DigimonWorld2Tool.Views
             ItemNameLabels.Add(Treasure6ItemNameLabel);
             ItemNameLabels.Add(Treasure7ItemNameLabel);
         }
+
         #region DigimonPack
         public void SetFloorHeaderDigimonPackData(byte[] digimonIds)
         {
@@ -213,10 +214,19 @@ namespace DigimonWorld2Tool.Views
             FloorNameTextBox.Text = TextConversion.DigiStringToASCII(nameData);
         }
 
-        public void SetFloorScriptBytes(int data)
+        public void SetFloorScriptBytes(byte[] data)
         {
-            ScriptIDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
-            ScriptIDNumericUpDown.Value = data;
+            ScriptID0NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptID0NumericUpDown.Value = data[0];
+
+            ScriptID1NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptID1NumericUpDown.Value = data[1];
+
+            ScriptID2NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptID2NumericUpDown.Value = data[2];
+
+            ScriptID3NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptID3NumericUpDown.Value = data[3];
         }
 
         public void SetFloorWallTextureID(int data)

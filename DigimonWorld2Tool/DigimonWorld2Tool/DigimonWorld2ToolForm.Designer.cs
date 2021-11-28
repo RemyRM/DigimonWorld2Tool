@@ -186,6 +186,7 @@ namespace DigimonWorld2Tool
             this.InjectTimPreviewLabel = new System.Windows.Forms.Label();
             this.InjectorSelectTimButton = new System.Windows.Forms.Button();
             this.SelectInjectTimLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.MapVisualizerTab.SuspendLayout();
             this.LogGroupBox.SuspendLayout();
@@ -997,6 +998,7 @@ namespace DigimonWorld2Tool
             // 
             this.TextureVisualizerTab.AutoScroll = true;
             this.TextureVisualizerTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.TextureVisualizerTab.Controls.Add(this.button1);
             this.TextureVisualizerTab.Controls.Add(this.TextureTypeComboBox);
             this.TextureVisualizerTab.Controls.Add(this.ReloadTextureButton);
             this.TextureVisualizerTab.Controls.Add(this.TextureSheetLabel);
@@ -2056,6 +2058,17 @@ namespace DigimonWorld2Tool
             this.SelectInjectTimLabel.TabIndex = 0;
             this.SelectInjectTimLabel.Text = "Select TIM file to inject to";
             // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(321, 357);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(138, 53);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // DigimonWorld2ToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2290,6 +2303,7 @@ namespace DigimonWorld2Tool
         private System.Windows.Forms.Label SelectBmpToInjectLabel;
         private System.Windows.Forms.PictureBox BmpInjectPreviewPictureBox;
         private System.Windows.Forms.Label PreviewBmpInjectLabel;
+        private System.Windows.Forms.Button button1;
     }
 }
 

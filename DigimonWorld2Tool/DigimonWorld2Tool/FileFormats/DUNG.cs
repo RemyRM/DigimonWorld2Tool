@@ -82,7 +82,7 @@ namespace DigimonWorld2Tool.FileFormat
         public int DomainFloorNamePointer { get; set; }
 
         public byte[] FloorNameData { get; private set; }
-        public int ScriptID { get; private set; }
+        public byte[] ScriptID { get; private set; }
 
         public DungFloorLayoutHeader[] DungFloorLayoutHeaders { get; private set; } = new DungFloorLayoutHeader[8];
 
@@ -90,7 +90,10 @@ namespace DigimonWorld2Tool.FileFormat
         public short FloorTypeOverride { get; private set; }
 
         public short TrapLevel { get; private set; }
+        public int DigimonEncounterTablePointer { get; private set; }
         public byte[] DigimonEncounterTable { get; private set; } = new byte[4];
+
+        public int TreasureDataTablePointer { get; private set; }
         public List<byte[]> FloorTreasureTable { get; private set; }
 
         internal DungFloorHeader(byte[] rawData, int startFloorDataPointer)
@@ -127,10 +130,14 @@ namespace DigimonWorld2Tool.FileFormat
         /// Get the ID of the script that needs to be executed on this floor
         /// </summary>
         /// <returns>The Int32 representation of the script ID</returns>
-        private int GetScriptID()
+        private byte[] GetScriptID()
         {
             int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.ScriptID;
-            return BitConverter.ToInt32(RawFileData[startAddress..(startAddress + 4)]);
+            byte[] result = new byte[4];
+            for (int i = 0; i < result.Length; i++)
+                result[i] = RawFileData[startAddress + i];
+            return result;
+            //return BitConverter.ToInt32(RawFileData[startAddress..(startAddress + 4)]);
         }
 
         /// <summary>
@@ -190,10 +197,10 @@ namespace DigimonWorld2Tool.FileFormat
         private byte[] GetDigimonEncounterTable()
         {
             byte[] results = new byte[4];
-            int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.DigimonTable;
+            DigimonEncounterTablePointer = DomainFloorBasePointer +(int)DomainDataHeaderOffset.DigimonTable; 
 
             for (int i = 0; i < results.Length; i++)
-                results[i] = RawFileData[startAddress + i];
+                results[i] = RawFileData[DigimonEncounterTablePointer + i];
 
             return results;
         }
@@ -204,9 +211,9 @@ namespace DigimonWorld2Tool.FileFormat
             for (int i = 0; i < 8; i++)
             {
                 byte[] data = new byte[4];
-                int startAddress = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
+                TreasureDataTablePointer = DomainFloorBasePointer + (int)DomainDataHeaderOffset.TreasureTable + (i * 4);
                 for (int j = 0; j < data.Length; j++)
-                    data[j] = RawFileData[startAddress + j];
+                    data[j] = RawFileData[TreasureDataTablePointer + j];
                 results.Add(data);
             }
             return results;

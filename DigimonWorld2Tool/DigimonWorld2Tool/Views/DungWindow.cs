@@ -128,7 +128,6 @@ namespace DigimonWorld2Tool.Views
             FloorLayoutButtons[6] = FloorLayoutButton7;
             FloorLayoutButtons[7] = FloorLayoutButton8;
 
-
             //Warm up some settings files
             _ = new DUNGLayoutRenderer(FloorLayoutPictureBox);
             _ = Settings.Settings.DIGIMNDTFile;
@@ -140,6 +139,12 @@ namespace DigimonWorld2Tool.Views
             ColourTheme.SetColourScheme(this.Controls);
             ColourTheme.SetColourScheme(ObjectInfoGroupBox.Controls);
             ColourTheme.SetColourScheme(FloorHeaderInfoGroupBox.Controls);
+            ColourTheme.SetColourScheme(LayoutHeaderGroupbox.Controls);
+
+            WarpsPtrNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            TrapsPtrNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            DigimonPtrNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ChestsPtrNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
 
             PostInit();
             SetupEvents();
@@ -200,6 +205,7 @@ namespace DigimonWorld2Tool.Views
             EditObjectInfoButton.Visible = enabled;
             SaveChangesButton.Visible = enabled;
             FloorHeaderInfoGroupBox.Visible = enabled;
+            LayoutHeaderGroupbox.Visible = enabled;
 
             if (enabled)
             {
@@ -293,6 +299,11 @@ namespace DigimonWorld2Tool.Views
 
             DUNGLayoutRenderer.Instance.SetupDungFloorBitmap();
             DUNGLayoutRenderer.Instance.DrawDungFloorLayout();
+
+            WarpsPtrNumericUpDown.Value = loadedDungFloorLayout.FloorLayoutWarpsPointer;
+            TrapsPtrNumericUpDown.Value = loadedDungFloorLayout.FloorLayoutTrapsPointer;
+            DigimonPtrNumericUpDown.Value = loadedDungFloorLayout.FloorLayoutDigimonsPointer;
+            ChestsPtrNumericUpDown.Value = loadedDungFloorLayout.FloorLayoutChestsPointer;
         }
 
         private void DrawGridCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -491,6 +502,38 @@ namespace DigimonWorld2Tool.Views
         {
             if (MainWindow.EditModeEnabled)
                 DungEditor.EditFloorHeaderData();
+        }
+
+        private void WarpsPtrNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown input = (NumericUpDown)sender;
+            if (DungEditor == null)
+                return;
+            DungEditor.UpdateWarpDataPointers((int)input.Value);
+        }
+
+        private void ChestsPtrNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown input = (NumericUpDown)sender;
+            if (DungEditor == null)
+                return;
+            DungEditor.UpdateChestDataPointers((int)input.Value);
+        }
+
+        private void TrapsPtrNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown input = (NumericUpDown)sender;
+            if (DungEditor == null)
+                return;
+            DungEditor.UpdateTrapDataPointers((int)input.Value);
+        }
+
+        private void DigimonPtrNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown input = (NumericUpDown)sender;
+            if (DungEditor == null)
+                return;
+            DungEditor.UpdateDigimonDataPointers((int)input.Value);
         }
         #endregion
 

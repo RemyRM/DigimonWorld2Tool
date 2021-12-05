@@ -37,9 +37,9 @@ namespace DigimonWorld2Tool.Views
             this.MainToolStripDebugItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripOpenLogWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowValuesAsHexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeIDCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainToolStripEditorItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EnableEditModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeIDCapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,10 +49,10 @@ namespace DigimonWorld2Tool.Views
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainWindowHostPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.MainWindowHostPanel.Location = new System.Drawing.Point(152, 38);
-            this.MainWindowHostPanel.MinimumSize = new System.Drawing.Size(1100, 660);
+            this.MainWindowHostPanel.Location = new System.Drawing.Point(96, 38);
+            this.MainWindowHostPanel.MinimumSize = new System.Drawing.Size(1155, 660);
             this.MainWindowHostPanel.Name = "MainWindowHostPanel";
-            this.MainWindowHostPanel.Size = new System.Drawing.Size(1100, 660);
+            this.MainWindowHostPanel.Size = new System.Drawing.Size(1155, 660);
             this.MainWindowHostPanel.TabIndex = 0;
             // 
             // OpenMapWindowButton
@@ -64,7 +64,7 @@ namespace DigimonWorld2Tool.Views
             this.OpenMapWindowButton.ForeColor = System.Drawing.Color.White;
             this.OpenMapWindowButton.Location = new System.Drawing.Point(10, 37);
             this.OpenMapWindowButton.Name = "OpenMapWindowButton";
-            this.OpenMapWindowButton.Size = new System.Drawing.Size(130, 75);
+            this.OpenMapWindowButton.Size = new System.Drawing.Size(80, 45);
             this.OpenMapWindowButton.TabIndex = 1;
             this.OpenMapWindowButton.Text = "Map";
             this.OpenMapWindowButton.UseVisualStyleBackColor = false;
@@ -76,9 +76,9 @@ namespace DigimonWorld2Tool.Views
             this.OpenTexturesWindowButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.OpenTexturesWindowButton.FlatAppearance.BorderSize = 5;
             this.OpenTexturesWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenTexturesWindowButton.Location = new System.Drawing.Point(10, 142);
+            this.OpenTexturesWindowButton.Location = new System.Drawing.Point(10, 91);
             this.OpenTexturesWindowButton.Name = "OpenTexturesWindowButton";
-            this.OpenTexturesWindowButton.Size = new System.Drawing.Size(130, 75);
+            this.OpenTexturesWindowButton.Size = new System.Drawing.Size(80, 45);
             this.OpenTexturesWindowButton.TabIndex = 2;
             this.OpenTexturesWindowButton.Text = "Textures";
             this.OpenTexturesWindowButton.UseVisualStyleBackColor = false;
@@ -108,7 +108,7 @@ namespace DigimonWorld2Tool.Views
             // MainToolStripOpenLogWindow
             // 
             this.MainToolStripOpenLogWindow.Name = "MainToolStripOpenLogWindow";
-            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(180, 22);
+            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(177, 22);
             this.MainToolStripOpenLogWindow.Text = "Open log window";
             this.MainToolStripOpenLogWindow.Click += new System.EventHandler(this.MainToolStripOpenLogWindow_Click);
             // 
@@ -116,9 +116,17 @@ namespace DigimonWorld2Tool.Views
             // 
             this.ShowValuesAsHexToolStripMenuItem.CheckOnClick = true;
             this.ShowValuesAsHexToolStripMenuItem.Name = "ShowValuesAsHexToolStripMenuItem";
-            this.ShowValuesAsHexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ShowValuesAsHexToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.ShowValuesAsHexToolStripMenuItem.Text = "Show values as Hex";
             this.ShowValuesAsHexToolStripMenuItem.Click += new System.EventHandler(this.ShowValuesAsHexToolStripMenuItem_Click);
+            // 
+            // removeIDCapToolStripMenuItem
+            // 
+            this.removeIDCapToolStripMenuItem.CheckOnClick = true;
+            this.removeIDCapToolStripMenuItem.Name = "removeIDCapToolStripMenuItem";
+            this.removeIDCapToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.removeIDCapToolStripMenuItem.Text = "Remove ID cap";
+            this.removeIDCapToolStripMenuItem.Click += new System.EventHandler(this.removeIDCapToolStripMenuItem_Click);
             // 
             // MainToolStripEditorItem
             // 
@@ -134,14 +142,6 @@ namespace DigimonWorld2Tool.Views
             this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.EnableEditModeToolStripMenuItem.Text = "Enable Edit Mode";
             this.EnableEditModeToolStripMenuItem.Click += new System.EventHandler(this.EnableEditModeToolStripMenuItem_Click);
-            // 
-            // removeIDCapToolStripMenuItem
-            // 
-            this.removeIDCapToolStripMenuItem.CheckOnClick = true;
-            this.removeIDCapToolStripMenuItem.Name = "removeIDCapToolStripMenuItem";
-            this.removeIDCapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.removeIDCapToolStripMenuItem.Text = "Remove ID cap";
-            this.removeIDCapToolStripMenuItem.Click += new System.EventHandler(this.removeIDCapToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

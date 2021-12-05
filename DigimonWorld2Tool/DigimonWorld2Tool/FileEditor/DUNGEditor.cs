@@ -47,6 +47,38 @@ namespace DigimonWorld2Tool.FileEditor
             DUNGLayoutRenderer.Instance.UpdateTileAtPosition(clickX, clickY, ByteToEdit);
         }
 
+        public void UpdateWarpDataPointers(int newPtr)
+        {
+            int oldPtr = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].DungFloorLayoutHeaderBasePointer + (int)DungFloorLayoutHeader.FloorLayoutHeaderOffset.WarpsPointer;
+            LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutWarpsPointer = newPtr;
+            //Override the old pointer value with the new pointer
+            Array.Copy(BitConverter.GetBytes(newPtr), 0, LoadedDUNGData.RawFileData, oldPtr, 4);
+        }
+
+        public void UpdateChestDataPointers(int newPtr)
+        {
+            int oldPtr = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].DungFloorLayoutHeaderBasePointer + (int)DungFloorLayoutHeader.FloorLayoutHeaderOffset.ChestsPointer;
+            LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutChestsPointer = newPtr;
+            //Override the old pointer value with the new pointer
+            Array.Copy(BitConverter.GetBytes(newPtr), 0, LoadedDUNGData.RawFileData, oldPtr, 4);
+        }
+
+        public void UpdateTrapDataPointers(int newPtr)
+        {
+            int oldPtr = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].DungFloorLayoutHeaderBasePointer + (int)DungFloorLayoutHeader.FloorLayoutHeaderOffset.TrapsPointer;
+            LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTrapsPointer = newPtr;
+            //Override the old pointer value with the new pointer
+            Array.Copy(BitConverter.GetBytes(newPtr), 0, LoadedDUNGData.RawFileData, oldPtr, 4);
+        }
+
+        public void UpdateDigimonDataPointers(int newPtr)
+        {
+            int oldPtr = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].DungFloorLayoutHeaderBasePointer + (int)DungFloorLayoutHeader.FloorLayoutHeaderOffset.DigimonPointer;
+            LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutDigimonsPointer = newPtr;
+            //Override the old pointer value with the new pointer
+            Array.Copy(BitConverter.GetBytes(newPtr), 0, LoadedDUNGData.RawFileData, oldPtr, 4);
+        }
+
 
         /// <summary>
         /// 
@@ -315,7 +347,7 @@ namespace DigimonWorld2Tool.FileEditor
                 #region FloorTypeOverride
                 short floorTypeOverride = (short)floorHeaderWindow.FloorTypeOverrideNumericUpDown.Value;
                 byte[] floorTypeOverrideData = BitConverter.GetBytes(floorTypeOverride);
-                int floorTypeOverridePointer= LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.FloorTypeOverride;
+                int floorTypeOverridePointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.FloorTypeOverride;
                 Array.Copy(floorTypeOverrideData, 0, LoadedDUNGData.RawFileData, floorTypeOverridePointer, floorTypeOverrideData.Length);
                 #endregion
 
@@ -347,7 +379,52 @@ namespace DigimonWorld2Tool.FileEditor
         {
             int editedFloorLayoutPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutPointer;
             var floorData = LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutData;
+
             Array.Copy(floorData, 0, LoadedDUNGData.RawFileData, editedFloorLayoutPointer, floorData.Length);
+
+            List<byte> warpData = new List<byte>();
+            foreach (var item in LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutWarps)
+            {
+                foreach (byte b in item.ToBytes())
+                {
+                    warpData.Add(b);
+                }
+            }
+            warpData.Add(0xFF);
+            Array.Copy(warpData.ToArray(), 0, LoadedDUNGData.RawFileData, LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutWarpsPointer, warpData.Count);
+
+            List<byte> chestData = new List<byte>();
+            foreach (var item in LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutChests)
+            {
+                foreach (byte b in item.ToBytes())
+                {
+                    chestData.Add(b);
+                }
+            }
+            chestData.Add(0xFF);
+            Array.Copy(chestData.ToArray(), 0, LoadedDUNGData.RawFileData, LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutChestsPointer, chestData.Count);
+
+            List<byte> trapData = new List<byte>();
+            foreach (var item in LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTraps)
+            {
+                foreach (byte b in item.ToBytes())
+                {
+                    trapData.Add(b);
+                }
+            }
+            trapData.Add(0xFF);
+            Array.Copy(trapData.ToArray(), 0, LoadedDUNGData.RawFileData, LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutTrapsPointer, trapData.Count);
+
+            List<byte> digimonData = new List<byte>();
+            foreach (var item in LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutDigimons)
+            {
+                foreach (byte b in item.ToBytes())
+                {
+                    digimonData.Add(b);
+                }
+            }
+            digimonData.Add(0xFF);
+            Array.Copy(digimonData.ToArray(), 0, LoadedDUNGData.RawFileData, LoadedDUNGData.DungFloorHeaders[FloorIndex].DungFloorLayoutHeaders[LayoutIndex].FloorLayoutDigimonsPointer, digimonData.Count);
         }
     }
 }

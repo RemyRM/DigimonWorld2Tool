@@ -10,7 +10,7 @@ namespace DigimonWorld2Tool.FileFormat
     public class DUNG
     {
         public byte[] RawFileData { get; private set; }
-        private int[] DomainFloorPointers { get; set; }
+        public int[] DomainFloorPointers { get; private set; }
         public DungFloorHeader[] DungFloorHeaders { get; private set; }
 
         public DUNG(byte[] rawFileData)
@@ -222,13 +222,13 @@ namespace DigimonWorld2Tool.FileFormat
 
     public class DungFloorLayoutHeader
     {
-        private enum FloorLayoutHeaderOffset : byte
+        public enum FloorLayoutHeaderOffset : byte
         {
-            FloorPlan = 0,
-            Warps = 4,
-            Chests = 8,
-            Traps = 12,
-            Digimon = 16,
+            LayoutPointer = 0,
+            WarpsPointer = 4,
+            ChestsPointer = 8,
+            TrapsPointer = 12,
+            DigimonPointer = 16,
         }
 
         private enum MapObjectDataLength : byte
@@ -241,7 +241,7 @@ namespace DigimonWorld2Tool.FileFormat
 
         private readonly byte[] RawFileData;
 
-        private int DungFloorLayoutHeaderBasePointer { get; set; }
+        public int DungFloorLayoutHeaderBasePointer { get; private set; }
 
         public int FloorLayoutPointer { get; private set; }
         public byte[] FloorLayoutData { get; set; } = new byte[1536]; //All the layout data for a given map is 1536 bytes long (32x48)
@@ -304,7 +304,7 @@ namespace DigimonWorld2Tool.FileFormat
         /// <returns>Int32 representation of the floor warps start address</returns>
         private int GetFloorLayoutWarpsPointer()
         {
-            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.Warps);
+            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.WarpsPointer);
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace DigimonWorld2Tool.FileFormat
         /// <returns>Int32 representation of the floor chest start address</returns>
         private int GetFloorLayoutChestsPointer()
         {
-            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.Chests);
+            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.ChestsPointer);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace DigimonWorld2Tool.FileFormat
 
         private int GetFloorLayoutTrapsPointer()
         {
-            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.Traps);
+            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.TrapsPointer);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace DigimonWorld2Tool.FileFormat
         /// <returns>Int32 representation of the floor digimons start address</returns>
         private int GetFloorLayoutDigimonsPointer()
         {
-            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.Digimon);
+            return BinReader.GetPointer(RawFileData, DungFloorLayoutHeaderBasePointer + (int)FloorLayoutHeaderOffset.DigimonPointer);
         }
 
         /// <summary>

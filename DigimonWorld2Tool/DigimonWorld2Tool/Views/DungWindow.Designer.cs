@@ -86,6 +86,15 @@ namespace DigimonWorld2Tool.Views
             this.DigimonPack1Label = new System.Windows.Forms.Label();
             this.DigimonPack0Label = new System.Windows.Forms.Label();
             this.DigiPackIdsLabel = new System.Windows.Forms.Label();
+            this.LayoutHeaderGroupbox = new System.Windows.Forms.GroupBox();
+            this.DigimonPtrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.TrapsPtrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ChestsPtrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.WarpsPtrNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.DigimonPointerLabel = new System.Windows.Forms.Label();
+            this.TrapsPointerLabel = new System.Windows.Forms.Label();
+            this.ChestsPointerLabel = new System.Windows.Forms.Label();
+            this.WarpsPointerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).BeginInit();
             this.ObjectInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SlotFourInfoPictureBox)).BeginInit();
@@ -103,6 +112,11 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.EditorSelectedTileTypePicturebox)).BeginInit();
             this.FloorHeaderInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.LayoutHeaderGroupbox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DigimonPtrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrapsPtrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChestsPtrNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpsPtrNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // SelectDungDirButton
@@ -139,9 +153,9 @@ namespace DigimonWorld2Tool.Views
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorLayoutPictureBox.BackColor = System.Drawing.Color.Black;
             this.FloorLayoutPictureBox.Location = new System.Drawing.Point(10, 100);
-            this.FloorLayoutPictureBox.MinimumSize = new System.Drawing.Size(640, 480);
+            this.FloorLayoutPictureBox.MinimumSize = new System.Drawing.Size(700, 525);
             this.FloorLayoutPictureBox.Name = "FloorLayoutPictureBox";
-            this.FloorLayoutPictureBox.Size = new System.Drawing.Size(733, 550);
+            this.FloorLayoutPictureBox.Size = new System.Drawing.Size(700, 525);
             this.FloorLayoutPictureBox.TabIndex = 3;
             this.FloorLayoutPictureBox.TabStop = false;
             this.FloorLayoutPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FloorLayoutPictureBox_MouseClick);
@@ -198,7 +212,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton1.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton1.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton1.Location = new System.Drawing.Point(749, 100);
+            this.FloorLayoutButton1.Location = new System.Drawing.Point(716, 100);
             this.FloorLayoutButton1.Name = "FloorLayoutButton1";
             this.FloorLayoutButton1.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton1.TabIndex = 8;
@@ -214,7 +228,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton2.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton2.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton2.Location = new System.Drawing.Point(749, 168);
+            this.FloorLayoutButton2.Location = new System.Drawing.Point(716, 165);
             this.FloorLayoutButton2.Name = "FloorLayoutButton2";
             this.FloorLayoutButton2.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton2.TabIndex = 9;
@@ -230,7 +244,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton3.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton3.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton3.Location = new System.Drawing.Point(749, 236);
+            this.FloorLayoutButton3.Location = new System.Drawing.Point(716, 230);
             this.FloorLayoutButton3.Name = "FloorLayoutButton3";
             this.FloorLayoutButton3.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton3.TabIndex = 10;
@@ -246,7 +260,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton4.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton4.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton4.Location = new System.Drawing.Point(749, 304);
+            this.FloorLayoutButton4.Location = new System.Drawing.Point(716, 295);
             this.FloorLayoutButton4.Name = "FloorLayoutButton4";
             this.FloorLayoutButton4.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton4.TabIndex = 11;
@@ -262,7 +276,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton5.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton5.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton5.Location = new System.Drawing.Point(749, 372);
+            this.FloorLayoutButton5.Location = new System.Drawing.Point(716, 360);
             this.FloorLayoutButton5.Name = "FloorLayoutButton5";
             this.FloorLayoutButton5.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton5.TabIndex = 12;
@@ -278,7 +292,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton6.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton6.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton6.Location = new System.Drawing.Point(749, 440);
+            this.FloorLayoutButton6.Location = new System.Drawing.Point(716, 425);
             this.FloorLayoutButton6.Name = "FloorLayoutButton6";
             this.FloorLayoutButton6.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton6.TabIndex = 13;
@@ -294,7 +308,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton7.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton7.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton7.Location = new System.Drawing.Point(749, 508);
+            this.FloorLayoutButton7.Location = new System.Drawing.Point(716, 490);
             this.FloorLayoutButton7.Name = "FloorLayoutButton7";
             this.FloorLayoutButton7.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton7.TabIndex = 14;
@@ -310,7 +324,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorLayoutButton8.FlatAppearance.BorderSize = 3;
             this.FloorLayoutButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FloorLayoutButton8.ForeColor = System.Drawing.Color.White;
-            this.FloorLayoutButton8.Location = new System.Drawing.Point(749, 576);
+            this.FloorLayoutButton8.Location = new System.Drawing.Point(716, 555);
             this.FloorLayoutButton8.Name = "FloorLayoutButton8";
             this.FloorLayoutButton8.Size = new System.Drawing.Size(22, 62);
             this.FloorLayoutButton8.TabIndex = 15;
@@ -359,7 +373,7 @@ namespace DigimonWorld2Tool.Views
             this.ObjectInfoGroupBox.Controls.Add(this.TypeLabel);
             this.ObjectInfoGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ObjectInfoGroupBox.ForeColor = System.Drawing.Color.White;
-            this.ObjectInfoGroupBox.Location = new System.Drawing.Point(791, 429);
+            this.ObjectInfoGroupBox.Location = new System.Drawing.Point(846, 429);
             this.ObjectInfoGroupBox.Name = "ObjectInfoGroupBox";
             this.ObjectInfoGroupBox.Size = new System.Drawing.Size(293, 221);
             this.ObjectInfoGroupBox.TabIndex = 18;
@@ -503,10 +517,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.EmptyTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EmptyTileTypePictureBox.BackColor = System.Drawing.Color.Black;
-            this.EmptyTileTypePictureBox.Location = new System.Drawing.Point(1020, 85);
+            this.EmptyTileTypePictureBox.Location = new System.Drawing.Point(758, 100);
             this.EmptyTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.EmptyTileTypePictureBox.Name = "EmptyTileTypePictureBox";
-            this.EmptyTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.EmptyTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.EmptyTileTypePictureBox.TabIndex = 63;
             this.EmptyTileTypePictureBox.TabStop = false;
             this.EmptyTileTypePictureBox.Visible = false;
@@ -516,10 +530,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.NatureTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.NatureTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.NatureTile;
-            this.NatureTileTypePictureBox.Location = new System.Drawing.Point(945, 85);
+            this.NatureTileTypePictureBox.Location = new System.Drawing.Point(758, 590);
             this.NatureTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.NatureTileTypePictureBox.Name = "NatureTileTypePictureBox";
-            this.NatureTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.NatureTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.NatureTileTypePictureBox.TabIndex = 62;
             this.NatureTileTypePictureBox.TabStop = false;
             this.NatureTileTypePictureBox.Visible = false;
@@ -529,10 +543,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.WaterTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.WaterTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.WaterTile;
-            this.WaterTileTypePictureBox.Location = new System.Drawing.Point(1020, 10);
+            this.WaterTileTypePictureBox.Location = new System.Drawing.Point(758, 380);
             this.WaterTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.WaterTileTypePictureBox.Name = "WaterTileTypePictureBox";
-            this.WaterTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.WaterTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.WaterTileTypePictureBox.TabIndex = 61;
             this.WaterTileTypePictureBox.TabStop = false;
             this.WaterTileTypePictureBox.Visible = false;
@@ -542,10 +556,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.MachineTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MachineTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.MachineTile;
-            this.MachineTileTypePictureBox.Location = new System.Drawing.Point(870, 85);
+            this.MachineTileTypePictureBox.Location = new System.Drawing.Point(758, 520);
             this.MachineTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.MachineTileTypePictureBox.Name = "MachineTileTypePictureBox";
-            this.MachineTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.MachineTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.MachineTileTypePictureBox.TabIndex = 60;
             this.MachineTileTypePictureBox.TabStop = false;
             this.MachineTileTypePictureBox.Visible = false;
@@ -555,10 +569,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.FireTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FireTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.FireTile;
-            this.FireTileTypePictureBox.Location = new System.Drawing.Point(945, 10);
+            this.FireTileTypePictureBox.Location = new System.Drawing.Point(758, 310);
             this.FireTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.FireTileTypePictureBox.Name = "FireTileTypePictureBox";
-            this.FireTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.FireTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.FireTileTypePictureBox.TabIndex = 59;
             this.FireTileTypePictureBox.TabStop = false;
             this.FireTileTypePictureBox.Visible = false;
@@ -568,10 +582,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.DarkTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DarkTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.DarkTile;
-            this.DarkTileTypePictureBox.Location = new System.Drawing.Point(870, 10);
+            this.DarkTileTypePictureBox.Location = new System.Drawing.Point(758, 450);
             this.DarkTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.DarkTileTypePictureBox.Name = "DarkTileTypePictureBox";
-            this.DarkTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.DarkTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.DarkTileTypePictureBox.TabIndex = 58;
             this.DarkTileTypePictureBox.TabStop = false;
             this.DarkTileTypePictureBox.Visible = false;
@@ -581,10 +595,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.RoomTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RoomTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.RoomTile;
-            this.RoomTileTypePictureBox.Location = new System.Drawing.Point(795, 10);
+            this.RoomTileTypePictureBox.Location = new System.Drawing.Point(758, 170);
             this.RoomTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.RoomTileTypePictureBox.Name = "RoomTileTypePictureBox";
-            this.RoomTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.RoomTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.RoomTileTypePictureBox.TabIndex = 57;
             this.RoomTileTypePictureBox.TabStop = false;
             this.RoomTileTypePictureBox.Visible = false;
@@ -594,10 +608,10 @@ namespace DigimonWorld2Tool.Views
             // 
             this.CorridorTileTypePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CorridorTileTypePictureBox.Image = global::DigimonWorld2Tool.Properties.Resources.CorridorTile;
-            this.CorridorTileTypePictureBox.Location = new System.Drawing.Point(795, 85);
+            this.CorridorTileTypePictureBox.Location = new System.Drawing.Point(758, 240);
             this.CorridorTileTypePictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.CorridorTileTypePictureBox.Name = "CorridorTileTypePictureBox";
-            this.CorridorTileTypePictureBox.Size = new System.Drawing.Size(64, 64);
+            this.CorridorTileTypePictureBox.Size = new System.Drawing.Size(60, 60);
             this.CorridorTileTypePictureBox.TabIndex = 56;
             this.CorridorTileTypePictureBox.TabStop = false;
             this.CorridorTileTypePictureBox.Visible = false;
@@ -607,9 +621,9 @@ namespace DigimonWorld2Tool.Views
             // 
             this.EditorSelectedTileTypePicturebox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EditorSelectedTileTypePicturebox.BackColor = System.Drawing.SystemColors.Desktop;
-            this.EditorSelectedTileTypePicturebox.Location = new System.Drawing.Point(1017, 82);
+            this.EditorSelectedTileTypePicturebox.Location = new System.Drawing.Point(755, 97);
             this.EditorSelectedTileTypePicturebox.Name = "EditorSelectedTileTypePicturebox";
-            this.EditorSelectedTileTypePicturebox.Size = new System.Drawing.Size(70, 70);
+            this.EditorSelectedTileTypePicturebox.Size = new System.Drawing.Size(66, 66);
             this.EditorSelectedTileTypePicturebox.TabIndex = 64;
             this.EditorSelectedTileTypePicturebox.TabStop = false;
             this.EditorSelectedTileTypePicturebox.Visible = false;
@@ -623,7 +637,7 @@ namespace DigimonWorld2Tool.Views
             this.SaveChangesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveChangesButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SaveChangesButton.ForeColor = System.Drawing.Color.White;
-            this.SaveChangesButton.Location = new System.Drawing.Point(660, 51);
+            this.SaveChangesButton.Location = new System.Drawing.Point(715, 51);
             this.SaveChangesButton.Name = "SaveChangesButton";
             this.SaveChangesButton.Size = new System.Drawing.Size(111, 40);
             this.SaveChangesButton.TabIndex = 65;
@@ -653,7 +667,7 @@ namespace DigimonWorld2Tool.Views
             this.FloorHeaderInfoGroupBox.Controls.Add(this.DigiPackIdsLabel);
             this.FloorHeaderInfoGroupBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.FloorHeaderInfoGroupBox.ForeColor = System.Drawing.Color.White;
-            this.FloorHeaderInfoGroupBox.Location = new System.Drawing.Point(791, 168);
+            this.FloorHeaderInfoGroupBox.Location = new System.Drawing.Point(847, 10);
             this.FloorHeaderInfoGroupBox.Name = "FloorHeaderInfoGroupBox";
             this.FloorHeaderInfoGroupBox.Size = new System.Drawing.Size(292, 250);
             this.FloorHeaderInfoGroupBox.TabIndex = 66;
@@ -815,11 +829,120 @@ namespace DigimonWorld2Tool.Views
             this.DigiPackIdsLabel.TabIndex = 0;
             this.DigiPackIdsLabel.Text = "Digimon pack IDs:";
             // 
+            // LayoutHeaderGroupbox
+            // 
+            this.LayoutHeaderGroupbox.Controls.Add(this.DigimonPtrNumericUpDown);
+            this.LayoutHeaderGroupbox.Controls.Add(this.TrapsPtrNumericUpDown);
+            this.LayoutHeaderGroupbox.Controls.Add(this.ChestsPtrNumericUpDown);
+            this.LayoutHeaderGroupbox.Controls.Add(this.WarpsPtrNumericUpDown);
+            this.LayoutHeaderGroupbox.Controls.Add(this.DigimonPointerLabel);
+            this.LayoutHeaderGroupbox.Controls.Add(this.TrapsPointerLabel);
+            this.LayoutHeaderGroupbox.Controls.Add(this.ChestsPointerLabel);
+            this.LayoutHeaderGroupbox.Controls.Add(this.WarpsPointerLabel);
+            this.LayoutHeaderGroupbox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LayoutHeaderGroupbox.ForeColor = System.Drawing.Color.White;
+            this.LayoutHeaderGroupbox.Location = new System.Drawing.Point(846, 267);
+            this.LayoutHeaderGroupbox.Name = "LayoutHeaderGroupbox";
+            this.LayoutHeaderGroupbox.Size = new System.Drawing.Size(293, 156);
+            this.LayoutHeaderGroupbox.TabIndex = 67;
+            this.LayoutHeaderGroupbox.TabStop = false;
+            this.LayoutHeaderGroupbox.Text = "Layout header";
+            this.LayoutHeaderGroupbox.Visible = false;
+            // 
+            // DigimonPtrNumericUpDown
+            // 
+            this.DigimonPtrNumericUpDown.Location = new System.Drawing.Point(104, 113);
+            this.DigimonPtrNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.DigimonPtrNumericUpDown.Name = "DigimonPtrNumericUpDown";
+            this.DigimonPtrNumericUpDown.Size = new System.Drawing.Size(120, 25);
+            this.DigimonPtrNumericUpDown.TabIndex = 7;
+            this.DigimonPtrNumericUpDown.ValueChanged += new System.EventHandler(this.DigimonPtrNumericUpDown_ValueChanged);
+            // 
+            // TrapsPtrNumericUpDown
+            // 
+            this.TrapsPtrNumericUpDown.Location = new System.Drawing.Point(104, 83);
+            this.TrapsPtrNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.TrapsPtrNumericUpDown.Name = "TrapsPtrNumericUpDown";
+            this.TrapsPtrNumericUpDown.Size = new System.Drawing.Size(120, 25);
+            this.TrapsPtrNumericUpDown.TabIndex = 6;
+            this.TrapsPtrNumericUpDown.ValueChanged += new System.EventHandler(this.TrapsPtrNumericUpDown_ValueChanged);
+            // 
+            // ChestsPtrNumericUpDown
+            // 
+            this.ChestsPtrNumericUpDown.Location = new System.Drawing.Point(104, 53);
+            this.ChestsPtrNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.ChestsPtrNumericUpDown.Name = "ChestsPtrNumericUpDown";
+            this.ChestsPtrNumericUpDown.Size = new System.Drawing.Size(120, 25);
+            this.ChestsPtrNumericUpDown.TabIndex = 5;
+            this.ChestsPtrNumericUpDown.ValueChanged += new System.EventHandler(this.ChestsPtrNumericUpDown_ValueChanged);
+            // 
+            // WarpsPtrNumericUpDown
+            // 
+            this.WarpsPtrNumericUpDown.Location = new System.Drawing.Point(104, 23);
+            this.WarpsPtrNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.WarpsPtrNumericUpDown.Name = "WarpsPtrNumericUpDown";
+            this.WarpsPtrNumericUpDown.Size = new System.Drawing.Size(120, 25);
+            this.WarpsPtrNumericUpDown.TabIndex = 4;
+            this.WarpsPtrNumericUpDown.ValueChanged += new System.EventHandler(this.WarpsPtrNumericUpDown_ValueChanged);
+            // 
+            // DigimonPointerLabel
+            // 
+            this.DigimonPointerLabel.AutoSize = true;
+            this.DigimonPointerLabel.Location = new System.Drawing.Point(8, 115);
+            this.DigimonPointerLabel.Name = "DigimonPointerLabel";
+            this.DigimonPointerLabel.Size = new System.Drawing.Size(86, 19);
+            this.DigimonPointerLabel.TabIndex = 3;
+            this.DigimonPointerLabel.Text = "Digimon ptr:";
+            // 
+            // TrapsPointerLabel
+            // 
+            this.TrapsPointerLabel.AutoSize = true;
+            this.TrapsPointerLabel.Location = new System.Drawing.Point(8, 85);
+            this.TrapsPointerLabel.Name = "TrapsPointerLabel";
+            this.TrapsPointerLabel.Size = new System.Drawing.Size(66, 19);
+            this.TrapsPointerLabel.TabIndex = 2;
+            this.TrapsPointerLabel.Text = "Traps ptr:";
+            // 
+            // ChestsPointerLabel
+            // 
+            this.ChestsPointerLabel.AutoSize = true;
+            this.ChestsPointerLabel.Location = new System.Drawing.Point(8, 55);
+            this.ChestsPointerLabel.Name = "ChestsPointerLabel";
+            this.ChestsPointerLabel.Size = new System.Drawing.Size(75, 19);
+            this.ChestsPointerLabel.TabIndex = 1;
+            this.ChestsPointerLabel.Text = "Chests ptr:";
+            // 
+            // WarpsPointerLabel
+            // 
+            this.WarpsPointerLabel.AutoSize = true;
+            this.WarpsPointerLabel.Location = new System.Drawing.Point(7, 25);
+            this.WarpsPointerLabel.Name = "WarpsPointerLabel";
+            this.WarpsPointerLabel.Size = new System.Drawing.Size(72, 19);
+            this.WarpsPointerLabel.TabIndex = 0;
+            this.WarpsPointerLabel.Text = "Warps ptr:";
+            // 
             // DungWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.Controls.Add(this.LayoutHeaderGroupbox);
             this.Controls.Add(this.FloorHeaderInfoGroupBox);
             this.Controls.Add(this.SaveChangesButton);
             this.Controls.Add(this.EmptyTileTypePictureBox);
@@ -849,9 +972,9 @@ namespace DigimonWorld2Tool.Views
             this.Controls.Add(this.DungDirLabel);
             this.Controls.Add(this.SelectDungDirButton);
             this.Controls.Add(this.EditorSelectedTileTypePicturebox);
-            this.MinimumSize = new System.Drawing.Size(1100, 660);
+            this.MinimumSize = new System.Drawing.Size(1155, 660);
             this.Name = "DungWindow";
-            this.Size = new System.Drawing.Size(1100, 660);
+            this.Size = new System.Drawing.Size(1155, 660);
             ((System.ComponentModel.ISupportInitialize)(this.FloorLayoutPictureBox)).EndInit();
             this.ObjectInfoGroupBox.ResumeLayout(false);
             this.ObjectInfoGroupBox.PerformLayout();
@@ -871,6 +994,12 @@ namespace DigimonWorld2Tool.Views
             this.FloorHeaderInfoGroupBox.ResumeLayout(false);
             this.FloorHeaderInfoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.LayoutHeaderGroupbox.ResumeLayout(false);
+            this.LayoutHeaderGroupbox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DigimonPtrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrapsPtrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChestsPtrNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpsPtrNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -934,5 +1063,14 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.Label ChestContentData1Label;
         private System.Windows.Forms.Button EditFloorHeaderButton;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.GroupBox LayoutHeaderGroupbox;
+        private System.Windows.Forms.Label DigimonPointerLabel;
+        private System.Windows.Forms.Label TrapsPointerLabel;
+        private System.Windows.Forms.Label ChestsPointerLabel;
+        private System.Windows.Forms.Label WarpsPointerLabel;
+        internal System.Windows.Forms.NumericUpDown DigimonPtrNumericUpDown;
+        internal System.Windows.Forms.NumericUpDown TrapsPtrNumericUpDown;
+        internal System.Windows.Forms.NumericUpDown ChestsPtrNumericUpDown;
+        internal System.Windows.Forms.NumericUpDown WarpsPtrNumericUpDown;
     }
 }

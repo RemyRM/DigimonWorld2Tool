@@ -335,7 +335,7 @@
 00 09 80 09  00 00 80 08   00 08 00 00  80 07 80 0A
 
 // This is where [4C 10 00 00] points to, the first entry is a pointer to agumons name
-//Starts at 0x147D05F4 in the full game bin
+// Starts at 0x147D05F4 in the full game bin
 
 //Layout seems to be:
 // [offset + 00] 4 bytes pointer to name

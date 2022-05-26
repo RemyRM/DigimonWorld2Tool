@@ -57,6 +57,7 @@ namespace DigimonWorld2Tool.FileFormat
         }
     }
 
+    [Serializable]
     public class EnemySetSlot
     {
         private const int ConditionSkillTargetDataLength = 3;

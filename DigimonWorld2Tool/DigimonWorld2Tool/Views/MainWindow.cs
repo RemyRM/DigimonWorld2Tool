@@ -103,11 +103,16 @@ namespace DigimonWorld2Tool.Views
             Settings.Settings.ValueTextFormat = menuItem.Checked ? "X2" : "D2";
         }
 
-        private void removeIDCapToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveIDCapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
             Properties.Settings.Default["RemoveIDCap"] = menuItem.Checked;
             Settings.Settings.RemoveIDCap = menuItem.Checked;
+        }
+
+        private void ENEMYSETToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new EditENEMTSETWindow().Show();
         }
     }
 }

@@ -76,6 +76,23 @@ namespace DigimonWorld2Tool.Views
             MainWindowHostPanel.Controls.Add(CurrentControl);
         }
 
+
+        private void OpenSkinsWindowButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentControl != null)
+            {
+                CurrentControl.Hide();
+                MainWindowHostPanel.Controls.Remove(CurrentControl);
+            }
+
+            CurrentControl = new SkinsWindow()
+            {
+                Anchor = AnchorAll,
+                MinimumSize = new Size(1100, 660)
+            };
+            MainWindowHostPanel.Controls.Add(CurrentControl);
+        }
+
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             if (CurrentControl == null)

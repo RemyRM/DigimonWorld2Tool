@@ -48,6 +48,30 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Resources\AkiraSkins\BlackSword\Akira_BlackSword.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\BlackSword\Akira_BlackSword_Portrait.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\BlackSword\Akira_BlackSword_Portrait_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\BlackSword\Akira_BlackSword_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\Default\Akira_Default.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\Default\Akira_Default_Portrait.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\Default\Akira_Default_Portrait_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\AkiraSkins\Default\Akira_Default_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\DataFiles\DIGIMNDT.BIN">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -64,6 +88,138 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\DataFiles\MODELDT2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Adamant\Default\Adamant_Default_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Presets.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\BlackSword\Steel_BlackSword_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Steel\Default\Steel_Default_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\BlackSword\Titanium_BlackSword_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_0.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_1.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_2.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_3.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_4.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_5.BIN">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\DigiBeetleSkins\Titanium\Default\Titanium_Default_PREVIEW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Images\ErrorPreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

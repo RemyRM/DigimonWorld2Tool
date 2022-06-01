@@ -14,6 +14,8 @@ namespace DigimonWorld2Tool.Views
         public static Control CurrentControl { get; private set; }
         public static DebugWindow DebugWin { get; private set; }
 
+        private readonly string toolVersion = "V2.0.2.0";
+
         public static bool EditModeEnabled { get; private set; }
         private const string EditModeEnabledText = "Disable Edit Mode";
         private const string EditModeDisabledText = "Enable Edit Mode";
@@ -130,6 +132,11 @@ namespace DigimonWorld2Tool.Views
         private void ENEMYSETToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new EditENEMTSETWindow().Show();
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Digimon World 2 tool version {toolVersion}\nFor more info see the github page at\nhttps://github.com/RemyRM/DigimonWorld2Tool", "About", MessageBoxButtons.OK);
         }
     }
 }

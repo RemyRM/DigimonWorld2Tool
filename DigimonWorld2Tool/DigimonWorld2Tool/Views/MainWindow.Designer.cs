@@ -42,6 +42,8 @@ namespace DigimonWorld2Tool.Views
             this.EnableEditModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eNEMYSETToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSkinsWindowButton = new System.Windows.Forms.Button();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +93,8 @@ namespace DigimonWorld2Tool.Views
             // 
             this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MainToolStripDebugItem,
-            this.MainToolStripEditorItem});
+            this.MainToolStripEditorItem,
+            this.helpToolStripMenuItem});
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
             this.MainMenuStrip.Size = new System.Drawing.Size(1264, 24);
@@ -143,7 +146,7 @@ namespace DigimonWorld2Tool.Views
             // EnableEditModeToolStripMenuItem
             // 
             this.EnableEditModeToolStripMenuItem.Name = "EnableEditModeToolStripMenuItem";
-            this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.EnableEditModeToolStripMenuItem.Text = "Enable Edit Mode";
             this.EnableEditModeToolStripMenuItem.Click += new System.EventHandler(this.EnableEditModeToolStripMenuItem_Click);
             // 
@@ -152,15 +155,30 @@ namespace DigimonWorld2Tool.Views
             this.settingFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eNEMYSETToolStripMenuItem});
             this.settingFilesToolStripMenuItem.Name = "settingFilesToolStripMenuItem";
-            this.settingFilesToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.settingFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingFilesToolStripMenuItem.Text = "Setting Files";
             // 
             // eNEMYSETToolStripMenuItem
             // 
             this.eNEMYSETToolStripMenuItem.Name = "eNEMYSETToolStripMenuItem";
-            this.eNEMYSETToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.eNEMYSETToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eNEMYSETToolStripMenuItem.Text = "ENEMYSET";
             this.eNEMYSETToolStripMenuItem.Click += new System.EventHandler(this.ENEMYSETToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // AboutToolStripMenuItem
+            // 
+            this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.AboutToolStripMenuItem.Text = "About";
+            this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // OpenSkinsWindowButton
             // 
@@ -216,5 +234,7 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.ToolStripMenuItem settingFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eNEMYSETToolStripMenuItem;
         private System.Windows.Forms.Button OpenSkinsWindowButton;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
     }
 }

@@ -45,6 +45,7 @@ namespace DigimonWorld2Tool.Views
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenSkinsWindowButton = new System.Windows.Forms.Button();
+            this.OpenModelWindowButton = new System.Windows.Forms.Button();
             this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,7 +147,7 @@ namespace DigimonWorld2Tool.Views
             // EnableEditModeToolStripMenuItem
             // 
             this.EnableEditModeToolStripMenuItem.Name = "EnableEditModeToolStripMenuItem";
-            this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EnableEditModeToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.EnableEditModeToolStripMenuItem.Text = "Enable Edit Mode";
             this.EnableEditModeToolStripMenuItem.Click += new System.EventHandler(this.EnableEditModeToolStripMenuItem_Click);
             // 
@@ -155,13 +156,13 @@ namespace DigimonWorld2Tool.Views
             this.settingFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eNEMYSETToolStripMenuItem});
             this.settingFilesToolStripMenuItem.Name = "settingFilesToolStripMenuItem";
-            this.settingFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingFilesToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.settingFilesToolStripMenuItem.Text = "Setting Files";
             // 
             // eNEMYSETToolStripMenuItem
             // 
             this.eNEMYSETToolStripMenuItem.Name = "eNEMYSETToolStripMenuItem";
-            this.eNEMYSETToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.eNEMYSETToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.eNEMYSETToolStripMenuItem.Text = "ENEMYSET";
             this.eNEMYSETToolStripMenuItem.Click += new System.EventHandler(this.ENEMYSETToolStripMenuItem_Click);
             // 
@@ -194,6 +195,20 @@ namespace DigimonWorld2Tool.Views
             this.OpenSkinsWindowButton.UseVisualStyleBackColor = false;
             this.OpenSkinsWindowButton.Click += new System.EventHandler(this.OpenSkinsWindowButton_Click);
             // 
+            // OpenModelWindowButton
+            // 
+            this.OpenModelWindowButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.OpenModelWindowButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
+            this.OpenModelWindowButton.FlatAppearance.BorderSize = 5;
+            this.OpenModelWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenModelWindowButton.Location = new System.Drawing.Point(10, 202);
+            this.OpenModelWindowButton.Name = "OpenModelWindowButton";
+            this.OpenModelWindowButton.Size = new System.Drawing.Size(80, 45);
+            this.OpenModelWindowButton.TabIndex = 5;
+            this.OpenModelWindowButton.Text = "Models";
+            this.OpenModelWindowButton.UseVisualStyleBackColor = false;
+            this.OpenModelWindowButton.Click += new System.EventHandler(this.OpenModelWindowButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -201,6 +216,7 @@ namespace DigimonWorld2Tool.Views
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(1264, 709);
+            this.Controls.Add(this.OpenModelWindowButton);
             this.Controls.Add(this.OpenSkinsWindowButton);
             this.Controls.Add(this.OpenTexturesWindowButton);
             this.Controls.Add(this.OpenMapWindowButton);
@@ -236,5 +252,6 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.Button OpenSkinsWindowButton;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
+        private System.Windows.Forms.Button OpenModelWindowButton;
     }
 }

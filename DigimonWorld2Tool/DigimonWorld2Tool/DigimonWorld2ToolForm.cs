@@ -103,6 +103,8 @@ namespace DigimonWorld2Tool
             FilePathToMapDirectory = (string)Properties.Settings.Default["MapDataFolder"];
             if (FilePathToMapDirectory == "")
                 FilePathToMapDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}Maps\\";
+
+            FilePathToMapDirectory = @"D:\Program Files (x86)\EmulatorsAndRomhacking\DigimonWorld2\AAA\4.AAA\DUNG\DUNG\";
             CurrentMapDataFolderLabel.Text = FilePathToMapDirectory;
 
             // Grid

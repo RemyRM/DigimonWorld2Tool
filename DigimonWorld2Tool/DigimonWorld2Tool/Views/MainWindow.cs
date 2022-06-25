@@ -95,6 +95,22 @@ namespace DigimonWorld2Tool.Views
             MainWindowHostPanel.Controls.Add(CurrentControl);
         }
 
+        private void OpenModelWindowButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentControl != null)
+            {
+                CurrentControl.Hide();
+                MainWindowHostPanel.Controls.Remove(CurrentControl);
+            }
+
+            CurrentControl = new ModelWindow()
+            {
+                Anchor = AnchorAll,
+                MinimumSize = new Size(1100, 660)
+            };
+            MainWindowHostPanel.Controls.Add(CurrentControl);
+        }
+
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             if (CurrentControl == null)
@@ -138,5 +154,6 @@ namespace DigimonWorld2Tool.Views
         {
             MessageBox.Show($"Digimon World 2 tool version {toolVersion}\nFor more info see the github page at\nhttps://github.com/RemyRM/DigimonWorld2Tool", "About", MessageBoxButtons.OK);
         }
+
     }
 }

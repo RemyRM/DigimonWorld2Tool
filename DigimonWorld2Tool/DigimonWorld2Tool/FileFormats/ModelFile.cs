@@ -14,9 +14,9 @@ namespace DigimonWorld2Tool.FileFormats
         public NormalData[] NormalData { get; private set; }
         public PrimitiveData[] PrimitiveData { get; private set; }
 
-        public ModelFile(byte[] rawMFileData)
+        public ModelFile(byte[] rawFileData)
         {
-            Stream stream = new MemoryStream(rawMFileData);
+            Stream stream = new MemoryStream(rawFileData);
             using (BinaryReader reader = new BinaryReader(stream))
             {
                 Header = new ModelFileHeader(reader);
@@ -180,6 +180,16 @@ namespace DigimonWorld2Tool.FileFormats
             vertices.Add(secondLowestByte);
             return vertices.ToArray();
         }
+
+        public byte[] GetQuadVertexIdsAsTri()
+        {
+            return new byte[] { VertexIds[0],
+                                VertexIds[1],
+                                VertexIds[2],
+                                VertexIds[1],
+                                VertexIds[2],
+                                VertexIds[3]};
+        } 
     }
 
     class PrimitiveTri

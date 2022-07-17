@@ -31,6 +31,8 @@ namespace DigimonWorld2Tool.Views
         {
             this.LoadModelButton = new System.Windows.Forms.Button();
             this.ConvertToFbxButton = new System.Windows.Forms.Button();
+            this.LoadAnimationButton = new System.Windows.Forms.Button();
+            this.DigimonModelsComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // LoadModelButton
@@ -63,11 +65,38 @@ namespace DigimonWorld2Tool.Views
             this.ConvertToFbxButton.UseVisualStyleBackColor = true;
             this.ConvertToFbxButton.Click += new System.EventHandler(this.ConvertToFbxButton_Click);
             // 
+            // LoadAnimationButton
+            // 
+            this.LoadAnimationButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
+            this.LoadAnimationButton.FlatAppearance.BorderSize = 3;
+            this.LoadAnimationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadAnimationButton.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.LoadAnimationButton.ForeColor = System.Drawing.Color.White;
+            this.LoadAnimationButton.Location = new System.Drawing.Point(31, 111);
+            this.LoadAnimationButton.Name = "LoadAnimationButton";
+            this.LoadAnimationButton.Size = new System.Drawing.Size(139, 42);
+            this.LoadAnimationButton.TabIndex = 2;
+            this.LoadAnimationButton.Text = "Load Animation";
+            this.LoadAnimationButton.UseVisualStyleBackColor = true;
+            this.LoadAnimationButton.Click += new System.EventHandler(this.LoadAnimationButton_Click);
+            // 
+            // DigimonModelsComboBox
+            // 
+            this.DigimonModelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DigimonModelsComboBox.FormattingEnabled = true;
+            this.DigimonModelsComboBox.Location = new System.Drawing.Point(293, 123);
+            this.DigimonModelsComboBox.Name = "DigimonModelsComboBox";
+            this.DigimonModelsComboBox.Size = new System.Drawing.Size(254, 23);
+            this.DigimonModelsComboBox.TabIndex = 3;
+            this.DigimonModelsComboBox.SelectedIndexChanged += new System.EventHandler(this.DigimonModelsComboBox_SelectedIndexChanged);
+            // 
             // ModelWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.Controls.Add(this.DigimonModelsComboBox);
+            this.Controls.Add(this.LoadAnimationButton);
             this.Controls.Add(this.ConvertToFbxButton);
             this.Controls.Add(this.LoadModelButton);
             this.Name = "ModelWindow";
@@ -80,5 +109,7 @@ namespace DigimonWorld2Tool.Views
 
         private System.Windows.Forms.Button LoadModelButton;
         private System.Windows.Forms.Button ConvertToFbxButton;
+        private System.Windows.Forms.Button LoadAnimationButton;
+        private System.Windows.Forms.ComboBox DigimonModelsComboBox;
     }
 }

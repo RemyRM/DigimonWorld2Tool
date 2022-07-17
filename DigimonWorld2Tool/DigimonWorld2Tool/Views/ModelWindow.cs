@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 using DigimonWorld2Tool.Interfaces;
 using DigimonWorld2Tool.Utility;
@@ -15,6 +16,8 @@ namespace DigimonWorld2Tool.Views
 
         private string LoadedModelFilePath { get; set; }
         private ModelFile LoadedModelFile { get; set; }
+        private string LoadedAnimationFilePath { get; set; }
+        private AnimationFile LoadedAnimationFile { get; set; }
 
         public ModelWindow()
         {
@@ -23,6 +26,8 @@ namespace DigimonWorld2Tool.Views
             instance = this;
 
             ColourTheme.SetColourScheme(this.Controls);
+            DigimonModelsComboBox.Items.AddRange(Settings.Settings.MODELDT0File.DigimonModelMappings.Select(digimon => digimon.GetDigimonName()).ToArray());
+            DigimonModelsComboBox.SelectedIndex = 0;
         }
 
         public void OnWindowResizeEnded() { }
@@ -59,6 +64,33 @@ namespace DigimonWorld2Tool.Views
 
             FBX export = new FBX(LoadedModelFile, "", @"D:\Dev\C#\DigimonWorld2Tool\Documentation\MODELS\FBX");
             File.WriteAllText(@"D:\Dev\C#\DigimonWorld2Tool\Documentation\MODELS\FBX\Test.fbx", export.FBXFileInfo.ToString());
+        }
+
+        private void LoadAnimationButton_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog fileDialog = new OpenFileDialog())
+            {
+                fileDialog.Filter = "Bin files (*.bin)|*.bin|All files (*.*)|*.*";
+                fileDialog.FilterIndex = 0;
+                fileDialog.RestoreDirectory = true;
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    LoadedAnimationFilePath = fileDialog.FileName;
+                    byte[] loadedAnimationData  = File.ReadAllBytes(LoadedAnimationFilePath);
+                    LoadAnimationFile(loadedAnimationData);
+                }
+            }
+        }
+
+        private void LoadAnimationFile(byte[] loadedAnimationdata)
+        {
+            LoadedAnimationFile = new AnimationFile(loadedAnimationdata);
+        }
+
+        private void DigimonModelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string baseDir = @"D:\Program Files (x86)\EmulatorsAndRomhacking\DigimonWorld2\AAA\4.AAA\MODEL\";
         }
     }
 }

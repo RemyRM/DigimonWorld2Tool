@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DigimonWorld2Tool.FileFormat
+namespace DigimonWorld2Tool.FileFormats
 {
     public class MODELDT0
     {
@@ -25,16 +25,6 @@ namespace DigimonWorld2Tool.FileFormat
             {
                 item.NameData = item.GetNameData(RawFileData);
             }
-
-            //System.Diagnostics.Debug.WriteLine($"MODELDT0:");
-            //int i = 0;
-            //foreach (var item in DigimonModelMappings)
-            //{
-            //    var name = Utility.TextConversion.DigiStringToASCII(item.NameData);
-            //    System.Diagnostics.Debug.WriteLine($"{i}: {name}");
-            //    System.Diagnostics.Debug.WriteLine($"{item.ToString()}");
-            //    i++;
-            //}
         }
 
         /// <summary>
@@ -115,8 +105,14 @@ namespace DigimonWorld2Tool.FileFormat
             return nameBytesArray;
         }
 
+        public string GetDigimonName()
+        {
+            return Utility.TextConversion.DigiStringToASCII(NameData);
+        }
+
         public override string ToString()
-        {;
+        {
+            ;
             //return $"{NamePointer:X8}, {DigimonID:X2}, {MainModel:X2}, {IdleAnim:X2}, {GuardingDamageAnim:X2}, {DamageAnim:X2}, {CityModel:X2}, {Unknown2:X2}, {Attack1Anim:X2}, {Attack2Anim:X2}, {Attack3Anim:X2}, {VictoryAnim:X2}, {GettingUpAnim:X2}, {DeadAnim:X2}, {Unknown3:X2}, {Unknown4:X2}, {Unknown5:X2}, {Unknown6:X2}, {Unknown7:X2}";
             return $"{NamePointer:X8}, {(byte)(DigimonID & 0xff):X2}, {(byte)(DigimonID >> 8):X2}, " +
                 $"{(byte)(MainModel & 0xff):X2}, {(byte)(MainModel >> 8):X2}, " +

@@ -337,7 +337,7 @@ namespace DigimonWorld2Tool.FileFormats
             Geometries = new GeometryInfo[1]; //model.Header.BoneCount
             for (int i = 0; i < Geometries.Length; i++)
             {
-                //i++;
+                //i+=1;
                 var geometry = new GeometryInfo(rnd.Next(0, int.MaxValue), rnd.Next(0, int.MaxValue), i, model.VertexData[i]);
 
                 tabIndent = "\t";
@@ -355,102 +355,37 @@ namespace DigimonWorld2Tool.FileFormats
                 FBXFileInfo.AppendLine($"{tabIndent}}}");
                 #endregion
 
-                #region Vertices
-                FBXFileInfo.AppendLine($"{tabIndent}Vertices: *{geometry.Vertices.Length * 3} {{");//Length is equal to the amount of vertices in the geometry * 3, as every vertex has an XYZ component
-
-                tabIndent = "\t\t\t";
-
-                StringBuilder verticesString = new StringBuilder();
-                for (int j = 0; j < geometry.Vertices.Length; j++)
-                {
-                    verticesString.Append("\n");
-
-                    if (j != 0)
-                        verticesString.Append(",");
-
-                    verticesString.Append($"{geometry.Vertices[j].X},");
-                    verticesString.Append($"{geometry.Vertices[j].Y},");
-                    verticesString.Append($"{geometry.Vertices[j].Z}");
-                }
-
-                FBXFileInfo.AppendLine($"{tabIndent}a: {verticesString}");
-                tabIndent = "\t\t";
-                FBXFileInfo.AppendLine($"{tabIndent}}}");
-                #endregion
+                AddVerticesData(geometry);
 
                 #region PolygonVertexIndex
                 //The polygon vertex index can be either quad or tri, the last vertex is negated to indicate that it is the ending vertex.
-                //FBXFileInfo.AppendLine($"{tabIndent}PolygonVertexIndex: *{(model.PrimitiveData[i].QuadCount * 4) + (model.PrimitiveData[i].TrisCount * 3)} {{"); //Length is equal to the total amount of points found in all the quads and tris added
-                //FBXFileInfo.AppendLine($"{tabIndent}PolygonVertexIndex: *{model.PrimitiveData[i].TrisCount * 3} {{"); //Length is equal to the total amount of points found in all the quads and tris added
-                FBXFileInfo.AppendLine($"{tabIndent}PolygonVertexIndex: *{model.PrimitiveData[i].QuadCount * 4} {{"); //Length is equal to the total amount of points found in all the quads and tris added
-                //FBXFileInfo.AppendLine($"{tabIndent}PolygonVertexIndex: *{4} {{"); //Length is equal to the total amount of points found in all the quads and tris added
+                FBXFileInfo.AppendLine($"{tabIndent}PolygonVertexIndex: *{(model.PrimitiveData[i].QuadCount * 3 * 2) + (model.PrimitiveData[i].TrisCount * 3)} {{"); //Length is equal to the total amount of points found in all the quads and tris added
 
                 tabIndent = "\t\t\t";
 
                 StringBuilder polygonVertexIndexString = new StringBuilder();
 
-
+                //Because drawing quads suck we break the quads up into tris instead, which work like a charm
                 for (int j = 0; j < model.PrimitiveData[i].QuadCount; j++)
                 {
                     polygonVertexIndexString.Append("\n");
 
-                    PrimitiveQuad quad = model.PrimitiveData[i].QuadsData[j];
+                    byte[] quadTriData = model.PrimitiveData[i].QuadsData[j].GetQuadVertexIdsAsTri();
 
-                    if (j != 0)
-                        polygonVertexIndexString.Append(",");
-
-                    List<byte> sortedVertexIds = quad.VertexIds.ToList();
-                    sortedVertexIds.Sort();
-                    byte[] orderedVertices = sortedVertexIds.ToArray();
-
-                    var vertX = model.VertexData[i].Vertecis[sortedVertexIds[0]].X;
-
-
-                    if (vertX == 0)
-                        //If the first Vertex is 0 we follow the order (0,1,3,2)
-                        orderedVertices = new byte[] { sortedVertexIds[0], sortedVertexIds[1], sortedVertexIds[3], sortedVertexIds[2] };
-                    else if (vertX < 0)
-                        //If the X of the first vertex is smaller than 0 we need to go the anti clockwise route
-                        orderedVertices = new byte[] { sortedVertexIds[0], sortedVertexIds[2], sortedVertexIds[3], sortedVertexIds[1] };
-                    //orderedVertices = quad.GetVerticesAntiClockWise();
-                    else if (vertX > 0)
-                        //If the vertex.x is higher than 0 we need to just sort it
-                        // RIGHT
-                        orderedVertices = new byte[] { sortedVertexIds[0], sortedVertexIds[1], sortedVertexIds[2], sortedVertexIds[3] };
-
-
-                    for (int k = 0; k < orderedVertices.Length; k++)
-                    {
-                        if (k != 0)
-                            polygonVertexIndexString.Append(",");
-
-                        if (k == orderedVertices.Length - 1)
-                            //We need to negate the last vertex ID to tell the FBX interpreter that it is the last vertex for the quad or tri
-                            polygonVertexIndexString.Append($"{~orderedVertices[k]}");
-                        else
-                            polygonVertexIndexString.Append($"{orderedVertices[k]}");
-                    }
+                    //First tri, which we need to draw "backwards"
+                    polygonVertexIndexString.Append($"{quadTriData[2]},{quadTriData[1]},{~quadTriData[0]},");
+                    //Second tri
+                    polygonVertexIndexString.Append($"{quadTriData[3]},{quadTriData[4]},{~quadTriData[5]},");
                 }
 
-                //polygonVertexIndexString.Append(",");
-
-                ////Then we add all the tris
-                //for (int j = 0; j < model.PrimitiveData[i].TrisCount; j++)
-                //{
-                //    PrimitiveTri tri = model.PrimitiveData[i].TrisData[j];
-
-
-                //    for (int k = tri.VertexIds.Length - 1; k >= 0 ; k--)
-                //    {
-                //        if (k == 0)
-                //            //We need to negate the last vertex ID to tell the FBX interpreter that it is the last vertex for the quad or tri
-                //            polygonVertexIndexString.Append($"{~tri.VertexIds[k]}");
-                //        else
-                //            polygonVertexIndexString.Append($"{tri.VertexIds[k]},");
-                //    }
-
-                //        polygonVertexIndexString.Append(",");
-                //}
+                //Then we add all the "natural" tris
+                for (int j = 0; j < model.PrimitiveData[i].TrisCount; j++)
+                {
+                    PrimitiveTri tri = model.PrimitiveData[i].TrisData[j];
+                    //We have draw the tri in reverse order to have them facing outwards
+                    polygonVertexIndexString.Append($"\n");
+                    polygonVertexIndexString.Append($"{tri.VertexIds[2]},{tri.VertexIds[1]},{~tri.VertexIds[0]},");
+                }
 
                 FBXFileInfo.AppendLine($"{tabIndent}a: {polygonVertexIndexString}");
 
@@ -477,7 +412,7 @@ namespace DigimonWorld2Tool.FileFormats
                 tabIndent = "\t";
                 FBXFileInfo.AppendLine($"{tabIndent}}}");
 
-                //i--;
+                //i-=1;
                 Geometries[i] = geometry;
             }
 
@@ -495,7 +430,7 @@ namespace DigimonWorld2Tool.FileFormats
                 FBXFileInfo.AppendLine($"{tabIndent}P: \"InheritType\", \"enum\", \"\", \"\",1");
                 FBXFileInfo.AppendLine($"{tabIndent}P: \"ScalingMax\", \"Vector3D\", \"Vector\", \"\",0,0,0");
                 FBXFileInfo.AppendLine($"{tabIndent}P: \"DefaultAttributeIndex\", \"int\", \"Integer\", \"\",0");
-                FBXFileInfo.AppendLine($"{tabIndent}P: \"Lcl Translation\", \"Lcl Translation\", \"\", \"A\",0.0334704555571079,0,-0.0116531997919083"); //No idea what these 3 values mean
+                FBXFileInfo.AppendLine($"{tabIndent}P: \"Lcl Translation\", \"Lcl Translation\", \"\", \"A\",0.0,0,-0.0"); //This is the translation of the entire bone
                 FBXFileInfo.AppendLine($"{tabIndent}P: \"MaxHandle\", \"int\", \"Integer\", \"UH\",1"); //This might need to be incremented
 
                 tabIndent = "\t\t";
@@ -542,6 +477,32 @@ namespace DigimonWorld2Tool.FileFormats
             }
 
             tabIndent = "";
+            FBXFileInfo.AppendLine($"{tabIndent}}}");
+        }
+
+        private void AddVerticesData(GeometryInfo geometry)
+        {
+            string tabIndent = "\t\t";
+
+            FBXFileInfo.AppendLine($"{tabIndent}Vertices: *{geometry.Vertices.Length * 3} {{");//Length is equal to the amount of vertices in the geometry * 3, as every vertex has an XYZ component
+
+            tabIndent = "\t\t\t";
+
+            StringBuilder verticesString = new StringBuilder();
+            for (int j = 0; j < geometry.Vertices.Length; j++)
+            {
+                verticesString.Append("\n");
+
+                if (j != 0)
+                    verticesString.Append(",");
+
+                verticesString.Append($"{geometry.Vertices[j].X},");
+                verticesString.Append($"{geometry.Vertices[j].Y},");
+                verticesString.Append($"{geometry.Vertices[j].Z}");
+            }
+
+            FBXFileInfo.AppendLine($"{tabIndent}a: {verticesString}");
+            tabIndent = "\t\t";
             FBXFileInfo.AppendLine($"{tabIndent}}}");
         }
     }

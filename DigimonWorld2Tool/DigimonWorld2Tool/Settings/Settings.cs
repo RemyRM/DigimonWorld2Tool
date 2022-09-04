@@ -73,6 +73,19 @@ namespace DigimonWorld2Tool.Settings
             }
         }
 
+        public static string SLUSFilePath { get => $"{BaseDllDirectory}/Resources/DataFiles/SLUS_011.93"; }
+        private static SLUS _SLUSFile;
+        public static SLUS SLUSFile
+        {
+            get
+            {
+                if (_SLUSFile == null)
+                    _SLUSFile = new SLUS();
+
+                return _SLUSFile;
+            }
+        }
+
         private static bool isUsingDarkModeIsSet;
         private static bool isUsingDarkMode;
         public static bool IsUsingDarkMode

@@ -52,18 +52,18 @@ namespace DigimonWorld2Tool.FileFormats
     {
         public int NamePointer { get; set; }
         public short DigimonID { get; set; } //This is actually the DigimonID * 2
-        public short MainModel { get; set; }
-        public short IdleAnim { get; set; }
-        public short GuardingDamageAnim { get; set; }
-        public short DamageAnim { get; set; }
-        public short CityModel { get; set; }
+        public short MainModelLbaID { get; set; }
+        public short IdleAnimLbaID { get; set; }
+        public short SmallDamageLbaID { get; set; }
+        public short BigDamageLbaID { get; set; }
+        public short CityModelLbaID { get; set; }
         public short Unknown2 { get; set; }
-        public short Attack1Anim { get; set; }
-        public short Attack2Anim { get; set; }
-        public short Attack3Anim { get; set; }
-        public short VictoryAnim { get; set; }
-        public short GettingUpAnim { get; set; }
-        public short DeadAnim { get; set; }
+        public short Attack1AnimLbaID { get; set; }
+        public short Attack2AnimLbaID { get; set; }
+        public short Attack3AnimLbaID { get; set; }
+        public short VictoryAnimLbaID { get; set; }
+        public short RecoveryAnimLbaID { get; set; }
+        public short DeadAnimLbaID { get; set; }
         public short Unknown3 { get; set; }
         public short Unknown4 { get; set; }
         public short Unknown5 { get; set; }
@@ -76,18 +76,18 @@ namespace DigimonWorld2Tool.FileFormats
         {
             NamePointer = BitConverter.ToInt32(data[0..4]);
             DigimonID = BitConverter.ToInt16(data[4..6]);
-            MainModel = BitConverter.ToInt16(data[6..8]);
-            IdleAnim = BitConverter.ToInt16(data[8..10]);
-            GuardingDamageAnim = BitConverter.ToInt16(data[10..12]);
-            DamageAnim = BitConverter.ToInt16(data[12..14]);
-            CityModel = BitConverter.ToInt16(data[14..16]);
+            MainModelLbaID = BitConverter.ToInt16(data[6..8]);
+            IdleAnimLbaID = BitConverter.ToInt16(data[8..10]);
+            SmallDamageLbaID = BitConverter.ToInt16(data[10..12]);
+            BigDamageLbaID = BitConverter.ToInt16(data[12..14]);
+            CityModelLbaID = BitConverter.ToInt16(data[14..16]);
             Unknown2 = BitConverter.ToInt16(data[16..18]);
-            Attack1Anim = BitConverter.ToInt16(data[18..20]);
-            Attack2Anim = BitConverter.ToInt16(data[20..22]);
-            Attack3Anim = BitConverter.ToInt16(data[22..24]);
-            VictoryAnim = BitConverter.ToInt16(data[24..26]);
-            GettingUpAnim = BitConverter.ToInt16(data[26..28]);
-            DeadAnim = BitConverter.ToInt16(data[28..30]);
+            Attack1AnimLbaID = BitConverter.ToInt16(data[18..20]);
+            Attack2AnimLbaID = BitConverter.ToInt16(data[20..22]);
+            Attack3AnimLbaID = BitConverter.ToInt16(data[22..24]);
+            VictoryAnimLbaID = BitConverter.ToInt16(data[24..26]);
+            RecoveryAnimLbaID = BitConverter.ToInt16(data[26..28]);
+            DeadAnimLbaID = BitConverter.ToInt16(data[28..30]);
             Unknown3 = BitConverter.ToInt16(data[30..32]);
             Unknown4 = BitConverter.ToInt16(data[32..34]);
             Unknown5 = BitConverter.ToInt16(data[34..36]);
@@ -112,21 +112,20 @@ namespace DigimonWorld2Tool.FileFormats
 
         public override string ToString()
         {
-            ;
             //return $"{NamePointer:X8}, {DigimonID:X2}, {MainModel:X2}, {IdleAnim:X2}, {GuardingDamageAnim:X2}, {DamageAnim:X2}, {CityModel:X2}, {Unknown2:X2}, {Attack1Anim:X2}, {Attack2Anim:X2}, {Attack3Anim:X2}, {VictoryAnim:X2}, {GettingUpAnim:X2}, {DeadAnim:X2}, {Unknown3:X2}, {Unknown4:X2}, {Unknown5:X2}, {Unknown6:X2}, {Unknown7:X2}";
             return $"{NamePointer:X8}, {(byte)(DigimonID & 0xff):X2}, {(byte)(DigimonID >> 8):X2}, " +
-                $"{(byte)(MainModel & 0xff):X2}, {(byte)(MainModel >> 8):X2}, " +
-                $"{(byte)(IdleAnim & 0xff):X2}, {(byte)(IdleAnim >> 8):X2}, " +
-                $"{(byte)(GuardingDamageAnim & 0xff):X2}, {(byte)(GuardingDamageAnim >> 8):X2}, " +
-                $"{(byte)(DamageAnim & 0xff):X2}, {(byte)(DamageAnim >> 8):X2}, " +
-                $"{(byte)(CityModel & 0xff):X2}, {(byte)(CityModel >> 8):X2}, " +
+                $"{(byte)(MainModelLbaID & 0xff):X2}, {(byte)(MainModelLbaID >> 8):X2}, " +
+                $"{(byte)(IdleAnimLbaID & 0xff):X2}, {(byte)(IdleAnimLbaID >> 8):X2}, " +
+                $"{(byte)(SmallDamageLbaID & 0xff):X2}, {(byte)(SmallDamageLbaID >> 8):X2}, " +
+                $"{(byte)(BigDamageLbaID & 0xff):X2}, {(byte)(BigDamageLbaID >> 8):X2}, " +
+                $"{(byte)(CityModelLbaID & 0xff):X2}, {(byte)(CityModelLbaID >> 8):X2}, " +
                 $"{(byte)(Unknown2 & 0xff):X2}, {(byte)(Unknown2 >> 8):X2}, " +
-                $"{(byte)(Attack1Anim & 0xff):X2}, {(byte)(Attack1Anim >> 8):X2}, " +
-                $"{(byte)(Attack2Anim & 0xff):X2}, {(byte)(Attack2Anim >> 8):X2}, " +
-                $"{(byte)(Attack3Anim & 0xff):X2}, {(byte)(Attack3Anim >> 8):X2}, " +
-                $"{(byte)(VictoryAnim & 0xff):X2}, {(byte)(VictoryAnim >> 8):X2}, " +
-                $"{(byte)(GettingUpAnim & 0xff):X2}, {(byte)(GettingUpAnim >> 8):X2}, " +
-                $"{(byte)(DeadAnim & 0xff):X2}, {(byte)(DeadAnim >> 8):X2}, " +
+                $"{(byte)(Attack1AnimLbaID & 0xff):X2}, {(byte)(Attack1AnimLbaID >> 8):X2}, " +
+                $"{(byte)(Attack2AnimLbaID & 0xff):X2}, {(byte)(Attack2AnimLbaID >> 8):X2}, " +
+                $"{(byte)(Attack3AnimLbaID & 0xff):X2}, {(byte)(Attack3AnimLbaID >> 8):X2}, " +
+                $"{(byte)(VictoryAnimLbaID & 0xff):X2}, {(byte)(VictoryAnimLbaID >> 8):X2}, " +
+                $"{(byte)(RecoveryAnimLbaID & 0xff):X2}, {(byte)(RecoveryAnimLbaID >> 8):X2}, " +
+                $"{(byte)(DeadAnimLbaID & 0xff):X2}, {(byte)(DeadAnimLbaID >> 8):X2}, " +
                 $"{(byte)(Unknown3 & 0xff):X2}, {(byte)(Unknown3 >> 8):X2}, " +
                 $"{(byte)(Unknown4 & 0xff):X2}, {(byte)(Unknown4 >> 8):X2}, " +
                 $"{(byte)(Unknown5 & 0xff):X2}, {(byte)(Unknown5 >> 8):X2}, " +

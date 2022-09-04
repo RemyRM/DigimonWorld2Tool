@@ -90,6 +90,9 @@
     <None Update="Resources\DataFiles\MODELDT2.BIN">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\DataFiles\SLUS_011.93">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\DigiBeetleSkins\Adamant\BlackSword\Adamant_BlackSword_0.BIN">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

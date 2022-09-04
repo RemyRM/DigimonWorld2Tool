@@ -115,7 +115,7 @@ namespace DigimonWorld2Tool.Views
             // MainToolStripOpenLogWindow
             // 
             this.MainToolStripOpenLogWindow.Name = "MainToolStripOpenLogWindow";
-            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(177, 22);
+            this.MainToolStripOpenLogWindow.Size = new System.Drawing.Size(180, 22);
             this.MainToolStripOpenLogWindow.Text = "Open log window";
             this.MainToolStripOpenLogWindow.Click += new System.EventHandler(this.MainToolStripOpenLogWindow_Click);
             // 
@@ -123,7 +123,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.ShowValuesAsHexToolStripMenuItem.CheckOnClick = true;
             this.ShowValuesAsHexToolStripMenuItem.Name = "ShowValuesAsHexToolStripMenuItem";
-            this.ShowValuesAsHexToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.ShowValuesAsHexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ShowValuesAsHexToolStripMenuItem.Text = "Show values as Hex";
             this.ShowValuesAsHexToolStripMenuItem.Click += new System.EventHandler(this.ShowValuesAsHexToolStripMenuItem_Click);
             // 
@@ -131,7 +131,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.removeIDCapToolStripMenuItem.CheckOnClick = true;
             this.removeIDCapToolStripMenuItem.Name = "removeIDCapToolStripMenuItem";
-            this.removeIDCapToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.removeIDCapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeIDCapToolStripMenuItem.Text = "Remove ID cap";
             this.removeIDCapToolStripMenuItem.Click += new System.EventHandler(this.RemoveIDCapToolStripMenuItem_Click);
             // 

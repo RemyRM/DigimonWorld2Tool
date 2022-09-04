@@ -41,6 +41,7 @@ namespace DigimonWorld2Tool.Views
         private void SetupClasses()
         {
             new CsvParser();
+            _ = Settings.Settings.SLUSFile;
             DebugWin = new DebugWindow();
         }
 
@@ -154,6 +155,5 @@ namespace DigimonWorld2Tool.Views
         {
             MessageBox.Show($"Digimon World 2 tool version {toolVersion}\nFor more info see the github page at\nhttps://github.com/RemyRM/DigimonWorld2Tool", "About", MessageBoxButtons.OK);
         }
-
     }
 }

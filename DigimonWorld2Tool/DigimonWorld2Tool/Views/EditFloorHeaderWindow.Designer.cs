@@ -117,16 +117,13 @@ namespace DigimonWorld2Tool.Views
             this.Treasure0ItemIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.Treasure0ItemIDLabel = new System.Windows.Forms.Label();
             this.GeneralDataGroupbox = new System.Windows.Forms.GroupBox();
-            this.ScriptID3NumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.ScriptID2NumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.ScriptID1NumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.TrapLevelNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.TrapLevelLabel = new System.Windows.Forms.Label();
             this.FloorTypeOverrideNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.FloorTypeOverrideLabel = new System.Windows.Forms.Label();
             this.WallTextureIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.WallTextureIDLabel = new System.Windows.Forms.Label();
-            this.ScriptID0NumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ScriptIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ScriptIDsLabel = new System.Windows.Forms.Label();
             this.FloorNameTextBox = new System.Windows.Forms.TextBox();
             this.FloorNameLabel = new System.Windows.Forms.Label();
@@ -165,13 +162,10 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.Treasure0TrapLevelNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Treasure0ItemIDNumericUpDown)).BeginInit();
             this.GeneralDataGroupbox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID3NumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID2NumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID1NumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapLevelNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FloorTypeOverrideNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WallTextureIDNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID0NumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptIDNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveChangesButton
@@ -1137,16 +1131,13 @@ namespace DigimonWorld2Tool.Views
             // 
             // GeneralDataGroupbox
             // 
-            this.GeneralDataGroupbox.Controls.Add(this.ScriptID3NumericUpDown);
-            this.GeneralDataGroupbox.Controls.Add(this.ScriptID2NumericUpDown);
-            this.GeneralDataGroupbox.Controls.Add(this.ScriptID1NumericUpDown);
             this.GeneralDataGroupbox.Controls.Add(this.TrapLevelNumericUpDown);
             this.GeneralDataGroupbox.Controls.Add(this.TrapLevelLabel);
             this.GeneralDataGroupbox.Controls.Add(this.FloorTypeOverrideNumericUpDown);
             this.GeneralDataGroupbox.Controls.Add(this.FloorTypeOverrideLabel);
             this.GeneralDataGroupbox.Controls.Add(this.WallTextureIDNumericUpDown);
             this.GeneralDataGroupbox.Controls.Add(this.WallTextureIDLabel);
-            this.GeneralDataGroupbox.Controls.Add(this.ScriptID0NumericUpDown);
+            this.GeneralDataGroupbox.Controls.Add(this.ScriptIDNumericUpDown);
             this.GeneralDataGroupbox.Controls.Add(this.ScriptIDsLabel);
             this.GeneralDataGroupbox.Controls.Add(this.FloorNameTextBox);
             this.GeneralDataGroupbox.Controls.Add(this.FloorNameLabel);
@@ -1158,42 +1149,6 @@ namespace DigimonWorld2Tool.Views
             this.GeneralDataGroupbox.TabIndex = 70;
             this.GeneralDataGroupbox.TabStop = false;
             this.GeneralDataGroupbox.Text = "General data";
-            // 
-            // ScriptID3NumericUpDown
-            // 
-            this.ScriptID3NumericUpDown.Location = new System.Drawing.Point(250, 120);
-            this.ScriptID3NumericUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.ScriptID3NumericUpDown.Name = "ScriptID3NumericUpDown";
-            this.ScriptID3NumericUpDown.Size = new System.Drawing.Size(61, 25);
-            this.ScriptID3NumericUpDown.TabIndex = 12;
-            // 
-            // ScriptID2NumericUpDown
-            // 
-            this.ScriptID2NumericUpDown.Location = new System.Drawing.Point(171, 120);
-            this.ScriptID2NumericUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.ScriptID2NumericUpDown.Name = "ScriptID2NumericUpDown";
-            this.ScriptID2NumericUpDown.Size = new System.Drawing.Size(61, 25);
-            this.ScriptID2NumericUpDown.TabIndex = 11;
-            // 
-            // ScriptID1NumericUpDown
-            // 
-            this.ScriptID1NumericUpDown.Location = new System.Drawing.Point(89, 120);
-            this.ScriptID1NumericUpDown.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.ScriptID1NumericUpDown.Name = "ScriptID1NumericUpDown";
-            this.ScriptID1NumericUpDown.Size = new System.Drawing.Size(61, 25);
-            this.ScriptID1NumericUpDown.TabIndex = 10;
             // 
             // TrapLevelNumericUpDown
             // 
@@ -1258,17 +1213,17 @@ namespace DigimonWorld2Tool.Views
             this.WallTextureIDLabel.TabIndex = 4;
             this.WallTextureIDLabel.Text = "Wall texture ID:";
             // 
-            // ScriptID0NumericUpDown
+            // ScriptIDNumericUpDown
             // 
-            this.ScriptID0NumericUpDown.Location = new System.Drawing.Point(10, 120);
-            this.ScriptID0NumericUpDown.Maximum = new decimal(new int[] {
-            255,
+            this.ScriptIDNumericUpDown.Location = new System.Drawing.Point(10, 120);
+            this.ScriptIDNumericUpDown.Maximum = new decimal(new int[] {
+            -1,
             0,
             0,
             0});
-            this.ScriptID0NumericUpDown.Name = "ScriptID0NumericUpDown";
-            this.ScriptID0NumericUpDown.Size = new System.Drawing.Size(61, 25);
-            this.ScriptID0NumericUpDown.TabIndex = 3;
+            this.ScriptIDNumericUpDown.Name = "ScriptIDNumericUpDown";
+            this.ScriptIDNumericUpDown.Size = new System.Drawing.Size(140, 25);
+            this.ScriptIDNumericUpDown.TabIndex = 3;
             // 
             // ScriptIDsLabel
             // 
@@ -1359,13 +1314,10 @@ namespace DigimonWorld2Tool.Views
             ((System.ComponentModel.ISupportInitialize)(this.Treasure0ItemIDNumericUpDown)).EndInit();
             this.GeneralDataGroupbox.ResumeLayout(false);
             this.GeneralDataGroupbox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID3NumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID2NumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID1NumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrapLevelNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FloorTypeOverrideNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WallTextureIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ScriptID0NumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptIDNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1463,15 +1415,12 @@ namespace DigimonWorld2Tool.Views
         private System.Windows.Forms.Label FloorNameLabel;
         internal System.Windows.Forms.TextBox FloorNameTextBox;
         private System.Windows.Forms.Label ScriptIDsLabel;
-        internal System.Windows.Forms.NumericUpDown ScriptID0NumericUpDown;
+        internal System.Windows.Forms.NumericUpDown ScriptIDNumericUpDown;
         internal System.Windows.Forms.NumericUpDown WallTextureIDNumericUpDown;
         private System.Windows.Forms.Label WallTextureIDLabel;
         internal System.Windows.Forms.NumericUpDown FloorTypeOverrideNumericUpDown;
         private System.Windows.Forms.Label FloorTypeOverrideLabel;
         internal System.Windows.Forms.NumericUpDown TrapLevelNumericUpDown;
         private System.Windows.Forms.Label TrapLevelLabel;
-        internal System.Windows.Forms.NumericUpDown ScriptID3NumericUpDown;
-        internal System.Windows.Forms.NumericUpDown ScriptID2NumericUpDown;
-        internal System.Windows.Forms.NumericUpDown ScriptID1NumericUpDown;
     }
 }

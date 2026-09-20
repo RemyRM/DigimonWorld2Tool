@@ -103,7 +103,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot4TrapLevelNumericUpDown.Location = new System.Drawing.Point(94, 70);
             this.Slot4TrapLevelNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});
@@ -166,7 +166,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot3TrapLevelNumericUpDown.Location = new System.Drawing.Point(94, 70);
             this.Slot3TrapLevelNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});
@@ -229,7 +229,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot2TrapLevelNumericUpDown.Location = new System.Drawing.Point(94, 70);
             this.Slot2TrapLevelNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});
@@ -292,7 +292,7 @@ namespace DigimonWorld2Tool.Views
             // 
             this.Slot1TrapLevelNumericUpDown.Location = new System.Drawing.Point(94, 70);
             this.Slot1TrapLevelNumericUpDown.Maximum = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});

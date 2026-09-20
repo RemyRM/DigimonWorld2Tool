@@ -331,7 +331,7 @@ namespace DigimonWorld2Tool.FileEditor
                 #endregion
 
                 #region ScriptID
-                int scriptIDValue = (int)floorHeaderWindow.ScriptID0NumericUpDown.Value;
+                uint scriptIDValue = (uint)floorHeaderWindow.ScriptIDNumericUpDown.Value;
                 byte[] scriptIDData = BitConverter.GetBytes(scriptIDValue);
                 int scriptIDPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.ScriptID;
                 Array.Copy(scriptIDData, 0, LoadedDUNGData.RawFileData, scriptIDPointer, scriptIDData.Length);
@@ -356,6 +356,7 @@ namespace DigimonWorld2Tool.FileEditor
                 byte[] trapLevelData = BitConverter.GetBytes(trapLevel);
                 int trapLevelPointer = LoadedDUNGData.DungFloorHeaders[FloorIndex].DomainFloorBasePointer + (int)DungFloorHeader.DomainDataHeaderOffset.TrapLevel;
                 Array.Copy(trapLevelData, 0, LoadedDUNGData.RawFileData, trapLevelPointer, trapLevelData.Length);
+                LoadedDUNGData.DungFloorHeaders[FloorIndex].TrapLevel = trapLevel;
                 #endregion
 
             }

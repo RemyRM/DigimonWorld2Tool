@@ -89,7 +89,7 @@ namespace DigimonWorld2Tool.FileFormat
         public int WallTextureID { get; private set; }
         public short FloorTypeOverride { get; private set; }
 
-        public short TrapLevel { get; private set; }
+        public short TrapLevel { get; internal set; }
         public int DigimonEncounterTablePointer { get; private set; }
         public byte[] DigimonEncounterTable { get; private set; } = new byte[4];
 

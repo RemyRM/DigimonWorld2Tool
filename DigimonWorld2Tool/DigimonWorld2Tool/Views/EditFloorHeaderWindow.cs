@@ -216,17 +216,8 @@ namespace DigimonWorld2Tool.Views
 
         public void SetFloorScriptBytes(byte[] data)
         {
-            ScriptID0NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
-            ScriptID0NumericUpDown.Value = data[0];
-
-            ScriptID1NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
-            ScriptID1NumericUpDown.Value = data[1];
-
-            ScriptID2NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
-            ScriptID2NumericUpDown.Value = data[2];
-
-            ScriptID3NumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
-            ScriptID3NumericUpDown.Value = data[3];
+            ScriptIDNumericUpDown.Hexadecimal = (bool)Properties.Settings.Default["ShowValuesAsHex"];
+            ScriptIDNumericUpDown.Value = BitConverter.ToUInt32(data, 0);
         }
 
         public void SetFloorWallTextureID(int data)

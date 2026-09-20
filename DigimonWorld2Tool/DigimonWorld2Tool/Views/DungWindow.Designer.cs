@@ -358,7 +358,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // ObjectInfoGroupBox
             // 
-            this.ObjectInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObjectInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ObjectInfoGroupBox.Controls.Add(this.EditObjectInfoButton);
             this.ObjectInfoGroupBox.Controls.Add(this.SlotFourInfoPictureBox);
             this.ObjectInfoGroupBox.Controls.Add(this.SlotThreeInfoPictureBox);
@@ -648,7 +648,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // FloorHeaderInfoGroupBox
             // 
-            this.FloorHeaderInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.FloorHeaderInfoGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FloorHeaderInfoGroupBox.Controls.Add(this.pictureBox1);
             this.FloorHeaderInfoGroupBox.Controls.Add(this.EditFloorHeaderButton);
             this.FloorHeaderInfoGroupBox.Controls.Add(this.ChestContentData7Label);
@@ -831,6 +831,7 @@ namespace DigimonWorld2Tool.Views
             // 
             // LayoutHeaderGroupbox
             // 
+            this.LayoutHeaderGroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LayoutHeaderGroupbox.Controls.Add(this.DigimonPtrNumericUpDown);
             this.LayoutHeaderGroupbox.Controls.Add(this.TrapsPtrNumericUpDown);
             this.LayoutHeaderGroupbox.Controls.Add(this.ChestsPtrNumericUpDown);

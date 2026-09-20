@@ -201,15 +201,15 @@ namespace DigimonWorld2Tool.Views
             MachineTileTypePictureBox.Visible = enabled;
             DarkTileTypePictureBox.Visible = enabled;
             EmptyTileTypePictureBox.Visible = enabled;
-            EditorSelectedTileTypePicturebox.Visible = enabled;
+            EditorSelectedTileTypePicturebox.Visible = false;
             EditObjectInfoButton.Visible = enabled;
             SaveChangesButton.Visible = enabled;
             FloorHeaderInfoGroupBox.Visible = enabled;
             LayoutHeaderGroupbox.Visible = enabled;
+            SelectedTileTypeToPaint = DUNGLayoutRenderer.TileType.None;
 
             if (enabled)
             {
-                OnEditorTileTypeClick(EmptyTileTypePictureBox, null);
                 DungEditor = new DUNGEditor(SelectedDungFilePath, LoadedDungFile, SelectDungFloorComboBox.SelectedIndex, LoadedDungFloorLayoutIndex);
                 DUNGLayoutRenderer.Instance.SetupFloorLayoutToDraw(DungEditor.LoadedDUNGData.DungFloorHeaders[SelectDungFloorComboBox.SelectedIndex].DungFloorLayoutHeaders[LoadedDungFloorLayoutIndex]);
             }
